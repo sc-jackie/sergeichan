@@ -127,6 +127,23 @@
   #case .arch .node{border:1px solid rgba(229,231,239,.25);border-radius:8px;padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--pearl);background:rgba(229,231,239,.03)}
   #case .arch .node.g{border-color:color-mix(in srgb, var(--acc) 60%, transparent);color:var(--acc)}
   #case .arch .arr{color:var(--dim);font-family:ui-monospace,Menlo,monospace}
+  /* optional case sections — jackie-os: the six-job loop + a-day strip (rendered only when data present) */
+  #case .cjobs{margin-top:6px;border-top:1px solid var(--line)}
+  #case .cjob{display:grid;grid-template-columns:128px 1fr auto;gap:22px;align-items:baseline;padding:15px 2px;border-bottom:1px solid var(--line)}
+  #case .cjob .jt{font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.02em;color:var(--pearl)}
+  #case .cjob .jd{color:#C6CAD6;font-size:14.5px;line-height:1.55}
+  #case .cjob .jm{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
+  #case .cjob:hover .jt{color:var(--acc)}
+  @media (max-width:640px){ #case .cjob{grid-template-columns:1fr auto;gap:4px 14px} #case .cjob .jd{grid-column:1/-1} }
+  #case .cday{display:flex;margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:#0A0C13}
+  #case .cday .tick{flex:1 0 auto;min-width:132px;padding:16px 16px 18px;border-left:1px solid var(--line)}
+  #case .cday .tick:first-child{border-left:none}
+  #case .cday time{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--acc);display:block;margin-bottom:7px}
+  #case .cday b{font-size:14px;color:var(--pearl);font-weight:500;display:block;margin-bottom:3px}
+  #case .cday span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block}
+  #case .doclink{margin-top:16px}
+  #case .doclink a{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);text-decoration:none}
+  #case .doclink a:hover{text-decoration:underline;text-underline-offset:.25em}
   #case .nextrow{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:16px}
   #case a.next{color:var(--pearl);text-decoration:none;font-size:15px}
   #case a.next:hover span:last-child{text-decoration:underline;text-underline-offset:.2em}
@@ -215,6 +232,8 @@
     <h3>What it is</h3><div id="cWhat"></div>
     <h3>Why it exists</h3><div id="cWhy"></div>
     <h3>What it solves</h3><div id="cSolve"></div>
+    <div class="opt" id="secLoop"><h3>The loop — six jobs</h3><div class="cjobs" id="cJobs"></div></div>
+    <div class="opt" id="secDay"><h3>A day with it</h3><div class="cday" id="cDay"></div></div>
     <h3>Current state</h3><div id="cState"></div>
     <h3>How it looks</h3><div class="frames" id="cFrames"></div>
     <h3>Architecture</h3><div class="arch" id="cArch"></div><p id="cArchNote" style="margin-top:12px"></p>
@@ -293,11 +312,28 @@
       meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
       what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
       why:'<p>After a decade of self-directed work, the hardest problem wasn\'t ambition — it was <b>structure</b>. No boss, no team, no external rhythm. Instead of borrowing discipline from a job, I built the rhythm as software: a system that briefs me, remembers for me, and keeps working while I don\'t.</p>',
-      solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>Portability — any editor that opens the folder becomes an instance of the OS</li></ul>',
-      state:'<p>Running in production on a VPS for months: 4 agent crons + system jobs, the other four projects riding its rails daily. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 CRONS</span><span>PUBLIC TEMPLATE</span><span>MULTI-AGENT</span></div>',
+      solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
+      jobs:[
+        {t:'Capture', m:'hourly', d:'A DM — a thought, a link, "met Sarah" — is filed to your journal, your clippings, or the person it mentions, and linked.'},
+        {t:'Brief', m:'07:30 daily', d:'The morning brief reads the vault, the repos and the calendar: what changed, the top three, and what is blocked — delivered to Telegram.'},
+        {t:'Build', m:'on dispatch', d:'Worker agents take tracker issues to pull requests in isolated worktrees, reporting progress back on the issue.'},
+        {t:'Sync', m:'on merge', d:'Merges write back to each project status note — the vault knows what actually shipped, not what was meant to.'},
+        {t:'Link', m:'daily', d:'After each brief the agent proposes connections between journal, projects and people. The pile becomes a web.'},
+        {t:'Compound', m:'weekly +', d:'Weekly, monthly and yearly reviews; fixes documented and indexed. Next month, the agent is smarter than today.'}
+      ],
+      day:[
+        {time:'07:00', b:'Sweep', s:'links you sent overnight, filed'},
+        {time:'07:30', b:'Brief', s:'what changed, top 3, calendar — on your phone'},
+        {time:'hourly', b:'Journal', s:'your DMs become daily notes'},
+        {time:'09:12', b:'PR opened', s:'a worker picked up an issue'},
+        {time:'on merge', b:'Status synced', s:'vault updated, nothing drifts'},
+        {time:'Sunday', b:'Review', s:'the week, compounded'}
+      ],
+      state:'<p>Running in production on a VPS for months: 4 agent crons + system jobs, the other four projects riding its rails daily. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 CRONS</span><span>PUBLIC TEMPLATE</span><span>MULTI-AGENT</span></div><p class="doclink"><a href="/docs/">Read the full docs →</a></p>',
       frames:[
         {h:'MORNING BRIEF · TELEGRAM', cap:'07:30, every day, from real state', m: wf('<div class="bub">Morning brief — Thu. 2 PRs merged overnight. Retention set awaits approval.</div><div class="bub">Calendar: tennis 18:00. Focus: EVE-29.</div><div class="bub me">approve EVE-29</div>')},
-        {h:'AGENT QUEUE', cap:'backlog → autonomous PRs', m: wf('<div class="chipline"><span class="chip">EVE-29 · IN PROGRESS</span><span class="chip">AGENT A</span></div><div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div><div class="chipline"><span class="chip">EVE-31 · QUEUED</span><span class="chip">AGENT B</span></div><div class="ln" style="width:74%"></div><div class="ln g" style="width:38%"></div>')}
+        {h:'AGENT QUEUE', cap:'backlog → autonomous PRs', m: wf('<div class="chipline"><span class="chip">EVE-29 · IN PROGRESS</span><span class="chip">AGENT A</span></div><div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div><div class="chipline"><span class="chip">EVE-31 · QUEUED</span><span class="chip">AGENT B</span></div><div class="ln" style="width:74%"></div><div class="ln g" style="width:38%"></div>')},
+        {h:'NO COLD START · hot.md', cap:'every agent reads the state first', m: wf('<div class="bub me">what are we working on?</div><div class="bub">The retention PR merged overnight. Friday is blocked on the key rotation, and one decision is waiting on you.</div><div class="chipline"><span class="chip">hot.md · ~500 words</span><span class="chip">refreshed at session end</span></div>')}
       ],
       arch:['Obsidian vault','Skills (md)','Hermes VPS agent','Telegram'], archG:2,
       archNote:'The vault is memory, skills are the contract, the VPS agent is the always-on instance; product repos orbit as satellites with their own agent loops.'
@@ -834,6 +870,20 @@
     document.getElementById('cWhat').innerHTML = p.what;
     document.getElementById('cWhy').innerHTML = p.why;
     document.getElementById('cSolve').innerHTML = p.solve;
+    var secLoop = document.getElementById('secLoop');
+    if (p.jobs){
+      secLoop.style.display = '';
+      document.getElementById('cJobs').innerHTML = p.jobs.map(function(j){
+        return '<div class="cjob"><span class="jt">' + j.t + '</span><span class="jd">' + j.d + '</span><span class="jm">' + j.m + '</span></div>';
+      }).join('');
+    } else { secLoop.style.display = 'none'; }
+    var secDay = document.getElementById('secDay');
+    if (p.day){
+      secDay.style.display = '';
+      document.getElementById('cDay').innerHTML = p.day.map(function(d){
+        return '<div class="tick"><time>' + d.time + '</time><b>' + d.b + '</b><span>' + d.s + '</span></div>';
+      }).join('');
+    } else { secDay.style.display = 'none'; }
     document.getElementById('cState').innerHTML = p.state;
     document.getElementById('cFrames').innerHTML = p.frames.map(function(f){
       return '<figure class="frame" style="margin:0"><div class="head">' + f.h + '</div><div class="body">' + f.m + '</div><figcaption>' + f.cap + '</figcaption></figure>';
