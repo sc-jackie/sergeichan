@@ -1,0 +1,29 @@
+{
+  "pages": [
+    "index",
+    "---What is this system?---",
+    "what-it-does",
+    "system-map",
+    "concepts",
+    "architecture",
+    "---What do I do?---",
+    "cheat-sheet",
+    "wrap-up",
+    "hermes-runbook",
+    "add-a-project",
+    "---What runs by itself?---",
+    "schedule",
+    "workers",
+    "vault-rhythm",
+    "project-registry",
+    "---What's the plan?---",
+    "roadmap",
+    "ideas-backlog",
+    "decisions",
+    "---Look it up---",
+    "master-index",
+    "catalog",
+    "skills-registry",
+    "install"
+  ]
+}

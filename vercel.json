@@ -5,7 +5,8 @@
   "outputDirectory": "site",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/docs", "destination": "/docs/", "permanent": false },
-    { "source": "/docs/System/plans", "destination": "/docs/System/plans/", "permanent": false }
+    { "source": "/jackie-os", "destination": "/jackie-os/docs/", "permanent": false },
+    { "source": "/docs", "destination": "/jackie-os/docs/", "permanent": false },
+    { "source": "/docs/:path*", "destination": "/jackie-os/docs/", "permanent": false }
   ]
 }
