@@ -1,0 +1,61 @@
+/* Jackie-OS docs — shared diagram vocabulary.
+   Subtle by default, in line with Material typography; accents carry meaning.
+   Actor colors (site-wide): amber=owner · violet=vault/repo · blue=Hermes ·
+   teal=workers/skills · cyan=delivery · rose=gates/backstops. */
+
+:root {
+  --jos-line: color-mix(in srgb, var(--md-default-fg-color) 14%, transparent);
+  --jos-line-soft: color-mix(in srgb, var(--md-default-fg-color) 9%, transparent);
+  --jos-amber: #d97706; --jos-violet: #8b5cf6; --jos-blue: #3b82f6;
+  --jos-teal: #0d9488; --jos-cyan: #0891b2; --jos-rose: #e11d48;
+}
+
+/* ---------- layered stack (system map) ---------- */
+.sm-layer { border: 1px solid var(--jos-line); border-radius: 10px; padding: 14px 18px; margin: 0; }
+.sm-label { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; opacity: .55; margin-bottom: 5px; font-weight: 700; }
+.sm-title { font-weight: 700; font-size: .95rem; margin-bottom: 2px; }
+.sm-note { font-size: .76rem; opacity: .75; line-height: 1.55; }
+.sm-cols { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.sm-col { flex: 1 1 160px; border: 1px solid var(--jos-line-soft); border-radius: 8px; padding: 10px 12px; background: color-mix(in srgb, var(--md-default-fg-color) 2.5%, transparent); }
+.sm-col b { font-size: .8rem; display: block; margin-bottom: 3px; }
+.sm-col span { font-size: .72rem; opacity: .75; line-height: 1.5; display: block; }
+.sm-arrow { text-align: center; font-size: .7rem; opacity: .55; padding: 7px 0; font-family: var(--md-code-font-family, monospace); }
+.sm-chip { display: inline-block; font-size: .68rem; font-family: var(--md-code-font-family, monospace); border: 1px solid var(--jos-line-soft); border-radius: 5px; padding: 1px 7px; margin: 2px 3px 0 0; opacity: .8; background: color-mix(in srgb, var(--md-default-fg-color) 3%, transparent); }
+
+/* accent = 3px left bar + a whisper of tint that fades out */
+.sm-amber  { border-left: 3px solid var(--jos-amber);  background: linear-gradient(90deg, color-mix(in srgb, var(--jos-amber) 6%, transparent), transparent 45%); }
+.sm-violet { border-left: 3px solid var(--jos-violet); background: linear-gradient(90deg, color-mix(in srgb, var(--jos-violet) 6%, transparent), transparent 45%); }
+.sm-blue   { border-left: 3px solid var(--jos-blue);   background: linear-gradient(90deg, color-mix(in srgb, var(--jos-blue) 6%, transparent), transparent 45%); }
+.sm-teal   { border-left: 3px solid var(--jos-teal);   background: linear-gradient(90deg, color-mix(in srgb, var(--jos-teal) 6%, transparent), transparent 45%); }
+.sm-cyan   { border-left: 3px solid var(--jos-cyan);   background: linear-gradient(90deg, color-mix(in srgb, var(--jos-cyan) 6%, transparent), transparent 45%); }
+.sm-rose   { border-left: 3px solid var(--jos-rose);   background: linear-gradient(90deg, color-mix(in srgb, var(--jos-rose) 6%, transparent), transparent 45%); }
+
+/* ---------- horizontal pipeline (flows, loops) ---------- */
+.pipe { display: flex; flex-wrap: wrap; gap: 6px; align-items: stretch; margin: 14px 0; }
+.pipe-step { flex: 1 1 118px; min-width: 108px; border: 1px solid var(--jos-line); border-radius: 9px; padding: 9px 11px; text-align: center; background: color-mix(in srgb, var(--md-default-fg-color) 2%, transparent); }
+.pipe-step b { display: block; font-size: .78rem; margin-bottom: 2px; }
+.pipe-step small { font-size: .67rem; opacity: .7; line-height: 1.4; display: block; }
+.pipe-sep { align-self: center; opacity: .45; font-family: var(--md-code-font-family, monospace); font-size: .78rem; padding: 0 1px; }
+.pipe-step.gate { border-style: dashed; border-color: color-mix(in srgb, var(--jos-rose) 55%, transparent); }
+.pipe-step.gate b::before { content: "⏸ "; }
+.pipe-step.done { border-color: color-mix(in srgb, var(--jos-teal) 55%, transparent); background: color-mix(in srgb, var(--jos-teal) 5%, transparent); }
+
+/* ---------- vertical timeline (schedules) ---------- */
+.tl { border-left: 2px solid var(--jos-line); margin: 14px 0 14px 4px; padding-left: 0; }
+.tl-item { display: flex; gap: 12px; align-items: flex-start; padding: 6px 0 6px 14px; position: relative; }
+.tl-item::before { content: ""; position: absolute; left: -5px; top: 15px; width: 8px; height: 8px; border-radius: 50%; background: color-mix(in srgb, var(--md-default-fg-color) 35%, transparent); }
+.tl-item.tl-major::before { background: var(--jos-blue); width: 11px; height: 11px; left: -6.5px; top: 14px; box-shadow: 0 0 0 3px color-mix(in srgb, var(--jos-blue) 18%, transparent); }
+.tl-item.tl-cond::before { background: transparent; border: 2px solid var(--jos-rose); width: 6px; height: 6px; }
+.tl-time { font-family: var(--md-code-font-family, monospace); font-size: .74rem; min-width: 72px; padding-top: 5px; opacity: .8; font-weight: 600; }
+.tl-card { flex: 1; border: 1px solid var(--jos-line-soft); border-radius: 8px; padding: 7px 12px; background: color-mix(in srgb, var(--md-default-fg-color) 2%, transparent); }
+.tl-item.tl-major .tl-card { border-color: color-mix(in srgb, var(--jos-blue) 35%, transparent); background: color-mix(in srgb, var(--jos-blue) 4%, transparent); }
+.tl-card b { font-size: .8rem; }
+.tl-card .tl-what { font-size: .72rem; opacity: .75; line-height: 1.5; display: block; margin-top: 1px; }
+.tl-owner { float: right; font-size: .62rem; font-family: var(--md-code-font-family, monospace); border: 1px solid var(--jos-line-soft); border-radius: 4px; padding: 0 6px; opacity: .65; margin-left: 8px; margin-top: 2px; }
+
+/* ---------- misc ---------- */
+.flow-strip { font-family: var(--md-code-font-family, monospace); font-size: .76rem; line-height: 2; opacity: .8; }
+.viz-caption { font-size: .7rem; opacity: .6; margin-top: 4px; }
+
+/* mermaid diagrams: center + breathing room */
+.mermaid { display: flex; justify-content: center; margin: 16px 0; }

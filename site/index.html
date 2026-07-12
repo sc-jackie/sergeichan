@@ -127,6 +127,71 @@
   #case .arch .node{border:1px solid rgba(229,231,239,.25);border-radius:8px;padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--pearl);background:rgba(229,231,239,.03)}
   #case .arch .node.g{border-color:color-mix(in srgb, var(--acc) 60%, transparent);color:var(--acc)}
   #case .arch .arr{color:var(--dim);font-family:ui-monospace,Menlo,monospace}
+  /* ============ optional case sections — jackie-os flagship (rendered only when data present) ============ */
+  /* two ledgers: second brain / agent */
+  #case .vaultcard{margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0A0C13}
+  #case .duo{display:grid;grid-template-columns:1fr 1fr}
+  @media (max-width:680px){ #case .duo{grid-template-columns:1fr} }
+  #case .duo > div{padding:22px 24px 26px}
+  #case .duo > div + div{border-left:1px solid var(--line)}
+  @media (max-width:680px){ #case .duo > div + div{border-left:none;border-top:1px solid var(--line)} }
+  #case .duo h4{display:flex;align-items:center;gap:9px;margin:0;font-size:16px;font-weight:500;color:var(--pearl);letter-spacing:-.01em}
+  #case .duo h4 svg{width:17px;height:17px;color:var(--acc);flex:0 0 auto}
+  #case .duo .who{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);display:block;margin:8px 0 16px}
+  #case .duo ul{list-style:none;margin:0;padding:0}
+  #case .duo li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+  #case .duo li b{color:var(--pearl);font-weight:500}
+  #case .duo li span{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim);white-space:nowrap;padding-top:2px}
+  #case .duo .foot{margin-top:14px;font-size:13px;color:var(--dim);line-height:1.5}
+  /* linked-memory figure (particle field) */
+  #case .memfig{margin:0;border-top:1px solid var(--line);padding:0 24px}
+  #case .memfig .body{position:relative;height:240px;margin-top:18px}
+  #case .memfig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #case .memfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:8px 0 18px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  #case .memfig figcaption b{color:var(--acc);font-weight:500}
+  /* the loop — six jobs (with icons) */
+  #case .cjobs{margin-top:6px}
+  #case .cjob{display:grid;grid-template-columns:26px 116px 1fr auto;gap:18px;align-items:baseline;padding:15px 2px 15px 10px;border-bottom:1px solid var(--line);border-left:2px solid transparent;transition:border-color .2s}
+  #case .cjob:hover{border-left-color:var(--acc)}
+  #case .cjob .ic{width:20px;height:20px;color:var(--dim);align-self:center;transition:color .2s,transform .25s}
+  #case .cjob:hover .ic{color:var(--acc);transform:translateY(-1px)}
+  #case .cjob .jt{font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.02em;color:var(--pearl)}
+  #case .cjob:hover .jt{color:var(--acc)}
+  #case .cjob .jd{color:#C6CAD6;font-size:14.5px;line-height:1.55}
+  #case .cjob .jm{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
+  #case .cjob:last-child{border-bottom:none}
+  @media (max-width:640px){ #case .cjob{grid-template-columns:20px 1fr auto;gap:6px 12px} #case .cjob .jd{grid-column:1/-1;padding-left:32px} }
+  /* a day strip */
+  #case .cday{display:flex;margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:#0A0C13}
+  #case .cday .tick{flex:1 0 auto;min-width:132px;padding:16px 16px 18px;border-left:1px solid var(--line)}
+  #case .cday .tick:first-child{border-left:none}
+  #case .cday time{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--acc);display:block;margin-bottom:7px}
+  #case .cday b{font-size:14px;color:var(--pearl);font-weight:500;display:block;margin-bottom:3px}
+  #case .cday span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block}
+  /* the trick — before / after */
+  #case .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  @media (max-width:680px){ #case .ba{grid-template-columns:1fr} }
+  #case .ba .panel{position:relative;border:1px solid var(--line);border-radius:10px;padding:22px 24px 24px;background:#0A0C13}
+  #case .ba .panel.good{border-color:color-mix(in srgb, var(--acc) 42%, transparent)}
+  #case .ba .panel .who{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:14px}
+  #case .ba .panel.bad .who{color:var(--dim)}
+  #case .ba .panel.good .who{color:var(--acc)}
+  #case .ba .panel .q{font-size:16px;font-weight:450;color:var(--pearl);line-height:1.45;margin:0 0 10px;text-wrap:balance}
+  #case .ba .panel p{font-size:14px;color:var(--muted);line-height:1.6;margin:0;max-width:none}
+  #case .ba .panel p b{color:var(--pearl)}
+  #case .ba .dots{position:absolute;top:16px;right:16px;display:flex;gap:5px}
+  #case .ba .dots i{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--dim)}
+  #case .ba .panel.good .dots i:first-child{background:var(--acc);border-color:var(--acc)}
+  /* ownership truths */
+  #case .truths{display:grid;grid-template-columns:1fr 1fr;gap:32px 48px;margin-top:20px}
+  @media (max-width:600px){ #case .truths{grid-template-columns:1fr;gap:26px} }
+  #case .truth{display:block}
+  #case .truth b{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;letter-spacing:.03em;color:var(--pearl);font-weight:500;margin-bottom:9px}
+  #case .truth span{display:block;color:var(--muted);font-size:14.5px;line-height:1.6;max-width:42ch}
+  /* docs link */
+  #case .doclink{margin-top:16px}
+  #case .doclink a{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);text-decoration:none}
+  #case .doclink a:hover{text-decoration:underline;text-underline-offset:.25em}
   #case .nextrow{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:16px}
   #case a.next{color:var(--pearl);text-decoration:none;font-size:15px}
   #case a.next:hover span:last-child{text-decoration:underline;text-underline-offset:.2em}
@@ -214,7 +279,21 @@
     <div class="metarow" id="cMeta"></div>
     <h3>What it is</h3><div id="cWhat"></div>
     <h3>Why it exists</h3><div id="cWhy"></div>
+    <div class="opt" id="secDuo">
+      <h3>One vault, one agent</h3>
+      <div class="vaultcard">
+        <div class="duo" id="cDuo"></div>
+        <figure class="memfig">
+          <div class="body"><canvas id="memCv" aria-hidden="true"></canvas></div>
+          <figcaption><span>the vault, over time</span><b id="memTag">linked memory</b></figcaption>
+        </figure>
+      </div>
+    </div>
     <h3>What it solves</h3><div id="cSolve"></div>
+    <div class="opt" id="secLoop"><h3>The loop — six jobs</h3><div class="cjobs" id="cJobs"></div></div>
+    <div class="opt" id="secDay"><h3>A day with it</h3><div class="cday" id="cDay"></div></div>
+    <div class="opt" id="secTrick"><h3>No cold start</h3><div class="ba" id="cTrick"></div></div>
+    <div class="opt" id="secTruths"><h3>No lock-in</h3><div class="truths" id="cTruths"></div></div>
     <h3>Current state</h3><div id="cState"></div>
     <h3>How it looks</h3><div class="frames" id="cFrames"></div>
     <h3>Architecture</h3><div class="arch" id="cArch"></div><p id="cArchNote" style="margin-top:12px"></p>
@@ -292,9 +371,39 @@
       one:'A personal AI operating system — memory, skills, and always-on agents running one life.',
       meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
       what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
-      why:'<p>After a decade of self-directed work, the hardest problem wasn\'t ambition — it was <b>structure</b>. No boss, no team, no external rhythm. Instead of borrowing discipline from a job, I built the rhythm as software: a system that briefs me, remembers for me, and keeps working while I don\'t.</p>',
-      solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>Portability — any editor that opens the folder becomes an instance of the OS</li></ul>',
-      state:'<p>Running in production on a VPS for months: 4 agent crons + system jobs, the other four projects riding its rails daily. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 CRONS</span><span>PUBLIC TEMPLATE</span><span>MULTI-AGENT</span></div>',
+      why:'<p>I work across tools that don\'t share memory. Knowledge lives in an Obsidian vault, code in separate repos, and the assistant keeps changing — mostly Claude Code on the Mac, Codex or a different model when the task wants one. Every one of them starts cold, so I keep re-explaining the same projects and the same decisions.</p><p>So the memory lives outside all of them. The system is plain <b>markdown in git</b>, and the skills are instructions any harness can run, so I can switch model, provider or tool without losing context. A small agent on a VPS keeps the loop turning while the Mac is closed — the 07:30 brief, hourly journal capture from a Telegram message, project status written back on merge. The journaling is the part I underrated: each note gets linked to the projects and people it touches, and the daily pile slowly turns into something I can actually query.</p>',
+      solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
+      jobs:[
+        {t:'Capture', m:'hourly', ic:'<path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 15v5h16v-5"/>', d:'A DM — a thought, a link, "met Sarah" — is filed to your journal, your clippings, or the person it mentions, and linked.'},
+        {t:'Brief', m:'07:30 daily', ic:'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9.5 12h6M9.5 16h6"/>', d:'The morning brief reads the vault, the repos and the calendar: what changed, the top three, and what is blocked — delivered to Telegram.'},
+        {t:'Build', m:'on dispatch', ic:'<circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="8" r="2.2"/><path d="M6 7.7v8.6M17.8 10.2c-.6 3.6-4.6 5-8.4 5"/>', d:'Worker agents take tracker issues to pull requests in isolated worktrees, reporting progress back on the issue.'},
+        {t:'Sync', m:'on merge', ic:'<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 3v4.5h-4.5"/>', d:'Merges write back to each project status note — the vault knows what actually shipped, not what was meant to.'},
+        {t:'Link', m:'daily', ic:'<circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M8 11l8-4.5M8 13l8 4.5"/>', d:'After each brief the agent proposes connections between journal, projects and people. The pile becomes a web.'},
+        {t:'Compound', m:'weekly +', ic:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13.5l9 5 9-5"/>', d:'Weekly, monthly and yearly reviews; fixes documented and indexed. Next month, the agent is smarter than today.'}
+      ],
+      day:[
+        {time:'07:00', b:'Sweep', s:'links you sent overnight, filed'},
+        {time:'07:30', b:'Brief', s:'what changed, top 3, calendar — on your phone'},
+        {time:'hourly', b:'Journal', s:'your DMs become daily notes'},
+        {time:'09:12', b:'PR opened', s:'a worker picked up an issue'},
+        {time:'on merge', b:'Status synced', s:'vault updated, nothing drifts'},
+        {time:'Sunday', b:'Review', s:'the week, compounded'}
+      ],
+      duo:{
+        left:{h:'The second brain', glyph:'<rect x="4" y="4" width="16" height="16"/><path d="M4 9h16M9 13h6"/>', who:'written by you', items:[['Daily journal','DM or type'],['Project notes, decisions','markdown'],['People, places, ideas','wikilinked']], foot:'An Obsidian vault, versioned in git. Notes link like Wikipedia and compound over time.'},
+        right:{h:'The agent', glyph:'<circle cx="12" cy="14" r="5.5"/><path d="M12 8.5V4M8.5 4h7M12 12v2.5l2 1.2"/>', who:'written back for you', items:[['Morning brief + reviews','07:30 / weekly'],['Project status, from git','on merge'],['Clippings, links, learnings','as they land']], foot:'Hermes runs 24/7 on a small server. It reads the vault before acting and writes results back to Telegram and to the vault itself.'}
+      },
+      trick:{
+        bad:{who:'any other AI', q:'"Hi! What are we working on today?"', p:'Zero context. You paste links, summarize your week, explain the project again. Ten minutes of warmup before any real work.'},
+        good:{who:'jackie-os', q:'"The retention PR merged last night. Friday is still blocked on the key rotation, and one decision is waiting on you."', p:'Every agent reads <b>hot.md</b> first: a living, ~500-word summary of where you are, refreshed at every session end.'}
+      },
+      truths:[
+        ['Markdown + git','The whole system is plain text in a repository you own. Readable in ten years, greppable today.'],
+        ['Any agent','Claude Code, Cursor, Codex: open the folder and each becomes the same system with the same memory.'],
+        ['Runs without you','One small always-on agent keeps the loop turning while your laptop sleeps.'],
+        ['Yours to fork','The quickstart template gives you the vault, the skills and the loop. Bring your own agent.']
+      ],
+      state:'<p>Running in production on a VPS for months: 4 agent crons + system jobs, the other four projects riding its rails daily. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 CRONS</span><span>PUBLIC TEMPLATE</span><span>MULTI-AGENT</span></div><p class="doclink"><a href="/docs/">Read the full docs →</a></p>',
       frames:[
         {h:'MORNING BRIEF · TELEGRAM', cap:'07:30, every day, from real state', m: wf('<div class="bub">Morning brief — Thu. 2 PRs merged overnight. Retention set awaits approval.</div><div class="bub">Calendar: tennis 18:00. Focus: EVE-29.</div><div class="bub me">approve EVE-29</div>')},
         {h:'AGENT QUEUE', cap:'backlog → autonomous PRs', m: wf('<div class="chipline"><span class="chip">EVE-29 · IN PROGRESS</span><span class="chip">AGENT A</span></div><div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div><div class="chipline"><span class="chip">EVE-31 · QUEUED</span><span class="chip">AGENT B</span></div><div class="ln" style="width:74%"></div><div class="ln g" style="width:38%"></div>')}
@@ -834,6 +943,45 @@
     document.getElementById('cWhat').innerHTML = p.what;
     document.getElementById('cWhy').innerHTML = p.why;
     document.getElementById('cSolve').innerHTML = p.solve;
+    var secDuo = document.getElementById('secDuo');
+    if (p.duo){
+      secDuo.style.display = '';
+      var ledger = function(side){
+        return '<div><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">' + side.glyph + '</svg>' + side.h + '</h4><span class="who">' + side.who + '</span><ul>' +
+          side.items.map(function(it){ return '<li><b>' + it[0] + '</b><span>' + it[1] + '</span></li>'; }).join('') +
+          '</ul><p class="foot">' + side.foot + '</p></div>';
+      };
+      document.getElementById('cDuo').innerHTML = ledger(p.duo.left) + ledger(p.duo.right);
+    } else { secDuo.style.display = 'none'; }
+    var secLoop = document.getElementById('secLoop');
+    if (p.jobs){
+      secLoop.style.display = '';
+      document.getElementById('cJobs').innerHTML = p.jobs.map(function(j){
+        return '<div class="cjob"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">' + (j.ic||'') + '</svg><span class="jt">' + j.t + '</span><span class="jd">' + j.d + '</span><span class="jm">' + j.m + '</span></div>';
+      }).join('');
+    } else { secLoop.style.display = 'none'; }
+    var secDay = document.getElementById('secDay');
+    if (p.day){
+      secDay.style.display = '';
+      document.getElementById('cDay').innerHTML = p.day.map(function(d){
+        return '<div class="tick"><time>' + d.time + '</time><b>' + d.b + '</b><span>' + d.s + '</span></div>';
+      }).join('');
+    } else { secDay.style.display = 'none'; }
+    var secTrick = document.getElementById('secTrick');
+    if (p.trick){
+      secTrick.style.display = '';
+      var panel = function(kind, d){
+        return '<div class="panel ' + kind + '"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="who">' + d.who + '</span><p class="q">' + d.q + '</p><p>' + d.p + '</p></div>';
+      };
+      document.getElementById('cTrick').innerHTML = panel('bad', p.trick.bad) + panel('good', p.trick.good);
+    } else { secTrick.style.display = 'none'; }
+    var secTruths = document.getElementById('secTruths');
+    if (p.truths){
+      secTruths.style.display = '';
+      document.getElementById('cTruths').innerHTML = p.truths.map(function(t){
+        return '<div class="truth"><b>' + t[0] + '</b><span>' + t[1] + '</span></div>';
+      }).join('');
+    } else { secTruths.style.display = 'none'; }
     document.getElementById('cState').innerHTML = p.state;
     document.getElementById('cFrames').innerHTML = p.frames.map(function(f){
       return '<figure class="frame" style="margin:0"><div class="head">' + f.h + '</div><div class="body">' + f.m + '</div><figcaption>' + f.cap + '</figcaption></figure>';
@@ -855,6 +1003,68 @@
     var pr = caseEl.scrollTop / Math.max(1, caseEl.scrollHeight - caseEl.clientHeight);
     caseEl.querySelector('.topline').style.setProperty('--read', Math.round(8 + pr*92) + '%');
   }, {passive:true});
+
+  /* ---- linked-memory particle field (jackie-os figure): scattered thoughts → notes, filed → linked memory ---- */
+  (function initMemViz(){
+    var canvas = document.getElementById('memCv');
+    if (!canvas) return;
+    var tag = document.getElementById('memTag');
+    var ctx = canvas.getContext('2d');
+    var W = 0, H = 0, pts = [], edges = [], layouts = [], state = 0, edgeA = 0, raf = 0, running = false, ready = false;
+    var STATES = ['scattered thoughts', 'notes, filed', 'linked memory'];
+    var PEARL = [229,231,239], GOLD = [201,164,92];
+    function prng(seed){ var s = seed; return function(){ return (s = (s*48271) % 2147483647) / 2147483647; }; }
+    function scatter(n,w,h){ var r = prng(42), o = []; for (var i=0;i<n;i++) o.push([r()*w, r()*h]); return o; }
+    function grid(n,w,h){ var o = [], cols = Math.max(4, Math.round(Math.sqrt(n*w/Math.max(1,h)))), rows = Math.ceil(n/cols), gx = w/(cols+1), gy = h/(rows+1); for (var i=0;i<n;i++) o.push([gx*(1+i%cols), gy*(1+Math.floor(i/cols))]); return o; }
+    function web(n,w,h){ var r = prng(7), o = [], hubs = [], nh = 6; for (var i=0;i<nh;i++) hubs.push([w*(0.18+0.64*r()), h*(0.16+0.68*r())]); for (var j=0;j<n;j++){ var hb = hubs[j%nh], a = r()*Math.PI*2, rr = Math.pow(r(),1.6)*Math.min(w,h)*0.26; o.push([Math.min(w-6,Math.max(6,hb[0]+Math.cos(a)*rr)), Math.min(h-6,Math.max(6,hb[1]+Math.sin(a)*rr*1.1))]); } return o; }
+    function buildEdges(L){ var e = []; for (var i=0;i<L.length;i++){ var b1=-1,b2=-1,d1=1e18,d2=1e18; for (var j=0;j<L.length;j++){ if (i===j) continue; var dx=L[i][0]-L[j][0], dy=L[i][1]-L[j][1], d=dx*dx+dy*dy; if (d<d1){d2=d1;b2=b1;d1=d;b1=j;} else if (d<d2){d2=d;b2=j;} } if (b1>i) e.push([i,b1]); if (b2>i) e.push([i,b2]); } return e; }
+    function rgba(c,a){ return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+    function setup(){
+      var r = canvas.getBoundingClientRect();
+      W = r.width; H = r.height;
+      if (W < 4 || H < 4){ ready = false; return; }
+      var dpr = Math.min(2, devicePixelRatio || 1);
+      canvas.width = W*dpr; canvas.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      var n = Math.min(340, Math.max(140, Math.round(W*H/1200)));
+      layouts = [scatter(n,W,H), grid(n,W,H), web(n,W,H)];
+      edges = buildEdges(layouts[2]);
+      if (pts.length !== n){ var r2 = prng(1234); pts = layouts[0].map(function(p){ return {x:p[0], y:p[1], gold:r2()<0.06}; }); }
+      ready = true;
+    }
+    var mx = -1e4, my = -1e4;
+    canvas.addEventListener('pointermove', function(e){ var r = canvas.getBoundingClientRect(); mx = e.clientX-r.left; my = e.clientY-r.top; }, {passive:true});
+    canvas.addEventListener('pointerleave', function(){ mx = my = -1e4; });
+    function drawEdges(a){ ctx.strokeStyle = rgba(PEARL, 0.16*a); ctx.lineWidth = 1; ctx.beginPath(); for (var i=0;i<edges.length;i++){ var e = edges[i]; ctx.moveTo(pts[e[0]].x, pts[e[0]].y); ctx.lineTo(pts[e[1]].x, pts[e[1]].y); } ctx.stroke(); }
+    function drawPoints(){ for (var i=0;i<pts.length;i++){ var p = pts[i]; ctx.fillStyle = rgba(p.gold?GOLD:PEARL, p.gold?0.95:0.6); var r = p.gold?2.4:1.5; ctx.fillRect(p.x-r/2, p.y-r/2, r, r); } }
+    function frame(){
+      if (!ready){ raf = requestAnimationFrame(frame); return; }
+      ctx.clearRect(0,0,W,H);
+      var target = layouts[state];
+      edgeA += ((state===2?1:0) - edgeA) * 0.03;
+      if (edgeA > 0.02) drawEdges(edgeA);
+      for (var i=0;i<pts.length;i++){
+        var p = pts[i], t = target[i];
+        p.x += (t[0]-p.x)*0.045; p.y += (t[1]-p.y)*0.045;
+        var dx = p.x-mx, dy = p.y-my, d2 = dx*dx+dy*dy;
+        if (d2 < 8100){ var d = Math.sqrt(d2)||1, f = (90-d)/90*3.0; p.x += dx/d*f; p.y += dy/d*f; }
+      }
+      drawPoints();
+      raf = requestAnimationFrame(frame);
+    }
+    function drawStatic(){ setup(); if (!ready) return; pts.forEach(function(p,i){ p.x = layouts[2][i][0]; p.y = layouts[2][i][1]; }); ctx.clearRect(0,0,W,H); drawEdges(1); drawPoints(); if (tag) tag.textContent = STATES[2]; }
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (tag) tag.textContent = STATES[state];
+    if (!reduced) setInterval(function(){ state = (state+1)%3; if (tag) tag.textContent = STATES[state]; }, 4600);
+    addEventListener('resize', function(){ reduced ? drawStatic() : setup(); });
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting){
+          if (reduced){ drawStatic(); return; }
+          if (!running){ setup(); running = true; raf = requestAnimationFrame(frame); }
+        } else if (running){ running = false; cancelAnimationFrame(raf); }
+      });
+    }, {threshold:0.08}).observe(canvas);
+  })();
 
 })();
 </script>

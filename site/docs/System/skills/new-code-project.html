@@ -1,0 +1,1501 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="> Ownership gate: if the remote owner isn't Sergei's account (e.g. `AleannLab/…`) or he says it's shared, mark the regis">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/skills/new-code-project.html">
+      
+      
+        <link rel="prev" href="hermes-ops.html">
+      
+      
+        <link rel="next" href="../../schedule.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>new-project - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#new-project" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              new-project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JACKIE-OS-EXPLAINER.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="new-code-project.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-0-classify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — classify
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-a-code-project-own-git-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path A — code project (own git repo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-b-non-code-project-lives-inside-jackie-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path B — non-code project (lives inside jackie-os)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-time-prerequisite-sergei-once-ever-not-per-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-time prerequisite (Sergei, once ever — not per project)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflows-that-pick-up-automatically-after-onboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflows that pick up automatically (after onboarding)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HOW-TO-INSTALL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-0-classify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0 — classify
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-a-code-project-own-git-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path A — code project (own git repo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-b-non-code-project-lives-inside-jackie-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path B — non-code project (lives inside jackie-os)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-time-prerequisite-sergei-once-ever-not-per-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-time prerequisite (Sergei, once ever — not per project)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflows-that-pick-up-automatically-after-onboarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflows that pick up automatically (after onboarding)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="new-project">new-project<a class="headerlink" href="#new-project" title="Permanent link">&para;</a></h1>
+<p><strong>Purpose:</strong> one-shot onboarding for a <strong>new project — code repo OR non-code</strong> — into Jackie OS, so everything (registry, vault note, indexes, learnings, sync coverage) is wired <em>before</em> real work starts. The agent does all the wiring; for code repos there is <strong>zero</strong> manual setup if the read PAT is scoped to all your repos (see § One-time prerequisite).
+<strong>Trigger:</strong> "new project", "new code project", "new non-code project", "register project", "I created a repo", "set up project X" — or the agent detects an unregistered project Sergei is starting.
+<strong>Role:</strong> COO + CTO setup.
+<strong>Output:</strong> registry row; <code>Vault/{Title}.md</code> note; <code>Projects.md</code> / <code>Home.md</code> index links; (code) repo bridge + learnings catalog + poller registration; (non-code) <code>Projects/{Name}/</code> folder; one commit.</p>
+<hr />
+<h2 id="step-0-classify">Step 0 — classify<a class="headerlink" href="#step-0-classify" title="Permanent link">&para;</a></h2>
+<p>Ask (or infer): <strong>project name / title</strong>, <strong>type</strong> — <code>code</code> (its own git repo) or <code>non-code</code> (lives inside jackie-os) — <strong>active?</strong>, and for code: <strong>GitHub remote</strong> (<code>owner/repo</code>), <strong>local path</strong>, <strong>default branch</strong> (<code>main</code>), <strong>owned or shared?</strong>.</p>
+<p>Then run the matching path. Both end with a single <code>git commit</code> in jackie-os.</p>
+<hr />
+<h2 id="path-a-code-project-own-git-repo">Path A — code project (own git repo)<a class="headerlink" href="#path-a-code-project-own-git-repo" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Ownership gate:</strong> if the remote owner isn't Sergei's account (e.g. <code>AleannLab/…</code>) or he says it's shared, mark the registry row 🤝 <strong>read-only</strong>, and <strong>skip steps 4–6</strong> (repo bridge, design system, code-repo commit) — Jackie-OS reads a shared repo into the vault but never writes to it and never polls it with the PAT.</p>
+</blockquote>
+<ol>
+<li><strong>Registry</strong> — add a <code>git</code> row to <code>System/project-registry.md</code>: paths, branch, GitHub remote, mirror if any, <strong>Roadmap index</strong> (<code>plans/roadmap-index.md</code> — required for owned repos; <code>—</code> for shared 🤝).</li>
+<li><strong>Vault note + indexes</strong> — <code>Vault/{Title}.md</code> (frontmatter <code>[[Projects]]</code>, stub, empty <code>## Status</code>); add wikilink to <code>Vault/Projects.md</code>; if Active, add to <code>Vault/Home.md</code> Active list.</li>
+<li><strong>Learnings</strong> — <code>Vault/Agent-Learnings/{Title} learnings.md</code> from the [[Newfin learnings]] template; add a row to <code>Vault/Agent-Learnings/Index.md</code>.</li>
+<li><strong>Repo bridge</strong> (in the <strong>code repo</strong> — owned only): copy <code>System/templates/JACKIE-OS-bridge.md</code> → <code>docs/JACKIE-OS.md</code> (fill KEY, vault note, branch); scaffold <code>docs/solutions/README.md</code> if missing; add the <strong>Vault sync</strong> paragraph to the repo's <code>CLAUDE.md</code>/<code>AGENTS.md</code> (point to <code>docs/JACKIE-OS.md</code>).</li>
+<li><strong>Plans scaffold</strong> (owned code repos only — skip 🤝 shared):</li>
+<li>Create <code>plans/</code> from <a href="../templates/plans/"><code>System/templates/plans/</code></a>: <code>README.md</code>, <code>roadmap-index.md</code>, <code>future-improvements.md</code>, <code>archive/README.md</code>.</li>
+<li>Replace placeholders: <code>{PROJECT}</code> = display name, <code>{DATE}</code> = today <code>YYYY-MM-DD</code>, <code>{INITIAL_SHA}</code> = <code>git rev-parse --short HEAD</code> (or <code>0000000</code> before first commit).</li>
+<li>Append <a href="../templates/CLAUDE-planning-section.md"><code>System/templates/CLAUDE-planning-section.md</code></a> to <code>CLAUDE.md</code> (create <code>## Planning</code> if missing). Mirror one line in <code>AGENTS.md</code> if present.</li>
+<li>In vault note <code>## Status</code> stub, link <code>plans/roadmap-index.md</code> as the forward-work surface.</li>
+<li><strong>Do not</strong> copy Newfin/Rodyna-specific archives — empty <code>plans/archive/</code> except README.</li>
+<li><strong>Design system</strong> (owned code repos — skip API-only / CLI-only / shared 🤝):</li>
+<li><strong>When:</strong> Step 0 expects a user-facing UI, <em>or</em> the repo already has a frontend package (<code>web/</code>, <code>miniapp/</code>, <code>frontend/</code>, <code>apps/*/web</code>, or a subdir with <code>react</code>/<code>vue</code>/<code>svelte</code> in <code>package.json</code>). If Sergei says "no UI", skip.</li>
+<li><strong>Doc path</strong> (first match):<ul>
+<li><code>miniapp/</code> → <code>miniapp/docs/design-memory.md</code></li>
+<li><code>web/</code> at repo root → <code>docs/design-system.md</code> (token source: <code>web/src/styles/globals.css</code> or project's token file)</li>
+<li>other UI package <code>{pkg}/</code> → <code>{pkg}/docs/design-memory.md</code></li>
+<li>UI planned but not scaffolded yet → <code>docs/design-system.md</code> at repo root (<code>{UI_PACKAGE}</code> = <em>TBD</em>, <code>{TOKEN_SOURCE}</code> = <em>TBD</em>)</li>
+</ul>
+</li>
+<li>Copy <a href="../templates/design-system.md"><code>System/templates/design-system.md</code></a>; replace <code>{PROJECT}</code>, <code>{UI_PACKAGE}</code>, <code>{TOKEN_SOURCE}</code>. Template includes YAML frontmatter (DESIGN.md format) + prose; fill anchor token values from the token CSS file. Do not overwrite an existing design doc — merge or skip if one is already canonical (e.g. Newfin <code>docs/design-system.md</code>, Rodyna <code>miniapp/docs/design-memory.md</code>).</li>
+<li>Add <strong><code>design:lint</code></strong> to the repo root <code>package.json</code> (or UI workspace <code>package.json</code> if no root scripts): <code>"design:lint": "npx -p @google/design.md@0.3.0 designmd lint &lt;DESIGN_DOC_REL&gt;"</code> — path matches the doc from the bullet above.</li>
+<li>Append the <strong>UI</strong> section from <a href="../templates/AGENTS-design-section.md"><code>System/templates/AGENTS-design-section.md</code></a> to <code>AGENTS.md</code> and/or <code>CLAUDE.md</code> (replace <code>{UI_PACKAGE}</code>, <code>{DESIGN_DOC_REL}</code>). Skip if an equivalent section already points at the design doc.</li>
+<li><strong>Page-load benchmark (FF 003):</strong> copy <a href="../templates/benchmark-page-load.md"><code>System/templates/benchmark-page-load.md</code></a> into the repo (path per layout — e.g. <code>docs/performance.md</code> or <code>{UI_PACKAGE}/docs/performance.md</code>). Scaffold benchmark script from Newfin (<code>server/src/scripts/benchmark-page-load.ts</code>) or Rodyna (<code>miniapp/scripts/benchmark-page-load.ts</code>) pattern. Add <code>npm run benchmark:pages</code> + Definition of done line: <em>new screen → add to benchmark; all routes &lt;50ms p50 warm</em>.</li>
+<li>Optional later (not required at onboarding): <code>npm run setup:ui</code> + mock API + deep links — see Rodyna <code>miniapp/README.md</code> § Plain-browser design work.</li>
+<li><strong>Commit in the code repo</strong> — bridge + solutions + <strong>plans/</strong> + design doc + AGENTS/CLAUDE blurbs in one PR or push.</li>
+<li><strong>Poller — nothing to do.</strong> The merge-poll is <strong>registry-driven</strong> (<code>.github/scripts/merge_poll.py</code> reads <code>project-registry.md</code>), so adding the row in <strong>A1</strong> already puts the repo under the intraday poll (owned <code>sc-jackie/*</code>, Active, not shared). <em>(If the <code>JACKIE_OS_READ_PAT</code> is scoped to selected repos rather than all, add this repo to the PAT — avoid that entirely with an all-repos read PAT.)</em></li>
+<li><strong>Project-sync</strong> — run <a href="project-sync.html">project-sync</a>; prepend the vault <code>## Status</code> stub; refresh <code>hot.md</code> if Active.</li>
+<li><strong>Linear + agents</strong> (optional, owned repos) — to put the repo on the Linear board with Cyrus/Codex delegation, run <a href="linear-project-rollout.html">linear-project-rollout</a> next. The 3 label groups (<code>Pipeline</code>/<code>Stage</code>/<code>Type</code>) are workspace-shared, so there's nothing to create — just a project + IDs swap.</li>
+</ol>
+<h2 id="path-b-non-code-project-lives-inside-jackie-os">Path B — non-code project (lives inside jackie-os)<a class="headerlink" href="#path-b-non-code-project-lives-inside-jackie-os" title="Permanent link">&para;</a></h2>
+<p>No GitHub repo, no bridge, no Action, no secret — the work is <em>in</em> the vault, so the commit <strong>is</strong> the sync.</p>
+<ol>
+<li><strong>Folder</strong> — create <code>Projects/{Name}/</code> for working files; add <code>Projects/{Name}/STATUS.md</code> only if you want a <code>status-file</code> mirror.</li>
+<li><strong>Plans scaffold</strong> — create <code>Projects/{Name}/plans/</code> from <a href="../templates/projects-plans/"><code>System/templates/projects-plans/</code></a>: <code>README.md</code>, <code>roadmap-index.md</code>, <code>future-improvements.md</code>, <code>archive/README.md</code>. Replace <code>{PROJECT}</code>, <code>{VAULT_NOTE}</code>, <code>{DATE}</code>. Registry <strong>Roadmap index</strong> → <code>Projects/{Name}/plans/roadmap-index.md</code>.</li>
+<li><strong>Registry</strong> — add a <code>vault</code> row (or <code>status-file</code> row if you made a STATUS.md) to <code>System/project-registry.md</code> with Roadmap index path from step 2.</li>
+<li><strong>Vault note + indexes</strong> — <code>Vault/{Title}.md</code> (frontmatter, stub, empty <code>## Status</code>); wikilink in <code>Vault/Projects.md</code>; Active list in <code>Home.md</code> if active. Link <code>Projects/{Name}/plans/roadmap-index.md</code> in the stub.</li>
+<li><strong>Commit</strong> — <code>git commit</code> jackie-os. Done — morning-brief + wrap-up track it from here.</li>
+</ol>
+<hr />
+<h2 id="one-time-prerequisite-sergei-once-ever-not-per-project">One-time prerequisite (Sergei, once ever — not per project)<a class="headerlink" href="#one-time-prerequisite-sergei-once-ever-not-per-project" title="Permanent link">&para;</a></h2>
+<p>For code repos to get <strong>intraday</strong> merge-poll coverage, jackie-os needs one secret:
+- Create <strong>one</strong> fine-grained PAT → <strong>Contents: Read</strong>, scoped to <strong>All repositories</strong> under <code>sc-jackie</code> (so every future repo is auto-covered — no per-project secret work).
+- Add it to jackie-os → Settings → Secrets and variables → Actions → <strong><code>JACKIE_OS_READ_PAT</code></strong>.</p>
+<p>Skip this and code repos still sync <strong>daily</strong> via the 07:30 morning-brief — you just lose the intraday entry. Non-code projects need nothing.</p>
+<h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <code>project-sync</code> shows the new row without errors (path exists, or flagged skip).</li>
+<li>[ ] Vault note + index links exist; (code) learnings catalog + <code>Index.md</code> row present.</li>
+<li>[ ] <strong>Code, owned:</strong> <code>docs/JACKIE-OS.md</code> + <code>docs/solutions/README.md</code> + <strong><code>plans/</code></strong> (roadmap-index, future-improvements, README, archive/) committed in the repo; <code>CLAUDE.md</code> <strong>Planning</strong> section; repo in merge poll via registry. <strong>UI repos:</strong> design doc + <code>AGENTS.md</code>/<code>CLAUDE.md</code> UI section + <strong>page-load benchmark</strong> (<code>npm run benchmark:pages</code>, &lt;50ms p50 DoD) — or documented skip reason. <strong>Shared (🤝):</strong> confirm NOTHING was written/pushed to the repo, Roadmap index = <code>—</code>, and it's NOT in <code>merge_poll.py</code>.</li>
+<li>[ ] <strong>Non-code:</strong> <code>Projects/{Name}/</code> + <strong><code>Projects/{Name}/plans/</code></strong> + vault note committed; no repo/bridge/Action created.</li>
+</ul>
+<hr />
+<h2 id="workflows-that-pick-up-automatically-after-onboarding">Workflows that pick up automatically (after onboarding)<a class="headerlink" href="#workflows-that-pick-up-automatically-after-onboarding" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>How it finds the project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>project-sync</strong></td>
+<td><code>System/project-registry.md</code></td>
+</tr>
+<tr>
+<td><strong>morning-brief (07:30)</strong></td>
+<td>Active registry rows → rich vault Status daily (authoritative sync)</td>
+</tr>
+<tr>
+<td><strong>merge-poll (~3h)</strong></td>
+<td><code>.github/scripts/merge_poll.py</code> REPOS — code repos only, thin intraday entry</td>
+</tr>
+<tr>
+<td><strong>wrap-up</strong></td>
+<td>project-sync all rows; <strong>§ Catalog cleanup</strong> on <code>plans/</code> when code ships</td>
+</tr>
+<tr>
+<td><strong>hot.md</strong></td>
+<td>Active project one-liners from vault Status</td>
+</tr>
+<tr>
+<td><strong>weekly-review</strong></td>
+<td>Vault notes + week dailies</td>
+</tr>
+<tr>
+<td><strong>jos-compound</strong></td>
+<td>Run <strong>in-session</strong> after a non-trivial fix (not automated) → repo <code>docs/solutions/</code> + [[agent-learnings-index]] row</td>
+</tr>
+<tr>
+<td><strong>Planning loop</strong></td>
+<td><code>plans/roadmap-index.md</code> → dated plan → ship → archive + catalog cleanup (<a href="wrap-up/SKILL.html">wrap-up</a>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Do not auto-wire:</strong> Cursor automations (none exist), Peaches-style Cowork one-offs, Hermes VPS.</p>
+<hr />
+<h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Push the code repo before expecting project-sync to see commits.</li>
+<li>Nested repo inside Jackie-OS (Rodyna pattern): ensure the clone is in jackie-os <code>.gitignore</code>; registry path points at the clone.</li>
+<li>Never duplicate full <code>docs/solutions/</code> bodies into the vault — index rows only.</li>
+<li><strong>Shared / external / contribute-only repos (🤝, e.g. <code>AleannLab/draw</code>):</strong> registry + vault note + learnings catalog are OK (Jackie-OS side only). <strong>Never</strong> write a bridge/<code>docs/solutions/</code>/CLAUDE.md into the repo, never push/PR to it, never add it to <code>merge_poll.py</code>. Sync is read-only via morning-brief. <em>(Registry Write policy — 2026-06-13 draw leak.)</em></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2063 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Capture solved problems into docs/solutions/ (default) or refresh/audit stale learnings against the codebase. Use /jos-compound for capture mode, or /jos-compound refresh for audit mode.">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/skills/jos-compound/SKILL.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Compound Engineering — Capture & Refresh - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#compound-engineering-capture-refresh" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Compound Engineering — Capture &amp; Refresh
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JACKIE-OS-EXPLAINER.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../new-code-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HOW-TO-INSTALL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mode-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-interaction-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Interaction Principles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared Interaction Principles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#headless-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Headless Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared Materials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared Materials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frontmatter-schema-yaml-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontmatter Schema &amp; YAML Safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptsmd-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CONCEPTS.md Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discoverability-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discoverability Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontmatter-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontmatter Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capture-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capture Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Capture Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preconditions-advisory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions (Advisory)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-mode-selection-execution-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: Mode Selection &amp; Execution Route
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-research-full-mode-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Research (Full Mode Only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-assembly-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Assembly &amp; Write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-24-vocabulary-capture-applies-to-both-full-and-lightweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2.4: Vocabulary Capture (applies to both Full and Lightweight)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-25-selective-refresh-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2.5: Selective Refresh Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-optional-enhancement-full-mode-only-not-headless" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Optional Enhancement (Full Mode Only, Not Headless)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lightweight-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lightweight Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capture-mode-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capture Mode Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refresh-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refresh Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Refresh Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invocation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-route-by-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: Route by Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-investigate-learnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Investigate Learnings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-15-investigate-pattern-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1.5: Investigate Pattern Docs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-175-document-set-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1.75: Document-Set Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-classify-the-maintenance-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Classify the Maintenance Action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-ask-for-decisions-interactive-mode-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Ask for Decisions (Interactive Mode Only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-execute-chosen-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Execute Chosen Action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-45-vocabulary-capture-refresh-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4.5: Vocabulary Capture (Refresh-Specific)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-commit-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: Commit Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-55-discoverability-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5.5: Discoverability Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-mode-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refresh Mode Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#categories-auto-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categories (Auto-Detected)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-invoke-capture-mode-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Invoke (Capture Mode Only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preconditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="compound-engineering-capture-refresh">Compound Engineering — Capture &amp; Refresh<a class="headerlink" href="#compound-engineering-capture-refresh" title="Permanent link">&para;</a></h1>
+<p>Coordinate documentation of solved problems and maintain docs/solutions/ quality over time. Two modes:</p>
+<ul>
+<li><strong>Capture</strong> (default) — document a recently solved problem or durable vocabulary into <code>docs/solutions/</code> or <code>CONCEPTS.md</code>. Use after work ships.</li>
+<li><strong>Refresh</strong> — audit existing learnings for staleness, overlap, or drift against the current codebase. Use periodically to maintain knowledge quality.</li>
+</ul>
+<h2 id="mode-detection">Mode Detection<a class="headerlink" href="#mode-detection" title="Permanent link">&para;</a></h2>
+<p>Check <code>$ARGUMENTS</code> for a <strong>mode token</strong> — either <code>mode:headless</code> or a scope hint matching refresh patterns. Scope hints that narrow docs/solutions/ or query its metadata (directory names, module tags, filenames) indicate <strong>refresh mode</strong>; otherwise default to <strong>capture mode</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No arguments, or <code>[context]</code> describing a solved problem + optional <code>mode:headless</code></td>
+<td><strong>Capture</strong> (document the solution)</td>
+</tr>
+<tr>
+<td>Argument matches a <code>docs/solutions/</code> directory, module name, or file slug (or <code>refresh learnings</code>, <code>audit stale</code>, <code>ce-compound-refresh</code>) + optional <code>mode:headless</code></td>
+<td><strong>Refresh</strong> (audit and maintain)</td>
+</tr>
+<tr>
+<td><code>CONCEPTS.md bootstrap</code> (or <code>build concept map</code>) without a problem context</td>
+<td><strong>Refresh</strong>: asks whether to bootstrap the concept map or run a refresh cycle</td>
+</tr>
+</tbody>
+</table>
+<p>Once mode is determined, check for <code>mode:headless</code> token and strip it from arguments before proceeding. Headless mode applies throughout the chosen workflow.</p>
+<h2 id="shared-interaction-principles">Shared Interaction Principles<a class="headerlink" href="#shared-interaction-principles" title="Permanent link">&para;</a></h2>
+<h3 id="headless-mode">Headless Mode<a class="headerlink" href="#headless-mode" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>No user interaction.</strong> Never pause for input, never present options, never ask questions.</li>
+<li><strong>Process in scope fully.</strong> Run all unambiguous actions (Keep, Update, Consolidate, auto-Delete, Replace).</li>
+<li><strong>Ambiguous cases → stale-mark.</strong> If classification is uncertain, mark the file with <code>status: stale</code>, <code>stale_reason</code>, and <code>stale_date</code> in frontmatter.</li>
+<li><strong>Apply edits silently.</strong> Vocabulary capture and instruction-file edits are side effects, not decisions.</li>
+<li><strong>Generate a report.</strong> Output structured terminal report at the end (see Output Format).</li>
+</ul>
+<h3 id="interactive-mode">Interactive Mode<a class="headerlink" href="#interactive-mode" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ask one question at a time using platform blocking tools (<code>AskUserQuestion</code> in Claude Code, <code>request_user_input</code> in Codex, <code>ask_question</code> in Antigravity, <code>ask_user</code> in Pi).</li>
+<li>Fall back to numbered options in plain text only when no blocking tool exists.</li>
+<li>Lead with recommendations and one-sentence rationale.</li>
+<li>For capture mode: ask Full vs Lightweight, then ask about session history (Full only), then ask for consent on Discoverability Check edits.</li>
+<li>For refresh mode: ask for scope, then present recommendations per artifact, handling ambiguous cases with user input.</li>
+</ul>
+<h2 id="shared-materials">Shared Materials<a class="headerlink" href="#shared-materials" title="Permanent link">&para;</a></h2>
+<h3 id="frontmatter-schema-yaml-safety">Frontmatter Schema &amp; YAML Safety<a class="headerlink" href="#frontmatter-schema-yaml-safety" title="Permanent link">&para;</a></h3>
+<p>Read <code>references/schema.yaml</code> for canonical frontmatter fields and enum values. Read <code>references/yaml-schema.md</code> for category mapping, YAML safety rules (unquoted <code>#</code> silently truncates, unquoted <code>:</code> can confuse YAML parsers), and array-item quoting. Both modes apply these rules consistently.</p>
+<h3 id="conceptsmd-handling">CONCEPTS.md Handling<a class="headerlink" href="#conceptsmd-handling" title="Permanent link">&para;</a></h3>
+<p>A shared vocabulary file, seeded and refined across both capture and refresh runs:</p>
+<ol>
+<li>
+<p><strong>Capture mode (Phase 2.4)</strong>: When a new learning surfaces qualifying domain terms, add them to an existing <code>CONCEPTS.md</code> or create/seed one if absent. Hold the qualifying bar conservatively for borderline terms at creation; updates follow normal criteria. Seed the learning's area only, not repo-wide.</p>
+</li>
+<li>
+<p><strong>Refresh mode (Phase 4.5)</strong>: Aggregate domain terms flagged across the learnings in scope. If <code>CONCEPTS.md</code> exists, add missing terms and reconcile in-scope core nouns from the declared model. If absent and terms qualified, bootstrap and seed. Apply edits silently in all modes.</p>
+</li>
+<li>
+<p><strong>Discoverability</strong>: After creating/updating <code>CONCEPTS.md</code>, check whether instruction files (<code>AGENTS.md</code> / <code>CLAUDE.md</code>) surface it. (See Discoverability Check below.) Bootstrap always includes this step.</p>
+</li>
+</ol>
+<p>When bootstrapping, use this preamble:</p>
+<blockquote>
+<p>Shared domain vocabulary for this project — entities, named processes, and status concepts with project-specific meaning. Seeded with core domain vocabulary, then accretes as ce-compound and ce-compound-refresh process learnings; direct edits are fine. Glossary only, not a spec or catch-all.</p>
+</blockquote>
+<h3 id="discoverability-check">Discoverability Check<a class="headerlink" href="#discoverability-check" title="Permanent link">&para;</a></h3>
+<p>After the learning or refresh is complete, verify that instruction files would lead agents to <code>docs/solutions/</code> and (if it exists) <code>CONCEPTS.md</code>.</p>
+<p><strong>Procedure (identical in both modes):</strong></p>
+<ol>
+<li>Identify root-level instruction files (<code>AGENTS.md</code>, <code>CLAUDE.md</code>, or both). Read the substantive one (if one is a shim including the other, that's the target).</li>
+<li>Assess whether an agent would learn: (a) that a searchable knowledge store exists; (b) enough about its structure (categories, YAML fields); (c) when to search it.</li>
+<li>If not surfaced, draft a small addition matching the file's existing style. A one-liner in an existing section beats a new headed section.</li>
+<li><strong>Capture (Interactive)</strong>: Show the proposed change and ask for consent using the blocking question tool. Apply silently in lightweight mode.</li>
+<li><strong>Refresh (Interactive)</strong>: Show the proposed change and ask using the blocking question tool. Apply silently.</li>
+<li><strong>All Headless modes</strong>: Include the recommendation in the terminal report; do not edit instruction files.</li>
+</ol>
+<h3 id="frontmatter-validation">Frontmatter Validation<a class="headerlink" href="#frontmatter-validation" title="Permanent link">&para;</a></h3>
+<p>In Phase 2 (capture) and Phase 4 (refresh), after writing the doc, validate YAML parser-safety using the bundled script:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLAUDE_SKILL_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLAUDE_SKILL_DIR</span><span class="si">}</span><span class="s2">/scripts/validate-frontmatter.py&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>python3<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CLAUDE_SKILL_DIR</span><span class="si">}</span><span class="s2">/scripts/validate-frontmatter.py&quot;</span><span class="w"> </span>&lt;output-path&gt;
+<span class="k">else</span>
+<span class="w">  </span><span class="c1"># Manual check: opening/closing `---`, no unquoted ` #` or `: ` in scalar top-level values</span>
+<span class="w">  </span><span class="nb">true</span>
+<span class="k">fi</span>
+</code></pre></div>
+<h2 id="capture-mode">Capture Mode<a class="headerlink" href="#capture-mode" title="Permanent link">&para;</a></h2>
+<p><strong>Use when:</strong> Documenting a recently solved problem or durable project vocabulary. Default mode.</p>
+<h3 id="invocation">Invocation<a class="headerlink" href="#invocation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/jos-compound<span class="w">                     </span><span class="c1"># Document the most recent fix</span>
+/jos-compound<span class="w"> </span><span class="o">[</span>context<span class="o">]</span><span class="w">           </span><span class="c1"># Provide context hint</span>
+/jos-compound<span class="w"> </span>mode:headless<span class="w">       </span><span class="c1"># Non-interactive (for automations)</span>
+/jos-compound<span class="w"> </span>mode:headless<span class="w"> </span><span class="o">[</span>ctx<span class="o">]</span><span class="w"> </span><span class="c1"># Non-interactive with context</span>
+</code></pre></div>
+<h3 id="preconditions-advisory">Preconditions (Advisory)<a class="headerlink" href="#preconditions-advisory" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Problem has been solved and verified working</li>
+<li>Non-trivial (not simple typo or obvious error)</li>
+</ul>
+<h3 id="pre-execution">Pre-Execution<a class="headerlink" href="#pre-execution" title="Permanent link">&para;</a></h3>
+<p><strong>Git context (pre-resolved):</strong>
+- Branch: !<code>git rev-parse --abbrev-ref HEAD 2&gt;/dev/null || true</code>
+- Repo root: !<code>git rev-parse --show-toplevel 2&gt;/dev/null || pwd</code></p>
+<p><strong>Auto memory (Claude Code only):</strong> Before Phase 1, scan the auto-memory block injected into your system prompt for relevant notes related to the problem being documented. If found, prepare an excerpt and pass it to Phase 1 subagents. Tag memory-sourced content in the final doc with "(auto memory [claude])".</p>
+<h3 id="phase-0-mode-selection-execution-route">Phase 0: Mode Selection &amp; Execution Route<a class="headerlink" href="#phase-0-mode-selection-execution-route" title="Permanent link">&para;</a></h3>
+<p><strong>Headless mode:</strong> Skip interactive questions, run <strong>Full Mode without session history</strong>, apply the Discoverability Check edit silently if a gap exists, skip Phase 3 specialized reviews. Emit structured terminal report and end the turn.</p>
+<p><strong>Interactive mode (before Phase 1):</strong> Present two options using the blocking question tool:</p>
+<div class="highlight"><pre><span></span><code>1. Full (recommended) — the complete workflow. Researches, cross-references,
+   and reviews your solution to produce documentation that compounds your
+   team&#39;s knowledge.
+2. Lightweight — same documentation, single pass. Faster and uses fewer
+   tokens, but won&#39;t detect duplicates or cross-reference existing docs.
+   Best for simple fixes or long sessions nearing context limits.
+</code></pre></div>
+<p>If user chooses Full, ask one follow-up: "Would you also like to search your [harness name] session history for relevant knowledge? This adds time and token usage." (Session history enabled only on "yes".)</p>
+<h3 id="phase-1-research-full-mode-only">Phase 1: Research (Full Mode Only)<a class="headerlink" href="#phase-1-research-full-mode-only" title="Permanent link">&para;</a></h3>
+<p>Launch three research subagents in parallel (background) to investigate the problem space. Each writes its full output to a per-run scratch artifact under <code>/tmp/compound-engineering/jos-compound/{run_id}/</code> and returns only the artifact path.</p>
+<p><strong>Run ID:</strong> Generate once at start: <code>RUN_ID=$(date +%Y%m%d-%H%M%S)-$(head -c4 /dev/urandom | od -An -tx1 | tr -d ' ')</code>. Artifacts:</p>
+<ul>
+<li><strong>Context Analyzer</strong> → <code>context.json</code> (frontmatter skeleton, category, filename, track)</li>
+<li><strong>Solution Extractor</strong> → <code>solution.md</code> (full doc body prose, track-appropriate sections)</li>
+<li><strong>Related Docs Finder</strong> → <code>related.json</code> (links, related learnings, overlap assessment)</li>
+</ul>
+<p>Each subagent must confirm the artifact write succeeded (file exists and is non-empty) before returning only the artifact path. If write fails, return the full output inline instead (no path).</p>
+<p><strong>After parallel block launches</strong>, optionally run session-history synthesis (if user opted in): Discover sessions on the current branch from the past 7 days, extract relevant context using bundled scripts under <code>scripts/session-history/</code>, synthesize via a subagent seeded with <code>references/agents/session-historian.md</code>, and write findings to <code>/tmp/compound-engineering/jos-compound/{run_id}/session-history.md</code>. Platform-specific: if <code>${CLAUDE_SKILL_DIR}</code> does not resolve or scripts are missing, skip with a visible note.</p>
+<h3 id="phase-2-assembly-write">Phase 2: Assembly &amp; Write<a class="headerlink" href="#phase-2-assembly-write" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Collect Phase 1 artifacts:</strong> Read <code>context.json</code>, <code>solution.md</code>, <code>related.json</code>, and (if session history ran) <code>session-history.md</code> from <code>/tmp/compound-engineering/jos-compound/{run_id}/</code>. Artifact is authoritative; fall back to inline return only if artifact is absent or empty.</p>
+</li>
+<li>
+<p><strong>Overlap check:</strong> From Related Docs Finder, check overlap assessment:</p>
+</li>
+<li><strong>High</strong> (existing doc covers same problem, root cause, solution) → Update the existing doc with fresher context, new examples, updated references. Preserve file path and frontmatter structure. Add <code>last_updated: YYYY-MM-DD</code> field.</li>
+<li><strong>Moderate</strong> (same area, different angle) → Create the new doc, flag for Phase 2.5 consolidation review.</li>
+<li>
+<p><strong>Low or none</strong> → Create new doc.</p>
+</li>
+<li>
+<p><strong>Incorporate session history</strong> (if available): Fold dead ends into "What Didn't Work" (bug track) or "Context" (knowledge track). Tag with "(session history)".</p>
+</li>
+<li>
+<p><strong>Assemble doc:</strong> Read <code>assets/resolution-template.md</code> for section structure. For new docs, use the template section order unless the user explicitly asks otherwise. Merge collected pieces into complete markdown.</p>
+</li>
+<li>
+<p><strong>Create directory and write:</strong> <code>mkdir -p docs/solutions/[category]/</code> and write either the new <code>docs/solutions/[category]/[filename].md</code> or update the existing doc.</p>
+</li>
+<li>
+<p><strong>Validate frontmatter:</strong> See Frontmatter Validation above.</p>
+</li>
+</ol>
+<h3 id="phase-24-vocabulary-capture-applies-to-both-full-and-lightweight">Phase 2.4: Vocabulary Capture (applies to both Full and Lightweight)<a class="headerlink" href="#phase-24-vocabulary-capture-applies-to-both-full-and-lightweight" title="Permanent link">&para;</a></h3>
+<p>First, read <code>references/concepts-vocabulary.md</code> unconditionally. Do not pre-judge from memory.</p>
+<p>Scan the new doc <strong>and the surrounding conversation</strong> for qualifying domain terms. If <code>CONCEPTS.md</code> exists, add missing terms and refine existing entries when new precision surfaced. If absent and at least one term qualifies, create and seed it.</p>
+<p>At creation, hold the qualifying bar conservatively for borderline terms. Seed the learning's area only (modules and domain the fix touched), not repo-wide.</p>
+<p>Record the outcome explicitly (e.g., "Vocabulary: 1 entry added" or "scanned, no qualifying terms"). Do not silently skip.</p>
+<p><strong>Apply edits silently in every mode</strong> — no user prompt.</p>
+<h3 id="phase-25-selective-refresh-check">Phase 2.5: Selective Refresh Check<a class="headerlink" href="#phase-25-selective-refresh-check" title="Permanent link">&para;</a></h3>
+<p>After writing, assess whether older learnings should be refreshed. Invoke <code>ce-compound-refresh</code> (or recommend it) when:</p>
+<ul>
+<li>A related doc recommends an approach the new fix contradicts</li>
+<li>The new fix clearly supersedes an older solution</li>
+<li>Work involved refactoring, migration, or dependency upgrade that invalidates older references</li>
+<li>A pattern doc looks overly broad or outdated</li>
+<li>Related Docs Finder surfaced high-confidence refresh candidates or moderate overlap</li>
+</ul>
+<p><strong>Do not</strong> invoke without evidence or broadening into a large sweep from a lightweight session.</p>
+<h3 id="phase-3-optional-enhancement-full-mode-only-not-headless">Phase 3: Optional Enhancement (Full Mode Only, Not Headless)<a class="headerlink" href="#phase-3-optional-enhancement-full-mode-only-not-headless" title="Permanent link">&para;</a></h3>
+<p>Based on problem type, optionally dispatch subagents seeded with local prompts from <code>references/agents/</code> to review the documentation for depth and edge cases (performance-oracle, security-sentinel, data-integrity-guardian, or code-simplification review). Do not mutate product code.</p>
+<h3 id="lightweight-mode">Lightweight Mode<a class="headerlink" href="#lightweight-mode" title="Permanent link">&para;</a></h3>
+<p>Single-pass alternative: orchestrator performs all work sequentially without parallel subagents.</p>
+<ol>
+<li>Extract from conversation + auto-memory</li>
+<li>Classify: read schema and yaml-schema, determine track, category, filename</li>
+<li>Write minimal doc using <code>assets/resolution-template.md</code></li>
+<li>Vocabulary capture (update-only): if <code>CONCEPTS.md</code> exists, add missing/refine entries. Do not bootstrap/seed.</li>
+<li>Skip Phase 3 specialized reviews</li>
+</ol>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code>✓ Documentation complete (lightweight mode)
+
+File created:
+- docs/solutions/[category]/[filename].md
+
+[If discoverability gap found:]
+Tip: Your AGENTS.md/CLAUDE.md doesn&#39;t surface docs/solutions/ —
+a brief mention helps all agents discover these learnings.
+
+Note: This was created in lightweight mode. For richer documentation
+(cross-references, detailed prevention strategies, specialized reviews),
+re-run /jos-compound in a fresh session.
+</code></pre></div></p>
+<h3 id="capture-mode-output">Capture Mode Output<a class="headerlink" href="#capture-mode-output" title="Permanent link">&para;</a></h3>
+<p><strong>Headless mode (terminal report):</strong>
+<div class="highlight"><pre><span></span><code>✓ Documentation complete (headless mode)
+
+File: docs/solutions/&lt;category&gt;/&lt;filename&gt;.md  (created | updated)
+Track: &lt;bug | knowledge&gt;
+Category: &lt;category&gt;
+Overlap: &lt;none | low | moderate — see &lt;path&gt; | high — existing doc updated&gt;
+Instruction-file edit: &lt;none needed | gap noted&gt;
+CONCEPTS.md: &lt;scanned, no qualifying terms | created with N entries | updated — N added, N refined&gt;
+Refresh recommendation: &lt;none | scope hint for /jos-compound refresh&gt;
+
+Documentation complete
+</code></pre></div></p>
+<p><strong>Interactive mode (with "What's next?" menu and optional Phase 3 reviews):</strong>
+<div class="highlight"><pre><span></span><code>✓ Documentation complete
+
+Files written:
+- docs/solutions/[category]/[filename].md (created)
+- [optional] CONCEPTS.md (created with N entries | updated)
+
+This documentation will be searchable for future reference when similar
+issues occur in the [Module] module.
+
+What&#39;s next?
+1. Continue workflow
+2. Link related documentation
+3. View documentation
+4. Other
+</code></pre></div></p>
+<hr />
+<h2 id="refresh-mode">Refresh Mode<a class="headerlink" href="#refresh-mode" title="Permanent link">&para;</a></h2>
+<p><strong>Use when:</strong> Auditing existing learnings against the current codebase to catch staleness, overlap, or drift. Periodic maintenance.</p>
+<h3 id="invocation_1">Invocation<a class="headerlink" href="#invocation_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/jos-compound<span class="w"> </span>refresh<span class="w">                           </span><span class="c1"># Audit all of docs/solutions/</span>
+/jos-compound<span class="w"> </span>refresh<span class="w"> </span>auth<span class="w">                      </span><span class="c1"># Audit docs related to auth</span>
+/jos-compound<span class="w"> </span>refresh<span class="w"> </span><span class="o">[</span>directory/file/module<span class="o">]</span><span class="w">   </span><span class="c1"># Narrow to scope hint</span>
+/jos-compound<span class="w"> </span>refresh<span class="w"> </span>mode:headless<span class="w">             </span><span class="c1"># Headless audit, all scope</span>
+/jos-compound<span class="w"> </span>refresh<span class="w"> </span><span class="o">[</span>scope<span class="o">]</span><span class="w"> </span>mode:headless<span class="w">     </span><span class="c1"># Headless audit, scoped</span>
+</code></pre></div>
+<h3 id="phase-0-route-by-scope">Phase 0: Route by Scope<a class="headerlink" href="#phase-0-route-by-scope" title="Permanent link">&para;</a></h3>
+<p>Before investigation:</p>
+<ol>
+<li><strong>Discover</strong> candidate artifacts under <code>docs/solutions/</code> (exclude <code>README.md</code> and <code>_archived/</code>).</li>
+<li><strong>Estimate scope:</strong> Is this 1-2 files, ~8 docs, or 9+ (broad sweep)?</li>
+<li><strong>Route interaction:</strong></li>
+<li><strong>Focused</strong> (1-2 files or user named a specific doc) → Investigate directly, present recommendation.</li>
+<li><strong>Batch</strong> (~8 independent docs) → Investigate first, present grouped recommendations.</li>
+<li><strong>Broad</strong> (9+ docs, ambiguous, or repo-wide sweep) → Lightweight triage first, recommend starting area, then investigate in batches.</li>
+</ol>
+<p><strong>Broad-scope triage:</strong> Read frontmatter of all candidates, group by module/component/category. Identify high-impact clusters (dense modules with cross-references and stale references). Recommend starting with the cluster with most references broken. (In headless, skip recommendation and process all clusters by impact order.)</p>
+<h3 id="phase-1-investigate-learnings">Phase 1: Investigate Learnings<a class="headerlink" href="#phase-1-investigate-learnings" title="Permanent link">&para;</a></h3>
+<p>For each learning in scope, read it and cross-reference against the codebase. Assess staleness across five dimensions:</p>
+<ul>
+<li><strong>References</strong> — do file paths, class names, modules still exist or have they moved/been renamed?</li>
+<li><strong>Solution</strong> — does the recommended fix still match how code actually works today?</li>
+<li><strong>Code examples</strong> — do snippets still reflect the current implementation?</li>
+<li><strong>Related docs</strong> — are cross-referenced learnings and patterns still present and consistent?</li>
+<li><strong>Auto memory</strong> (Claude Code only) — does the auto-memory block in your system prompt contain entries in the same domain? If yes and the approach differs from the learning, flag as drift signal.</li>
+<li><strong>Overlap</strong> — note other docs in scope covering the same problem domain. Record which dimensions overlap and which doc appears broader/more current.</li>
+<li><strong>Vocabulary</strong> — note domain terms the learning cites. Flag whether they appear in <code>CONCEPTS.md</code> and whether definitions still match current code usage.</li>
+</ul>
+<p><strong>Drift classification — Update vs Replace:</strong></p>
+<ul>
+<li><strong>Update:</strong> File paths moved, classes renamed, links broke, metadata drifted, but the core recommended approach is still how code works. → Apply evidence-backed in-place edits.</li>
+<li><strong>Replace:</strong> Recommended solution conflicts with current code, architecture changed, or pattern is no longer preferred. → Write a successor via subagent (not inline).</li>
+</ul>
+<p>If you find yourself rewriting the solution section, stop — that is Replace, not Update.</p>
+<p><strong>Judgment guidelines:</strong></p>
+<ol>
+<li>Contradiction = strong Replace signal. Learning actively misleading.</li>
+<li>Age alone is not a stale signal. A 2-year-old learning matching current code is fine.</li>
+<li>Check for successors before deleting. Prefer Replace over Delete when evidence exists.</li>
+</ol>
+<h3 id="phase-15-investigate-pattern-docs">Phase 1.5: Investigate Pattern Docs<a class="headerlink" href="#phase-15-investigate-pattern-docs" title="Permanent link">&para;</a></h3>
+<p>After reviewing learnings, check pattern docs under <code>docs/solutions/patterns/</code>. A stale pattern is more dangerous than a stale individual learning.</p>
+<h3 id="phase-175-document-set-analysis">Phase 1.75: Document-Set Analysis<a class="headerlink" href="#phase-175-document-set-analysis" title="Permanent link">&para;</a></h3>
+<p>Step back and evaluate the document set as a whole for contradictions, overlaps, and supersession.</p>
+<p><strong>Overlap detection:</strong> Compare docs sharing module/component/tags across problem statement, solution shape, referenced files, prevention rules, root cause. High overlap across 3+ dimensions is a strong Consolidate signal.</p>
+<p><strong>Supersession signals:</strong> Newer doc covers same files and workflow but broader context; older doc is narrow precursor; newer doc has better examples. → Consolidation candidate.</p>
+<p><strong>Canonical doc identification:</strong> For each topic cluster, identify which doc is the authoritative source of truth. Other docs are either Distinct (independent retrieval value), Subsumed (unique content fits as section in canonical doc), or Redundant (adds nothing new).</p>
+<p><strong>Retrieval-value test:</strong> Would separate docs improve discoverability or just create drift risk? Separate only if they cover genuinely different sub-problems or target different contexts.</p>
+<p><strong>Cross-doc conflicts:</strong> "Always X" vs "Avoid X" for the same problem. Contradictions are more urgent than individual staleness.</p>
+<h3 id="phase-2-classify-the-maintenance-action">Phase 2: Classify the Maintenance Action<a class="headerlink" href="#phase-2-classify-the-maintenance-action" title="Permanent link">&para;</a></h3>
+<p>Assign one of five outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>When</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Keep</strong></td>
+<td>Still accurate and useful</td>
+<td>No edit; report reviewed and trustworthy</td>
+</tr>
+<tr>
+<td><strong>Update</strong></td>
+<td>Core solution valid, references drifted</td>
+<td>In-place edits (paths, links, snippets, metadata)</td>
+</tr>
+<tr>
+<td><strong>Consolidate</strong></td>
+<td>Two docs overlap heavily, both correct</td>
+<td>Merge unique content into canonical, delete subsumed</td>
+</tr>
+<tr>
+<td><strong>Replace</strong></td>
+<td>Core guidance now misleading</td>
+<td>Write successor via subagent, then delete old</td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td>No longer useful, code gone, fully redundant</td>
+<td>Delete the file (git history preserves it)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consolidate vs Delete:</strong> If subsumed doc has unique content worth preserving, consolidate first; if it adds nothing, delete.</p>
+<p><strong>Replace:</strong> Use only when you understand both what the old learning recommended AND what the current approach is. If evidence is insufficient, mark as stale instead.</p>
+<p><strong>Delete:</strong> Only after checking for inbound links. Classify citations as decorative (see-also pointers, safe to delete) vs substantive (citing doc relies on cited doc, signal Replace instead). Auto-delete only when: implementation is gone, problem domain is gone, and citations are absent/decorative.</p>
+<h3 id="phase-3-ask-for-decisions-interactive-mode-only">Phase 3: Ask for Decisions (Interactive Mode Only)<a class="headerlink" href="#phase-3-ask-for-decisions-interactive-mode-only" title="Permanent link">&para;</a></h3>
+<p><strong>Headless:</strong> Skip entirely. Proceed to Phase 4; execute unambiguous actions, mark ambiguous as stale.</p>
+<p><strong>Interactive:</strong> Ask questions one at a time using blocking tools. Present choices only when the right action is genuinely ambiguous (e.g., Update vs Replace vs Consolidate, or Delete with non-trivial evidence). For obvious Keeps and Updates, apply directly without asking.</p>
+<h3 id="phase-4-execute-chosen-action">Phase 4: Execute Chosen Action<a class="headerlink" href="#phase-4-execute-chosen-action" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Keep</strong> — No file edit; summarize why trustworthy.</li>
+<li><strong>Update</strong> — In-place edits when solution is substantively correct.</li>
+<li><strong>Consolidate</strong> — Merge overlapping docs, delete subsumed, update cross-references. Orchestrator handles directly.</li>
+<li><strong>Replace</strong> — Write successor learning via subagent (pass documentation contract files), validate frontmatter, delete old. If evidence insufficient, mark stale.</li>
+<li><strong>Delete</strong> — Final inbound-link check, then remove. Reclassify if substantive citations surface.</li>
+</ul>
+<h3 id="phase-45-vocabulary-capture-refresh-specific">Phase 4.5: Vocabulary Capture (Refresh-Specific)<a class="headerlink" href="#phase-45-vocabulary-capture-refresh-specific" title="Permanent link">&para;</a></h3>
+<p>After per-learning actions:</p>
+<ol>
+<li>Read <code>references/concepts-vocabulary.md</code> unconditionally.</li>
+<li>Aggregate domain terms surfaced across Phase 1 investigations, applying the reference's criteria.</li>
+<li>If <code>CONCEPTS.md</code> exists: add missing terms, refine existing entries when corpus surfaced new precision. Reconcile in-scope core nouns from the declared model (backfill central but missing nouns bounded to the area in scope).</li>
+<li>If <code>CONCEPTS.md</code> absent and terms qualified: bootstrap and seed the area in scope only (not repo-wide).</li>
+<li>Record outcome explicitly in the report.</li>
+</ol>
+<p><strong>Apply edits silently in all modes</strong> — no user prompt.</p>
+<h3 id="phase-5-commit-changes">Phase 5: Commit Changes<a class="headerlink" href="#phase-5-commit-changes" title="Permanent link">&para;</a></h3>
+<p>After report is generated, prepare commit if files were modified.</p>
+<p><strong>Headless mode defaults:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On main/master</td>
+<td>Create branch (e.g., <code>docs/refresh-auth-learnings</code>), commit, attempt PR. Report branch name if PR fails.</td>
+</tr>
+<tr>
+<td>On feature branch</td>
+<td>Commit on current branch.</td>
+</tr>
+<tr>
+<td>Git operations fail</td>
+<td>Include recommended commands in report, continue.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interactive mode:</strong> Show current branch context, then ask:</p>
+<ul>
+<li><strong>If on main/master:</strong> Recommend create branch + PR, or commit directly, or don't commit.</li>
+<li><strong>If on feature branch, clean tree:</strong> Recommend commit to current branch, or create separate branch, or don't commit.</li>
+<li><strong>If on feature branch, dirty tree:</strong> Recommend selective staging (compound-refresh changes only) to current branch, or don't commit.</li>
+</ul>
+<p>Stage only refresh-modified files regardless.</p>
+<p><strong>Commit message:</strong> Summarize what was refreshed (e.g., "update 3 stale learnings, consolidate 2 overlapping docs"), follow repo conventions, be succinct.</p>
+<h3 id="phase-55-discoverability-check">Phase 5.5: Discoverability Check<a class="headerlink" href="#phase-55-discoverability-check" title="Permanent link">&para;</a></h3>
+<p>After refresh complete, verify instruction files surface <code>docs/solutions/</code> and <code>CONCEPTS.md</code> (if it exists). Follow the shared Discoverability Check procedure above.</p>
+<p>If check produces edits: In interactive mode, apply or ask per the standard flow. In headless mode, report as "Discoverability recommendation" in the output; do not edit instruction files (headless scope is doc maintenance, not project config).</p>
+<h3 id="refresh-mode-output">Refresh Mode Output<a class="headerlink" href="#refresh-mode-output" title="Permanent link">&para;</a></h3>
+<p><strong>Headless report:</strong>
+<div class="highlight"><pre><span></span><code>Compound Refresh Summary
+========================
+Scanned: N learnings
+
+Kept: X
+Updated: Y
+Consolidated: C
+Replaced: Z
+Deleted: W
+Marked stale: S
+
+CONCEPTS.md: &lt;scanned, no qualifying terms | created with N entries (M seeded) | updated — N added, N refined&gt;
+
+Applied
+-------
+[For each Update/Consolidate/Replace/Delete that succeeded]
+- File path, action, evidence, outcome
+
+Recommended
+-----------
+[For each action that could not be written]
+- File path, action, full rationale for human to apply
+
+Documentation complete
+</code></pre></div></p>
+<p><strong>Interactive mode:</strong> Present recommendations grouped by action type (Keeps, Updates, Consolidates, Replaces, Deletes), ask for confirmation in stages, apply changes, show summary.</p>
+<hr />
+<h2 id="support-files">Support Files<a class="headerlink" href="#support-files" title="Permanent link">&para;</a></h2>
+<p>These files ship inside the skill bundle. Read them on-demand per phase:</p>
+<ul>
+<li><code>references/schema.yaml</code> — canonical frontmatter fields and enum values</li>
+<li><code>references/yaml-schema.md</code> — category mapping, YAML safety rules, array-item quoting</li>
+<li><code>references/concepts-vocabulary.md</code> — vocabulary inclusion criteria, seeding rules, scope discipline</li>
+<li><code>assets/resolution-template.md</code> — section structure for new docs</li>
+<li><code>scripts/validate-frontmatter.py</code> — parser-safety validator</li>
+<li><code>scripts/session-history/</code> — session discovery/extraction (capture mode only; <code>${CLAUDE_SKILL_DIR}</code> resolves paths)</li>
+<li><code>references/agents/</code> — local prompt assets for optional Phase 3 specialist reviews</li>
+<li><code>references/per-action-flows.md</code> (refresh mode) — detailed per-action procedures</li>
+</ul>
+<h2 id="categories-auto-detected">Categories (Auto-Detected)<a class="headerlink" href="#categories-auto-detected" title="Permanent link">&para;</a></h2>
+<p><strong>Bug track:</strong> build-errors/, test-failures/, runtime-errors/, performance-issues/, database-issues/, security-issues/, ui-bugs/, integration-issues/, logic-errors/</p>
+<p><strong>Knowledge track:</strong> architecture-patterns/, design-patterns/, tooling-decisions/, conventions/, workflow-issues/, developer-experience/, documentation-gaps/, best-practices/</p>
+<h2 id="auto-invoke-capture-mode-only">Auto-Invoke (Capture Mode Only)<a class="headerlink" href="#auto-invoke-capture-mode-only" title="Permanent link">&para;</a></h2>
+<p>Trigger phrases: "that worked", "it's fixed", "working now", "problem solved"</p>
+<p>Use <code>/jos-compound [context]</code> to document immediately without waiting for auto-detection.</p>
+<h2 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h2>
+<p><preconditions enforcement="advisory">
+  <check condition="problem_solved">Problem has been solved (capture) or scope is defined (refresh)</check>
+  <check condition="solution_verified">Solution verified working (capture only)</check>
+  <check condition="non_trivial">Non-trivial problem (capture only)</check>
+</preconditions></p>
+<h2 id="related-commands">Related Commands<a class="headerlink" href="#related-commands" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>/research [topic]</code> — Deep investigation</li>
+<li>Standalone <code>ce-compound</code> and <code>ce-compound-refresh</code> skills are deprecated; use <code>/jos-compound [mode]</code> instead</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

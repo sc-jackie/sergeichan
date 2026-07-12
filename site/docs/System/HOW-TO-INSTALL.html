@@ -1,0 +1,2013 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operator documentation for Jackie-OS — architecture, skills, workers, connectors, plans.">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/HOW-TO-INSTALL.html">
+      
+      
+        <link rel="prev" href="SKILLS.html">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Install on a new machine - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jackie-os-how-to-install-and-use-it" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Install on a new machine
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="JACKIE-OS-EXPLAINER.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/new-code-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="HOW-TO-INSTALL.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#for-your-friend-5-minute-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For your friend (5-minute read)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it is (detail)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-problem-it-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What problem it solves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-install-1-hour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick install (≈1 hour)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick install (≈1 hour)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-clone-and-open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Clone and open
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-copy-the-skill-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Copy the skill loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-register-your-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Register your projects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-bridge-each-code-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Bridge each code repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-code-repos-siblings-of-jackie-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code repos (siblings of Jackie-OS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-secrets-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Secrets (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#daily-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Daily workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-cursor-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud / Cursor agents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-pick-per-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles (pick per task)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-agent-skills-optional-tier-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global agent skills (optional, Tier C)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customize-for-your-life" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customize for your life
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading-in-the-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further reading (in the repo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#for-your-friend-5-minute-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For your friend (5-minute read)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it is (detail)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-problem-it-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What problem it solves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-install-1-hour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick install (≈1 hour)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick install (≈1 hour)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-clone-and-open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Clone and open
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-copy-the-skill-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Copy the skill loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-register-your-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Register your projects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-bridge-each-code-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Bridge each code repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-code-repos-siblings-of-jackie-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Code repos (siblings of Jackie-OS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-secrets-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Secrets (optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#daily-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Daily workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-cursor-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud / Cursor agents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-pick-per-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles (pick per task)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-agent-skills-optional-tier-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global agent skills (optional, Tier C)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customize-for-your-life" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customize for your life
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading-in-the-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further reading (in the repo)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="jackie-os-how-to-install-and-use-it">Jackie OS — how to install and use it<a class="headerlink" href="#jackie-os-how-to-install-and-use-it" title="Permanent link">&para;</a></h1>
+<p>A shareable guide for setting up a <strong>personal knowledge OS</strong> that keeps your notes, projects, and code repos aligned — with AI as your COO, not your memory.</p>
+<hr />
+<h2 id="for-your-friend-5-minute-read">For your friend (5-minute read)<a class="headerlink" href="#for-your-friend-5-minute-read" title="Permanent link">&para;</a></h2>
+<p><strong>What it is:</strong> Jackie OS is a git-backed Obsidian vault (your <strong>second brain</strong>) plus a small folder of AI "skills" (markdown playbooks) that any AI agent can run. You stay CEO — the agent is your COO <em>and</em> CTO: morning briefs, project status sync, research filing, and writing/shipping code. It does not rewrite your journal.</p>
+<p><strong>No server required.</strong> Open this folder in <strong>Claude Code</strong>, <strong>Cursor</strong>, or <strong>Codex</strong> and that tool becomes a Jackie OS agent — it auto-reads the rules and runs the skills; say <strong>wrap up</strong> and it syncs the vault. <strong>Hermes</strong> (an always-on agent on a VPS) is optional — it just runs the loop on a schedule while you sleep.</p>
+<p><strong>The problem it solves:</strong> You code in Cursor; Claude in a separate chat has no idea what you shipped yesterday. Notes and repos drift apart. Every session starts cold.</p>
+<p><strong>The minimum loop (this is the whole trick):</strong></p>
+<ol>
+<li><strong>Registry</strong> — one table maps each project to its vault note, code repo, or status file  </li>
+<li><strong>project-sync</strong> — pulls git + status files into vault <code>## Status</code> (runs at session end and inside the morning brief)  </li>
+<li><strong>hot.md</strong> — a ~500-word cache agents read first so they know current focus without re-reading everything  </li>
+<li><strong>Session end</strong> — say "wrap up"; agent syncs, updates hot, commits the vault  </li>
+</ol>
+<p><strong>Before / after:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"What was I working on?" every morning</td>
+<td>Yesterday's brief + hot.md</td>
+</tr>
+<tr>
+<td>Code and notes disagree</td>
+<td>One sync loop, one registry</td>
+</tr>
+<tr>
+<td>Fixes lost in one repo's chat history</td>
+<td><code>docs/solutions/</code> + cross-project index</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Three setup tiers</strong> — pick what fits:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>You get</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A — Vault PM</strong></td>
+<td>Obsidian + vault + registry + manual sync</td>
+<td>~30 min</td>
+</tr>
+<tr>
+<td><strong>B — Vault + code</strong></td>
+<td>Tier A + one code repo with bridge doc</td>
+<td>~1 h</td>
+</tr>
+<tr>
+<td><strong>C — Full loop</strong></td>
+<td>Tier B + always-on automation (VPS Hermes runs the morning stack on a schedule) + merge-poll for intraday code→vault sync</td>
+<td>~2 h + ongoing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Send your friend:</strong> this section + <a href="#quick-install-1-hour">Quick install</a> if they're technical, or Tier A only if they just want notes + AI briefs.</p>
+<hr />
+<h2 id="what-it-is-detail">What it is (detail)<a class="headerlink" href="#what-it-is-detail" title="Permanent link">&para;</a></h2>
+<p><strong>Jackie OS</strong> is a git-backed Obsidian vault plus a small <strong>skill system</strong> (<code>System/skills/</code>). Claude (Cowork, Cursor, or Claude Code) reads the same rules every session:</p>
+<ul>
+<li><strong>Vault</strong> — project notes, journals, briefs, theses, clippings  </li>
+<li><strong>Skills</strong> — repeatable workflows (morning brief, project sync, telegram-sweep, weekly review)  </li>
+<li><strong>Project registry</strong> — maps each project to its code repo and/or <code>STATUS.md</code>  </li>
+<li><strong>hot.md</strong> — a ~500-word cache agents read first (current focus, not history)</li>
+</ul>
+<p>You stay CEO. The agent is COO: briefs, status sync, research filing — not rewriting your journal.</p>
+<hr />
+<h2 id="what-problem-it-solves">What problem it solves<a class="headerlink" href="#what-problem-it-solves" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Without Jackie OS</th>
+<th>With Jackie OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You code in Cursor; Claude in chat has no idea</td>
+<td><strong>project-sync</strong> pulls <code>git</code> into vault <code>## Status</code></td>
+</tr>
+<tr>
+<td>Notes and repos drift apart</td>
+<td>One registry, one sync loop</td>
+</tr>
+<tr>
+<td>Every session starts cold</td>
+<td><code>hot.md</code> + yesterday's brief</td>
+</tr>
+<tr>
+<td>Fixes stay in one repo</td>
+<td><code>docs/solutions/</code> + cross-project index</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Obsidian</strong></td>
+<td>Read/write vault (optional but ideal for daily notes)</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>Version the vault and code repos</td>
+</tr>
+<tr>
+<td><strong>Claude Code / Cursor / Codex</strong></td>
+<td>Open the folder → it becomes a Jackie OS agent (<code>wrap up</code> sync at session end)</td>
+</tr>
+<tr>
+<td><strong>GitHub</strong></td>
+<td>Remote for vault + code repos</td>
+</tr>
+<tr>
+<td><strong>VPS + Hermes</strong> (optional)</td>
+<td>Always-on automation — runs the morning stack on a schedule while your Mac is off</td>
+</tr>
+<tr>
+<td><strong>Google Calendar + Gmail</strong> (optional)</td>
+<td>Morning brief connectors</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No Cursor automations</strong> — all were removed 2026-06-17; Cursor is just an IDE. Code→vault sync runs via the <strong>07:30 morning-brief</strong> (authoritative; reads merges from git log) plus a <strong>merge-poll GitHub Action</strong> in jackie-os (registry-driven, ~2h, read-only) for intraday updates. PR review on demand: <code>/review-bugbot</code> or <code>/review-security</code> in Cursor.</p>
+<hr />
+<h2 id="quick-install-1-hour">Quick install (≈1 hour)<a class="headerlink" href="#quick-install-1-hour" title="Permanent link">&para;</a></h2>
+<h3 id="1-clone-and-open">1. Clone and open<a class="headerlink" href="#1-clone-and-open" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:YOUR_USER/jackie-os.git<span class="w"> </span>~/jackie-os
+<span class="nb">cd</span><span class="w"> </span>~/jackie-os
+</code></pre></div>
+<p>Open <code>~/jackie-os/Vault/</code> in Obsidian. Read order for any agent:</p>
+<ol>
+<li><code>Vault/hot.md</code>  </li>
+<li><code>Vault/CLAUDE.md</code>  </li>
+<li><code>Vault/Home.md</code>  </li>
+<li>Project note for the task  </li>
+</ol>
+<p><strong>Branch note:</strong> jackie-os uses <strong><code>master</code></strong>. Code repos typically use <strong><code>main</code></strong>. Git on <code>origin/&lt;branch&gt;</code> is code truth; the vault is PM truth.</p>
+<h3 id="2-copy-the-skill-loop">2. Copy the skill loop<a class="headerlink" href="#2-copy-the-skill-loop" title="Permanent link">&para;</a></h3>
+<p>Jackie OS ships skills in <code>System/skills/</code>. You need <strong>thin scheduled tasks</strong> in Claude Cowork that only say: <em>"Read <code>System/skills/X.md</code> and follow it exactly."</em></p>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Skill</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>07:30</td>
+<td><code>morning-brief</code></td>
+<td>sweep → sync → brief → Persik → linking → <code>* links.md</code></td>
+</tr>
+<tr>
+<td>hourly</td>
+<td><code>journal-capture</code></td>
+<td>Persik DMs → daily note</td>
+</tr>
+<tr>
+<td>Sun 18:00</td>
+<td><code>weekly-review</code></td>
+<td>compound + <code>Vault/Briefs/YYYY-Www brief.md</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cowork space</strong> must include vault + code folders: <code>~/Jackie-OS</code> and <code>~/dev</code> (see <a href="OPERATOR.html"><code>OPERATOR.md</code></a> · <a href="skills/vault-rhythm/SKILL.html"><code>skills/vault-rhythm/SKILL.md</code></a>). Thin pointers: <code>~/Claude/Scheduled/*/SKILL.md</code> → <code>System/skills/</code>.</p>
+<p><strong>Retired Cowork crons:</strong> <code>jackie-os-telegram-sweep</code>, <code>jackie-os-daily-linking</code>, <code>jackie-os-vault-index</code> (on demand: <strong>vault index</strong>).</p>
+<h3 id="3-register-your-projects">3. Register your projects<a class="headerlink" href="#3-register-your-projects" title="Permanent link">&para;</a></h3>
+<p><strong>New git code repo:</strong> say <strong>register project</strong> or <strong>new code project</strong> in any Jackie-OS session — agent runs <code>System/skills/new-code-project.md</code> (registry, vault, bridge, learnings). Then complete the <strong>Cursor UI checklist</strong> in skill § B (automations are not automatic).</p>
+<p>Manual fallback — edit <code>System/project-registry.md</code> — one row per project:</p>
+<table>
+<thead>
+<tr>
+<th>Source type</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git</code></td>
+<td>Code repo with GitHub remote</td>
+</tr>
+<tr>
+<td><code>status-file</code></td>
+<td>Folder project with <code>Projects/MyThing/STATUS.md</code></td>
+</tr>
+<tr>
+<td><code>vault</code></td>
+<td>Dormant idea; vault note only</td>
+</tr>
+</tbody>
+</table>
+<p>Add a vault note per project (<code>Vault/My Project.md</code>) with a <code>## Status</code> section.</p>
+<h3 id="4-bridge-each-code-repo">4. Bridge each code repo<a class="headerlink" href="#4-bridge-each-code-repo" title="Permanent link">&para;</a></h3>
+<p>In every code repo, add <code>docs/JACKIE-OS.md</code> (copy from <code>System/templates/JACKIE-OS-bridge.md</code>) and a line in that repo's <code>CLAUDE.md</code>:</p>
+<blockquote>
+<p>After coding: push + PR merge (merge-poll Action + 07:30 brief sync the vault) <strong>or</strong> from Jackie OS say <strong>wrap up</strong> for direct pushes / vault-only work.</p>
+</blockquote>
+<h3 id="5-code-repos-siblings-of-jackie-os">5. Code repos (siblings of Jackie-OS)<a class="headerlink" href="#5-code-repos-siblings-of-jackie-os" title="Permanent link">&para;</a></h3>
+<p>Code repos live <strong>outside</strong> Jackie-OS in a sibling tree (<code>~/dev/</code>), never nested inside it — keeps the vault git clean and avoids gitignore hacks. Pattern:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/dev
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:YOUR_USER/my-app.git<span class="w"> </span>~/dev/my-app
+</code></pre></div>
+<p>Register the path in <code>project-registry.md</code> as a <code>git</code> row (<code>~/dev/my-app/</code>). The vault holds knowledge <em>about</em> the repo in a project note; the code stays in <code>~/dev/</code>. Commit code changes inside <code>~/dev/my-app/</code> separately from Jackie-OS vault commits.</p>
+<h3 id="6-secrets-optional">6. Secrets (optional)<a class="headerlink" href="#6-secrets-optional" title="Permanent link">&para;</a></h3>
+<p>Telegram sweep + morning brief delivery: <code>.secrets/telegram.env</code> (gitignored). See <code>System/skills/telegram-sweep.md</code> and <code>System/skills/morning-brief.md</code>.</p>
+<p>Telegram delivery: <code>.secrets/telegram.env</code> — see <code>System/skills/morning-brief.md</code>. The delivery scripts live in the repo at <code>System/coo/</code> (e.g. <code>brief-deliver-via-cron.py</code>, <code>brief-to-telegram.py</code>) and are symlinked onto the VPS at <code>~/.hermes/scripts/</code> via <code>System/scripts/hermes-vps-link-scripts.sh</code>.</p>
+<p><strong>Cowork network allowlist</strong> (Settings → Capabilities): <code>api.telegram.org</code>, and your Newfin API host for coo-push.</p>
+<hr />
+<h2 id="daily-workflow">Daily workflow<a class="headerlink" href="#daily-workflow" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Evening / after vault work          Morning (automatic)
+        │                                │
+        ▼                                ▼
+  &quot;wrap up&quot; (vault only)          07:30 morning-brief
+        │                         (sweep + sync + brief
+        ├─ project-sync            + Telegram DM + coo-cache + linking)
+        └─ git commit vault
+
+  PR merge on code repo → merge-poll Action syncs vault intraday; 07:30 brief is authoritative
+</code></pre></div>
+<p><strong>Rule:</strong> Git on <code>origin/&lt;branch&gt;</code> is code truth (<code>main</code> for apps, <code>master</code> for jackie-os). The vault is PM truth. <strong>Push before sync.</strong></p>
+<hr />
+<h2 id="cloud-cursor-agents">Cloud / Cursor agents<a class="headerlink" href="#cloud-cursor-agents" title="Permanent link">&para;</a></h2>
+<p>Cursor cloud agents often clone only Jackie-OS — not your external code repos or gitignored nested folders. <strong>project-sync</strong> skips missing clones and logs a warning; it does not fail the whole sync. For full sync, run <strong>wrap up</strong> or morning brief on a machine where registry paths exist locally (your Mac via Cowork is the typical source of truth).</p>
+<hr />
+<h2 id="roles-pick-per-task">Roles (pick per task)<a class="headerlink" href="#roles-pick-per-task" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>COO</strong> (default)</td>
+<td>Briefs, sync, calendar</td>
+</tr>
+<tr>
+<td><strong>CPO</strong></td>
+<td>Scoping on project notes</td>
+</tr>
+<tr>
+<td><strong>CMO</strong></td>
+<td>Marketing projects</td>
+</tr>
+<tr>
+<td><strong>CRO</strong></td>
+<td>Research → <code>Vault/Clippings/</code></td>
+</tr>
+<tr>
+<td><strong>Coach</strong></td>
+<td>Fractal reviews — <code>Briefs/… brief</code> + your period notes; [[Reviews]]</td>
+</tr>
+<tr>
+<td><strong>CTO</strong></td>
+<td>Code in external repos</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="global-agent-skills-optional-tier-c">Global agent skills (optional, Tier C)<a class="headerlink" href="#global-agent-skills-optional-tier-c" title="Permanent link">&para;</a></h2>
+<p><strong>One command</strong> (Jackie-OS clone on the Mac):</p>
+<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>~/Jackie-OS/System/tools/install-global-skills.sh
+</code></pre></div>
+<p>Installs real-file copies of global skills (previously Jackie-OS owned: <code>jos-design-ui</code>, <code>jos-plan</code>, <code>jos-plan</code>, <code>jos-product-eval</code>, <code>agent-reach</code>, <code>jos-performance-check</code>) + selective upstream (<code>grill-for-unknowns</code> + <code>grill-me</code> alias stub, <code>teach</code>, <code>last30days</code>, 3× CE) into <code>~/.agents/skills/</code>. <strong>Do not</strong> bulk-install the CE plugin. Subagent map: <a href="cursor-rules.html"><code>cursor-rules.md</code></a>.</p>
+<p><strong>Ad-hoc web reads (Exa + OpenCLI):</strong> used by <code>research.md</code> § Quick scout. Install mcporter + Exa:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>mcporter<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mcporter<span class="w"> </span>config<span class="w"> </span>add<span class="w"> </span>exa<span class="w"> </span>https://mcp.exa.ai/mcp
+</code></pre></div>
+<p>For OpenCLI (Instagram/Twitter/Reddit reads), install agent-reach separately — it is no longer bundled with Jackie-OS:</p>
+<div class="highlight"><pre><span></span><code>pipx<span class="w"> </span>install<span class="w"> </span>https://github.com/Panniantong/Agent-Reach/archive/main.zip
+agent-reach<span class="w"> </span>install<span class="w"> </span>--env<span class="o">=</span>auto<span class="w">   </span><span class="c1"># EU/US channels only; CN channels archived</span>
+</code></pre></div>
+<p><strong>Codebase memory MCP</strong> (structural code intelligence — newfin + rodyna):</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash<span class="w"> </span>-s<span class="w"> </span>--<span class="w"> </span>--skip-config
+codebase-memory-mcp<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>auto_index<span class="w"> </span><span class="nb">true</span>
+</code></pre></div>
+<p>Add to <code>~/.cursor/mcp.json</code> (alongside headroom):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;codebase-memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Users/jackie/.local/bin/codebase-memory-mcp&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Restart Cursor. Routing: <a href="skills/codebase-memory.html"><code>System/skills/codebase-memory.md</code></a>.</p>
+<p>After a non-trivial fix in a code repo:</p>
+<ol>
+<li><code>jos-compound</code> → writes <code>docs/solutions/</code> in that repo  </li>
+<li>Add one index row in Jackie OS <code>Vault/Agent-Learnings/</code> (never copy the full doc)  </li>
+<li><code>jos-compound</code> is in-session (not automated); the <strong>merge-poll Action</strong> + <strong>07:30 morning-brief</strong> keep the vault in sync (no Cursor automation — all removed 2026-06-17)</li>
+</ol>
+<hr />
+<h2 id="customize-for-your-life">Customize for your life<a class="headerlink" href="#customize-for-your-life" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Jackie OS (Sergei)</th>
+<th>Your version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Vault/Theses.md</code></td>
+<td>Your principles or goals</td>
+</tr>
+<tr>
+<td><code>Projects/Newfin/</code></td>
+<td>Your apps</td>
+</tr>
+<tr>
+<td><code>telegram-sweep</code></td>
+<td>Any capture inbox (email, Slack — adapt skill)</td>
+</tr>
+<tr>
+<td>Cowork 07:30</td>
+<td>Your timezone</td>
+</tr>
+</tbody>
+</table>
+<p>Keep: <strong>registry + project-sync + wrap-up + hot.md</strong>. That's the minimum loop that prevents "Claude didn't know what I shipped yesterday."</p>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brief missing yesterday's code work</td>
+<td>Push to GitHub, then <strong>sync projects</strong> (or wait for 07:30 brief)</td>
+</tr>
+<tr>
+<td>Brief says old state (e.g. "behind 107") but you already pulled</td>
+<td>Evening project-sync updated vault but not brief body — check brief <code>## Since sync</code> or wait for tomorrow's 07:30 brief</td>
+</tr>
+<tr>
+<td>Agent overwrote my journal</td>
+<td>Hard rule: never edit inside <code>Vault/YYYY-MM-DD.md</code> journal bodies</td>
+</tr>
+<tr>
+<td>Two agents collided on a file</td>
+<td><code>git status</code> first; multi-writer discipline in root <code>CLAUDE.md</code></td>
+</tr>
+<tr>
+<td>Cowork task ran wrong logic</td>
+<td>Task must be a <strong>thin pointer</strong> to <code>System/skills/</code>, not inline instructions</td>
+</tr>
+<tr>
+<td>project-sync skipped my code repo</td>
+<td>Clone missing at registry path — create clone or update path in <code>project-registry.md</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="further-reading-in-the-repo">Further reading (in the repo)<a class="headerlink" href="#further-reading-in-the-repo" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>CLAUDE.md</code> — root agent guide  </li>
+<li><code>System/SKILLS.md</code> — skill map + Cowork schedule table  </li>
+<li><code>System/project-registry.md</code> — project paths + canonical path table  </li>
+<li><code>System/plans/roadmap-index.md</code> — plan board · <code>System/plans/future-improvements.md</code> — ideas  </li>
+</ul>
+<hr />
+<p><em>Jackie OS v0 — personal AI operating system. The thinking stays yours; the system remembers the state.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

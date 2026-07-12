@@ -1,0 +1,2124 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Builds and refines web and miniapp interfaces using each project's design system, design research, criterion-resolved critique, and screenshot verification. Use when the user asks to design, redesign, polish, restyle, refresh, revamp, rethink, lay out, or improve how a screen, page, view, component, widget, nav, hero, card, form, or app looks or reads — including requests that never say "UI" (e.g. "design the menu", "make the library cleaner", "this screen feels off", "full redesign concept", "show me 3 ways"). Also when touching CSS, design tokens, typography, color, spacing, motion, i18n copy in UI, miniapp/frontend visual work, mockups as code, or visual fidelity to a brief. Invoke before presentation-layer code. Not for backend-only, API-only, or logic-only bugs with no visual change.">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/skills/jos-design-ui/SKILL.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>jos-design-ui - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jos-design-ui" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              jos-design-ui
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JACKIE-OS-EXPLAINER.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../new-code-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HOW-TO-INSTALL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-invoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to invoke
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to invoke">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#always-invoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Always invoke
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-not-invoke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do not invoke
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-greenfield-or-existing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow (greenfield or existing)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality bar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-read-before-any-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Read (before any code)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-dials-core-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three Dials (core configuration)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three Dials (core configuration)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dial-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dial table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-system-map-before-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design System Map (before code)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-doc-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design doc contract
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design doc contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resolve-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolve path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-mandatory-before-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read (mandatory before code)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-after-ship-quality-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update (after ship-quality work)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-before-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planning (before code)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-guidance-core-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design guidance (core principles)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design guidance (core principles)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#color-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Color &amp; Surfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluid-interaction-apple-core-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluid interaction (Apple) — core rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Copy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessibility-floor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessibility floor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css-discipline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSS discipline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-first-approach-existing-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit-first approach (existing projects)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criterion-resolved-critique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criterion-resolved critique
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Criterion-resolved critique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heuristic-snapshot-before-final-crit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heuristic snapshot (before final crit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polish-details-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polish details checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hard-rules-anti-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hard rules &amp; anti-patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-patterns-motion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference patterns (Motion)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference patterns (Motion)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sticky-stack-cards-stack-on-scroll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sticky-Stack (cards stack on scroll)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-project-design-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-project design docs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retired-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retired skills
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="jos-design-ui">jos-design-ui<a class="headerlink" href="#jos-design-ui" title="Permanent link">&para;</a></h1>
+<p>Comprehensive skill for production-grade UI: read the brief, design with taste, build against the project design doc, critique per axis, polish details, verify with screenshots.</p>
+<p><strong>Slash:</strong> <code>/jos-design-ui</code> (optional — auto-invokes on design/redesign/polish language).</p>
+<hr />
+<h2 id="when-to-invoke">When to invoke<a class="headerlink" href="#when-to-invoke" title="Permanent link">&para;</a></h2>
+<p>Load this skill <strong>before</strong> presentation-layer work when there is even ~1% chance the task changes how something looks or reads.</p>
+<h3 id="always-invoke">Always invoke<a class="headerlink" href="#always-invoke" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design verbs</td>
+<td>design, redesign, polish, refine, restyle, refresh, revamp, rethink</td>
+</tr>
+<tr>
+<td>Look &amp; feel</td>
+<td>ugly, off, AI slop, generic, template, cleaner, hierarchy, feels better</td>
+</tr>
+<tr>
+<td>Surfaces</td>
+<td>screen, page, view, layout, component, hero, nav, card, form, widget</td>
+</tr>
+<tr>
+<td>Design system</td>
+<td>tokens, CSS variables, typography, color, spacing, theme, dark mode</td>
+</tr>
+<tr>
+<td>Concept</td>
+<td>full redesign, mockups, explore directions, options A/B/C, design lab</td>
+</tr>
+<tr>
+<td>Implementation</td>
+<td>new screen/component, <code>*.css</code>, design-memory / design-system edits</td>
+</tr>
+</tbody>
+</table>
+<h3 id="do-not-invoke">Do not invoke<a class="headerlink" href="#do-not-invoke" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Backend, SQL, API, bot logic, jobs — no presentation change</li>
+<li>Logic-only bugs with no visual/layout/copy ask</li>
+<li>Plan-only spec review → <code>grill-me</code> or <code>/planning-loop</code>; invoke this skill when building</li>
+</ul>
+<hr />
+<h2 id="workflow-greenfield-or-existing">Workflow (greenfield or existing)<a class="headerlink" href="#workflow-greenfield-or-existing" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Brief Inference → Design Read → Detect mode → Design System Map → 
+Read doc + tokens → Plan → Build → Heuristic snapshot → Crit → Fix → 
+Update doc → Screenshot → Deploy
+</code></pre></div>
+<p><strong>For redesigns:</strong> insert Audit-First before Design System Map.</p>
+<hr />
+<h2 id="quality-bar">Quality bar<a class="headerlink" href="#quality-bar" title="Permanent link">&para;</a></h2>
+<p>Hold these in addition to crit:</p>
+<ol>
+<li><strong>Brief fidelity</strong> — matches user request, no hallucination</li>
+<li><strong>Design doc match</strong> — inherits tokens, patterns, not a template</li>
+<li><strong>One memorable anchor</strong> per screen (hero, figure, mascot, masthead)</li>
+<li><strong>Typographic intention</strong> — deliberate scale and pairing</li>
+<li><strong>Restraint</strong> — remove one decorative element before ship (Chanel rule)</li>
+<li><strong>Product-native</strong> — no generic AI clusters (cream serif terracotta, dark acid, hairline broadsheet) unless brief asks</li>
+<li><strong>Copy earns pixels</strong> — utility voice in apps; no marketing speak</li>
+<li><strong>Screenshot gate</strong> — if it doesn't look good in the screenshot, it doesn't ship</li>
+</ol>
+<hr />
+<h2 id="design-read-before-any-code">Design Read (before any code)<a class="headerlink" href="#design-read-before-any-code" title="Permanent link">&para;</a></h2>
+<p><strong>Always infer, never assume.</strong> Pull only what fits the brief:</p>
+<ol>
+<li><strong>Page kind</strong> — landing (SaaS / consumer / agency), portfolio, redesign, editorial, dashboard</li>
+<li><strong>Vibe words</strong> — "minimalist", "premium", "playful", "agency-y", "trust-first", "editorial"</li>
+<li><strong>Reference signals</strong> — URLs, screenshots, products, brands named</li>
+<li><strong>Audience</strong> — B2B procurement, design-conscious consumer, recruiter, public-sector</li>
+<li><strong>Brand assets</strong> — logo, color, type, photography (for redesigns: starting material, not optional)</li>
+<li><strong>Quiet constraints</strong> — accessibility-first, regulated, kids' products, trust-first commerce</li>
+</ol>
+<p><strong>Output:</strong> one line before code: <em>"Reading this as: \<page kind> for \<audience>, with a \<vibe> language, leaning toward \<system or aesthetic>."</em></p>
+<p>If brief is ambiguous, ask ONE clarifying question only.</p>
+<hr />
+<h2 id="three-dials-core-configuration">Three Dials (core configuration)<a class="headerlink" href="#three-dials-core-configuration" title="Permanent link">&para;</a></h2>
+<p>After the design read, set three dials. Every layout and motion decision below is gated by these.</p>
+<ul>
+<li><strong><code>DESIGN_VARIANCE: 8</code></strong> — 1 = Perfect Symmetry, 10 = Artsy Chaos</li>
+<li><strong><code>MOTION_INTENSITY: 6</code></strong> — 1 = Static, 10 = Cinematic / Physics</li>
+<li><strong><code>VISUAL_DENSITY: 4</code></strong> — 1 = Art Gallery / Airy, 10 = Cockpit / Packed</li>
+</ul>
+<p><strong>Baseline:</strong> <code>8 / 6 / 4</code>. Use these unless the design read overrides them.</p>
+<h3 id="dial-table">Dial table<a class="headerlink" href="#dial-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Brief reads as…</th>
+<th>VARIANCE</th>
+<th>MOTION</th>
+<th>DENSITY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>minimalist / calm / editorial / Linear-style</td>
+<td>5-6</td>
+<td>3-4</td>
+<td>2-3</td>
+</tr>
+<tr>
+<td>premium consumer / Apple-y / luxury</td>
+<td>7-8</td>
+<td>5-7</td>
+<td>3-4</td>
+</tr>
+<tr>
+<td>playful / wild / agency / Awwwards</td>
+<td>9-10</td>
+<td>8-10</td>
+<td>3-4</td>
+</tr>
+<tr>
+<td>landing page (default)</td>
+<td>7</td>
+<td>6</td>
+<td>4</td>
+</tr>
+<tr>
+<td>trust-first / public-sector / regulated</td>
+<td>3-4</td>
+<td>2-3</td>
+<td>4-5</td>
+</tr>
+<tr>
+<td>redesign - preserve</td>
+<td>match existing</td>
+<td>+1</td>
+<td>match</td>
+</tr>
+<tr>
+<td>redesign - overhaul</td>
+<td>+2</td>
+<td>+2</td>
+<td>match</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="design-system-map-before-code">Design System Map (before code)<a class="headerlink" href="#design-system-map-before-code" title="Permanent link">&para;</a></h2>
+<p>For the brief, pick the right foundation:</p>
+<table>
+<thead>
+<tr>
+<th>Brief reads as…</th>
+<th>Reach for</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft / enterprise SaaS</td>
+<td><code>@fluentui/react-components</code></td>
+<td>Official tokens, a11y done</td>
+</tr>
+<tr>
+<td>Google / Material-flavored</td>
+<td><code>@material/web</code> + Material 3</td>
+<td>Official, theme-able</td>
+</tr>
+<tr>
+<td>IBM-style B2B / analytics</td>
+<td><code>@carbon/react</code></td>
+<td>Official Carbon patterns</td>
+</tr>
+<tr>
+<td>Modern React SaaS (you own it)</td>
+<td><code>shadcn/ui</code> + <code>@radix-ui/themes</code></td>
+<td>You own the code, easy to customize</td>
+</tr>
+<tr>
+<td>Tailwind SaaS (default)</td>
+<td>Tailwind v4 + utilities</td>
+<td>Industry standard for indie builds</td>
+</tr>
+<tr>
+<td>Trust-first / public-sector UK</td>
+<td><code>govuk-frontend</code></td>
+<td>Legally expected</td>
+</tr>
+<tr>
+<td>US public-sector</td>
+<td><code>uswds</code></td>
+<td>Same</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Honesty rule:</strong> if the brief matches a real system above, install and use the official package. Do not recreate its CSS by hand.</p>
+<p><strong>One system per project.</strong> Do not mix Fluent React with Carbon in the same tree.</p>
+<hr />
+<h2 id="design-doc-contract">Design doc contract<a class="headerlink" href="#design-doc-contract" title="Permanent link">&para;</a></h2>
+<h3 id="resolve-path">Resolve path<a class="headerlink" href="#resolve-path" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layout</th>
+<th>Design doc</th>
+<th>Token source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>miniapp/</code></td>
+<td><code>miniapp/docs/design-memory.md</code></td>
+<td><code>src/styles/base.css</code> or per doc</td>
+</tr>
+<tr>
+<td><code>web/</code> at repo root</td>
+<td><code>docs/design-system.md</code></td>
+<td><code>web/src/styles/globals.css</code></td>
+</tr>
+<tr>
+<td><code>apps/web/</code> (monorepo)</td>
+<td><code>docs/design-system.md</code></td>
+<td><code>apps/web/src/app/globals.css</code></td>
+</tr>
+<tr>
+<td>None yet</td>
+<td>Scaffold from <code>Jackie-OS/System/templates/design-system.md</code></td>
+<td>TBD</td>
+</tr>
+</tbody>
+</table>
+<h3 id="read-mandatory-before-code">Read (mandatory before code)<a class="headerlink" href="#read-mandatory-before-code" title="Permanent link">&para;</a></h3>
+<p>Read the full design doc (YAML + prose) + <code>## Design Crit axes</code> + token source CSS for touched tokens.</p>
+<h3 id="update-after-ship-quality-work">Update (after ship-quality work)<a class="headerlink" href="#update-after-ship-quality-work" title="Permanent link">&para;</a></h3>
+<p>When new patterns ship:
+- YAML frontmatter anchor tokens (if present)
+- Components table, tokens, screen recipes
+- <code>## Design Crit axes</code> if rubric refined
+- <code>## Changelog (design)</code> row (date + one line)</p>
+<hr />
+<h2 id="planning-before-code">Planning (before code)<a class="headerlink" href="#planning-before-code" title="Permanent link">&para;</a></h2>
+<p>Output briefly:</p>
+<ol>
+<li><strong>Primary job</strong> — "User opens this to ___"</li>
+<li><strong>States matrix</strong> — default, loading, empty, error, success</li>
+<li><strong>Visual thesis</strong> — mood, material, energy (from design doc)</li>
+<li><strong>Content plan</strong> — order and hierarchy</li>
+<li><strong>Interaction plan</strong> — 2–3 motions from doc tokens</li>
+<li><strong>Uniqueness check</strong> — revise any element that reads like a generic default</li>
+</ol>
+<hr />
+<h2 id="design-guidance-core-principles">Design guidance (core principles)<a class="headerlink" href="#design-guidance-core-principles" title="Permanent link">&para;</a></h2>
+<h3 id="typography">Typography<a class="headerlink" href="#typography" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Display + body pairing with personality; deliberate scale and weight</li>
+<li>Yield to doc fonts in existing apps</li>
+<li>Serif <strong>only</strong> if brief explicitly names it OR aesthetic is editorial/luxury/heritage AND you articulate why this serif fits</li>
+<li><strong>AVOID Inter as default</strong> — reach for Geist, Outfit, Cabinet Grotesk, Satoshi</li>
+<li><strong>Never use Fraunces or Instrument_Serif</strong> as defaults</li>
+<li>Italic descenders: use <code>leading-[1.1]</code> minimum, not <code>leading-none</code></li>
+<li><code>text-wrap: balance</code> on headings, <code>text-wrap: pretty</code> on body</li>
+</ul>
+<h3 id="color-surfaces">Color &amp; Surfaces<a class="headerlink" href="#color-surfaces" title="Permanent link">&para;</a></h3>
+<ul>
+<li>CSS variables; 60/30/10 instinct: surface / structure / accent</li>
+<li>Max one accent per view unless doc defines more</li>
+<li><strong>THE LILA RULE:</strong> no automatic purple/blue AI glow. Use neutral bases (Zinc/Slate/Stone) with high-contrast singular accents (Emerald, Electric Blue, Deep Rose, etc.)</li>
+<li><strong>NO pure <code>#000000</code></strong> — use off-black (zinc-950, charcoal)</li>
+<li>Tint shadows to background hue, not pure black at low opacity</li>
+<li>One palette per project; do not fluctuate between warm and cool grays</li>
+</ul>
+<h3 id="composition">Composition<a class="headerlink" href="#composition" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Viewport as poster: whitespace, alignment, scale before chrome</li>
+<li>Gestalt: proximity groups; one focal weight; figure-ground separates content from chrome</li>
+<li>Cards only when the card <strong>is</strong> the interaction</li>
+<li><strong>Hero fit in viewport</strong> — headline max 2 lines, subtext max 20 words and 3-4 lines, CTA visible without scroll</li>
+<li><strong>Hero top padding cap:</strong> max <code>pt-24</code> at desktop</li>
+<li><strong>Hero stack:</strong> max 4 text elements (optional eyebrow + headline + subtext + CTAs only)</li>
+<li><strong>Navigation on one line</strong> at desktop; height cap 80px max</li>
+</ul>
+<h3 id="motion">Motion<a class="headerlink" href="#motion" title="Permanent link">&para;</a></h3>
+<ul>
+<li>2–3 intentional motions for visual-led work; use project motion tokens</li>
+<li>Animate <code>transform</code>/<code>opacity</code> only; respect <code>prefers-reduced-motion</code></li>
+<li><strong>MOTION MUST BE MOTIVATED</strong> — hierarchy, storytelling, feedback, state transition. Never "it looked cool."</li>
+<li>Ban: <code>window.addEventListener('scroll')</code> — use Motion, GSAP ScrollTrigger, or IntersectionObserver</li>
+<li><strong>Sticky-Stack &amp; Horizontal-Pan:</strong> see reference patterns below</li>
+</ul>
+<h3 id="fluid-interaction-apple-core-rules">Fluid interaction (Apple) — core rules<a class="headerlink" href="#fluid-interaction-apple-core-rules" title="Permanent link">&para;</a></h3>
+<p>Full playbook with code + spring values: <code>references/apple-design.md</code>. Read it whenever building gesture-driven UI (drag, swipe, sheets, drawers), springs, or glass/translucent surfaces. The distilled rules:</p>
+<ul>
+<li><strong>Respond on pointer-down, not release.</strong> Press feedback is instant; during a drag the UI tracks the pointer 1:1 (respect the grab offset), never animating only at the end.</li>
+<li><strong>Every animation is interruptible.</strong> Animate from the current <em>presentation</em> value, never the target. Springs (not CSS transitions/keyframes) for anything the user can grab mid-flight.</li>
+<li><strong>Springs: critically damped by default</strong> (<code>bounce: 0</code>, response 0.3–0.4s). Add bounce (~0.2) only when the gesture carried momentum — a flick earns overshoot, a fade-in menu doesn't.</li>
+<li><strong>Velocity handoff + projection.</strong> On release, the spring inherits the finger's velocity, and the snap target comes from the <em>projected</em> resting point, not the release point.</li>
+<li><strong>Rubber-band boundaries</strong> — progressive resistance at edges, never a hard stop.</li>
+<li><strong>Spatial consistency.</strong> Enter and exit along the same path; popovers/menus scale from their trigger (<code>transform-origin</code> at the source), not from center.</li>
+<li><strong>Translucent chrome:</strong> <code>backdrop-filter</code> layers with content scrolling underneath; material weight encodes hierarchy; never stack two light glass surfaces.</li>
+<li><strong>Reduced-* trio:</strong> honor <code>prefers-reduced-motion</code> (cross-fade instead of slide/spring), <code>prefers-reduced-transparency</code> (solidify glass), <code>prefers-contrast</code> (defined borders).</li>
+<li><strong>Type changes shape with size:</strong> negative tracking on display text (<code>-0.02em</code>), ~0 on body; leading inversely tracks size.</li>
+<li><strong>Eight foundations</strong> to reason with: Purpose, Agency, Responsibility, Familiarity, Flexibility, Simplicity (not minimalism), Craft, Delight — delight is the result of the other seven, not confetti on top.</li>
+</ul>
+<h3 id="copy">Copy<a class="headerlink" href="#copy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Product voice, not design commentary</li>
+<li>Active voice; consistent vocabulary through flows</li>
+<li>Empty/error states invite action; errors specific, not apologetic</li>
+<li>No AI clichés: "elevate", "seamless", "unleash", "next-gen", "game-changer"</li>
+<li>No fake-precise numbers (92%, 4.1×, 48k) unless real data</li>
+<li><strong>NO em-dash (<code>—</code>) anywhere</strong> — use period, comma, colon, or line break</li>
+</ul>
+<h3 id="accessibility-floor">Accessibility floor<a class="headerlink" href="#accessibility-floor" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Semantic HTML; WCAG AA contrast; <code>:focus-visible</code> on interactives</li>
+<li>Icon-only buttons: <code>aria-label</code> (i18n where user-facing)</li>
+<li>Touch ≥ doc minimum (44px typical)</li>
+<li><strong>Button contrast check (mandatory):</strong> button text readable against button background</li>
+<li><strong>Form contrast check:</strong> inputs, labels, helper text, error text all WCAG AA</li>
+</ul>
+<h3 id="css-discipline">CSS discipline<a class="headerlink" href="#css-discipline" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Avoid specificity wars (e.g. <code>.section</code> vs <code>.cta</code> canceling padding)</li>
+<li>Concentric border radius: outer radius = inner radius + padding</li>
+<li>Shadows over borders for natural depth</li>
+<li>Never <code>h-screen</code> — use <code>min-h-[100dvh]</code> for iOS Safari</li>
+</ul>
+<hr />
+<h2 id="audit-first-approach-existing-projects">Audit-first approach (existing projects)<a class="headerlink" href="#audit-first-approach-existing-projects" title="Permanent link">&para;</a></h2>
+<p><strong>Mode detection:</strong> Greenfield, Redesign-Preserve, or Redesign-Overhaul?</p>
+<p><strong>Scan:</strong> Read the codebase. Framework, styling method, current patterns.</p>
+<p><strong>Diagnose:</strong> Run through the audit. Generic patterns, weak points, missing states.</p>
+<p><strong>Extract before changing:</strong>
+- Brand tokens (colors, type, radii, logo)
+- Information architecture (don't break slugs, nav labels, analytics tracking)
+- Existing design signals (DESIGN_VARIANCE, MOTION_INTENSITY reading from current site)</p>
+<p><strong>Apply in priority order:</strong>
+1. Font swap (biggest lift, lowest risk)
+2. Color recalibration (keep brand accent, unify neutrals)
+3. Hover/active states (makes interface feel alive)
+4. Spacing &amp; rhythm (section padding, vertical rhythm)
+5. Replace generic components (cliché patterns)
+6. Add loading, empty, error states (feels finished)
+7. Polish typography scale (premium final touch)</p>
+<hr />
+<h2 id="criterion-resolved-critique">Criterion-resolved critique<a class="headerlink" href="#criterion-resolved-critique" title="Permanent link">&para;</a></h2>
+<p>Score <strong>each axis 1–5</strong> with evidence. Default axes:</p>
+<p><strong>Checkable:</strong> <code>brief_fidelity</code>, <code>token_accuracy</code>, <code>spatial_accuracy</code>, <code>copy_accuracy</code>, <code>scope_fidelity</code></p>
+<p><strong>Felt:</strong> <code>visual_hierarchy</code>, <code>mood_tone</code>, <code>typography_craft</code>, <code>color_harmony</code> (fail if ≤2)</p>
+<p><strong>Platform:</strong> per project doc (e.g. Rodyna <code>telegram_fit</code>; Newfin <code>editorial_identity</code>)</p>
+<h3 id="heuristic-snapshot-before-final-crit">Heuristic snapshot (before final crit)<a class="headerlink" href="#heuristic-snapshot-before-final-crit" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Visibility — status and next step clear?</li>
+<li>Match — language fits user world?</li>
+<li>Control — back/cancel without trap?</li>
+<li>Consistency — matches sibling screens?</li>
+<li>Error prevention — destructive obvious; empty invites action?</li>
+</ol>
+<p>Any <strong>no</strong> → fix before ship.</p>
+<h3 id="output-format">Output format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="gu">## Design crit — [route/screen]</span>
+
+| Axis | Score | Pass | Evidence |
+|------|-------|------|----------|
+| brief_fidelity | | | |
+
+<span class="gs">**Heuristic snapshot:**</span> pass / fail — …
+<span class="gs">**Design doc updated:**</span> yes/no — …
+</code></pre></div>
+<hr />
+<h2 id="polish-details-checklist">Polish details checklist<a class="headerlink" href="#polish-details-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Concentric border radius on nested elements</li>
+<li>[ ] Icons optically centered, not geometric</li>
+<li>[ ] Shadows instead of borders where appropriate</li>
+<li>[ ] Enter animations split and staggered (~100ms delay)</li>
+<li>[ ] Exit animations subtle (small fixed <code>translateY</code>, not full height)</li>
+<li>[ ] Dynamic numbers use <code>tabular-nums</code></li>
+<li>[ ] <code>-webkit-font-smoothing: antialiased</code> on macOS</li>
+<li>[ ] Headings use <code>text-wrap: balance</code></li>
+<li>[ ] Images have subtle outlines (<code>1px</code> with low opacity)</li>
+<li>[ ] Buttons scale on press (<code>scale-[0.96]</code> only, never below 0.95)</li>
+<li>[ ] Skip animations on page load (<code>initial={false}</code> on <code>AnimatePresence</code>)</li>
+<li>[ ] No <code>transition: all</code> — specific properties only</li>
+<li>[ ] <code>will-change</code> only on <code>transform</code>, <code>opacity</code>, <code>filter</code></li>
+<li>[ ] Interactive elements ≥ 40×40px hit area</li>
+</ul>
+<hr />
+<h2 id="hard-rules-anti-patterns">Hard rules &amp; anti-patterns<a class="headerlink" href="#hard-rules-anti-patterns" title="Permanent link">&para;</a></h2>
+<p><strong>BANNED unless brief explicitly asks:</strong>
+- Purple SaaS, gradient filler, decorative 01/02/03
+- Carousel without purpose, competing accents
+- Prompt language in UI, broken contrast, missing focus
+- 3-column equal feature cards (use 2-col zig-zag, asymmetric grid, or scroll)
+- Centered hero on every page (use split-screen, left-align, or asymmetric white-space for <code>DESIGN_VARIANCE &gt; 4</code>)
+- Eyebrow on every section (max 1 per 3 sections)
+- Hero with 3+ text rows (stack vertically if text is necessary)
+- Fake product screenshots (div-based UI mockups)
+- Placeholder Lorem Ipsum or fake names ("John Doe", "Jane Smith", "Acme Corp")
+- Generic avatars (egg SVG, default user icons)
+- Section numbering eyebrows (<code>00 / INDEX</code>, <code>001 · Capabilities</code>)
+- Div-based fake screenshots or decorative colored dots
+- Content density (cut ruthlessly; max 6-8 sections on landing)
+- AI copywriting clichés</p>
+<hr />
+<h2 id="visual-verification">Visual verification<a class="headerlink" href="#visual-verification" title="Permanent link">&para;</a></h2>
+<p>Tool cascade (first available):</p>
+<ol>
+<li>Project Playwright / Puppeteer / Cypress</li>
+<li>Browser MCP (<code>mcp__claude-in-chrome__*</code>)</li>
+<li><code>agent-browser</code> CLI</li>
+<li>Mental review (note skipped)</li>
+</ol>
+<p>Attach screenshot + crit table. One iteration minimum.</p>
+<hr />
+<h2 id="reference-patterns-motion">Reference patterns (Motion)<a class="headerlink" href="#reference-patterns-motion" title="Permanent link">&para;</a></h2>
+<h3 id="sticky-stack-cards-stack-on-scroll">Sticky-Stack (cards stack on scroll)<a class="headerlink" href="#sticky-stack-cards-stack-on-scroll" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;use client&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useRef</span><span class="p">,</span><span class="w"> </span><span class="nx">useEffect</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">gsap</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;gsap&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ScrollTrigger</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;gsap/ScrollTrigger&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useReducedMotion</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;motion/react&quot;</span><span class="p">;</span>
+
+<span class="nx">gsap</span><span class="p">.</span><span class="nx">registerPlugin</span><span class="p">(</span><span class="nx">ScrollTrigger</span><span class="p">);</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">StickyStack</span><span class="p">({</span><span class="w"> </span><span class="nx">cards</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">cards</span><span class="o">:</span><span class="w"> </span><span class="kt">React.ReactNode</span><span class="p">[]</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">HTMLDivElement</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">reduce</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useReducedMotion</span><span class="p">();</span>
+
+<span class="w">  </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">reduce</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gsap</span><span class="p">.</span><span class="nx">context</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">cardEls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gsap</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">toArray</span><span class="p">&lt;</span><span class="nt">HTMLElement</span><span class="p">&gt;(</span><span class="s2">&quot;.stack-card&quot;</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">cardEls</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">card</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">cardEls</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">ScrollTrigger</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">          </span><span class="nx">trigger</span><span class="o">:</span><span class="w"> </span><span class="kt">card</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">start</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;top top&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">endTrigger</span><span class="o">:</span><span class="w"> </span><span class="kt">cardEls</span><span class="p">[</span><span class="nx">cardEls</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">],</span>
+<span class="w">          </span><span class="nx">end</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;top top&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">pin</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">pinSpacing</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="nx">ref</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">revert</span><span class="p">();</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">reduce</span><span class="p">]);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}&gt;</span>
+<span class="w">      </span><span class="p">{</span><span class="nx">cards</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">card</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;stack-card sticky top-0 min-h-[100dvh]&quot;</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">{</span><span class="nx">card</span><span class="p">}</span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">))}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="related-tools">Related tools<a class="headerlink" href="#related-tools" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grill-me</code></td>
+<td>Stress-test plan/spec before code</td>
+</tr>
+<tr>
+<td><code>/jos-plan</code></td>
+<td>Full plan iteration</td>
+</tr>
+<tr>
+<td><code>/jos-performance-check</code></td>
+<td>Perf benchmark + live-app audit after UI ship</td>
+</tr>
+<tr>
+<td><code>/jos-product-eval</code></td>
+<td>Functional smoke scenarios</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>~/Jackie-OS/System/tools/install-global-skills.sh
+</code></pre></div>
+<h2 id="per-project-design-docs">Per-project design docs<a class="headerlink" href="#per-project-design-docs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Doc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rodyna</td>
+<td><code>miniapp/docs/design-memory.md</code></td>
+</tr>
+<tr>
+<td>Newfin</td>
+<td><code>docs/design-system.md</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="retired-skills">Retired skills<a class="headerlink" href="#retired-skills" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>ce-frontend-design</code> — removed; use <code>jos-design-ui</code></li>
+<li>Anthropic <code>frontend-design</code> plugin — disable in <code>~/.claude/settings.json</code></li>
+<li><code>design-ui</code>, <code>design-taste-frontend</code>, <code>high-end-visual-design</code>, <code>make-interfaces-feel-better</code>, <code>redesign-existing-projects</code> — merged into <code>jos-design-ui</code></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

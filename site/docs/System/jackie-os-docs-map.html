@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jackie-OS Docs Map</title>
+<style>
+  :root {
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'IBM Plex Sans', sans-serif;
+    --font-mono: 'SF Mono', 'Courier New', monospace;
+
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --surface2: #eef1f8;
+    --border: rgba(20, 32, 58, 0.10);
+    --border-bright: rgba(20, 32, 58, 0.20);
+    --text: #14203a;
+    --text-dim: #5d6b86;
+    --text-muted: #8a94aa;
+
+    --jackie: #b45309;
+    --hermes: #1e3a8a;
+    --vault: #7c3aed;
+    --skills: #0f766e;
+    --telegram: #0891b2;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c1322;
+      --surface: #131c30;
+      --surface2: #1a2540;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(255, 255, 255, 0.16);
+      --text: #e6ecf7;
+      --text-dim: #93a1bf;
+      --text-muted: #6b7a94;
+
+      --jackie: #fbbf24;
+      --hermes: #7da3ff;
+      --vault: #d8b4fe;
+      --skills: #5eead4;
+      --telegram: #06b6d4;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 24px 20px 64px;
+  }
+
+  @media (min-width: 768px) {
+    body { padding: 48px 40px 80px; }
+  }
+
+  h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; line-height: 1.2; }
+  h2 { font-size: 18px; font-weight: 600; margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); }
+  h3 { font-size: 15px; font-weight: 600; margin: 16px 0 8px; }
+
+  a { color: var(--hermes); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .hero {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero p {
+    color: var(--text-dim);
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .hero strong { color: var(--text); font-weight: 600; }
+
+  /* Ecosystem diagram */
+  .ecosystem {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 48px;
+    overflow-x: auto;
+  }
+
+  .eco-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-family: var(--font-mono);
+  }
+
+  .eco-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .eco-title { font-weight: 600; color: var(--text); }
+  .eco-detail { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+
+  /* Grid layout for sections */
+  .section { margin-bottom: 48px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--surface2);
+    color: var(--text);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-bright);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  td:first-child { font-weight: 500; }
+  td code {
+    background: var(--surface2);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  /* Cards for docs-by-intent */
+  .cards {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  @media (min-width: 768px) {
+    .cards { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+  }
+
+  .card p {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0;
+  }
+
+  .card-label {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  /* The Loop footer */
+  .loop {
+    background: linear-gradient(135deg, rgba(180, 83, 9, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-top: 48px;
+  }
+
+  .loop h2 {
+    margin: 0 0 16px;
+  }
+
+  .loop-flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .loop-step { color: var(--text); }
+  .loop-arrow { color: var(--text-muted); }
+
+  .loop-cron {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    h1 { font-size: 24px; }
+    h2 { font-size: 16px; margin: 32px 0 16px; }
+    table { font-size: 13px; }
+    th, td { padding: 10px 12px; }
+    .loop-flow { font-size: 13px; gap: 4px; }
+  }
+
+  .small-caps { text-transform: uppercase; letter-spacing: 0.05em; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Jackie-OS Docs Map</h1>
+  <p><strong>The rule this page exists for:</strong> Before building anything new — a skill, script, worker, connector, automation — check this index for prior art. Something similar probably exists; extend it instead of adding a parallel thing.</p>
+</div>
+
+<section class="section">
+  <h2>System at a Glance</h2>
+  <div class="ecosystem">
+    <div class="eco-box">
+      <div class="eco-label">CEO & PO</div>
+      <div class="eco-title">Sergei</div>
+      <div class="eco-detail">Refines + approves in Linear; orchestrates workers</div>
+    </div>
+
+    <div class="eco-box">
+      <div class="eco-label">Entry Points</div>
+      <div class="eco-title">@Persik_finbot · @persik_hermes_bot</div>
+      <div class="eco-detail">Money bot + COO/CTO agent; Telegram dispatch</div>
+    </div>
+
+    <div class="eco-box">
+      <div class="eco-label">The OS</div>
+      <div class="eco-title">Jackie-OS (Hermes VPS)</div>
+      <div class="eco-detail">Vault (memory) · Skills (specs) · Scripts (runners) · LLM gateway · Cron (3 layers)</div>
+    </div>
+
+    <div class="eco-box">
+      <div class="eco-label">Code Repos</div>
+      <div class="eco-title">Newfin · Rodyna · B-Unit · Draw</div>
+      <div class="eco-detail">Product codebases; all use shared rails (Supabase, Vercel, LLM)</div>
+    </div>
+
+    <div class="eco-box">
+      <div class="eco-label">Workers</div>
+      <div class="eco-title">Hermes · Cyrus · Codex · Interactive Agents</div>
+      <div class="eco-detail">Dispatch from Linear backlog → PR flow → Linear status sync</div>
+    </div>
+
+    <div class="eco-box">
+      <div class="eco-label">Shared Rails</div>
+      <div class="eco-title">Supabase (Postgres) · Vercel (hosting) · LLM (Claude → Gemini)</div>
+      <div class="eco-detail">One spine: Hermes is the single gateway, SSH bridge, and cron host</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Docs by Intent</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Understand the whole system in one screen</h3>
+      <p>Systems map: Jackie-OS · Newfin · Rodyna · Draw · B-Unit + shared rails.</p>
+      <div class="card-label">ARCHITECTURE.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Learn the vocabulary</h3>
+      <p>Hermes, Persik, hot.md, two-bot model, three-cron system, LLM gateway, Linear integration.</p>
+      <div class="card-label">CONCEPTS.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Find a skill or script</h3>
+      <p>Full inventory grouped by job. Skill-vs-script decision tree.</p>
+      <div class="card-label">System/CATALOG.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Skill registry with triggers</h3>
+      <p>All skills, their triggers, install instructions, and <code>jos-</code> naming convention.</p>
+      <div class="card-label">System/SKILLS.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Operate the system day-to-day</h3>
+      <p>What to say, what runs itself, operator cheat-sheet for Sergei.</p>
+      <div class="card-label">System/OPERATOR.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Know what runs when</h3>
+      <p>Cron inventory: 3 scheduler layers (Agent cron, OS crontab, Mac weekly-review).</p>
+      <div class="card-label">System/skills/vault-rhythm/SKILL.md</div>
+    </div>
+
+    <div class="card">
+      <h3>See current state fast</h3>
+      <p>~500-word session cache. Updated at every session end.</p>
+      <div class="card-label">Vault/hot.md</div>
+    </div>
+
+    <div class="card">
+      <h3>See forward work</h3>
+      <p>Plans in flight, roadmaps, future improvements for each project.</p>
+      <div class="card-label">System/plans/</div>
+    </div>
+
+    <div class="card">
+      <h3>Find a past technical fix</h3>
+      <p>Cross-repo learnings index. Each repo's <code>docs/solutions/</code> holds the fix write-ups.</p>
+      <div class="card-label">Vault/Agent-Learnings/Index.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Explain the system to a friend</h3>
+      <p>Narrative walkthrough of Jackie-OS, the two-bot model, and automation layers.</p>
+      <div class="card-label">System/JACKIE-OS-EXPLAINER.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Vault rules & privacy</h3>
+      <p>Journals, permissions, multi-writer safety, file naming conventions.</p>
+      <div class="card-label">Vault/CLAUDE.md</div>
+    </div>
+
+    <div class="card">
+      <h3>Agent operating rules</h3>
+      <p>Read order, roles (COO, CRO, CTO, etc.), safety, orchestration, compound engineering.</p>
+      <div class="card-label">CLAUDE.md</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Workers — Autonomous Agents</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Worker</th>
+        <th>Runs On</th>
+        <th>Scope</th>
+        <th>Dispatch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Hermes</strong></td>
+        <td>VPS <code>hermes@your-vps-host</code></td>
+        <td>Morning stack, journal, sync, ops — the always-on Jackie-OS instance</td>
+        <td>3-layer cron (agent-cron · OS crontab · Mac weekly-review)</td>
+      </tr>
+      <tr>
+        <td><strong>Cyrus</strong></td>
+        <td>Hermes VPS</td>
+        <td>Linear backlog → PR on B-Unit, Newfin, Rodyna</td>
+        <td>Linear labels (Loop A refine → Loop B build)</td>
+      </tr>
+      <tr>
+        <td><strong>Codex</strong></td>
+        <td>GitHub CI</td>
+        <td>Same repos, PR review + build lane</td>
+        <td>Linear labels / CI</td>
+      </tr>
+      <tr>
+        <td><strong>Interactive Agents</strong></td>
+        <td>Mac (Claude Code, Cursor, Codex CLI)</td>
+        <td>Anything, per <code>CLAUDE.md</code> roles</td>
+        <td>Sergei, per session</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="color: var(--text-dim); font-size: 13px; margin-top: 12px;"><strong>Dispatch flow:</strong> Linear <code>needs-refinement</code> → <code>needs-approval</code> → <code>Todo</code> → PR → <code>Done</code>. Merge-poll auto-posts Linear project status on batched merges.</p>
+</section>
+
+<section class="section">
+  <h2>Connectors — External Surfaces</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Connector</th>
+        <th>Type</th>
+        <th>Used By</th>
+        <th>Config</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>@persik_hermes_bot</code></td>
+        <td>Telegram bot</td>
+        <td>Briefs, journal, ops, COO/CTO</td>
+        <td>VPS + <code>.secrets/telegram.env</code></td>
+      </tr>
+      <tr>
+        <td><code>@Persik_finbot</code></td>
+        <td>Telegram bot</td>
+        <td>Money COO, advisor, owner ops</td>
+        <td>Vercel env (never on VPS)</td>
+      </tr>
+      <tr>
+        <td><strong>Linear</strong></td>
+        <td>MCP + API</td>
+        <td>Tracking (B-Unit, Newfin, Rodyna); Cyrus dispatch</td>
+        <td>claude.ai connector · <code>~/.cursor/mcp.json</code></td>
+      </tr>
+      <tr>
+        <td><strong>Supabase</strong></td>
+        <td>MCP + CLI</td>
+        <td>Newfin, Rodyna, B-Unit DBs</td>
+        <td>claude.ai connector</td>
+      </tr>
+      <tr>
+        <td><strong>Gmail / Google Calendar</strong></td>
+        <td>MCP + OAuth</td>
+        <td>Morning brief; COO</td>
+        <td>claude.ai connectors · <code>.secrets/</code> OAuth</td>
+      </tr>
+      <tr>
+        <td><strong>Vercel</strong></td>
+        <td>MCP + auto-deploy</td>
+        <td>Newfin, Rodyna, B-Unit hosting</td>
+        <td>claude.ai connector</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub</strong></td>
+        <td><code>gh</code> CLI + merge-poll</td>
+        <td>All repos, PR flow</td>
+        <td><code>gh auth</code></td>
+      </tr>
+      <tr>
+        <td>Hermes SSH bridge</td>
+        <td>SSH</td>
+        <td>Newfin advisor turns → VPS LLM gateway</td>
+        <td><code>hermes-ops-exec.sh</code> allowlist</td>
+      </tr>
+      <tr>
+        <td><strong>codebase-memory</strong></td>
+        <td>MCP (local)</td>
+        <td>Structural code queries (Newfin, Rodyna)</td>
+        <td><code>~/.cursor/mcp.json</code> · Sun cron index</td>
+      </tr>
+      <tr>
+        <td><strong>headroom</strong></td>
+        <td>MCP + proxy `:8787`</td>
+        <td>Token compression</td>
+        <td>Mac + VPS</td>
+      </tr>
+      <tr>
+        <td><strong>LLM Gateway</strong></td>
+        <td>Single gateway</td>
+        <td>ALL AI calls (Claude → Gemini failover)</td>
+        <td>VPS <code>hermes</code> CLI</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <h2>Three Automation Layers</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Jobs</th>
+        <th>Schedule</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Hermes Agent Cron</strong></td>
+        <td><code>morning-brief</code> · <code>journal-capture</code> · <code>telegram-sweep</code> · <code>trade-digest</code></td>
+        <td>07:30 · hourly · 07:00 · 07:10</td>
+      </tr>
+      <tr>
+        <td><strong>OS Crontab</strong></td>
+        <td><code>autodeploy</code> · <code>merge-poll</code> · <code>healthcheck</code> · <code>intel-weekly</code> · <code>cbm-index</code></td>
+        <td>*/2 · ~2h · 08:00 · Sun · Sun</td>
+      </tr>
+      <tr>
+        <td><strong>Mac Weekly</strong></td>
+        <td><code>weekly-review</code> (only remaining Cowork schedule)</td>
+        <td>Sun 18:00</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="color: var(--text-dim); font-size: 13px; margin-top: 12px;">A job must never live in multiple layers. VPS owns everything; Mac weekly-review is the last holdover. On-demand: <code>research &lt;topic&gt;</code> skill (no auto-watchlist).</p>
+</section>
+
+<div class="loop">
+  <h2 style="margin-top: 0;">The Loop — Daily Rhythm</h2>
+  <div class="loop-flow">
+    <span class="loop-step">capture</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">brief</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">build</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">sync</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">compound</span>
+  </div>
+  <p style="color: var(--text-dim); font-size: 13px; margin: 0 0 12px;">Journal capture (hourly) → morning brief (07:30) + Telegram + sync → work loop → project-sync + wrap-up + compound learning (session-end).</p>
+  <div class="loop-cron">
+07:00 telegram-sweep<br>
+07:10 trade-digest<br>
+07:30 morning-brief → git push<br>
+hourly journal-capture
+  </div>
+</div>
+
+</body>
+</html>
