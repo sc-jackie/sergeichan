@@ -3,5 +3,9 @@
   "framework": null,
   "buildCommand": "",
   "outputDirectory": "site",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/docs", "destination": "/docs/", "permanent": false },
+    { "source": "/docs/System/plans", "destination": "/docs/System/plans/", "permanent": false }
+  ]
 }
