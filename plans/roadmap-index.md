@@ -6,7 +6,7 @@
 > fix the doc. **After every ship:** agents prune [future-improvements](future-improvements.md) and
 > refresh this index in the same commit ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
-_Last audited against `main` on 2026-07-11 (`5762613`)._
+_Last audited against `main` on 2026-07-12 (`ba7915e`)._
 
 ## Plan-doc status
 
@@ -20,7 +20,8 @@ _Last audited against `main` on 2026-07-11 (`5762613`)._
 
 | Area | Shipped in | Notes |
 | ---- | ---------- | ----- |
-| *(none yet)* | — | Add rows as milestones land |
+| Jackie-OS case study | `685a45d` (#1) | Fuller rework: linked-memory particle field, two-ledger vault card, six-job loop w/ icons, before/after, ownership grid, grounded copy. The standalone landing (jackieos.vercel.app) was retired into this; that Vercel project is deleted. |
+| Docs → Fumadocs | `ba7915e` | Replaced MkDocs Material with a Fumadocs (Next.js static-export) site at `/jackie-os/docs` (shadcn-neutral + gold accent, ⌘K search). Source app in `docs-src/`; built export in `site/jackie-os/`. |
 
 ## Conventions
 
