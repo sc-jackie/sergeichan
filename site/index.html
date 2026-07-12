@@ -129,7 +129,8 @@
   #case .arch .arr{color:var(--dim);font-family:ui-monospace,Menlo,monospace}
   /* ============ optional case sections — jackie-os flagship (rendered only when data present) ============ */
   /* two ledgers: second brain / agent */
-  #case .duo{display:grid;grid-template-columns:1fr 1fr;margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0A0C13}
+  #case .vaultcard{margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0A0C13}
+  #case .duo{display:grid;grid-template-columns:1fr 1fr}
   @media (max-width:680px){ #case .duo{grid-template-columns:1fr} }
   #case .duo > div{padding:22px 24px 26px}
   #case .duo > div + div{border-left:1px solid var(--line)}
@@ -143,13 +144,13 @@
   #case .duo li span{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim);white-space:nowrap;padding-top:2px}
   #case .duo .foot{margin-top:14px;font-size:13px;color:var(--dim);line-height:1.5}
   /* linked-memory figure (particle field) */
-  #case .memfig{margin-top:14px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0A0C13}
+  #case .memfig{border-top:1px solid var(--line)}
   #case .memfig .body{position:relative;height:260px}
   #case .memfig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
   #case .memfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:9px 13px;border-top:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
   #case .memfig figcaption b{color:var(--acc);font-weight:500}
   /* the loop — six jobs (with icons) */
-  #case .cjobs{margin-top:6px;border-top:1px solid var(--line)}
+  #case .cjobs{margin-top:6px}
   #case .cjob{display:grid;grid-template-columns:26px 116px 1fr auto;gap:18px;align-items:baseline;padding:15px 2px 15px 10px;border-bottom:1px solid var(--line);border-left:2px solid transparent;transition:border-color .2s}
   #case .cjob:hover{border-left-color:var(--acc)}
   #case .cjob .ic{width:20px;height:20px;color:var(--dim);align-self:center;transition:color .2s,transform .25s}
@@ -181,7 +182,7 @@
   #case .ba .dots i{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--dim)}
   #case .ba .panel.good .dots i:first-child{background:var(--acc);border-color:var(--acc)}
   /* ownership truths */
-  #case .truths{margin-top:6px;border-top:1px solid var(--line)}
+  #case .truths{margin-top:6px}
   #case .truth{display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:baseline;padding:15px 2px;border-bottom:1px solid var(--line)}
   @media (max-width:640px){ #case .truth{grid-template-columns:1fr;gap:4px} }
   #case .truth b{font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.02em;color:var(--pearl);font-weight:500}
@@ -276,15 +277,17 @@
     <p class="one" id="cOne"></p>
     <div class="metarow" id="cMeta"></div>
     <h3>What it is</h3><div id="cWhat"></div>
+    <h3>Why it exists</h3><div id="cWhy"></div>
     <div class="opt" id="secDuo">
       <h3>One vault, one agent</h3>
-      <div class="duo" id="cDuo"></div>
-      <figure class="memfig">
-        <div class="body"><canvas id="memCv" aria-hidden="true"></canvas></div>
-        <figcaption><span>notes become linked memory</span><b id="memTag">linked memory</b></figcaption>
-      </figure>
+      <div class="vaultcard">
+        <div class="duo" id="cDuo"></div>
+        <figure class="memfig">
+          <div class="body"><canvas id="memCv" aria-hidden="true"></canvas></div>
+          <figcaption><span>the vault, over time</span><b id="memTag">linked memory</b></figcaption>
+        </figure>
+      </div>
     </div>
-    <h3>Why it exists</h3><div id="cWhy"></div>
     <h3>What it solves</h3><div id="cSolve"></div>
     <div class="opt" id="secLoop"><h3>The loop — six jobs</h3><div class="cjobs" id="cJobs"></div></div>
     <div class="opt" id="secDay"><h3>A day with it</h3><div class="cday" id="cDay"></div></div>
@@ -367,7 +370,7 @@
       one:'A personal AI operating system — memory, skills, and always-on agents running one life.',
       meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
       what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
-      why:'<p>After a decade of self-directed work, the hardest problem wasn\'t ambition — it was <b>structure</b>. No boss, no team, no external rhythm. Instead of borrowing discipline from a job, I built the rhythm as software: a system that briefs me, remembers for me, and keeps working while I don\'t.</p>',
+      why:'<p>Every assistant I tried was sharp for an hour and blank by the next session — notes in one app, code in another, the same context re-explained every morning. The model was never the bottleneck; the missing <b>memory</b> was.</p><p>So I built the memory instead of the model. One vault holds the truth, the agents read it before they act, and the daily rhythm I never got from a job now runs as software: briefing me, remembering for me, and working while I sleep.</p>',
       solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
       jobs:[
         {t:'Capture', m:'hourly', ic:'<path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 15v5h16v-5"/>', d:'A DM — a thought, a link, "met Sarah" — is filed to your journal, your clippings, or the person it mentions, and linked.'},
