@@ -1,0 +1,1308 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operator documentation for Jackie-OS — architecture, skills, workers, connectors, plans.">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/skills/jos-plan/references/plan-handoff.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Plan Handoff - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#plan-handoff" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Plan Handoff
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JACKIE-OS-EXPLAINER.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../new-code-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../HOW-TO-INSTALL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#538-document-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.8 Document Review
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#539-final-checks-and-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3.9 Final Checks and Cleanup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-post-generation-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Post-Generation Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue Creation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="plan-handoff">Plan Handoff<a class="headerlink" href="#plan-handoff" title="Permanent link">&para;</a></h1>
+<p>This file contains post-plan-writing instructions: document review, post-generation options, and issue creation. Load it after the plan file has been written and the confidence check (5.3.1-5.3.7) is complete.</p>
+<h2 id="538-document-review">5.3.8 Document Review<a class="headerlink" href="#538-document-review" title="Permanent link">&para;</a></h2>
+<p><strong>Format gate.</strong> This phase runs only when <code>OUTPUT_FORMAT=md</code> (resolved in SKILL.md Phase 0.0). <code>ce-doc-review</code>'s mutation mechanics are markdown-specific — its walkthrough applies <code>gated_auto</code>/<code>manual</code> fixes as "single-file markdown changes" via the platform's edit tool, and its Append-to-Open-Questions flow inserts <code>##</code>/<code>###</code> markdown headings (see the walkthrough and open-questions-defer references inside the ce-doc-review skill). Running those mutators against an HTML artifact would produce malformed output. Until ce-doc-review gains HTML-aware mutation, HTML plans skip this phase entirely.</p>
+<p><strong>When <code>OUTPUT_FORMAT=html</code>:</strong> Skip the ce-doc-review invocation. Capture a synthetic "skipped" envelope so the menu summary line in 5.4 can name the limitation explicitly:
+- <code>fixes_applied = 0</code>
+- <code>proposed_fixes_count = 0</code>, <code>decisions_count = 0</code>, <code>fyi_count = 0</code>
+- <code>skipped_reason = "output_format_html"</code></p>
+<p>Then proceed directly to Final Checks (5.3.9). Do not block on this — the confidence check at 5.3 already strengthened the plan. Free-form requests for review in the post-generation menu will be declined for HTML runs with a prompt to switch to <code>output:md</code> (see 5.4); review is not available for HTML plans until ce-doc-review gains HTML-aware mutation.</p>
+<p><strong>When <code>OUTPUT_FORMAT=md</code>:</strong> Run the <code>ce-doc-review</code> skill with <code>mode:headless</code> on the plan file. Pass <code>mode:headless &lt;plan-path&gt;</code> as the skill arguments. When this step is reached for a markdown plan, it is mandatory — do not skip it because the confidence check already ran. The two tools catch different classes of issues.</p>
+<p>Headless is the default at this phase because most users want to start work after planning, not adjudicate every reviewer concern up front. Headless applies <code>safe_auto</code> fixes silently and returns structured findings text — no walkthrough, no per-finding routing, no blocking prompts. The post-generation menu (see 5.4) offers <code>Run deeper doc review</code> as a first-class option so users can opt into the full interactive walkthrough when they want it.</p>
+<p>The confidence check and ce-doc-review are complementary:
+- The confidence check strengthens rationale, sequencing, risk treatment, and grounding
+- Document-review checks coherence, feasibility, scope alignment, and surfaces role-specific issues</p>
+<p>Capture the headless envelope so it can drive the contextual summary above the post-generation menu:
+- The number of fixes auto-applied
+- The count of remaining findings, broken out by user-facing bucket (proposed fixes, decisions, FYI observations)
+- The severity breakdown of decisions and proposed fixes (specifically the P0/P1 count, since those benefit from explicit user attention)</p>
+<p>When ce-doc-review returns "Review complete", proceed to Final Checks.</p>
+<p><strong>Pipeline mode:</strong> Pipeline runs (LFG or any <code>disable-model-invocation</code> context) force <code>OUTPUT_FORMAT=md</code> at Phase 0.0, so the format gate above never selects the HTML skip path in pipeline mode. Pipeline runs always invoke <code>ce-doc-review</code> with <code>mode:headless</code> and the plan path — the headless mode is identical to the interactive default at this phase. No further routing is offered in pipeline mode; the caller decides what to do with the returned findings. Address any P0/P1 findings before returning control to the caller.</p>
+<h2 id="539-final-checks-and-cleanup">5.3.9 Final Checks and Cleanup<a class="headerlink" href="#539-final-checks-and-cleanup" title="Permanent link">&para;</a></h2>
+<p>Before proceeding to post-generation options:
+- Confirm the plan is stronger in specific ways, not merely longer
+- Confirm the planning boundary is intact
+- Confirm origin decisions were preserved when an origin document exists</p>
+<p>If artifact-backed mode was used:
+- Clean up the temporary scratch directory after the plan is safely updated
+- If cleanup is not practical on the current platform, note where the artifacts were left</p>
+<p><strong>Format-specific composition.</strong> When <code>OUTPUT_FORMAT=html</code> (resolved in SKILL.md Phase 0.0), the plan is written as a single self-contained <code>.html</code> file — there is no markdown sibling. Read <code>references/html-rendering.md</code> for composition rules: invariants, precedence stack, format principles, agent-consumability rules, and the post-compose audit. The <code>.html</code> file is the artifact downstream consumers (ce-work, human readers) read. <code>ce-doc-review</code> is not a current HTML consumer — its mutation mechanics are markdown-only today, and HTML plans skip the 5.3.8 doc-review pass until that gap closes.</p>
+<p>When <code>OUTPUT_FORMAT=md</code>, write the markdown directly per <code>references/markdown-rendering.md</code>. No HTML is composed.</p>
+<p>After all mutations in this run have settled (initial write, deepening synthesis, ce-doc-review <code>safe_auto</code> fixes when <code>OUTPUT_FORMAT=md</code>), the artifact at its single path reflects the final state. Publishing to Proof is one-way and does not mutate the local file. HTML runs skip the ce-doc-review autofix step (see 5.3.8 format gate).</p>
+<h2 id="54-post-generation-options">5.4 Post-Generation Options<a class="headerlink" href="#54-post-generation-options" title="Permanent link">&para;</a></h2>
+<p><strong>Pipeline mode:</strong> If invoked from an automated workflow such as LFG or any <code>disable-model-invocation</code> context, skip the interactive menu below and return control to the caller immediately. The plan file has already been written, the confidence check has already run, and ce-doc-review has already run — the caller (e.g., lfg) determines the next step.</p>
+<p><strong>Path format:</strong> Use absolute paths for chat-output file references — relative paths are not auto-linked as clickable in most terminals.</p>
+<p><strong>Summary line above the menu (always):</strong> Print a single concise line summarizing the headless review state — e.g., <code>Doc review applied 3 fixes. 2 decisions, 1 proposed fix, 4 FYI observations remain (1 at P1).</code> When no fixes were applied and no findings remain, print <code>Doc review clean — no fixes needed.</code> When the envelope carries <code>skipped_reason: output_format_html</code> (HTML run, per Phase 5.3.8 format gate), print <code>Doc review skipped — ce-doc-review is markdown-only today; the HTML plan was not reviewed.</code> so the user knows the autofix pass did not run on this artifact. This line establishes what the autofix pass did (or didn't) so the user has the context to choose between the menu options below.</p>
+<p><strong>Question:</strong> "Plan ready at <code>&lt;absolute path to plan&gt;</code>. What would you like to do next?"</p>
+<p><strong>Options:</strong>
+1. <strong>Start <code>/ce-work</code></strong> (recommended) - Begin implementing this plan in the current session
+2. <strong>Run deeper doc review</strong> - Walk through the remaining findings interactively (full ce-doc-review walkthrough)
+3. <strong>Create Issue</strong> - Create a tracked issue from this plan in your configured issue tracker (e.g., GitHub Issues, Linear, Jira)
+4. <strong>Publish to Proof — shareable link</strong> - Publish the plan to Every's Proof editor and get a shareable link to read, comment on, or share with others. One-way: the local plan file stays canonical. <strong>Render only when <code>OUTPUT_FORMAT=md</code>.</strong>
+4. <strong>Open in browser</strong> - Open the HTML plan file locally for review and sharing. <strong>Render only when <code>OUTPUT_FORMAT=html</code>.</strong>
+5. <strong>Done for now</strong> - Pause; the plan file is saved and can be resumed later</p>
+<p><strong>Option 4 format-keyed label.</strong> Under exclusive output mode, the plan exists as exactly one artifact — <code>.md</code> or <code>.html</code>, never both. Render the option 4 label matching the produced format. Proof ingests the <code>.md</code> source, so it does not apply to HTML runs; the browser option opens the local <code>.html</code> file directly. <code>/ce-work</code> remains the recommended option in both modes — <code>ce-work</code> reads either format (see the ce-work skill's plan-input handling).</p>
+<p><strong>Menu rendering:</strong> The menu has 5 options, which exceeds the <code>AskUserQuestion</code> 4-option cap. Because all five are distinct, required destinations that cannot be trimmed without losing real user choice, render this menu as a numbered list in chat with the hint "Pick a number or describe what you want." rather than trimming to fit the cap. Each option is a distinct destination/workflow and none are removable without losing real user choice (deeper review, issue creation, Proof, ce-work, and pause are each separately requested in practice). On platforms where blocking question tools have no option cap (e.g., Codex <code>request_user_input</code>, Pi <code>ask_user</code>), use the platform's blocking tool with all 5 options. When the platform's blocking tool is unavailable or errors (e.g., Codex edit modes where <code>request_user_input</code> is not exposed, or <code>ask_user</code> returns no match), fall back to the same numbered-list-in-chat rendering with the "Pick a number or describe what you want." hint — the same fallback the <code>AskUserQuestion</code> overflow path uses. Never silently skip the question.</p>
+<p><strong>Hide <code>Run deeper doc review</code> when no actionable findings remain or doc review was skipped.</strong> Show option 2 only when the headless envelope reports <code>proposed_fixes_count + decisions_count &gt; 0</code> — i.e., at least one <code>gated_auto</code> or <code>manual</code> finding at confidence anchor <code>75</code> or <code>100</code>. Drop the option in any other case, including FYI-only state. FYI observations (anchor <code>50</code>) do not enter <code>ce-doc-review</code>'s interactive routing question or walkthrough — that flow is gated to actionable findings — so a <code>Run deeper doc review</code> option that only has FYIs to show is a dead-end: ce-doc-review would re-dispatch the persona team, find the same FYIs, skip the routing question, and fall through to the terminal question with nothing to walk through. The user paid the dispatch cost for no engagement surface. <strong>Also drop option 2 when the envelope carries <code>skipped_reason: output_format_html</code></strong> — ce-doc-review's mutation mechanics are markdown-only today (see Phase 5.3.8 format gate), so a <code>Run deeper doc review</code> option on an HTML plan would route into the same markdown-oriented walkthrough the gate exists to prevent. When option 2 is dropped, the menu becomes 4 options (1, 3, 4, 5 above), falls back to <code>AskUserQuestion</code> on Claude Code, and renumbers 1-4 in display so users see a clean sequence. The summary line above the menu still names the FYI count when present (<code>Doc review applied 3 fixes. 2 FYI observations remain.</code>) so the user sees what was found, even though there is no menu action attached to it — the FYIs are visible in the headless envelope text the menu rendered alongside.</p>
+<p>Based on selection (the bare per-option routing is also stated inline in the SKILL.md so it cannot be missed when this reference is not loaded; the elaborate sub-flows below are the reason this reference still exists):
+- <strong>Start <code>/ce-work</code></strong> -&gt; Invoke the <code>ce-work</code> skill via the platform's skill-invocation primitive (<code>Skill</code> in Claude Code, <code>Skill</code> in Codex, the equivalent on Gemini/Pi), passing the plan path as the skill argument. Do not merely tell the user to type <code>/ce-work</code> — fire the invocation now so the plan executes in this session.
+- <strong>Run deeper doc review</strong> -&gt; Re-invoke the <code>ce-doc-review</code> skill on the plan path <strong>without</strong> <code>mode:headless</code> so the interactive routing question and walkthrough fire. The headless pass already applied <code>safe_auto</code> fixes and recorded its findings in the session, so the interactive pass picks up where headless stopped — its R29 suppression rule prevents prior-round Skipped/Deferred entries from re-raising. After it returns, re-render this menu with the refreshed counts so the user can pick what to do next.
+- <strong>Create Issue</strong> -&gt; Follow the Issue Creation section below
+- <strong>Publish to Proof — shareable link</strong> -&gt; Load the <code>ce-proof</code> skill to publish the plan. Pass:
+  - source file: <code>docs/plans/&lt;plan_filename&gt;.md</code>
+  - doc title: <code>Plan: &lt;plan title from frontmatter&gt;</code>
+  - identity: <code>ai:compound-engineering</code> / <code>Compound Engineering</code></p>
+<p>ce-proof creates a shared Proof doc from the plan file (Create and Share workflow), binds the display name, and returns the share URL. Surface the URL to the user — they can open it to read, comment, or share with others — then return to the post-generation options. This is a one-way publish: the local plan file stays canonical and nothing syncs back, so no re-review is needed and the menu re-renders with the same residual findings as before.</p>
+<p>Note: the Proof option only renders when <code>OUTPUT_FORMAT=md</code>. Proof ingests markdown; HTML plans use the local browser option instead.</p>
+<p>If the upload fails (network error, Proof API down), retry once after a short wait. If it still fails, tell the user the upload didn't succeed and briefly explain why, then return to the options — don't leave them wondering why the option did nothing.
+- <strong>Open in browser</strong> -&gt; Display the absolute path to the <code>.html</code> plan file so the user can open it locally. Where the platform exposes a browser-opening primitive (e.g., <code>open</code> on macOS, <code>xdg-open</code> on Linux, <code>start</code> on Windows), the agent may invoke it directly; otherwise print the absolute path and let the user open it. After the path is displayed (or the browser is opened), return to the post-generation options so the user can pick a follow-up action.
+- <strong>Done for now</strong> -&gt; Display a brief confirmation that the plan file is saved and end the turn. Do not start follow-up work without an explicit further user prompt.
+- <strong>Free-form prompts that target the findings</strong> (e.g., the user types "review", "walk through", "deep review" instead of picking a numbered option) -&gt; route as if they had picked <code>Run deeper doc review</code>. Do not loop back to the menu without firing the deeper review. <strong>Exception:</strong> when the envelope carries <code>skipped_reason: output_format_html</code>, do not fire ce-doc-review — instead, reply once with <code>ce-doc-review is markdown-only today; the HTML plan can't be reviewed without HTML-aware mutation support. Switch to /ce-plan output:md to regenerate as markdown if you want a review pass.</code> and loop back to the menu.
+- <strong>Other free-form input</strong> -&gt; Accept revisions to the plan and loop back to options.</p>
+<h2 id="issue-creation">Issue Creation<a class="headerlink" href="#issue-creation" title="Permanent link">&para;</a></h2>
+<p>When the user selects "Create Issue":</p>
+<ol>
+<li>
+<p><strong>Identify the project's issue tracker from the active instructions and conventions already in your context</strong> — the issue / project-management tool the project uses (e.g., GitHub Issues, Linear, Jira). Don't open or name specific instruction files to do this; the project's instructions are already available to you. Look for an explicit <code>project_tracker:</code> declaration (<code>github</code>, <code>linear</code>, …) or any documented tracker convention. Only if your context doesn't already carry the project's instructions (e.g., you're a fresh subagent) or they're silent, consult supplementary signals: <code>README.md</code>, <code>CONTRIBUTING.md</code>, PR templates under <code>.github/</code>, or visible tracker URLs.</p>
+</li>
+<li>
+<p><strong>Create the issue through whatever interface that tracker actually exposes in this environment</strong> — a platform connector/MCP tool, documented API/GraphQL credentials, or a documented CLI. First actively discover what's available: use the platform's tool-discovery primitive (e.g., <code>ToolSearch</code> in Claude Code) to look for a tracker connector or MCP tool before assuming none exists — lazy-loaded connectors and credentials stored outside the shell won't surface in a passive check. Do not assume a tracker means a particular CLI, and do not treat a missing binary, env var, or unloaded MCP server as proof the tracker is unavailable — those are false negatives when access comes through a connector or a raw API with credentials stored outside the shell. When using a direct API, never print secret values; read the plan body from disk and send it as the issue's markdown/description per the API contract. Worked examples for the common cases:</p>
+</li>
+<li><strong>GitHub</strong> — <code>gh issue create --title "&lt;type&gt;: &lt;title&gt;" --body-file &lt;plan_path&gt;</code></li>
+<li>
+<p><strong>Linear</strong> (no guaranteed first-party CLI) — prefer, in order: a Linear connector or MCP tool that can create issues → documented direct API/GraphQL credentials and endpoint → a documented local Linear CLI, only when the project or user explicitly states it is installed and authenticated.</p>
+</li>
+<li>
+<p>If no tracker is configured, ask the user which tracker they use with the platform's blocking question tool: <code>AskUserQuestion</code> in Claude Code (call <code>ToolSearch</code> with <code>select:AskUserQuestion</code> first if its schema isn't loaded), <code>request_user_input</code> in Codex, <code>ask_question</code> in Antigravity CLI (<code>agy</code>), <code>ask_user</code> in Pi (requires the <code>pi-ask-user</code> extension). Fall back to asking in chat only when no blocking tool exists or the call errors (e.g., Codex edit modes) — not because a schema load is required. Never silently skip. Offer three explicit options — <code>GitHub</code>, <code>Linear</code>, <code>Skip</code> — and let the user name a different tracker (Jira, etc.) through the tool's built-in free-form / "Other" input: <code>AskUserQuestion</code> always provides it, and <code>request_user_input</code> / <code>ask_user</code> supply their own. Don't add an explicit fourth <code>Other</code> option — that's redundant where the tool already offers free-form and can exceed the option cap on tools that accept only 2–3 explicit choices (e.g., Codex <code>request_user_input</code>). When the tool exposes no free-form path, capture the other-tracker name via the chat fallback. Then:</p>
+</li>
+<li>Proceed with the chosen tracker's creation path above</li>
+<li>If the user names a different tracker through the free-form path, ask for its reachable interface if they didn't say, then create the issue via the capability path in step 2</li>
+<li>Offer to persist the choice by adding a <code>project_tracker: &lt;value&gt;</code> declaration to the project's root agent-instructions file (e.g., <code>AGENTS.md</code>; if it <code>@</code>-includes another file, write to the substantive one). Use the lowercase tracker key (<code>github</code>, <code>linear</code>, <code>jira</code>, …) — not the display label — so future runs match step 1 and skip this prompt</li>
+<li>
+<p>If <code>Skip</code>, return to the options without creating an issue</p>
+</li>
+<li>
+<p>If the detected tracker has no reachable interface after actively discovering available connector/MCP tools and following its documented access method — no working connector, MCP tool, CLI, or API path — surface a clear error (e.g., "<code>gh</code> CLI not found or not authenticated for GitHub Issues"; "Linear is documented for this project, but no connector, MCP tool, or API credentials were found") and return to the options. Do not silently fall back to a local issue-plan document unless the user explicitly asks for a local-only artifact.</p>
+</li>
+</ol>
+<p>After issue creation:
+- Display the issue URL
+- Ask whether to proceed to <code>/ce-work</code> using the platform's blocking question tool</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

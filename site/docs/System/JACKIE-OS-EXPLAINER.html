@@ -1,0 +1,1696 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operator documentation for Jackie-OS — architecture, skills, workers, connectors, plans.">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/JACKIE-OS-EXPLAINER.html">
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="../system-map.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>What Jackie-OS does - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jackie-os-for-friends" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              What Jackie-OS does
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="JACKIE-OS-EXPLAINER.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-this-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem this solves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-second-brain-vault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The second brain (vault)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-actually-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it actually does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-agent-hermes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The agent (Hermes)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hermes-is-optional-it-lives-in-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hermes is optional — it lives in a folder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-they-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How they connect
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-day-actually-feels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a day actually feels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-agent-is-allowed-to-touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the agent is allowed to touch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-commands-everything-else-is-automatic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The commands (everything else is automatic)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-tools-in-plain-words" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The tools, in plain words
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-core-idea-in-one-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The core idea in one line
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/new-code-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="skills/vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="HOW-TO-INSTALL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-this-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem this solves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-second-brain-vault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The second brain (vault)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-actually-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it actually does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-agent-hermes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The agent (Hermes)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hermes-is-optional-it-lives-in-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hermes is optional — it lives in a folder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-they-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How they connect
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-day-actually-feels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a day actually feels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-agent-is-allowed-to-touch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the agent is allowed to touch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-commands-everything-else-is-automatic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The commands (everything else is automatic)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-tools-in-plain-words" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The tools, in plain words
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-core-idea-in-one-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The core idea in one line
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="jackie-os-for-friends">Jackie OS — for friends<a class="headerlink" href="#jackie-os-for-friends" title="Permanent link">&para;</a></h1>
+<h2 id="what-it-is">What it is<a class="headerlink" href="#what-it-is" title="Permanent link">&para;</a></h2>
+<p>A <strong>second brain</strong> plus an <strong>always-on AI agent</strong> — wired together so the agent actually knows what's in the brain.</p>
+<p>The second brain is your Obsidian vault: every journal entry, project note, decision, and idea, linked and versioned in git. It compounds over time. The agent (Hermes) lives on a server in Germany, runs 24/7, reads the vault before doing anything, and delivers results back to Telegram.</p>
+<p>Together: you think and decide, the brain remembers, the agent acts.</p>
+<hr />
+<h2 id="the-problem-this-solves">The problem this solves<a class="headerlink" href="#the-problem-this-solves" title="Permanent link">&para;</a></h2>
+<p>Every time you open ChatGPT or Claude, it starts with zero context. You re-explain your projects, your priorities, what you shipped last week. The AI is helpful in a session but amnesiac across them.</p>
+<p>Most people also have this split:</p>
+<ul>
+<li>Notes (diary, ideas, plans) — in one app</li>
+<li>Code projects — in separate folders</li>
+<li>AI — in a chat window that forgot everything</li>
+</ul>
+<p>Nothing shares memory. Jackie OS makes all three read from the same source.</p>
+<hr />
+<h2 id="the-second-brain-vault">The second brain (vault)<a class="headerlink" href="#the-second-brain-vault" title="Permanent link">&para;</a></h2>
+<p>The vault is a folder of markdown files you open in <a href="https://obsidian.md">Obsidian</a>. Notes link to each other like Wikipedia — <code>[[Newfin]]</code>, <code>[[Warsaw]]</code>, <code>[[2026-06-20]]</code>. Over time you get a web: journal connects to projects, projects connect to decisions, decisions connect to people.</p>
+<p>What lives there:</p>
+<table>
+<thead>
+<tr>
+<th>Written by you</th>
+<th>Written by the agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily journal</td>
+<td>Morning brief + weekly / monthly / yearly reviews</td>
+</tr>
+<tr>
+<td>Project ideas, decisions</td>
+<td>Project <code>## Status</code> (synced from code)</td>
+</tr>
+<tr>
+<td>Notes on people, places</td>
+<td>Clippings (links you sent) + person profiles</td>
+</tr>
+<tr>
+<td>Beliefs, theses</td>
+<td>Coaching notes, link suggestions, <code>hot.md</code> cache</td>
+</tr>
+</tbody>
+</table>
+<p><strong>hot.md</strong> is the key mechanism: after every sync, the agent writes a fresh ~500-word summary of what's currently active. Every AI session (Cursor, Claude Code, Hermes) reads this first. That's why context is never lost — there's a standing summary of where you are.</p>
+<p>The vault is git-versioned. Nothing gets lost. The agent never edits your journal entries — only appends to the end, or writes into its own files.</p>
+<p>Every file also carries a little structured metadata (<code>type</code>, <code>title</code>, <code>date</code>) in a format called <strong>OKF</strong> (Open Knowledge Format). You never see it, but it makes the vault <em>portable</em> — not locked to any one tool — and lets any agent orient and retrieve by metadata instead of guessing from prose.</p>
+<hr />
+<h2 id="what-it-actually-does">What it actually does<a class="headerlink" href="#what-it-actually-does" title="Permanent link">&para;</a></h2>
+<p>The system isn't one feature — it's a set of jobs the agent does for you, all reading from and writing to the same second brain.</p>
+<p><strong>Vaulting &amp; linking</strong> — keeping one git-versioned source of truth <em>and</em> weaving it into a graph. Every note, brief, and decision lives in the vault; nothing is scattered or lost. After each brief, the agent also suggests links between notes you wrote — "this journal entry relates to [[Newfin]], to [[Warsaw]]" — so over time the vault becomes a connected web, not a pile of files.</p>
+<p><strong>Capturing</strong> — pulling stuff <em>into</em> the brain without friction. DM the Telegram bot a thought → it lands in today's journal within the hour. Send a link → it gets filed into Clippings. Type <code>meet Sarah:</code> with notes → it creates a meeting entry <em>and</em> a person note for Sarah.</p>
+<p><strong>Briefing</strong> — telling you where you are. Morning brief (daily), weekly review (Sunday), monthly and yearly reviews. Each reads the vault + your code and summarizes what changed, what's next, what's blocked.</p>
+<p><strong>Syncing</strong> — keeping code and notes in agreement. The agent reads git history from your repos and writes it into each project's <code>## Status</code> note, so the vault always reflects what actually shipped.</p>
+<p><strong>Building</strong> — it doesn't just <em>track</em> your code, it writes it. Acting as your CTO (through Claude Code), the agent implements features, fixes bugs, and ships — then syncs the result back into the vault. It's COO and CTO at once.</p>
+<p><strong>Researching</strong> — digging on demand. Say <code>research &lt;topic&gt;</code> and it sweeps Reddit, HN, X, markets (last 30 days) and files the findings into the vault.</p>
+<p><strong>Coaching</strong> — the reflective layer. Recovery, identity, and "fractal" period reviews — week, month, year — where the agent takes a coach stance and walks you through patterns instead of just reporting facts.</p>
+<p><strong>Enriching</strong> — filling in context. New person shows up in your notes? The agent pulls a public profile and adds a <code>## Public profile</code> section to their note.</p>
+<p>Each of these is a <strong>skill</strong> — a markdown playbook the agent follows. They all share the same vault, so capturing feeds briefing, briefing feeds coaching, and nothing has to be re-explained between them.</p>
+<hr />
+<h2 id="the-agent-hermes">The agent (Hermes)<a class="headerlink" href="#the-agent-hermes" title="Permanent link">&para;</a></h2>
+<p>The jobs above are <em>what</em> it does. Hermes is <em>who</em> does them — a Claude-powered agent, not a chatbot you open. It runs 24/7 on a server, works on a schedule while you sleep, and you can reach it any time by DMing <code>@persik_hermes_bot</code> on Telegram. It wears two hats: <strong>COO</strong> (briefs, sync, research, journal) and <strong>CTO</strong> (writes code, builds features, ships).</p>
+<p>Three things make it an agent rather than a script:</p>
+<ul>
+<li><strong>It runs itself.</strong> A schedule on the server fires the jobs — morning brief at 07:30, journal capture hourly, weekly review Sunday. Your Mac can be off and traveling; the loop still runs.</li>
+<li><strong>It follows playbooks, not hardcode.</strong> Each job is a <strong>skill</strong> — a markdown file in <code>System/skills/</code> that lives <em>in the vault</em>. You read and edit them like any other note. Change the playbook, change the behavior.</li>
+<li><strong>It's not a black box.</strong> Everything it reads comes from the vault; everything it writes goes back to the vault. The full chain is auditable — no hidden state.</li>
+</ul>
+<p>There's a second, separate bot — <code>@Persik_finbot</code> — that handles money and finance for the Newfin app. Hermes (<code>@persik_hermes_bot</code>) is the one that runs your OS.</p>
+<hr />
+<h2 id="hermes-is-optional-it-lives-in-a-folder">Hermes is optional — it lives in a folder<a class="headerlink" href="#hermes-is-optional-it-lives-in-a-folder" title="Permanent link">&para;</a></h2>
+<p>Hermes is the <em>always-on</em> layer: it runs the schedule on a server while you sleep. But you don't need it to use Jackie OS.</p>
+<p>At its core, Jackie OS is just a folder of files — your notes, the skills, the rules. Open that folder in <strong>Claude Code</strong>, <strong>Cursor</strong>, or <strong>Codex</strong> and that tool <em>becomes</em> a Jackie OS agent. It auto-reads the same <code>CLAUDE.md</code> / <code>AGENTS.md</code> rules the moment the folder is open, and the skills are right there inside it. (A few cross-project skills like <strong>wrap up</strong> are installed once on your Mac, so they work in every project.)</p>
+<p>Nothing "migrates" — you just connect the folder. Say <strong>wrap up</strong> from any of these tools and the vault syncs, project <code>## Status</code> blocks update, <code>hot.md</code> refreshes, and the changes commit — exactly the loop Hermes runs, just triggered by hand.</p>
+<p>So: <strong>Hermes = the schedule</strong> (automation while you sleep). <strong>Your IDE + the folder = the same system, on demand.</strong> Same brain either way.</p>
+<hr />
+<h2 id="how-they-connect">How they connect<a class="headerlink" href="#how-they-connect" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    YOU(["You"])
+    TG(["Telegram&lt;br/&gt;@persik_hermes_bot"])
+    REPOS[("~/dev/ repos")]
+    VAULT[["Vault&lt;br/&gt;(second brain)"]]
+    HERMES{{"Hermes&lt;br/&gt;(agent)"}}
+
+    YOU --&gt;|journal| VAULT
+    YOU &lt;--&gt;|DM| TG
+    YOU -.-&gt;|read briefs| VAULT
+    REPOS --&gt;|git history| HERMES
+    VAULT --&gt;|reads everything| HERMES
+    HERMES --&gt;|## Status, briefs,&lt;br/&gt;clips, hot.md| VAULT
+    HERMES --&gt;|brief + replies| TG
+    TG --&gt;|your DMs| VAULT</code></pre>
+<p>It's a loop, not a pipeline. You feed the vault (journaling, DMs, code). Hermes reads the vault + git, does its jobs, writes back to the vault, and pings you on Telegram. Your DMs flow back into the vault. Round and round.</p>
+<p>The glue is <strong>hot.md</strong>. When <em>any</em> Claude session starts — terminal, Cursor, Hermes — it reads hot.md first and walks in knowing your current focus, last merge, what's pending. That's the trick that kills the cold start.</p>
+<p><strong>Prefer it visual?</strong> Open <a href="JACKIE-OS-EXPLAINER.html"><code>JACKIE-OS-EXPLAINER.html</code></a> (next to this file) in any browser — the same explainer with interactive diagrams: the loop, the eight jobs, the daily timeline, capture flow, and the cold-start/hot.md before-after. For the system diagram, see the docs site "The system map" page (<code>bash System/tools/docs-site.sh serve</code>) or <a href="jackie-os-docs-map.html"><code>jackie-os-docs-map.html</code></a>.</p>
+<hr />
+<h2 id="how-a-day-actually-feels">How a day actually feels<a class="headerlink" href="#how-a-day-actually-feels" title="Permanent link">&para;</a></h2>
+<p><strong>07:30</strong> — Hermes wakes up (you're asleep), reads all your code repos, sees what merged, syncs project status notes, writes the brief, sends it to your Telegram. Done before you check your phone. <em>(Research is on-demand now — say <code>research &lt;topic&gt;</code> whenever you want it; it no longer runs unattended at 06:45.)</em></p>
+<p><strong>Morning</strong> — You read the brief over coffee. Reply to Hermes via Telegram DM if you want to add something to your journal. It captures it within the hour.</p>
+<p><strong>Day</strong> — You work, code, journal in Obsidian. When you finish a planning session or push code, say <strong>wrap up</strong> — Hermes syncs the vault immediately.</p>
+<p><strong>Sunday 18:00</strong> — Weekly review runs automatically. Patterns, what compounded, what to carry forward.</p>
+<p><strong>Nothing requires you.</strong> The morning stack runs on the VPS even when your Mac is off and you're traveling.</p>
+<hr />
+<h2 id="what-the-agent-is-allowed-to-touch">What the agent is allowed to touch<a class="headerlink" href="#what-the-agent-is-allowed-to-touch" title="Permanent link">&para;</a></h2>
+<p><strong>Yes:</strong>
+- Write briefs and reviews into <code>Vault/Briefs/</code>
+- Update <code>## Status</code> blocks in project notes
+- Append to today's journal (Telegram capture only — end of file)
+- Refresh <code>hot.md</code> after every sync</p>
+<p><strong>Never:</strong>
+- Edit the body of your journal entries
+- Touch notes tagged <code>private</code>
+- Rename vault notes (that breaks Obsidian links — human-only)
+- Put credentials in any markdown file</p>
+<hr />
+<h2 id="the-commands-everything-else-is-automatic">The commands (everything else is automatic)<a class="headerlink" href="#the-commands-everything-else-is-automatic" title="Permanent link">&para;</a></h2>
+<p>The schedule covers the daily loop. These are the things you trigger by hand:</p>
+<table>
+<thead>
+<tr>
+<th>Say</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>wrap up</strong></td>
+<td>After vault work or a code push — syncs everything now instead of waiting for 07:30</td>
+</tr>
+<tr>
+<td><strong>sync projects</strong></td>
+<td>Quick mid-session "where are we?" status check</td>
+</tr>
+<tr>
+<td><strong>research \&lt;topic&gt;</strong></td>
+<td>Deep community/market dig (Reddit, HN, X, markets) filed into the vault</td>
+</tr>
+<tr>
+<td><strong>morning brief</strong></td>
+<td>Trigger the brief now instead of waiting</td>
+</tr>
+<tr>
+<td><strong>coach me</strong></td>
+<td>Reflective session — recovery, identity, patterns</td>
+</tr>
+<tr>
+<td><strong>weekly / monthly / yearly review</strong></td>
+<td>Run a period review on demand instead of waiting for its schedule</td>
+</tr>
+</tbody>
+</table>
+<p>The morning stack, hourly journal capture, and Sunday review all run on their own — you never trigger those.</p>
+<hr />
+<h2 id="the-tools-in-plain-words">The tools, in plain words<a class="headerlink" href="#the-tools-in-plain-words" title="Permanent link">&para;</a></h2>
+<p>None of these need to be understood to use the system — but here's what each one is, in one line:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Obsidian</strong></td>
+<td>A free notes app. Your vault is just a folder of plain text files it opens.</td>
+</tr>
+<tr>
+<td><strong>Markdown</strong></td>
+<td>Plain text with simple formatting (like <code>**bold**</code>). Future-proof — opens anywhere, forever.</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>A time machine for files. Every change is saved and reversible; nothing is ever truly lost.</td>
+</tr>
+<tr>
+<td><strong>VPS</strong></td>
+<td>A small computer rented in a data center that never sleeps — so the agent runs even when your laptop is closed.</td>
+</tr>
+<tr>
+<td><strong>Claude</strong></td>
+<td>The AI model (by Anthropic) that does the actual thinking, writing, and coding.</td>
+</tr>
+<tr>
+<td><strong>Hermes</strong></td>
+<td>The program that turns Claude into an always-on assistant living on the VPS.</td>
+</tr>
+<tr>
+<td><strong>Telegram</strong></td>
+<td>The messaging app you use to talk to the agent (the bot is called Persik).</td>
+</tr>
+<tr>
+<td><strong>Skill</strong></td>
+<td>A markdown file of instructions telling the agent how to do one job. Editable like any note.</td>
+</tr>
+<tr>
+<td><strong>OKF</strong></td>
+<td>Open Knowledge Format — structured metadata (<code>type</code>, <code>title</code>, <code>date</code>) on every file. Makes the vault a portable, vendor-neutral bundle any agent can orient in and retrieve from — not locked to one tool.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="the-core-idea-in-one-line">The core idea in one line<a class="headerlink" href="#the-core-idea-in-one-line" title="Permanent link">&para;</a></h2>
+<p><strong>Your thinking goes into the vault. The agent reads it, acts on it, and keeps it current. You never start from zero.</strong></p>
+<hr />
+<p><em>Updated 2026-06-29 — morning stack on VPS Hermes cron; Mac Cowork is weekly-review only.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

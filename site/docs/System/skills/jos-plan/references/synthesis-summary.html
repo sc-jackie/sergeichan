@@ -1,0 +1,1838 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operator documentation for Jackie-OS — architecture, skills, workers, connectors, plans.">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/skills/jos-plan/references/synthesis-summary.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Scoping Synthesis - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scoping-synthesis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scoping Synthesis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JACKIE-OS-EXPLAINER.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../new-code-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../HOW-TO-INSTALL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-internal-three-bucket-draft-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1: internal three-bucket draft (shared)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-chat-time-scoping-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2: chat-time scoping synthesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 2: chat-time scoping synthesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#brainstorm-sourced-shape-phase-515" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brainstorm-sourced shape (Phase 5.1.5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solo-shape-phase-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solo shape (Phase 0.7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shape-budgets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shape budgets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shared-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shared rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-keep-test-for-each-call-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The keep test for each call-out
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-detail-test-per-call-out-and-per-summary-bullet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The detail test (per call-out and per summary bullet)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-many-call-outs-are-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How many call-outs are right?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anti-patterns-in-call-outs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anti-patterns in call-outs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-skip-the-blocking-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to skip the blocking confirmation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synthesis-structural-discipline-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthesis structural discipline (shared)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#granularity-name-the-decision-dont-expand-it-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Granularity: name the decision; don't expand it (shared)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Granularity: name the decision; don&#39;t expand it (shared)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bad-vs-good-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bad-vs-good examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-compression-from-internal-draft-to-call-outs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worked example: compression from internal draft to call-outs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solo-variant-phase-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solo variant (Phase 0.7)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Solo variant (Phase 0.7)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-template-solo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 template (solo)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#brainstorm-sourced-variant-phase-515" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brainstorm-sourced variant (Phase 5.1.5)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Brainstorm-sourced variant (Phase 5.1.5)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-template-brainstorm-sourced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 template (brainstorm-sourced)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-cut-on-circularity-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Soft-cut on circularity (shared)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#headless-mode-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Headless mode (shared)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#self-redirect-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Self-redirect (shared)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#doc-shape-after-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Doc shape after confirmation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-does-not-belong-in-the-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What does NOT belong in the synthesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="scoping-synthesis">Scoping Synthesis<a class="headerlink" href="#scoping-synthesis" title="Permanent link">&para;</a></h1>
+<p><strong>Scoping synthesis ≠ plan doc.</strong> The scoping synthesis is the scope/decisions checkpoint that plan-write (Phase 5.2) consumes as input. It surfaces decisions the agent CAN make at synthesis time: scope-level (does this plan cover the full brainstorm or narrow to a subset?), posture (extend existing pattern vs. introduce new abstraction), test approach. It does NOT surface decisions plan-write produces: PR count, commit/branch sequencing, effort or time estimates, Implementation Unit lists, exact file paths, test command recipes. If the synthesis claims any of those, it has leaked plan-write thinking and must be re-cut to scope-decisions only. Even when the agent has formed plan-write opinions earlier in the session, the synthesis stays at scope altitude — the user is being asked to affirm scope, not to rubber-stamp implementation.</p>
+<p><strong>Two-stage shape: internal draft, then chat-time synthesis.</strong> The synthesis is composed in two stages. Stage 1 is an internal three-bucket draft (Stated / Inferred / Out of scope) the agent uses to think comprehensively about scope. Stage 2 is the compressed chat-time output: a tier-shaped summary plus "Call outs" (zero or more, capped by plan depth — see the cap table under "How many call-outs are right?") — the specific forks where the user might redirect. The user only sees stage 2. The internal draft still informs the plan body via the doc-shape routing below; it just doesn't reach the user verbatim. This split exists because the comprehensive audit shape produced too much detail for the user to weigh in on, even when the granularity rules were followed.</p>
+<p><strong>Three-bucket structure is the internal draft, not the user-facing artifact.</strong> It does its scope-thinking job during stage 1 and dissolves when Phase 5.2 writes the plan: Stated content informs Requirements, Inferred content informs Key Technical Decisions / Implementation Units (interactive mode) or <code>## Assumptions</code> (non-interactive mode), Out-of-scope content informs Scope Boundaries. The plan has no parallel <code>## Synthesis</code> section — only the stage-2 summary embeds, as <code>## Summary</code>. See "Doc shape after confirmation" below for the routing.</p>
+<p>This content is loaded when a synthesis-summary phase fires in ce-plan. There are two variants — they share structure but differ in timing and content focus:</p>
+<ul>
+<li><strong>Solo variant</strong> (Phase 0.7): fires after Phase 0.4 bootstrap and Phase 0.6 depth classification, before Phase 1 research begins. Catches scope misinterpretation before sub-agent dispatch is spent. Full breadth — problem frame, intended behavior, success criteria, in/out scope.</li>
+<li><strong>Brainstorm-sourced variant</strong> (Phase 5.1.5): fires after Phase 1 research, before Phase 5.2 plan-write. Focuses on plan-time decisions (which files/modules to touch, which patterns extended vs. introduced new, test scope, refactor scope). Brainstorm-validated WHAT is assumed and not re-stated.</li>
+</ul>
+<p>Both variants share the two-stage shape, the keep test for call-outs, soft-cut behavior, and the doc-shape routing. In non-interactive (headless) mode, both compose the internal draft and skip stage 2 — the user-facing compression is moot when there is no synchronous user. The internal draft dissolves into the plan body the same way, with Inferred bets routing to a <code>## Assumptions</code> section. See "Headless mode (shared)" below for the full routing.</p>
+<hr />
+<h2 id="stage-1-internal-three-bucket-draft-shared">Stage 1: internal three-bucket draft (shared)<a class="headerlink" href="#stage-1-internal-three-bucket-draft-shared" title="Permanent link">&para;</a></h2>
+<p>The internal draft is structured in three labeled buckets. Items may appear in two buckets when meaningfully both — flag the inclusion-then-exclusion as Inferred so the reasoning is captured.</p>
+<ul>
+<li><strong>Stated</strong> — what the user said directly (in the original prompt, prior conversation, dialogue answers, or the upstream brainstorm doc when present). Items here have explicit user-language anchors.</li>
+<li><strong>Inferred</strong> — what the agent assumed to fill gaps. Scope boundaries the user never explicitly named, success criteria extrapolated from intent, technical assumptions made because the brief interview didn't probe them. The Inferred list is the most actionable bucket — items here are the agent's bets that the user can correct.</li>
+<li><strong>Out of scope</strong> — deliberately excluded items. Adjacent work the agent considered but decided not to include, refactors, nice-to-haves, future-work items.</li>
+</ul>
+<p>This draft is internal. Do not paste it verbatim into chat. Compose it as a thinking step, then derive stage 2 from it.</p>
+<hr />
+<h2 id="stage-2-chat-time-scoping-synthesis">Stage 2: chat-time scoping synthesis<a class="headerlink" href="#stage-2-chat-time-scoping-synthesis" title="Permanent link">&para;</a></h2>
+<p>Stage 2 is what the user actually sees. The shape differs between variants because they serve different purposes — brainstorm-sourced plans inherit a validated WHAT and surface plan-specific HOW; solo plans have no upstream and the synthesis is the WHAT.</p>
+<h3 id="brainstorm-sourced-shape-phase-515">Brainstorm-sourced shape (Phase 5.1.5)<a class="headerlink" href="#brainstorm-sourced-shape-phase-515" title="Permanent link">&para;</a></h3>
+<p>Two content sections plus call-outs:</p>
+<ol>
+<li>
+<p><strong>Brainstorm-scope restatement</strong> (1-2 sentences, prose). Restates the brainstorm's scope as orientation. The user wrote this content, but the synthesis may be read days later or in parallel with other plans — the restatement is the topic anchor that says "this is the artifact we're planning against." Stay in the brainstorm's own vocabulary. Do NOT enumerate Implementation Units, restate constraints back at the user, or list acceptance examples.</p>
+</li>
+<li>
+<p><strong>Plan-specific scoping decisions</strong> (prose, or bullets when multi-faceted). Scope-level commitments the agent made that the brainstorm did not: does this plan cover the full brainstorm scope or narrow to a subset; are adjacent refactors pulled in or held out; what test scope at scenario level (which sites, which acceptance examples). Each item must pass the <strong>affirmability test</strong> — the user can affirm or redirect it without reading code. This section is scope claims at affirm-or-redirect level, NOT a description of where the implementation reaches, NOT PR count or commit sequencing, NOT Implementation Unit lists, NOT exact file paths or test commands — those are all plan-write outputs the synthesis cannot honestly claim. If the plan covers the full brainstorm scope with no narrowing, expansions, or adjacent work, this section stays short ("This plan covers the full brainstorm scope; test scope is X").</p>
+</li>
+<li>
+<p><strong>Call outs</strong> (zero or more, capped by plan depth — see "How many call-outs are right?" below). Each a real fork where the user's input materially changes the plan. Omit the "Call outs:" header entirely when zero forks survived the keep test.</p>
+</li>
+</ol>
+<h3 id="solo-shape-phase-07">Solo shape (Phase 0.7)<a class="headerlink" href="#solo-shape-phase-07" title="Permanent link">&para;</a></h3>
+<p>No upstream document; the synthesis itself is the scope claim:</p>
+<ol>
+<li>
+<p><strong>Scope claim</strong> (prose, or bullets when multi-faceted). What the agent is planning to build, at affirm-or-redirect level — names what's in and what's out. NOT an enumeration of Implementation Units the plan will contain.</p>
+</li>
+<li>
+<p><strong>Call outs</strong> (zero or more, capped by plan depth). Same as brainstorm-sourced.</p>
+</li>
+</ol>
+<h3 id="shape-budgets">Shape budgets<a class="headerlink" href="#shape-budgets" title="Permanent link">&para;</a></h3>
+<p>Tier-aware budgets are <strong>ceilings, not targets</strong>. Less is correct when there isn't more to say — filling the budget produces noise.</p>
+<table>
+<thead>
+<tr>
+<th>Plan depth</th>
+<th>Restatement (brainstorm-sourced)</th>
+<th>Plan-specific scoping (brainstorm-sourced) / Scope claim (solo)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lightweight</td>
+<td>1 sentence</td>
+<td>1-3 lines prose</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>1-2 sentences</td>
+<td>up to 3-5 lines or 2-4 bullets</td>
+</tr>
+<tr>
+<td>Deep</td>
+<td>1-2 sentences</td>
+<td>up to 4-6 lines or 3-6 bullets</td>
+</tr>
+</tbody>
+</table>
+<p>Form within each section (prose, bullets, mix) follows whatever communicates best.</p>
+<h3 id="shared-rules">Shared rules<a class="headerlink" href="#shared-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>No "Stated" bucket in chat</strong> (the orientation or scope-claim covers it).</li>
+<li><strong>No "Out of scope" bucket as a separate list</strong> — fold a non-obvious exclusion into a call-out when it survives the keep test, otherwise drop it.</li>
+<li>
+<p><strong>Source-document vocabulary.</strong> When a brainstorm exists, use its terms. Don't invent agent-coded shorthand (e.g., "skill-instruction shape", "hooks engine selection at Step 2a entry"). When referencing acceptance examples, requirements, or flows, name them in plain terms ("the install-prompt acceptance case") — never use bare IDs.</p>
+</li>
+<li>
+<p><strong>Pre-emit mechanical checks.</strong> Before emitting the synthesis, scan the output:</p>
+</li>
+<li><strong>Bare ID references</strong> (<code>AE\d+</code>, <code>R\d+</code>, <code>F\d+</code>, <code>A\d+</code>, <code>U\d+</code>) → replace with plain names. Mixed forms (case named AND ID cited) still violate the rule because the ID adds noise without information.</li>
+<li><strong>File paths</strong> (<code>path/like.md</code>, <code>path/like.py</code>, <code>internal/cli/...</code>, <code>skills/.../...</code>, etc.) → cut unless the path IS the topic of an explicit fork in the call-outs. Allowed: "cleanup hook in the existing archive step vs. a new dedicated phase" (where the path is implicit in the decision). Forbidden: paths listed to demonstrate completeness, preview Implementation Units, or describe where the implementation reaches. The synthesis names <em>what</em> the plan targets, not <em>where</em> the code lives.</li>
+</ul>
+<h3 id="the-keep-test-for-each-call-out">The keep test for each call-out<a class="headerlink" href="#the-keep-test-for-each-call-out" title="Permanent link">&para;</a></h3>
+<p>Before keeping a candidate call-out from the internal draft, run the <strong>affirmability test</strong>: would the user need to look at code to evaluate this? If yes, it is plan-body content — cut. If no, apply the keep test — one of the following must be true:</p>
+<ul>
+<li><strong>Real fork</strong>: another reasonable agent might choose differently on this dimension (extend pattern X vs. introduce abstraction Y; scan source A vs. source B; etc.)</li>
+<li><strong>Non-obvious behavioral choice</strong>: a default the agent picked that the user would not see by reading the summary alone, but that materially affects what the plan does (e.g., "scans the working-dir snapshot before the copy step" — the user would not infer the scan target from a description of the gate's purpose)</li>
+<li><strong>Non-obvious exclusion</strong>: an item was deliberately excluded that the user might want to add back in</li>
+<li><strong>Cheap-now-expensive-later correction</strong>: a bet the user is well-placed to redirect now that would be expensive to undo after research or plan-write</li>
+</ul>
+<p>Cut anything else, including:</p>
+<ul>
+<li>Mechanical items where there is no real alternative (e.g., "no new dependencies" when the work clearly does not need any)</li>
+<li>Implementation choices that will be settled during the work (e.g., regex precision tuned during impl)</li>
+<li>Items already implied by the summary</li>
+</ul>
+<h3 id="the-detail-test-per-call-out-and-per-summary-bullet">The detail test (per call-out and per summary bullet)<a class="headerlink" href="#the-detail-test-per-call-out-and-per-summary-bullet" title="Permanent link">&para;</a></h3>
+<p>After the keep test, every surviving item runs the <strong>detail test</strong>: 1-2 lines max, conversational not documentary. A call-out or summary bullet that runs to 4+ lines of dense prose is naming an implementation consequence rather than a decision — re-cut at higher abstraction.</p>
+<p>The keep test addresses <em>which</em> items survive. The detail test addresses <em>how much</em> each surviving item says. Without it, the count cap is gameable: an agent can hit "3 call-outs" while each call-out is a 6-line paragraph, and the synthesis reads as a doc preview instead of a checkpoint.</p>
+<h3 id="how-many-call-outs-are-right">How many call-outs are right?<a class="headerlink" href="#how-many-call-outs-are-right" title="Permanent link">&para;</a></h3>
+<p>The cap is heuristic, not law. The real discipline is the keep test on each candidate. Typical bounds by plan depth:</p>
+<table>
+<thead>
+<tr>
+<th>Plan depth</th>
+<th>Typical</th>
+<th>Cap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lightweight</td>
+<td>0-2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>1-3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Deep</td>
+<td>2-5</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>If the stage-2 pass exceeds the tier cap, OR any call-out or summary bullet runs to 4+ lines of dense prose, the synthesis is misshapen — do not raise the cap or accept the bloat, re-cut at a higher level of abstraction.</strong> Almost always, 2-3 of those call-outs are sub-decisions of one larger fork (file path, flag name, JSON key behavior, and dependency choice are usually four facets of one "how to extend the existing scaffold" decision, not four independent forks). Collapse related call-outs into a single decision named at the level the user actually weighs in on. The user's job is to redirect forks, not to validate every implementation consequence of a fork they have already implicitly agreed to by accepting the higher-level decision.</p>
+<p>A useful test: read the call-outs aloud. If two or more sound like "and also" extensions of the same idea, they belong as one.</p>
+<h3 id="anti-patterns-in-call-outs">Anti-patterns in call-outs<a class="headerlink" href="#anti-patterns-in-call-outs" title="Permanent link">&para;</a></h3>
+<p>Each anti-pattern below produces a call-out that fails the affirmability test. If a candidate call-out matches one of these, it is plan-body content — cut, do not rephrase.</p>
+<ul>
+<li>Names a file path or module name (<code>internal/artifacts/pii.go</code>)</li>
+<li>Names a flag, env var, or exact env value (<code>--accept-redaction-list=&lt;finding-id,...&gt;</code>)</li>
+<li>Specifies a JSON shape, response format, or exact data structure</li>
+<li>Names HTTP status codes, event names, or exact error wording</li>
+<li>Describes implementation flow ("first X, then Y, then Z")</li>
+<li>Names exact method signatures, call graphs, or SQL syntax</li>
+<li>States a mechanical choice with no real alternative ("uses stdlib regexp")</li>
+</ul>
+<p>The line-number, signature, and code-spec rules are not new — they have always been forbidden in Inferred bullets. They apply equally to call-outs, which are now the user-facing surface.</p>
+<hr />
+<h2 id="when-to-skip-the-blocking-confirmation">When to skip the blocking confirmation<a class="headerlink" href="#when-to-skip-the-blocking-confirmation" title="Permanent link">&para;</a></h2>
+<p>The auto-proceed path (announce without waiting for user confirmation) fires only when <strong>plan depth is Lightweight AND zero call-outs survive the keep test</strong>. For Standard or Deep plans, always fire the confirmation gate even when zero call-outs survive — substance earns the checkpoint, not interaction history. A Deep plan with rich silent decisions and a 1-3 line summary is exactly the case where rubber-stamping is most likely; the explicit confirmation request gives the user a real chance to push back before research or plan-write proceeds.</p>
+<p>When auto-proceed applies (Lightweight + zero call-outs), emit a one-line announcement and continue:</p>
+<div class="highlight"><pre><span></span><code>Planning: [1-3 line summary]
+
+No open decisions to weigh in on — proceeding to [research / plan-write]. Interrupt if I have the scope wrong.
+</code></pre></div>
+<p>The announcement is mandatory when skipping — silent proceeding is not allowed. The "why" (no forks worth flagging) must be visible.</p>
+<p>For Standard/Deep with zero call-outs, the confirmation template still fires; the "Call outs:" header is simply omitted. The user gets the summary plus the explicit confirmation request.</p>
+<hr />
+<h2 id="synthesis-structural-discipline-shared">Synthesis structural discipline (shared)<a class="headerlink" href="#synthesis-structural-discipline-shared" title="Permanent link">&para;</a></h2>
+<p>Both variants share these structural rules. They address failure modes where the synthesis becomes a Phase 5.2 (plan-write) preview instead of a scope checkpoint.</p>
+<p><strong>Summary leads, call-outs follow</strong> — not the reverse, and no separate framing block above. Putting extensive content ABOVE the synthesis (an approach pitch, files-touched bullets, rationale block) inverts the structure: the synthesis becomes a footnote to the proposal instead of the proposal being a tier-budgeted summary the call-outs depend on.</p>
+<p><strong>Anti-pattern: synthesis as plan-pitch.</strong> Plan-body content — file paths, code shapes, sentinel strings, exact error messages, "Recommendation" / "Behavior when X" / "Why this shape" rationale — does not belong in chat output regardless of where it appears: not in a block above the call-outs, not inside the summary, and not nested in a call-out's commentary or sub-bullets. The position rule and the content rule are independent: a structurally-legal placement (inside a call-out bullet) does not legitimize plan-body content. If you find yourself writing it anywhere, stop. That content is Phase 5.2 (plan-write) territory — it belongs in the plan body the next phase will write, not in the synthesis presentation. The synthesis is a scope/decisions checkpoint: a tier-budgeted summary plus call-outs bounded by the tiered cap (see "How many call-outs are right?"). Implementation detail leaking into the synthesis (anywhere) is a sign Phases 1-4 (research and structuring) and Phase 5.2 (plan-write) have collapsed into the synthesis-confirmation step.</p>
+<p><strong>Anti-pattern: numerical attestation.</strong> "All nine requirements covered," "all three flows in scope," "five acceptance examples addressed," counts of files or test scenarios. These are the agent showing its work or attesting completeness, not naming scope decisions. "Covers the full brainstorm scope" already conveys the claim; the count adds nothing the user can affirm or redirect. Cut the numbers; keep the scope claim.</p>
+<p><strong>A revision is not a confirmation.</strong> After any user revision (even a trivially-understood swap), integrate the change, re-present the revised stage 2 with the change reflected, and wait for explicit confirmation before writing the plan. The loop is:</p>
+<ol>
+<li>Present stage 2 → user responds</li>
+<li>User confirms → write the plan</li>
+<li>User revises → integrate, re-present revised stage 2, return to step 1</li>
+</ol>
+<p>Plan-write (Phase 5.2) fires only on explicit confirm or after the soft-cut blocking question's "proceed" option. Never write immediately after a revision, even when the revision is small enough that the agent feels it understood — the confirmation step is what makes the synthesis <strong>confirmed</strong> rather than "agent's last proposal."</p>
+<hr />
+<h2 id="granularity-name-the-decision-dont-expand-it-shared">Granularity: name the decision; don't expand it (shared)<a class="headerlink" href="#granularity-name-the-decision-dont-expand-it-shared" title="Permanent link">&para;</a></h2>
+<p>Each call-out should be affirmable or rejectable by the user <strong>without reading code</strong>. Name the decision at the granularity that lets the user say "yes" or "I want X instead." Anything more specific is plan-body content — Phase 5.2's job, not synthesis's.</p>
+<p><strong>Allowed</strong> (when these ARE the decisions being made):
+- File / module names — "skip filter in the matcher" when "where to put it" is the choice
+- Pattern names — "extends the existing event-skip pattern" when "extend vs. introduce" is the choice
+- Column / table names — "user-TZ" or "destination-calendar TZ" when "which source" is the choice
+- Approach posture — "DB-side query with Google-side fallback" when "which strategy" is the choice</p>
+<p><strong>Not allowed</strong> (always plan-body, regardless of variant):
+- Line numbers (<code>route.ts:249-255</code>)
+- Exact method signatures, call graphs, or implementation flow ("at the top, before include/exclude evaluation, returning ...")
+- Exact JSON / response shapes (<code>{pause, cleanup: {eventsDeleted, eventsFailed, errors}}</code>)
+- HTTP status codes (<code>409</code>, <code>404</code>, <code>403</code>)
+- Exact event / activity-log / type names (<code>userPauseSet/userPauseEdited/...</code>)
+- Exact wording of error messages or UI labels
+- SQL syntax or query bodies</p>
+<p>The line is drawn slightly differently per variant. <strong>Solo (Phase 0.7)</strong> stays at the higher level — brainstorm's WHAT hasn't been validated yet, so file/module names are usually too specific; talk in terms of "the rule entity," not "syncRules table." <strong>Brainstorm-sourced (Phase 5.1.5)</strong> allows the file / module / pattern / column level when those ARE plan-time decisions, but not implementation flow specifics.</p>
+<h3 id="bad-vs-good-examples">Bad-vs-good examples<a class="headerlink" href="#bad-vs-good-examples" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Plan-body in call-out (wrong)</th>
+<th>Decision-level (right)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Timezone source: <code>users.timezone</code> (IANA), fallback to destination calendar TZ if null. Research found <code>useTimezoneSync</code> and <code>ProtectionStatsCalculator</code> establish the pattern.</td>
+<td>Timezone source: user-TZ (reverses brainstorm's tentative lean — research found established infra and pattern precedent)</td>
+</tr>
+<tr>
+<td>Skip filter goes in <code>RuleMatcher.eventMatchesRule</code> at the top, before include/exclude evaluation, using the existing <code>filteredReason</code> mechanism.</td>
+<td>Skip filter extends the existing event-skip pattern in the matcher (vs. introducing a new mechanism)</td>
+</tr>
+<tr>
+<td>Reactivation guard: explicit safety in <code>[ruleId]/route.ts</code> PATCH — when <code>isActive: false → true</code>, the existing handler clears <code>status/pausedAt/pausedReason</code>.</td>
+<td>Reactivation guard: pause window state preserved through the isActive toggle's existing system-pause-clearing path</td>
+</tr>
+<tr>
+<td>Partial cleanup failure response: <code>{pause, cleanup: {eventsDeleted, eventsFailed, errors}}</code>; pause window persists regardless of cleanup outcome.</td>
+<td>Partial cleanup failure: pause window persists; partial-failure response mirrors the existing rule-edit precedent</td>
+</tr>
+</tbody>
+</table>
+<p>The test: a scanner reading a call-out should affirm or reject it without needing to read code. If they would have to look up a column name, method name, or call graph to evaluate the call-out, the granularity is wrong — that's plan-body content.</p>
+<h3 id="worked-example-compression-from-internal-draft-to-call-outs">Worked example: compression from internal draft to call-outs<a class="headerlink" href="#worked-example-compression-from-internal-draft-to-call-outs" title="Permanent link">&para;</a></h3>
+<p>For a PII redaction gate proposal where the internal draft had 4 Stated items, 7 Inferred items, and 3 Out-of-scope items, the compressed stage 2 looks like:</p>
+<div class="highlight"><pre><span></span><code>Planning a mechanical PII redaction gate before promote (the unguarded leak path from the amazon-orders retro) and alongside the existing vendor-prefix scanner at publish. Phase-1 detectors are shape-only — card last-4, postal address, JSON person names. Default halts; per-finding ack via flag.
+
+**Call outs:**
+- Person-name filter works by JSON key (allowlist of attribution keys: `printer`, `printer_name`, `owner_name`, `author`), not by name value.
+- Promote scans the working-dir snapshot before the copy step, not the staged copy.
+- Publish combines PII + vendor-prefix findings into one report, not fail-fast on first.
+
+Confirm and I&#39;ll proceed to research, drawing on this scope.
+</code></pre></div>
+<p>What got cut from the internal draft and why:</p>
+<ul>
+<li>"Module name: <code>internal/artifacts/pii.go</code>" — plan-body content (file path), fails affirmability test</li>
+<li>"Flag name: <code>--accept-redaction-list=&lt;finding-id,...&gt;</code>" — plan-body content (exact flag string), fails affirmability test</li>
+<li>"No new dependencies — stdlib regexp + filepath.WalkDir only" — mechanical, no real alternative</li>
+<li>"Detector regex precision tuned during implementation" — deferred-impl, not a plan-time fork</li>
+<li>All three Out-of-scope items — either restated in prose ("defer to #960") or implicitly excluded by scope</li>
+</ul>
+<p>What survived: three real forks where another reasonable agent might choose differently and the user can correct cheaply now. Each is affirmable in one sentence without reading code.</p>
+<hr />
+<h2 id="solo-variant-phase-07">Solo variant (Phase 0.7)<a class="headerlink" href="#solo-variant-phase-07" title="Permanent link">&para;</a></h2>
+<p>Fires only when:
+- Phase 0.2 found no upstream brainstorm doc
+- AND Phase 0.4 stayed in ce-plan (did not route to ce-debug, ce-work, or universal-planning)
+- AND Phase 0.5 cleared (no unresolved blockers)
+- AND not on Phase 0.1 fast paths (resume normal, deepen-intent)</p>
+<p>Each guard is an explicit conditional in SKILL.md, not implicit. R2 solo does NOT fire on resume/deepen, route-out, or brainstorm-sourced paths.</p>
+<p><strong>Content focus</strong>: full-breadth internal draft. Phase 0.4 bootstrap is brief by design ("ask one or two clarifying questions"), so the agent has made substantial inferences before Phase 0.7 fires. The Inferred bucket in the internal draft is especially load-bearing here — the agent's bets are widest. Stage 2 compression still applies: most of those inferences will not survive the keep test, and that is correct — the user should only see the forks they can meaningfully redirect.</p>
+<p><strong>Counter-warning for rich-context invocations.</strong> When the inference source is <em>not</em> just Phase 0.4 bootstrap — e.g., a prior in-conversation validation agent, completed sibling work units earlier in the same session, or a planning artifact already in the conversation — the temptation is to dump that material into call-outs verbatim. The granularity rules tighten in this case, not loosen: the agent has more material to compress, not more material to expose. A bet that's already been validated upstream is <strong>Stated</strong> (internal), not Inferred (internal); a bet whose specifics belong in plan-body is named at decision-level in the call-out regardless of how much detail upstream context provided. If recent turns produced detailed code, file paths, or research artifacts, expect the internal draft to over-share and compress proactively before stage 2.</p>
+<p><strong>Why pre-research, not pre-write</strong>: research effort would be wasted if scope is wrong. Catching scope errors before sub-agent dispatch (Phase 1.1's repo-research-analyst, learnings-researcher, etc.) saves token and time cost.</p>
+<h3 id="stage-2-template-solo">Stage 2 template (solo)<a class="headerlink" href="#stage-2-template-solo" title="Permanent link">&para;</a></h3>
+<p><strong>Summary discipline (required):</strong> describe <strong>what scope the plan will target</strong>, forward-looking (what <em>will</em> be planned), not retrospective. The summary's job is to help the user pattern-match against intent before reading call-outs — solo invocation has minimal pre-write dialogue, so the summary is especially load-bearing here. Form (prose, bullets, mix) and length follow the tier budget in "Stage 2: chat-time scoping synthesis" above; detail test applies per bullet.</p>
+<p><strong>Anti-fluff guidance:</strong> lead with the actual thing being planned in plain words. No qualifiers ("comprehensive," "thoughtful," "substantive"). No re-stating the user's prompt. If the scope cannot be said within the tier budget without filler, the synthesis isn't ready yet.</p>
+<p><strong>Confirmation template (fires for Standard/Deep regardless of call-out count, or for any tier with one or more call-outs surviving):</strong></p>
+<div class="highlight"><pre><span></span><code>Based on your request and our brief discussion, here&#39;s the scope I&#39;m proposing to plan against:
+
+[scope claim — what the plan will target, what it will not; affirm-or-redirect level; NOT an enumeration of Implementation Units]
+
+**Call outs:** (omit this header when zero forks survived the keep test)
+- [decision-level fork in 1-2 lines: name the choice and optional one-clause trade-off in parens. NO multi-sentence rationale, NO &quot;my default is X&quot; pitch — those belong in Key Technical Decisions in the plan body, not the synthesis]
+
+Confirm and I&#39;ll proceed to research, drawing on this scope. (You can also redirect to /ce-brainstorm if this is bigger than you initially thought — I&#39;ll stop here and load it for you.)
+</code></pre></div>
+<p><strong>Auto-proceed template (fires only for Lightweight with zero call-outs):</strong></p>
+<div class="highlight"><pre><span></span><code>Planning: [1-3 line scope claim]
+
+No open decisions to weigh in on — proceeding to research. Interrupt if I have the scope wrong.
+</code></pre></div>
+<p>Then continue to Phase 1 without waiting. Use prose for any user response that does arrive (no <code>AskUserQuestion</code> menu). Justification is Interaction Rule 5(a) in SKILL.md.</p>
+<hr />
+<h2 id="brainstorm-sourced-variant-phase-515">Brainstorm-sourced variant (Phase 5.1.5)<a class="headerlink" href="#brainstorm-sourced-variant-phase-515" title="Permanent link">&para;</a></h2>
+<p>Fires only when:
+- Phase 0.2 found upstream brainstorm doc (brainstorm-sourced invocation)
+- AND not on Phase 0.1 fast paths</p>
+<p><strong>Content focus</strong>: plan-time decisions only. The brainstorm + R1 synthesis already validated WHAT to build; the internal draft and stage 2 surface HOW the plan will execute that work — decisions the brainstorm did not make.</p>
+<p>Items to surface in the internal draft:
+- <strong>Files/modules to touch (and not touch)</strong> — what the implementation reaches into
+- <strong>Patterns extended vs. introduced new</strong> — architectural decisions the agent made within confirmed scope (R2's content focus, not bias toward either direction)
+- <strong>Test scope</strong> — which existing-but-untested code is in/out of test scope for this work
+- <strong>Refactor scope</strong> — adjacent cleanup, if any, going to deferred items vs. active diff
+- <strong>Cross-cutting impact</strong> — auth, migrations, shared types when they're touched</p>
+<p>Most of these will not survive the keep test as separate call-outs. Surface only the forks where another reasonable agent might choose differently and the user can correct cheaply now.</p>
+<p><strong>Reads from doc body, not a synthesis section</strong>: brainstorm docs do not have a <code>## Synthesis</code> section (the synthesis is a chat-time artifact in ce-brainstorm; only the prose summary embeds, as <code>## Summary</code>). Phase 5.1.5 derives plan-time decisions from the brainstorm doc's body sections — Summary, Problem Frame, Requirements, Key Decisions, Scope Boundaries — plus Phase 1 research. Older brainstorms that may have a legacy <code>## Synthesis</code> section work fine; that content is treated as supplementary, not authoritative, with the body sections taking precedence.</p>
+<p><strong>Why pre-write, not pre-research</strong>: brainstorm doc + R1 synthesis already validated WHAT, so research is well-targeted. Plan-time decisions emerge during research and structuring (Phases 1-4), so pre-write catches them at the latest cheap moment — before Phase 5.2 commits the plan to disk.</p>
+<h3 id="stage-2-template-brainstorm-sourced">Stage 2 template (brainstorm-sourced)<a class="headerlink" href="#stage-2-template-brainstorm-sourced" title="Permanent link">&para;</a></h3>
+<p><strong>Summary discipline (required):</strong> describe <strong>how the implementation approaches the work</strong> at a high level — files/modules touched, patterns extended vs. introduced, scope boundaries the plan honors. Forward-looking (what <em>will</em> be in the plan), not retrospective. Brainstorm-validated WHAT is assumed; the summary covers HOW. Form (prose, bullets, mix) and length follow the tier budget in "Stage 2: chat-time scoping synthesis" above; detail test applies per bullet.</p>
+<p><strong>Anti-fluff guidance:</strong> lead with the actual implementation shape in plain words. No qualifiers, no re-stating the brainstorm's WHAT. If the summary just restates the brainstorm's Problem Frame, rewrite it to focus on plan-time decisions.</p>
+<p><strong>Confirmation template (fires for Standard/Deep regardless of call-out count, or for any tier with one or more call-outs surviving):</strong></p>
+<div class="highlight"><pre><span></span><code>The brainstorm scopes [1-2 sentence restatement of the brainstorm&#39;s scope as orientation; in the brainstorm&#39;s own vocabulary; NOT an enumeration of Implementation Units, constraints, or acceptance examples].
+
+This plan [plan-specific scoping: what&#39;s covered vs. deferred vs. expanded relative to the brainstorm; test scope; any adjacent refactors pulled in or held out. Prose or bullets per substance].
+
+**Call outs:** (omit this header when zero forks survived the keep test)
+- [plan-time fork in 1-2 lines: name the choice and optional one-clause trade-off in parens. NO multi-sentence rationale, NO &quot;my default is X&quot; pitch — those belong in Key Technical Decisions in the plan body, not the synthesis]
+
+Confirm and I&#39;ll write the plan next, drawing on the brainstorm, research, and this synthesis.
+</code></pre></div>
+<p><strong>Auto-proceed template (fires only for Lightweight with zero call-outs):</strong></p>
+<div class="highlight"><pre><span></span><code>Planning [brief brainstorm-scope restatement] — [plan-specific shape in one clause].
+
+No open decisions to weigh in on — proceeding to plan-write. Interrupt if I have the scope wrong.
+</code></pre></div>
+<p>Then continue to Phase 5.2 without waiting. Use prose for any user response that does arrive. Justification is Interaction Rule 5(a).</p>
+<hr />
+<h2 id="soft-cut-on-circularity-shared">Soft-cut on circularity (shared)<a class="headerlink" href="#soft-cut-on-circularity-shared" title="Permanent link">&para;</a></h2>
+<p>Track which call-outs the user touched per round. The soft-cut blocking question fires <strong>only when the same call-out is revised twice</strong> (or a third-round revision targets a call-out already revised in round two). New-call-out revisions across rounds proceed without limit.</p>
+<p><strong>Identity across rounds is by decision dimension, not surface wording.</strong> A revision may cause stage 2 to re-derive — the same underlying fork can come back rephrased, merged with another call-out, or split into two. "Same call-out" means the same decision being made (e.g., "where does the scan run" stays one decision whether it's worded as "promote scans the working-dir snapshot" or "scan target: pre-copy working dir"). When a re-cut collapses multiple prior call-outs into one, the new combined call-out inherits the "touched" status of any of its constituents — soft-cut fires if any of those underlying decisions was already revised once before.</p>
+<p>When the soft-cut fires, use the platform's blocking question tool with two options:</p>
+<ul>
+<li><code>Proceed and continue to [research / plan-write]</code></li>
+<li><code>Hold off — keep discussing before continuing</code></li>
+</ul>
+<p>Fall back to numbered list in chat only when no blocking tool exists or the call errors. Never silently skip.</p>
+<hr />
+<h2 id="headless-mode-shared">Headless mode (shared)<a class="headerlink" href="#headless-mode-shared" title="Permanent link">&para;</a></h2>
+<p>When the skill is invoked from an automated workflow such as LFG or any <code>disable-model-invocation</code> context, the skill runs in non-interactive mode (no synchronous user). The artifact is read by downstream skills (ce-doc-review, ce-work) and human reviewers (PR review).</p>
+<p><strong>Stage 2 is moot in headless mode.</strong> Compose the internal draft (stage 1) as usual, but skip the chat-time compression — there is no synchronous user to confirm to, no call-outs to derive, no auto-proceed announcement. Route the internal draft directly into the plan body via the doc-shape table below.</p>
+<p><strong>Per-variant behavior</strong> (the timing matters for which phases follow):</p>
+<ul>
+<li><strong>Solo variant (Phase 0.7)</strong>: fires <em>before</em> research. Compose the internal draft and continue to Phase 1 research as normal. Inferred content is held until plan-write (Phase 5.2), where it routes to <code>## Assumptions</code>.</li>
+<li><strong>Brainstorm-sourced variant (Phase 5.1.5)</strong>: fires <em>after</em> research, before plan-write. Compose the internal draft and proceed to Phase 5.2 plan-write. Inferred content routes to <code>## Assumptions</code>.</li>
+</ul>
+<p><strong>Shared behavior across both variants:</strong></p>
+<ul>
+<li><strong>No user prompt; no stage 2; no auto-proceed announcement.</strong> All three are moot.</li>
+<li><strong>Route internal-draft content with mode-aware shape:</strong></li>
+<li><strong>Stated</strong> content → Requirements (user-stated constraints, traced to origin's R-IDs when present)</li>
+<li><strong>Out-of-scope</strong> content → Scope Boundaries</li>
+<li><strong>Inferred</strong> content → <code>## Assumptions</code> section in the plan — explicitly labeled as un-validated agent bets. Do NOT route Inferred items into Key Technical Decisions or Implementation Units; that would make un-validated bets indistinguishable from user-confirmed decisions.</li>
+</ul>
+<p>The <code>## Assumptions</code> section appears in non-interactive plans only. Interactive plans don't need it (Inferred bets either get user-corrected via call-outs and become Key Technical Decisions, are revised away, or were judged not-fork material by the keep test and dissolved into Implementation Units silently).</p>
+<p>This restores the audit visibility the original design intended (un-validated bets must not propagate as authoritative content), but surfaces them under their own label rather than hiding them. Downstream review (ce-doc-review, ce-work, human PR review) can scrutinize Assumptions specifically.</p>
+<hr />
+<h2 id="self-redirect-shared">Self-redirect (shared)<a class="headerlink" href="#self-redirect-shared" title="Permanent link">&para;</a></h2>
+<p>If the user response indicates they're in the wrong skill or want a different workflow:</p>
+<ul>
+<li><strong>Solo variant</strong>: common redirects include "this is bigger than I thought — let me brainstorm first" (suggest <code>/ce-brainstorm</code>), "this is just a fix, no plan needed" (suggest <code>/ce-work</code>), or "I need to investigate first" (suggest <code>/ce-debug</code>).</li>
+<li><strong>Brainstorm-sourced variant</strong>: less common, but possible — "actually this scope is wrong, take it back to brainstorm" (suggest <code>/ce-brainstorm</code> to revise the upstream doc).</li>
+</ul>
+<p>In either case: stop ce-plan, suggest the alternative skill, offer to load it in-session. Don't push back or argue — the user's redirect signal is the deliberate choice.</p>
+<hr />
+<h2 id="doc-shape-after-confirmation">Doc shape after confirmation<a class="headerlink" href="#doc-shape-after-confirmation" title="Permanent link">&para;</a></h2>
+<p>After user confirmation (or after the soft-cut decision proceeds), Phase 5.2 writes the plan doc. The internal draft does NOT carry into the plan as a <code>## Synthesis</code> section. Only the stage-2 summary embeds, replacing the existing <code>## Overview</code> slot in the plan template (renamed to <code>## Summary</code> for terminology consistency). Internal-draft content dissolves into the plan's body sections:</p>
+<table>
+<thead>
+<tr>
+<th>Internal-draft element</th>
+<th>Where it goes in the plan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Summary (stage 2)</td>
+<td><code>## Summary</code> (1-3 lines prose, forward-looking) — rewrite to plan convention if the chat-time summary used bullets. Solo variant: scope being targeted. Brainstorm-sourced: implementation approach</td>
+</tr>
+<tr>
+<td>Stated bullets</td>
+<td><code>## Requirements</code> (R-IDs) and where relevant <code>## Problem Frame</code> for narrative context</td>
+</tr>
+<tr>
+<td>Inferred bullets</td>
+<td><code>## Key Technical Decisions</code> (with rationale) and Implementation Units when the bet drives a structural choice. In non-interactive mode, route to <code>## Assumptions</code> instead — see Headless mode above.</td>
+</tr>
+<tr>
+<td>Out-of-scope bullets</td>
+<td><code>## Scope Boundaries</code> — including the <code>### Deferred to Follow-Up Work</code> subsection when relevant</td>
+</tr>
+</tbody>
+</table>
+<p>No italic capture-context note (e.g., "Captured at Phase 0.7..."). It would leak engineering process into an artifact whose readers do not need that signal.</p>
+<p>The plan's <code>## Summary</code> and <code>## Problem Frame</code> must serve distinct purposes: Summary answers "what is this plan proposing?" (forward-looking, 1-3 lines); Problem Frame answers "why does this proposal exist?" (backward-looking, paragraphs). Don't restate the proposal in Problem Frame; don't pad Summary with situational context.</p>
+<hr />
+<h2 id="what-does-not-belong-in-the-synthesis">What does NOT belong in the synthesis<a class="headerlink" href="#what-does-not-belong-in-the-synthesis" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Implementation code (no imports, exact method signatures, framework-specific syntax, JSON shapes, exact error message wording) — in chat output OR in the internal draft</li>
+<li>Re-statement of the entire brainstorm doc — the synthesis is plan-perspective, not a copy</li>
+<li>Defensive what-ifs and hedges — if a concern is real, state it as Inferred (internal); if speculation, drop it</li>
+<li>The internal three-bucket draft pasted into chat as a verbatim user-facing artifact — that was the old shape and the volume problem it produced is why stage 2 exists. Compose internally, derive call-outs, present compressed</li>
+<li>Open questions surfaced outside the buckets/call-outs — by synthesis time, every scope-shaping question must be in <strong>Stated</strong> (internal — asked and answered earlier), <strong>Inferred</strong> (internal — agent's bet for correction, surfaces as a call-out if it survives the keep test), or <strong>Out</strong> (internal — deliberately excluded). There is no fourth status</li>
+<li>Floating questions adjacent to stage 2 — if a question genuinely cannot be defaulted, pause synthesis and resolve it before presenting. Pick the question shape that matches: a blocking multiple-choice tool when options are bounded and meaningfully distinct, prose when option sets would bias the answer per Interaction Rule 5(a). Integrate the answer, then present stage 2. Never present stage 2 with adjacent floating questions — that gives the user no clear resolution path</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

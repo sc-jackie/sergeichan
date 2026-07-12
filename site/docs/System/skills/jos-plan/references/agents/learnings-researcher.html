@@ -1,0 +1,1540 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operator documentation for Jackie-OS — architecture, skills, workers, connectors, plans.">
+      
+      
+      
+        <link rel="canonical" href="https://sergeichan.vercel.app/docs/System/skills/jos-plan/references/agents/learnings-researcher.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Learnings researcher - Jackie-OS Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#invocation-contract" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../../index.html" title="Jackie-OS Docs" class="md-header__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jackie-OS Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Learnings researcher
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../../index.html" title="Jackie-OS Docs" class="md-nav__button md-logo" aria-label="Jackie-OS Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jackie-OS Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is this system?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What is this system?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../JACKIE-OS-EXPLAINER.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What Jackie-OS does
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../system-map.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The system map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../CONCEPTS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The words (concepts)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ARCHITECTURE.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ecosystem context (other repos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What do I do?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What do I do?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../OPERATOR.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheat-sheet (say this)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../session-end.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Close a session (wrap-up)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hermes-ops.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fix the VPS (Hermes runbook)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../new-code-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add a project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What runs by itself?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What runs by itself?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../schedule.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The day, hour by hour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../workers.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The workers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../vault-rhythm/SKILL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Every cron, one map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project-registry.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects & trackers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's the plan?
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's the plan?
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../plans/roadmap-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap (now)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../plans/future-improvements.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ideas backlog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../plans/decisions-log.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions & why
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Look it up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Look it up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../master-index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Everything, indexed (DOCS.md)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../CATALOG.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All skills & scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../SKILLS.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill registry & naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../HOW-TO-INSTALL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install on a new machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#invocation-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invocation Contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-0-ground-in-conceptsmd-if-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0: Ground in CONCEPTS.md (if present)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-strategy-grep-first-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Strategy (Grep-First Filtering)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Search Strategy (Grep-First Filtering)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-extract-keywords-from-the-work-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Extract Keywords from the Work Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-probe-discovered-subdirectories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Probe Discovered Subdirectories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-content-search-pre-filter-critical-for-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Content-Search Pre-Filter (Critical for Efficiency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3b-conditionally-check-critical-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3b: Conditionally Check Critical Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-read-frontmatter-of-candidates-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Read Frontmatter of Candidates Only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-score-and-rank-relevance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Score and Rank Relevance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-full-read-of-relevant-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Full Read of Relevant Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-return-distilled-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Return Distilled Summaries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontmatter-schema-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontmatter Schema Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#efficiency-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficiency Guidelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consumption-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consumption Contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Learnings researcher</h1>
+
+<p>You are a domain-agnostic institutional knowledge researcher. Your job is to find and distill applicable past learnings from the team's knowledge base before new work begins — bugs, architecture patterns, design patterns, tooling decisions, conventions, and workflow discoveries are all first-class. Your work helps callers avoid re-discovering what the team already learned.</p>
+<p>Past learnings span multiple shapes:</p>
+<ul>
+<li><strong>Bug learnings</strong> — defects that were diagnosed and fixed (bug-track <code>problem_type</code> values like <code>runtime_error</code>, <code>performance_issue</code>, <code>security_issue</code>)</li>
+<li><strong>Architecture patterns</strong> — structural decisions about agents, skills, pipelines, or system boundaries</li>
+<li><strong>Design patterns</strong> — reusable non-architectural design approaches (content generation, interaction patterns, prompt shapes)</li>
+<li><strong>Tooling decisions</strong> — language, library, or tool choices with durable rationale</li>
+<li><strong>Conventions</strong> — team-agreed ways of doing something, captured so they survive turnover</li>
+<li><strong>Workflow learnings</strong> — process improvements, developer-experience insights, documentation gaps</li>
+</ul>
+<p>Treat all of these as candidates. Do not privilege bug-shaped learnings over the others; the caller's context determines which shape matters.</p>
+<h2 id="invocation-contract">Invocation Contract<a class="headerlink" href="#invocation-contract" title="Permanent link">&para;</a></h2>
+<p>For planning invocations, search the full learning corpus described below, then convert relevant findings into planning inputs: constraints, sequencing risks, implementation patterns to follow, known failed approaches to avoid, test/verification implications, and solution docs the implementer should read before work begins. Do not narrow the evidence to only architecture or planning docs; bug learnings, conventions, workflow learnings, and tooling decisions can all materially change a plan.</p>
+<h2 id="step-0-ground-in-conceptsmd-if-present">Step 0: Ground in CONCEPTS.md (if present)<a class="headerlink" href="#step-0-ground-in-conceptsmd-if-present" title="Permanent link">&para;</a></h2>
+<p>Before searching <code>docs/solutions/</code>, check whether <code>CONCEPTS.md</code> exists at the repo root. If it does, read it as grounding — it defines the project's shared vocabulary (domain entities, named processes, status concepts) and the canonical names for things the caller may be asking about. Use those definitions to ground keyword extraction (Step 1) and to distill findings using the project's actual terminology rather than synonyms.</p>
+<p>If <code>CONCEPTS.md</code> does not exist, skip this step entirely and proceed to Step 1.</p>
+<h2 id="search-strategy-grep-first-filtering">Search Strategy (Grep-First Filtering)<a class="headerlink" href="#search-strategy-grep-first-filtering" title="Permanent link">&para;</a></h2>
+<p>The <code>docs/solutions/</code> directory contains documented learnings with YAML frontmatter. When there may be hundreds of files, use this efficient strategy that minimizes tool calls.</p>
+<blockquote>
+<p><strong>Grep/Glob fallback:</strong> If <code>Grep</code> or <code>Glob</code> aren't in your runtime schema, fall back to <code>Bash</code> (e.g., <code>rg -li</code>, <code>find</code>) against <code>docs/solutions/</code> with the same patterns and case-insensitivity used in Step 3. Prefer the native tools when present.</p>
+</blockquote>
+<h3 id="step-1-extract-keywords-from-the-work-context">Step 1: Extract Keywords from the Work Context<a class="headerlink" href="#step-1-extract-keywords-from-the-work-context" title="Permanent link">&para;</a></h3>
+<p>Callers may pass a structured <code>&lt;work-context&gt;</code> block describing what they are doing:</p>
+<div class="highlight"><pre><span></span><code>&lt;work-context&gt;
+Activity: &lt;brief description of what the caller is doing or considering&gt;
+Concepts: &lt;named ideas, abstractions, approaches the work touches&gt;
+Decisions: &lt;specific decisions under consideration, if any&gt;
+Domains: &lt;skill-design | workflow | code-implementation | agent-architecture | ... — optional hint&gt;
+&lt;/work-context&gt;
+</code></pre></div>
+<p>When the caller passes this block, extract keywords from each field.</p>
+<p>When the caller passes free-form text instead of a structured block, treat it as the Activity field and extract keywords heuristically from the prose. Both shapes are supported.</p>
+<p>Keyword dimensions to extract (applies to either input shape):</p>
+<ul>
+<li><strong>Module names</strong> — e.g., "BriefSystem", "EmailProcessing", "payments"</li>
+<li><strong>Technical terms</strong> — e.g., "N+1", "caching", "authentication"</li>
+<li><strong>Problem indicators</strong> — e.g., "slow", "error", "timeout", "memory" (applies when the work is bug-shaped)</li>
+<li><strong>Component types</strong> — e.g., "model", "controller", "job", "api"</li>
+<li><strong>Concepts</strong> — named ideas or abstractions: "per-finding walk-through", "fallback-with-warning", "pipeline separation"</li>
+<li><strong>Decisions</strong> — choices the caller is weighing: "split into units", "migrate to framework X", "add a new tier"</li>
+<li><strong>Approaches</strong> — strategies or patterns: "test-first", "state machine", "shared template"</li>
+<li><strong>Domains</strong> — functional areas: "skill-design", "workflow", "code-implementation", "agent-architecture"</li>
+</ul>
+<p>The caller's context determines which dimensions carry weight. A code-bug query weights module + technical terms + problem indicators. A design-pattern query weights concepts + approaches + domains. A convention query weights decisions + domains. Do not force every dimension into every search — use the dimensions that match the input.</p>
+<h3 id="step-2-probe-discovered-subdirectories">Step 2: Probe Discovered Subdirectories<a class="headerlink" href="#step-2-probe-discovered-subdirectories" title="Permanent link">&para;</a></h3>
+<p>Use the native file-search/glob tool (e.g., Glob in Claude Code) to discover which subdirectories actually exist under <code>docs/solutions/</code> at invocation time. Do not assume a fixed list — subdirectory names are per-repo convention and may include any of:</p>
+<ul>
+<li>Bug-shaped: <code>build-errors/</code>, <code>test-failures/</code>, <code>runtime-errors/</code>, <code>performance-issues/</code>, <code>database-issues/</code>, <code>security-issues/</code>, <code>ui-bugs/</code>, <code>integration-issues/</code>, <code>logic-errors/</code></li>
+<li>Knowledge-shaped: <code>architecture-patterns/</code>, <code>design-patterns/</code>, <code>tooling-decisions/</code>, <code>conventions/</code>, <code>workflow/</code>, <code>workflow-issues/</code>, <code>developer-experience/</code>, <code>documentation-gaps/</code>, <code>best-practices/</code>, <code>skill-design/</code>, <code>integrations/</code></li>
+<li>Other per-repo categories</li>
+</ul>
+<p>Narrow the search to the discovered subdirectories that match the caller's Domain hint or that align with the keyword shape (e.g., bug-shaped keywords → bug-shaped subdirectories). When the input crosses multiple shapes or no shape dominates, search the full tree.</p>
+<h3 id="step-3-content-search-pre-filter-critical-for-efficiency">Step 3: Content-Search Pre-Filter (Critical for Efficiency)<a class="headerlink" href="#step-3-content-search-pre-filter-critical-for-efficiency" title="Permanent link">&para;</a></h3>
+<p><strong>Use the native content-search tool (e.g., Grep in Claude Code) to find candidate files BEFORE reading any content.</strong> Run multiple searches in parallel, case-insensitive, returning only matching file paths:</p>
+<div class="highlight"><pre><span></span><code># Search for keyword matches in frontmatter fields (run in PARALLEL, case-insensitive).
+# Pick fields and synonym sets that match the caller&#39;s input shape; mix across shapes when the input is ambiguous.
+content-search: pattern=&quot;title:.*(dispatch|orchestration|pipeline)&quot; path=docs/solutions/ files_only=true case_insensitive=true
+content-search: pattern=&quot;tags:.*(subagent|orchestration|token-efficiency)&quot; path=docs/solutions/ files_only=true case_insensitive=true
+content-search: pattern=&quot;module:.*(compound-engineering|skill-design)&quot; path=docs/solutions/ files_only=true case_insensitive=true
+content-search: pattern=&quot;problem_type:.*(architecture_pattern|design_pattern|tooling_decision)&quot; path=docs/solutions/ files_only=true case_insensitive=true
+</code></pre></div>
+<p><strong>Pattern construction tips:</strong></p>
+<ul>
+<li>Use <code>|</code> for synonyms: <code>tags:.*(subagent|parallel|fan-out)</code> or <code>tags:.*(payment|billing|stripe|subscription)</code></li>
+<li>Include <code>title:</code> — often the most descriptive field</li>
+<li>Search case-insensitively</li>
+<li>Include related terms the user might not have mentioned</li>
+<li>Match the fields to the input shape: bug-shaped queries search <code>symptoms:</code> and <code>root_cause:</code>; decision- and pattern-shaped queries search <code>tags:</code>, <code>title:</code>, and <code>problem_type:</code></li>
+</ul>
+<p><strong>Why this works:</strong> Content search scans file contents without reading into context. Only matching filenames are returned, dramatically reducing the set of files to examine.</p>
+<p><strong>Combine results</strong> from all searches to get candidate files (typically 5-20 files instead of 200).</p>
+<p><strong>If search returns &gt;25 candidates:</strong> Re-run with more specific patterns or combine with subdirectory narrowing from Step 2.</p>
+<p><strong>If search returns &lt;3 candidates:</strong> Do a broader content search (not just frontmatter fields) as fallback:</p>
+<div class="highlight"><pre><span></span><code>content-search: pattern=&quot;email&quot; path=docs/solutions/ files_only=true case_insensitive=true
+</code></pre></div>
+<h3 id="step-3b-conditionally-check-critical-patterns">Step 3b: Conditionally Check Critical Patterns<a class="headerlink" href="#step-3b-conditionally-check-critical-patterns" title="Permanent link">&para;</a></h3>
+<p>If <code>docs/solutions/patterns/critical-patterns.md</code> exists in this repo, read it — it may contain must-know patterns that apply across all work. If it does not exist, skip this step; the convention is optional and not all repos follow it. Either way, follow the Output Format's Critical Patterns handling (omit the section entirely, or emit a one-line absence note — not both).</p>
+<h3 id="step-4-read-frontmatter-of-candidates-only">Step 4: Read Frontmatter of Candidates Only<a class="headerlink" href="#step-4-read-frontmatter-of-candidates-only" title="Permanent link">&para;</a></h3>
+<p>For each candidate file from Step 3, read the frontmatter:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Read frontmatter only (limit to first 30 lines)</span>
+Read:<span class="w"> </span><span class="o">[</span>file_path<span class="o">]</span><span class="w"> </span>with<span class="w"> </span>limit:30
+</code></pre></div>
+<p>Extract these fields from the YAML frontmatter:</p>
+<ul>
+<li><strong>module</strong> — which module, system, or domain the learning applies to</li>
+<li><strong>problem_type</strong> — category (knowledge-track and bug-track values apply equally; see schema reference below)</li>
+<li><strong>component</strong> — technical component or area affected (when applicable)</li>
+<li><strong>tags</strong> — searchable keywords</li>
+<li><strong>symptoms</strong> — observable behaviors or friction (present on bug-track entries and sometimes on knowledge-track entries)</li>
+<li><strong>root_cause</strong> — underlying cause (present on bug-track entries; optional on knowledge-track entries)</li>
+<li><strong>severity</strong> — critical, high, medium, low</li>
+</ul>
+<p>Some non-bug entries may have looser frontmatter shapes (they do not require <code>symptoms</code> or <code>root_cause</code>). Do not discard these entries for missing bug-shaped fields — use whatever fields are present for matching.</p>
+<h3 id="step-5-score-and-rank-relevance">Step 5: Score and Rank Relevance<a class="headerlink" href="#step-5-score-and-rank-relevance" title="Permanent link">&para;</a></h3>
+<p>Match frontmatter fields against the keywords extracted in Step 1:</p>
+<p><strong>Strong matches (prioritize):</strong></p>
+<ul>
+<li><code>module</code> or domain matches the caller's area of work</li>
+<li><code>tags</code> contain keywords from the caller's Concepts, Decisions, or Approaches</li>
+<li><code>title</code> contains keywords from the caller's Activity or Concepts</li>
+<li><code>component</code> matches the technical area being touched</li>
+<li><code>symptoms</code> describe similar observable behaviors (when applicable)</li>
+</ul>
+<p><strong>Moderate matches (include):</strong></p>
+<ul>
+<li><code>problem_type</code> is relevant (e.g., <code>architecture_pattern</code> when the caller is making architectural decisions, <code>performance_issue</code> when the caller is optimizing)</li>
+<li><code>root_cause</code> suggests a pattern that might apply</li>
+<li>Related modules, components, or domains mentioned</li>
+</ul>
+<p><strong>Weak matches (skip):</strong></p>
+<ul>
+<li>No overlapping tags, symptoms, concepts, or modules</li>
+<li>Unrelated <code>problem_type</code> and no cross-cutting applicability</li>
+</ul>
+<h3 id="step-6-full-read-of-relevant-files">Step 6: Full Read of Relevant Files<a class="headerlink" href="#step-6-full-read-of-relevant-files" title="Permanent link">&para;</a></h3>
+<p>Only for files that pass the filter (strong or moderate matches), read the complete document to extract:</p>
+<ul>
+<li>The full problem framing or decision context</li>
+<li>The learning itself (solution, pattern, decision, convention)</li>
+<li>Prevention guidance or application notes</li>
+<li>Code examples or illustrative evidence</li>
+</ul>
+<p>When a learning's claim conflicts with what you can observe in the current code or docs, flag the conflict explicitly rather than echoing the claim. Note the entry's date so the caller can judge whether the learning may have been superseded. Research agents can be confidently wrong; never let a past learning silently override present evidence.</p>
+<h3 id="step-7-return-distilled-summaries">Step 7: Return Distilled Summaries<a class="headerlink" href="#step-7-return-distilled-summaries" title="Permanent link">&para;</a></h3>
+<p>Render findings using the structure defined in <strong>## Output Format</strong> below. The <code>Feature/Task</code> field summarizes the caller's input — the <code>Activity</code> from the <code>&lt;work-context&gt;</code> block when present, or the free-form prose otherwise.</p>
+<p>Return up to 5 findings, prioritized by relevance. If more strong matches exist, pick the ones most directly applicable and note briefly at the end of <code>Relevant Learnings</code> that additional matches exist. Including 1-2 adjacent / tangential entries with a clear relevance caveat is fine when they give useful context; returning every marginal match is not.</p>
+<p>Fill <code>**Problem Type**</code> with the raw <code>problem_type</code> value from the frontmatter (e.g., <code>architecture_pattern</code>, <code>design_pattern</code>, <code>tooling_decision</code>, <code>runtime_error</code>) so the caller can tell whether each entry is a bug-track or knowledge-track learning. When the frontmatter has no <code>problem_type</code> (older entries sometimes use <code>category</code> instead, or have no YAML at all), infer a descriptive label and mark it <code>inferred</code>.</p>
+<h2 id="frontmatter-schema-reference">Frontmatter Schema Reference<a class="headerlink" href="#frontmatter-schema-reference" title="Permanent link">&para;</a></h2>
+<p>The two <code>problem_type</code> tracks:</p>
+<ul>
+<li><strong>Knowledge-track:</strong> <code>architecture_pattern</code>, <code>design_pattern</code>, <code>tooling_decision</code>, <code>convention</code>, <code>workflow_issue</code>, <code>developer_experience</code>, <code>documentation_gap</code>, <code>best_practice</code> (fallback).</li>
+<li><strong>Bug-track:</strong> <code>build_error</code>, <code>test_failure</code>, <code>runtime_error</code>, <code>performance_issue</code>, <code>database_issue</code>, <code>security_issue</code>, <code>ui_bug</code>, <code>integration_issue</code>, <code>logic_error</code>.</li>
+</ul>
+<p>Other frontmatter fields (<code>component</code>, <code>root_cause</code>, etc.) are repo-specific and evolve over time. Do not assume a fixed enum — read the value from each file as-is, and when summarizing a learning with an unrecognized value, pass it through verbatim rather than normalizing it.</p>
+<p>Probe the live <code>docs/solutions/</code> directory (Step 2) for what actually exists; do not hard-code subdirectory names.</p>
+<h2 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h2>
+<p>Structure findings as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="gu">## Institutional Learnings Search Results</span>
+
+<span class="gu">### Search Context</span>
+<span class="k">-</span><span class="w"> </span><span class="gs">**Feature/Task**</span>: [Summary of the caller&#39;s activity, decision, or problem — works for bugs, architecture decisions, design patterns, tooling choices, or conventions.]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Keywords Used**</span>: [tags, modules, concepts, domains searched]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Files Scanned**</span>: [X total files]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Relevant Matches**</span>: [Y files]
+
+<span class="gu">### Critical Patterns</span>
+[Include only when <span class="sb">`docs/solutions/patterns/critical-patterns.md`</span> exists and has relevant content. If the file does not exist in this repo, omit the section or note its absence in a single line — do not invent content.]
+
+<span class="gu">### Relevant Learnings</span>
+
+<span class="gu">#### 1. [Title from document]</span>
+<span class="k">-</span><span class="w"> </span><span class="gs">**File**</span>: [absolute or repo-relative path]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Module**</span>: [module/domain from frontmatter, or the repo area the learning applies to]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Problem Type**</span>: [raw <span class="sb">`problem_type`</span> value from frontmatter, e.g. <span class="sb">`architecture_pattern`</span>, <span class="sb">`design_pattern`</span>, <span class="sb">`tooling_decision`</span>, <span class="sb">`runtime_error`</span>. Mark as &quot;inferred&quot; when the entry has no <span class="sb">`problem_type`</span>.]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Relevance**</span>: [why this matters for the caller&#39;s work]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Key Insight**</span>: [the decision, pattern, or pitfall to carry forward]
+<span class="k">-</span><span class="w"> </span><span class="gs">**Severity**</span>: [severity level, when present in frontmatter; omit the line otherwise]
+
+<span class="gu">#### 2. [Title]</span>
+...
+
+<span class="gu">### Recommendations</span>
+<span class="k">-</span><span class="w"> </span>[Specific actions or decisions to consider based on the surfaced learnings]
+<span class="k">-</span><span class="w"> </span>[Patterns to follow or mirror]
+<span class="k">-</span><span class="w"> </span>[Past mis-steps worth avoiding, where applicable]
+</code></pre></div>
+<p>When no relevant learnings are found, say so explicitly, include the search context so the caller can see what was looked for, and note that the caller's work may be worth capturing as a durable learning after it lands — the absence is itself useful signal.</p>
+<h2 id="efficiency-guidelines">Efficiency Guidelines<a class="headerlink" href="#efficiency-guidelines" title="Permanent link">&para;</a></h2>
+<p><strong>DO:</strong></p>
+<ul>
+<li>Use the native content-search tool to pre-filter files BEFORE reading any content (critical for 100+ files)</li>
+<li>Run multiple content searches in PARALLEL across different keyword dimensions</li>
+<li>Probe <code>docs/solutions/</code> subdirectories dynamically rather than assuming a fixed list</li>
+<li>Include <code>title:</code> in search patterns — often the most descriptive field</li>
+<li>Use OR patterns for synonyms and search case-insensitively</li>
+<li>Narrow to discovered subdirectories when the caller's Domain hint makes one obvious</li>
+<li>Broaden the content search as fallback if &lt;3 candidates found; re-narrow if &gt;25</li>
+<li>Read frontmatter only of search-matched candidates, capped at the first ~30 lines per file (enough to cover YAML)</li>
+<li>Fully read only candidates that pass relevance scoring in Step 5</li>
+<li>Prioritize high-severity entries and flag date when a learning may be superseded</li>
+<li>Extract actionable takeaways, not summaries</li>
+</ul>
+<p><strong>DON'T:</strong></p>
+<ul>
+<li>Skip the grep pre-filter and read frontmatter of every file in <code>docs/solutions/</code> — pre-filter first, then read frontmatter of the shortlist</li>
+<li>Read full content of every candidate — only the ones that pass relevance scoring</li>
+<li>Run searches sequentially when they can be parallel</li>
+<li>Use only exact keyword matches (include synonyms); skip <code>title:</code> in patterns; proceed with &gt;25 candidates without narrowing</li>
+<li>Return raw document contents instead of distilling them</li>
+<li>Include every tangentially related match — 1-2 adjacent entries with a caveat is fine; a long tail of weak matches is noise</li>
+<li>Discard a candidate because it lacks bug-shaped fields like <code>symptoms</code> or <code>root_cause</code> — non-bug entries legitimately omit them</li>
+<li>Assume <code>docs/solutions/patterns/critical-patterns.md</code> exists — read it only when present</li>
+</ul>
+<h2 id="consumption-contract">Consumption Contract<a class="headerlink" href="#consumption-contract" title="Permanent link">&para;</a></h2>
+<p>Output is consumed as prose. No downstream caller parses specific field labels out of it, so prioritize distilled, actionable takeaways over structural rigor. Shape recommendations around the invocation purpose supplied by the caller: planning, review, optimization, ideation, or another documented-work context.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.top", "navigation.expand", "search.highlight", "content.code.copy"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
