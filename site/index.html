@@ -144,10 +144,9 @@
   #case .duo li span{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim);white-space:nowrap;padding-top:2px}
   #case .duo .foot{margin-top:14px;font-size:13px;color:var(--dim);line-height:1.5}
   /* linked-memory figure (particle field) */
-  #case .memfig{border-top:1px solid var(--line)}
-  #case .memfig .body{position:relative;height:260px}
+  #case .memfig .body{position:relative;height:240px;margin-top:10px;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 16%,#000 84%,transparent)}
   #case .memfig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-  #case .memfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:9px 13px;border-top:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  #case .memfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:4px 24px 18px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
   #case .memfig figcaption b{color:var(--acc);font-weight:500}
   /* the loop — six jobs (with icons) */
   #case .cjobs{margin-top:6px}
@@ -159,6 +158,7 @@
   #case .cjob:hover .jt{color:var(--acc)}
   #case .cjob .jd{color:#C6CAD6;font-size:14.5px;line-height:1.55}
   #case .cjob .jm{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
+  #case .cjob:last-child{border-bottom:none}
   @media (max-width:640px){ #case .cjob{grid-template-columns:20px 1fr auto;gap:6px 12px} #case .cjob .jd{grid-column:1/-1;padding-left:32px} }
   /* a day strip */
   #case .cday{display:flex;margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:#0A0C13}
@@ -187,6 +187,7 @@
   @media (max-width:640px){ #case .truth{grid-template-columns:1fr;gap:4px} }
   #case .truth b{font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.02em;color:var(--pearl);font-weight:500}
   #case .truth span{color:var(--muted);font-size:14px;line-height:1.55}
+  #case .truth:last-child{border-bottom:none}
   /* docs link */
   #case .doclink{margin-top:16px}
   #case .doclink a{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);text-decoration:none}
