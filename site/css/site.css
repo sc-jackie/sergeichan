@@ -121,6 +121,7 @@ body {
 
 /* ============ ACT II: WORK CANVAS ============ */
 .work-canvas-region {
+  position: relative;
   width: 100%;
   max-width: 1200px;
   height: 60vh;
@@ -128,6 +129,7 @@ body {
   border-radius: 8px;
   background: rgba(12, 14, 22, 0.5);
   outline: none;
+  overflow: visible;
 }
 
 .work-canvas-region:focus-visible {
@@ -493,6 +495,85 @@ body {
 #case .duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+/* ============ GLIMPSE ELEMENT (project kicker in work section) ============ */
+#glimpse {
+  position: absolute;
+  width: 196px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.35s ease, left 0.55s cubic-bezier(0.25, 0.1, 0.25, 1);
+  background: rgba(12, 14, 22, 0.66);
+  border: 1px solid rgba(229, 231, 239, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 11px 13px 10px;
+  z-index: 5;
+  --acc: #C9A45C;
+}
+
+#glimpse.on {
+  opacity: 1;
+}
+
+#glimpse .kick {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--acc);
+  opacity: 0.85;
+}
+
+#glimpse .one {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 5px 0 0;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.3s ease, transform 0.35s ease;
+}
+
+#glimpse .enterhint {
+  margin-top: 8px;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acc);
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.3s ease, transform 0.35s ease;
+}
+
+#glimpse.s1 .one {
+  opacity: 1;
+  transform: none;
+}
+
+#glimpse.s2 .one {
+  opacity: 1;
+  transform: none;
+}
+
+#glimpse.s2 .enterhint {
+  opacity: 0.8;
+  transform: none;
+}
+
+@media (max-width: 640px) {
+  #glimpse {
+    left: 50% !important;
+    top: auto !important;
+    bottom: 14px;
+    width: auto;
+    min-width: 200px;
+    max-width: calc(100% - 28px);
+  }
 }
 
 @media (max-width: 680px) {

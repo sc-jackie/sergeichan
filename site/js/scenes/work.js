@@ -4,6 +4,7 @@
 
 import { makeBundle } from '../three/threads.js';
 import { createPalette } from '../three/materials.js';
+import { getCaseData } from '../data/work.js';
 
 export function createScene(ctx) {
   const {
@@ -30,6 +31,7 @@ export function createScene(ctx) {
   let group = null;
   let chords = []; // Five thread bundles
   let focus = 2; // Start on center (Jackie-OS)
+  let prevFocus = focus; // Track focus changes for glimpse update
   let focusT = 0; // Time-driven cycle for idle rotation
   let focusAmt = [0.05, 0.05, 1, 0.05, 0.05]; // Smooth focus amounts per chord
   let time = 0;
@@ -66,6 +68,17 @@ export function createScene(ctx) {
       new THREE.Vector3(worldX + 0.2, 0.3, 1.5),
       new THREE.Vector3(worldX, 0.1, 3)
     ];
+  }
+
+  // Update glimpse with focused project data
+  function updateGlimpse() {
+    if (!glimpseEl) return;
+    const data = getCaseData(focus);
+    if (!data) return;
+    const kickEl = glimpseEl.querySelector('#gKick');
+    const oneEl = glimpseEl.querySelector('#gOne');
+    if (kickEl) kickEl.textContent = data.kick;
+    if (oneEl) oneEl.textContent = data.one;
   }
 
   return {
@@ -107,6 +120,9 @@ export function createScene(ctx) {
       camera.position.set(0, 0, 3);
       camera.lookAt(0, 0, 0);
       camera.fov = 75;
+
+      // Initial glimpse population
+      updateGlimpse();
 
       // Event listeners (unless reduced motion)
       if (!isReducedMotion) {
@@ -199,6 +215,12 @@ export function createScene(ctx) {
         const targetFocus = i === focus ? 1 : 0;
         focusAmt[i] += (targetFocus - focusAmt[i]) * 0.06;
       });
+
+      // Update glimpse content when focus changes
+      if (focus !== prevFocus) {
+        updateGlimpse();
+        prevFocus = focus;
+      }
 
       // Update glimpse DOM positioning (home mode only)
       if (mode === 'home' && glimpseEl && !isReducedMotion) {
