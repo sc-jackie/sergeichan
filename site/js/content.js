@@ -73,13 +73,18 @@ function renderCapital() {
       </div>
     `).join('');
 
+    const aggregateHtml = stream.aggregate
+      ? `<div class="capital-stream-aggregate">${stream.aggregate}</div>`
+      : '';
+
     return `
       <div class="capital-stream" style="--stream-color: ${stream.color}">
         <div class="capital-stream-header">
           <h3 class="capital-stream-name">${stream.name}</h3>
         </div>
         ${countHtml}
-        <div class="capital-stream-thesis">${stream.highlights[0]?.note || ''}</div>
+        ${aggregateHtml}
+        <div class="capital-stream-thesis">${stream.thesis || ''}</div>
         <div class="capital-highlights">
           ${highlightsHtml}
         </div>

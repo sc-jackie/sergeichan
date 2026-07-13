@@ -1,20 +1,20 @@
-// Act III: Path — timeline of past work
+// Act III: Path — timeline of past work (vault-sourced; owner review pending, EVE-87 U9)
 
 export const path = [
   {
     era: '2014–2018',
     role: 'Design',
     org: 'Freelance · UI/UX',
-    industry: 'SaaS / Automotive',
-    line: 'Client work for Lexus, Suzuki, Toyota dealer sites in Singapore. Startups across Singapore and SE Asia.',
-    years: '5'
+    industry: 'Web / Product',
+    line: 'Client work including Lexus, Suzuki and Toyota dealer sites in Singapore, plus startup product work.',
+    years: '4'
   },
   {
     era: '2018–2020',
     role: 'Research',
-    org: 'Blockchain community',
+    org: 'Blockchain research',
     industry: 'Crypto',
-    line: 'Analyst through the bear market; organized community meetups (hundreds of attendees); early DeFi exploration.',
+    line: 'Analyst through the bear market; organized community meetups with hundreds of attendees.',
     years: '2'
   },
   {
@@ -22,7 +22,7 @@ export const path = [
     role: 'Markets',
     org: 'Full-time investor',
     industry: 'Investing',
-    line: 'Angel checks and crypto derivatives trading; portfolio work across Europe and Asia.',
+    line: 'Full-time on markets: crypto investing and trading, plus early-stage angel checks.',
     years: '5'
   },
   {
@@ -30,7 +30,7 @@ export const path = [
     role: 'Systems',
     org: 'Independent builder',
     industry: 'AI & Agents',
-    line: 'Five AI-native products in production: Newfin (crypto hedge), Persik (trading signals), Jackie-OS (AI agent OS), Draw (audit platform), and an always-on cron/orchestration stack.',
+    line: 'Five products in production — Jackie-OS (a personal AI operating system), Newfin (personal finance), Rodyna (family recipes), B-Unit (habit-building), Draw (tennis tournaments) — run day to day by always-on agents.',
     years: '1+'
   }
 ];
