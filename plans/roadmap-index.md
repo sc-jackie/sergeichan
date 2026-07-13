@@ -6,15 +6,16 @@
 > fix the doc. **After every ship:** agents prune [future-improvements](future-improvements.md) and
 > refresh this index in the same commit ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
-_Last audited against `main` on 2026-07-12 (`ba7915e`)._
+_Last audited against `main` on 2026-07-14 (`c49e93b`)._
 
 ## Plan-doc status
 
 | Plan doc | State | Open work |
 | -------- | ----- | --------- |
-| [future-improvements](future-improvements.md) | 📋 catalog | **primary forward surface** — owner-prioritized backlog |
+| [2026-07-13-001 cinematic six-act scroll redesign](2026-07-13-001-feat-cinematic-six-act-scroll-redesign-plan.md) | 📋 spec'd, awaiting approval | Full plan: 6 full-viewport acts, Lenis+GSAP vendored, Canvas 2D scenes; U1–U9. Linear: EVE-87 (`needs-approval`). Supersedes the Three.js hero rebuild idea (EVE-77 canceled; Three.js = named future upgrade path inside this plan). |
+| [future-improvements](future-improvements.md) | 📋 catalog | owner-prioritized backlog (task queue itself lives in Linear — Personal Website project) |
 
-**Genuinely-remaining engineering surface (2026-07-11):** Four core items seeded at onboarding: Three.js 1:1 hero rebuild, real screenshots, first essay, custom domain.
+**Genuinely-remaining engineering surface (2026-07-14):** the six-act redesign (spec'd above) + three catalog items: real screenshots (EVE-78), first essay (EVE-79, becomes redesign act 5 content), custom domain (EVE-80).
 
 ## Shipped
 

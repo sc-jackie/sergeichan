@@ -14,10 +14,10 @@ Created 2026-07-11 at project onboarding.
 
 ## Core product
 
-- **Three.js 1:1 hero rebuild** — keeping Canvas-2D as fallback for compatibility; interactive 3D scene replacing current Canvas animation
-- **Real screenshots in case-study frames** — product photography for portfolio entries instead of placeholder blocks
-- **First essay: "Growing up between two cultures"** — personal narrative/reflection content for the writings section
-- **Custom domain** — move from vercel.app to personnelle domain (DNS + Vercel configuration)
+- **🔵 Cinematic six-act scroll redesign** — spec'd 2026-07-13 → [plan](2026-07-13-001-feat-cinematic-six-act-scroll-redesign-plan.md) (Linear EVE-87, `needs-approval`). Absorbs the about/past/investments/writing/contact surfaces; supersedes the "Three.js 1:1 hero rebuild" idea (EVE-77 canceled — Three.js is the plan's named future upgrade path).
+- **Real screenshots in case-study frames** (EVE-78) — product photography for portfolio entries instead of placeholder blocks; feeds redesign acts 2–3
+- **First essay: "Growing up between two cultures"** (EVE-79) — personal narrative/reflection content; becomes redesign act 5 (Voice) content
+- **Custom domain** (EVE-80) — move from vercel.app to personal domain (DNS + Vercel configuration)
 
 ## Infra, ops & quality
 
@@ -28,4 +28,4 @@ Created 2026-07-11 at project onboarding.
 ## Out of scope (v1)
 
 - Blog/CMS system — stay static HTML/Canvas
-- Animation frameworks — Canvas 2D only; Three.js is a one-off hero, not a pattern
+- Animation frameworks — *superseded 2026-07-13 by the six-act redesign plan:* vendored GSAP ScrollTrigger + Lenis approved for scroll orchestration; scenes stay Canvas 2D (Three.js remains out — it's the plan's named future upgrade path, not part of this pass)
