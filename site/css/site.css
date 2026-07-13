@@ -1249,6 +1249,14 @@ html.fallback a:focus-visible {
   margin-bottom: var(--space-sm);
 }
 
+.capital-stream-aggregate {
+  color: var(--stream-color);
+  font-size: var(--text-sm, 0.85rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
 .capital-stream-thesis {
   color: var(--muted);
   font-size: var(--text-base);
