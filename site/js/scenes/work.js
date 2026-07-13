@@ -143,7 +143,7 @@ export function createScene(ctx) {
           });
         }
 
-        // Keyboard
+        // Keyboard — home mode navigation
         document.addEventListener('keydown', e => {
           if (!canvasFocused || mode !== 'home') return;
 
@@ -159,6 +159,13 @@ export function createScene(ctx) {
             startDive(focus);
             e.preventDefault();
           }
+        });
+
+        // Escape key — close case overlay
+        document.addEventListener('keydown', e => {
+          if (e.key !== 'Escape' || mode !== 'in-case') return;
+          resurface();
+          e.preventDefault();
         });
       }
 
