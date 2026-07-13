@@ -80,7 +80,8 @@ class SceneManager {
     });
 
     this.renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
-    this.renderer.setClearColor(0x0C0E16, 0);
+    // ponytail: set clear alpha to 1 (opaque) so AdditiveBlending renders properly; background color compositing via CSS if needed
+    this.renderer.setClearColor(0x0C0E16, 1);
 
     setupContextLossHandling(this.renderer);
 
@@ -147,22 +148,30 @@ class SceneManager {
   }
 
   tick = () => {
-    this.time += 1 / 60;
+    // The rAF chain must survive scene bugs — one bad tick may not kill the site.
+    try {
+      this.time += 1 / 60;
 
-    // Get scroll progress from ScrollTrigger for active scene
-    let progress = 0;
-    if (window.scrollTriggers && this.activeSceneName) {
-      const triggerEntry = window.scrollTriggers.find(t => t.index === this.currentActIndex);
-      if (triggerEntry?.trigger) {
-        progress = triggerEntry.trigger.progress || 0;
+      // Get scroll progress from ScrollTrigger for active scene
+      let progress = 0;
+      if (window.scrollTriggers && this.activeSceneName) {
+        const triggerEntry = window.scrollTriggers.find(t => t.index === this.currentActIndex);
+        if (triggerEntry?.trigger) {
+          progress = triggerEntry.trigger.progress || 0;
+        }
+      }
+
+      if (this.activeScene?.tick) {
+        this.activeScene.tick(progress, this.time);
+      }
+
+      this.renderer.render(this.scene, this.camera);
+    } catch (e) {
+      if (!this._tickErrorLogged) {
+        this._tickErrorLogged = true;
+        console.error('[stage] tick error (loop continues):', e);
       }
     }
-
-    if (this.activeScene?.tick) {
-      this.activeScene.tick(progress, this.time);
-    }
-
-    this.renderer.render(this.scene, this.camera);
     requestAnimationFrame(this.tick);
   };
 

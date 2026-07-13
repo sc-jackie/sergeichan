@@ -33,7 +33,7 @@ export function createScene(ctx) {
   let bundleUA = null;
   let bundleVN = null;
   let splitMeshes = null;
-  let loadTime = 0;
+  let timeAtMount = null; // ponytail: store mount time once; use for elapsed = time - timeAtMount
   let intro = {
     state: 'loading', // loading → converging → merged → resident → splitting
     progress: 0, // [0..1]
@@ -134,7 +134,7 @@ export function createScene(ctx) {
       camera.position.set(0, 0.3, 8);
       camera.lookAt(0, 0.2, 0);
 
-      loadTime = 0;
+      timeAtMount = null; // Will be set on first tick
       intro.state = 'loading';
       intro.progress = 0;
 
@@ -170,11 +170,15 @@ export function createScene(ctx) {
     tick(scrollProgress, currentTime) {
       if (!group) return;
 
-      loadTime = currentTime;
+      // Set mount time on first tick
+      if (timeAtMount === null) {
+        timeAtMount = currentTime;
+      }
+
+      const elapsed = currentTime - timeAtMount; // Elapsed time since mount
 
       // ============ INTRO PHASE (time-driven, ~2.4s) ============
       if (intro.state === 'loading') {
-        const elapsed = currentTime; // Time since mount
         intro.progress = Math.min(elapsed / INTRO_DURATION, 1);
 
         // Scroll override: if scrollProgress > 0, we're being scrubbed, fast-forward intro
@@ -222,7 +226,7 @@ export function createScene(ctx) {
         bundleVN.mesh.position.set(0.6, 0.2, 1);
 
         // Gentle breathing: amplitude modulation along y via filament phase
-        const breath = Math.sin(currentTime * 0.7) * 0.15;
+        const breath = Math.sin(elapsed * 0.7) * 0.15;
         bundleUA.mesh.position.y += breath * 0.1;
         bundleVN.mesh.position.y += breath * 0.1;
 
@@ -233,10 +237,14 @@ export function createScene(ctx) {
         // Subtle pointer parallax on camera
         const parallaxStrength = 0.3;
         camera.position.x = (pointerY - 0.5) * parallaxStrength;
+
+        // ponytail: update camera look direction to track bundles as camera moves
+        camera.lookAt(0, 0.2, 1);
       }
 
       // ============ SPLIT PHASE (scroll-driven exit) ============
-      if (scrollProgress > 0 && intro.state === 'resident') {
+      // ponytail: require scrollProgress > 0.5 to avoid false-triggering from scroll trigger initialization; only split when user scrolls past midpoint of section
+      if (scrollProgress > 0.5 && intro.state === 'resident') {
         intro.state = 'splitting';
         intro.progress = scrollProgress;
       }
@@ -287,8 +295,17 @@ export function createScene(ctx) {
       }
 
       // Always update shader time for continuous motion
-      if (bundleUA) bundleUA.updateProgress(Math.sin(currentTime * 0.3) * 0.3 + 0.5);
-      if (bundleVN) bundleVN.updateProgress(Math.sin(currentTime * 0.3) * 0.3 + 0.5);
+      if (bundleUA) bundleUA.updateProgress(Math.sin(elapsed * 0.3) * 0.3 + 0.5);
+      if (bundleVN) bundleVN.updateProgress(Math.sin(elapsed * 0.3) * 0.3 + 0.5);
+
+      // Update split meshes' material time uniforms (ponytail: direct uniform update since split meshes are raw THREE.Mesh objects)
+      if (splitMeshes && splitMeshes.length > 0) {
+        splitMeshes.forEach(mesh => {
+          if (mesh.material?.uniforms?.time) {
+            mesh.material.uniforms.time.value = performance.now() / 1000;
+          }
+        });
+      }
     },
 
     resize(newW, newH) {

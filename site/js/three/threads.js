@@ -29,7 +29,8 @@ export function makeBundle(controlPoints, palette, opts = {}) {
   } = opts;
 
   const curve = createCurve(controlPoints);
-  const material = createThreadMaterial({ qualityTier });
+  const paletteColors = (palette || []).map(c => (typeof c === 'string' ? new THREE.Color(c) : c));
+  const material = createThreadMaterial({ palette: paletteColors, qualityTier });
 
   // Build geometry: one merged geometry for all filaments in this bundle
   const geometry = new THREE.BufferGeometry();

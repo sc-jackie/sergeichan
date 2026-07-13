@@ -1,110 +1,116 @@
-// Custom ShaderMaterial for silk-thread ribbons
-// Anisotropic sheen + glow effect
+// Custom ShaderMaterial for silk-thread ribbons — unlit anisotropic sheen + glow.
+// No scene lights required: sheen is a moving highlight band along the fiber,
+// plus a view-angle shimmer. Palette gradient runs along the ribbon length.
 
 import * as THREE from 'three';
 
-// Vertex shader: per-filament sway + ribbon expansion
 const threadVertexShader = `
 uniform float time;
-uniform float sway;
 uniform float breathe;
 uniform float phase;
 uniform float progress;
-uniform vec3 basePos[VERT_POSITIONS];
-
-varying float vAlpha;
-varying vec3 vNormal;
-varying float vFilament;
-varying float vParamT;
 
 attribute float aFilament;
 attribute float aParamT;
 attribute float aRibbonT;
 
+varying float vAlpha;
+varying float vFilament;
+varying float vParamT;
+varying vec3 vNormalW;
+varying vec3 vPositionW;
+
 void main() {
   vFilament = aFilament;
   vParamT = aParamT;
 
-  // Per-filament phase offset — independent oscillation (port from old engine)
+  // Per-filament phase offset — independent oscillation (ported feel from the old engine)
   float ph = aFilament * 1.7 + phase;
 
-  // Braid: two sine waves at different frequencies
+  // Braid: two sine waves at different frequencies, per-filament independent
   float braid = sin(aParamT * 7.0 + time * 0.9 + ph) * 0.15
               + sin(aParamT * 3.2 - time * 0.55 + phase + aFilament * 0.8) * 0.08;
 
   // Breathe: amplitude modulation along the curve
-  float breathe_amt = breathe * sin(3.14159 * aParamT * 2.0) * sin(time * 2.2 + aFilament * 0.9) * 0.2;
+  float breatheAmt = breathe * sin(3.14159 * aParamT * 2.0) * sin(time * 2.2 + aFilament * 0.9) * 0.2;
 
-  // Ribbon expansion (perpendicular to curve)
-  vec3 pos = position + (braid + breathe_amt + aRibbonT * 0.3) * normal;
+  vec3 displaced = position + (braid + breatheAmt) * normal;
 
-  vec4 modelPos = modelMatrix * vec4(pos, 1.0);
-  gl_Position = projectionMatrix * viewMatrix * modelPos;
+  vec4 worldPos = modelMatrix * vec4(displaced, 1.0);
+  vPositionW = worldPos.xyz;
+  vNormalW = normalize(mat3(modelMatrix) * normal);
 
-  vNormal = normalize(normalMatrix * normal);
-  vAlpha = 1.0 - abs(aRibbonT); // fade at ribbon edges
+  gl_Position = projectionMatrix * viewMatrix * worldPos;
+
+  // Fade at ribbon edges
+  vAlpha = 1.0 - abs(aRibbonT) * 0.65;
 }
 `;
 
-// Fragment shader: anisotropic sheen + soft glow
 const threadFragmentShader = `
-uniform vec3 color;
+uniform vec3 colorA;
+uniform vec3 colorB;
+uniform float time;
 uniform float sheen;
 uniform float glowIntensity;
+uniform float opacity;
 
 varying float vAlpha;
-varying vec3 vNormal;
 varying float vFilament;
 varying float vParamT;
+varying vec3 vNormalW;
+varying vec3 vPositionW;
 
 void main() {
-  // Anisotropic sheen: highlight travels with view angle
+  // Palette gradient along the fiber, slight per-filament variation
+  vec3 base = mix(colorA, colorB, clamp(vParamT + (vFilament * 0.07 - 0.14), 0.0, 1.0));
+
+  // Anisotropic sheen: a soft highlight band that travels along the fiber
+  float bandPos = fract(vParamT - time * 0.055 + vFilament * 0.13);
+  float band = exp(-pow((bandPos - 0.5) * 6.0, 2.0));
+
+  // View-angle shimmer (fresnel-ish edge light)
   vec3 viewDir = normalize(cameraPosition - vPositionW);
-  vec3 lightDir = normalize(vec3(0.5, 1.0, 0.8));
+  float fres = pow(1.0 - abs(dot(normalize(vNormalW), viewDir)), 2.0);
 
-  // Sheen effect on ribbon surface
-  float sheen_val = pow(abs(dot(vNormal, viewDir)), 0.5) * sheen;
+  float brightness = 0.55 + 0.65 * band * sheen + 0.35 * fres;
+  vec3 finalColor = base * brightness + base * glowIntensity * 0.4;
 
-  // Soft glow: additive contribution
-  float glow = glowIntensity * (1.0 - vParamT) * 0.3; // fade toward end
-
-  vec3 finalColor = color * (0.7 + 0.3 * sheen_val) + glow * 0.5;
-
-  gl_FragColor = vec4(finalColor, vAlpha * 0.8);
+  float alpha = vAlpha * opacity * (0.55 + 0.45 * band);
+  gl_FragColor = vec4(finalColor, alpha);
 }
 `;
 
 export function createThreadMaterial(options = {}) {
   const {
+    palette = null,
     color = new THREE.Color(0xC9A45C),
-    sheen = 0.8,
-    glowIntensity = 0.3,
-    transparent = true,
-    qualityTier = 'medium'
+    sheen = 0.9,
+    glowIntensity = 0.35,
+    qualityTier = 'medium',
   } = options;
 
-  // ponytail: simplified shader — full anisotropic model deferred, this is the working baseline
-  const material = new THREE.MeshPhongMaterial({
-    color,
-    emissive: color.clone().multiplyScalar(glowIntensity * 0.3),
-    wireframe: false,
-    transparent,
-    opacity: 0.85,
-    side: THREE.DoubleSide,
-    shininess: 100,
-    fog: false
-  });
+  const colorA = palette && palette.length ? palette[0].clone() : color.clone();
+  const colorB = palette && palette.length > 1 ? palette[palette.length - 1].clone() : color.clone();
 
-  // Uniforms for animation
-  material.uniforms = material.uniforms || {};
-  Object.assign(material.uniforms, {
-    time: { value: 0 },
-    sway: { value: 0.5 },
-    breathe: { value: 0.5 },
-    phase: { value: 0 },
-    progress: { value: 0 },
-    sheen: { value: sheen },
-    glowIntensity: { value: glowIntensity }
+  const material = new THREE.ShaderMaterial({
+    vertexShader: threadVertexShader,
+    fragmentShader: threadFragmentShader,
+    uniforms: {
+      time: { value: 0 },
+      breathe: { value: qualityTier === 'low' ? 0.25 : 0.5 },
+      phase: { value: Math.random() * Math.PI * 2 },
+      progress: { value: 0 },
+      colorA: { value: colorA },
+      colorB: { value: colorB },
+      sheen: { value: sheen },
+      glowIntensity: { value: glowIntensity },
+      opacity: { value: 0.85 },
+    },
+    transparent: true,
+    blending: THREE.AdditiveBlending, // nebula-glow feel over the dark ground; no depth-sort artifacts
+    depthWrite: false,
+    side: THREE.DoubleSide,
   });
 
   return material;
@@ -112,7 +118,7 @@ export function createThreadMaterial(options = {}) {
 
 // Palette: use THREE.Color arrays to define gradients
 export function createPalette(colors) {
-  return colors.map(c => typeof c === 'string' ? new THREE.Color(c) : c);
+  return colors.map(c => (typeof c === 'string' ? new THREE.Color(c) : c));
 }
 
 // Sample a palette at a normalized position [0..1]
