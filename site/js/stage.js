@@ -133,15 +133,15 @@ class SceneManager {
   }
 
   activateScene(name) {
-    if (this.activeScene) {
+    if (this.activeScene?.unmount) {
       this.activeScene.unmount();
-      this.activeScene.api.unmount?.();
     }
 
     const entry = this.scenes.get(name);
     if (!entry) return;
 
     this.activeScene = entry.api;
+    this.activeSceneName = name;
     entry.mounted = true;
     entry.api.mount?.();
   }
@@ -153,8 +153,8 @@ class SceneManager {
     let progress = 0;
     if (window.scrollTriggers && this.activeSceneName) {
       const triggerEntry = window.scrollTriggers.find(t => t.index === this.currentActIndex);
-      if (triggerEntry?.trigger?.progress) {
-        progress = triggerEntry.trigger.progress();
+      if (triggerEntry?.trigger) {
+        progress = triggerEntry.trigger.progress || 0;
       }
     }
 
@@ -212,9 +212,8 @@ const actObserver = new IntersectionObserver(entries => {
 
 acts.forEach(act => actObserver.observe(act));
 
-// Export methods for scroll.js to update act index
-window.sceneManager.setCurrentActIndex = sceneManager.setCurrentActIndex.bind(sceneManager);
-window.sceneManager.setActiveSceneName = sceneManager.setActiveSceneName.bind(sceneManager);
+// Expose for scroll.js / interaction (must precede any window.sceneManager use)
+window.sceneManager = sceneManager;
 
 // Boot scenes and activate first
 initScenes().then(() => {
@@ -223,6 +222,3 @@ initScenes().then(() => {
 });
 
 console.log('[stage] WebGL renderer initialized, quality tier:', qualityTier);
-
-// Expose for interaction
-window.sceneManager = sceneManager;

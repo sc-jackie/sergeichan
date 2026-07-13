@@ -86,7 +86,7 @@ export function createThreadMaterial(options = {}) {
   // ponytail: simplified shader — full anisotropic model deferred, this is the working baseline
   const material = new THREE.MeshPhongMaterial({
     color,
-    emissive: new THREE.Color().multiplyColors(color, new THREE.Color(glowIntensity * 0.3)),
+    emissive: color.clone().multiplyScalar(glowIntensity * 0.3),
     wireframe: false,
     transparent,
     opacity: 0.85,
