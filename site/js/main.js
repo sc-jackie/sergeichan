@@ -63,13 +63,15 @@ const observer = new IntersectionObserver(
 
 acts.forEach(act => observer.observe(act));
 
-// Nav nodes scroll behavior
+// Nav nodes scroll behavior — use Lenis instead of scrollIntoView
 navNodes.forEach(node => {
   node.addEventListener('click', e => {
     e.preventDefault();
     const href = node.getAttribute('href');
     const target = document.querySelector(href);
-    if (target) {
+    if (target && window.lenis) {
+      window.lenis.scrollTo(target, { force: true });
+    } else if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
   });

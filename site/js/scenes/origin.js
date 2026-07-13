@@ -114,16 +114,16 @@ export function createScene(ctx) {
       ];
 
       bundleUA = makeBundle(controlPointsUA, paletteUA, {
-        filamentCount: qualityTier === 'low' ? 2 : 4,
+        filamentCount: qualityTier === 'low' ? 2 : 7,
         samplesPerFilament: qualityTier === 'full' ? 100 : 80,
-        ribbonWidth: 0.35,
+        ribbonWidth: 0.5,
         qualityTier
       });
 
       bundleVN = makeBundle(controlPointsVN, paletteVN, {
-        filamentCount: qualityTier === 'low' ? 2 : 4,
+        filamentCount: qualityTier === 'low' ? 2 : 7,
         samplesPerFilament: qualityTier === 'full' ? 100 : 80,
-        ribbonWidth: 0.35,
+        ribbonWidth: 0.5,
         qualityTier
       });
 

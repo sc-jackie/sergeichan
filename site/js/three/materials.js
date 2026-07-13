@@ -73,7 +73,7 @@ void main() {
   vec3 viewDir = normalize(cameraPosition - vPositionW);
   float fres = pow(1.0 - abs(dot(normalize(vNormalW), viewDir)), 2.0);
 
-  float brightness = 0.55 + 0.65 * band * sheen + 0.35 * fres;
+  float brightness = 0.7 + 0.65 * band * sheen + 0.35 * fres;
   vec3 finalColor = base * brightness + base * glowIntensity * 0.4;
 
   float alpha = vAlpha * opacity * (0.55 + 0.45 * band);
