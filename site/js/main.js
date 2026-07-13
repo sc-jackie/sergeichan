@@ -75,4 +75,65 @@ navNodes.forEach(node => {
   });
 });
 
+// Case population hook for work.js
+async function initCasePopulate() {
+  try {
+    const { getCaseData } = await import('./data/work.js');
+    window.casePopulate = (idx) => {
+      const data = getCaseData(idx);
+      if (!data) {
+        console.warn('[case] No data for index', idx);
+        return;
+      }
+
+      // Populate text fields
+      document.getElementById('cRoman').textContent = data.roman;
+      document.getElementById('cKick').textContent = data.kick;
+      document.getElementById('cName').textContent = data.name;
+      document.getElementById('cOne').textContent = data.one;
+      document.getElementById('caseIdx').textContent = `CASE 0${idx + 1}`;
+
+      // Populate meta row
+      const metaEl = document.getElementById('cMeta');
+      metaEl.innerHTML = data.meta
+        .map(m => `<span><b>${m.label}:</b> ${m.value}</span>`)
+        .join('');
+
+      // Populate what/why/solves sections
+      document.getElementById('cWhat').innerHTML = `<p>${data.what}</p>`;
+      document.getElementById('cWhy').innerHTML = `<p>${data.why}</p>`;
+      document.getElementById('cSolve').innerHTML = `<ul class="plain">${data.solves
+        .map(s => `<li>${s}</li>`)
+        .join('')}</ul>`;
+
+      // Populate state
+      document.getElementById('cState').innerHTML = `<p>${data.state}</p>`;
+
+      // Populate architecture
+      const archEl = document.getElementById('cArch');
+      const archNodes = data.arch
+        .map((n, i) => {
+          const parts = [
+            `<span class="node ${n.type === 'source' ? 'g' : ''}">${n.name}</span>`
+          ];
+          if (i < data.arch.length - 1) {
+            parts.push('<span class="arr">→</span>');
+          }
+          return parts.join('');
+        })
+        .join('');
+      archEl.innerHTML = archNodes;
+
+      console.log('[case] Populated case data:', data.id);
+    };
+  } catch (e) {
+    console.warn('[case] Failed to load case data:', e);
+  }
+}
+
+// Initialize case populate on boot
+if (canWebGL) {
+  initCasePopulate();
+}
+
 console.log('[site] Bootstrap complete');

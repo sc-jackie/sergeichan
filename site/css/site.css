@@ -135,6 +135,77 @@ body {
   outline-offset: 4px;
 }
 
+/* ============ ACT III: PATH TIMELINE ============ */
+#path .act-content {
+  position: relative;
+  max-width: 100%;
+  text-align: left;
+}
+
+.path-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(12, 14, 22, 0.6);
+  padding: var(--space-sm);
+  font-size: var(--text-sm);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.path-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.path-card:not(.in-view) {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.path-card-header {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.path-era {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.path-role {
+  color: var(--muted);
+}
+
+.path-card-body {
+  padding-left: 0;
+}
+
+.path-org {
+  color: var(--pearl);
+  font-weight: 500;
+  font-size: var(--text-base);
+  margin-bottom: 4px;
+}
+
+.path-industry {
+  color: var(--dim);
+  font-size: var(--text-sm);
+  margin-bottom: 4px;
+}
+
+.path-line {
+  color: var(--muted);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* ============ CASE OVERLAY (preserved from current site) ============ */
 #case {
   position: fixed;

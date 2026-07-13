@@ -66,6 +66,8 @@ class SceneManager {
   constructor() {
     this.scenes = new Map();
     this.activeScene = null;
+    this.activeSceneName = null;
+    this.currentActIndex = 0;
     this.time = 0;
     this.canvas = document.getElementById('webgl-canvas');
 
@@ -147,13 +149,30 @@ class SceneManager {
   tick = () => {
     this.time += 1 / 60;
 
+    // Get scroll progress from ScrollTrigger for active scene
+    let progress = 0;
+    if (window.scrollTriggers && this.activeSceneName) {
+      const triggerEntry = window.scrollTriggers.find(t => t.index === this.currentActIndex);
+      if (triggerEntry?.trigger?.progress) {
+        progress = triggerEntry.trigger.progress();
+      }
+    }
+
     if (this.activeScene?.tick) {
-      this.activeScene.tick(0.5, this.time); // ponytail: progress=0.5 placeholder, real value from ScrollTrigger later
+      this.activeScene.tick(progress, this.time);
     }
 
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame(this.tick);
   };
+
+  setActiveSceneName(name) {
+    this.activeSceneName = name;
+  }
+
+  setCurrentActIndex(index) {
+    this.currentActIndex = index;
+  }
 }
 
 // Initialize
@@ -183,6 +202,8 @@ const actObserver = new IntersectionObserver(entries => {
       const index = Array.from(acts).indexOf(entry.target);
       if (index !== currentActIndex) {
         currentActIndex = index;
+        sceneManager.setCurrentActIndex(index);
+        sceneManager.setActiveSceneName(actNames[index]);
         sceneManager.activateScene(actNames[index]);
       }
     }
@@ -190,6 +211,10 @@ const actObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 
 acts.forEach(act => actObserver.observe(act));
+
+// Export methods for scroll.js to update act index
+window.sceneManager.setCurrentActIndex = sceneManager.setCurrentActIndex.bind(sceneManager);
+window.sceneManager.setActiveSceneName = sceneManager.setActiveSceneName.bind(sceneManager);
 
 // Boot scenes and activate first
 initScenes().then(() => {
