@@ -138,4 +138,7 @@ if (canWebGL) {
   initCasePopulate();
 }
 
+// Load content renderers (Acts III–VI)
+await import('./content.js');
+
 console.log('[site] Bootstrap complete');

@@ -1200,6 +1200,246 @@ html.fallback a:focus-visible {
   }
 }
 
+/* ============ ACT IV: CAPITAL — investment streams ============ */
+.capital-streams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: 900px;
+}
+
+.capital-stream {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(12, 14, 22, 0.5);
+  padding: var(--space-md);
+  position: relative;
+}
+
+.capital-stream-header {
+  margin-bottom: var(--space-md);
+}
+
+.capital-stream-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--pearl);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.capital-stream::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--stream-color);
+  border-radius: 8px 8px 0 0;
+}
+
+.capital-count {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--stream-color);
+  margin-bottom: var(--space-sm);
+}
+
+.capital-stream-thesis {
+  color: var(--muted);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+}
+
+.capital-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.capital-highlight {
+  padding: var(--space-sm);
+  border-left: 2px solid var(--stream-color);
+  background: rgba(201, 164, 92, 0.05);
+  border-radius: 4px;
+}
+
+.capital-highlight-name {
+  font-weight: 500;
+  color: var(--pearl);
+  font-size: var(--text-base);
+  margin-bottom: 4px;
+}
+
+.capital-highlight-meta {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.capital-highlight-note {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+/* ============ ACT V: VOICE — editorial rows ============ */
+.voice-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: 720px;
+}
+
+.voice-row {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--line);
+  transition: all 0.3s ease;
+}
+
+.voice-row:last-child {
+  border-bottom: none;
+}
+
+.voice-row-draft {
+  opacity: 0.75;
+}
+
+.voice-row-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.voice-row-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: var(--h2);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--pearl);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.voice-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.voice-type {
+  color: var(--muted);
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+}
+
+.voice-year {
+  color: var(--dim);
+}
+
+.voice-source {
+  color: var(--muted);
+}
+
+.voice-status {
+  color: var(--dim);
+}
+
+.voice-row-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  color: var(--gold);
+  text-decoration: none;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  padding: 6px 0;
+  border-bottom: 1px solid transparent;
+}
+
+.voice-row-link:hover {
+  border-bottom-color: var(--gold);
+}
+
+.voice-row-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.voice-empty {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  color: var(--muted);
+}
+
+/* ============ ACT VI: SIGNAL — contact ============ */
+.signal-cta {
+  text-align: center;
+}
+
+.signal-links {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+.signal-link {
+  color: var(--gold);
+  text-decoration: none;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.signal-link:hover {
+  background: rgba(201, 164, 92, 0.1);
+  color: var(--pearl);
+  border-color: var(--pearl);
+}
+
+.signal-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  .path-card,
+  .capital-stream,
+  .voice-row,
+  .signal-link {
+    transition: none;
+  }
+
+  .path-card {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ============ UTILITY ============ */
 .mono {
   font-family: ui-monospace, Menlo, monospace;

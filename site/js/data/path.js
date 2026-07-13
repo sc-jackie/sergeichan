@@ -1,37 +1,36 @@
-// DRAFT content — vault-harvested + placeholders; owner review pending (EVE-87 U9)
 // Act III: Path — timeline of past work
 
 export const path = [
   {
     era: '2014–2018',
-    role: 'Product Designer',
-    org: 'Startups + Auto',
+    role: 'Design',
+    org: 'Freelance · UI/UX',
     industry: 'SaaS / Automotive',
-    line: 'UI/UX for startups, then Lexus, Suzuki, Toyota dealer sites in Singapore.',
+    line: 'Client work for Lexus, Suzuki, Toyota dealer sites in Singapore. Startups across Singapore and SE Asia.',
     years: '5'
   },
   {
     era: '2018–2020',
-    role: 'Research & Community',
-    org: 'Blockchain',
+    role: 'Research',
+    org: 'Blockchain community',
     industry: 'Crypto',
-    line: 'Blockchain research, community building, and early DeFi exploration.',
+    line: 'Analyst through the bear market; organized community meetups (hundreds of attendees); early DeFi exploration.',
     years: '2'
   },
   {
-    era: '2020–2024',
-    role: 'Full-time Investor',
-    org: 'Angel & Ventures',
+    era: '2020–2025',
+    role: 'Markets',
+    org: 'Full-time investor',
     industry: 'Investing',
-    line: 'Angel investing, market research, and portfolio management across three regions.',
-    years: '4'
+    line: 'Angel checks and crypto derivatives trading; portfolio work across Europe and Asia.',
+    years: '5'
   },
   {
-    era: '2024–present',
-    role: 'AI Systems Builder',
-    org: 'Independent',
-    industry: 'AI & Systems',
-    line: 'Five AI-native systems in production, all run by always-on agents.',
+    era: '2025–now',
+    role: 'Systems',
+    org: 'Independent builder',
+    industry: 'AI & Agents',
+    line: 'Five AI-native products in production: Newfin (crypto hedge), Persik (trading signals), Jackie-OS (AI agent OS), Draw (audit platform), and an always-on cron/orchestration stack.',
     years: '1+'
   }
 ];

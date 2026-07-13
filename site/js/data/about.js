@@ -9,7 +9,9 @@ export const about = {
     'Designer by training — 2014–2018 in UI/UX, from startups to Lexus, Suzuki and Toyota dealer sites in Singapore.',
     'Then blockchain research and community. Then a long run as a full-time investor.',
     'Now I build AI-native systems in Warsaw: five products in production, run day to day by always-on agents — an operating system for one life, and the tools that ride on its rails.'
-  ]
+  ],
+  // owner: set to publish a contact email via #signal (leave undefined to hide)
+  publicEmail: undefined
 };
 
 export default about;
