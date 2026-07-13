@@ -225,9 +225,10 @@ acts.forEach(act => actObserver.observe(act));
 window.sceneManager = sceneManager;
 
 // Boot scenes and activate first
-initScenes().then(() => {
+window.scenesReady = initScenes().then(() => {
   sceneManager.activateScene('origin');
   console.log('[stage] Scenes initialized');
+  return true;
 });
 
 console.log('[stage] WebGL renderer initialized, quality tier:', qualityTier);
