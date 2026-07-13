@@ -12,7 +12,7 @@ _Last audited against `main` on 2026-07-14 (`c49e93b`)._
 
 | Plan doc | State | Open work |
 | -------- | ----- | --------- |
-| [2026-07-13-001 cinematic six-act scroll redesign](2026-07-13-001-feat-cinematic-six-act-scroll-redesign-plan.md) | 📋 spec'd, awaiting approval | Full plan: 6 full-viewport acts, Lenis+GSAP vendored, Canvas 2D scenes; U1–U9. Linear: EVE-87 (`needs-approval`). Supersedes the Three.js hero rebuild idea (EVE-77 canceled; Three.js = named future upgrade path inside this plan). |
+| [2026-07-13-001 cinematic six-act scroll redesign](2026-07-13-001-feat-cinematic-six-act-scroll-redesign-plan.md) | 🔵 approved, in build | Rev 2 (2026-07-14, owner call): **full Three.js migration** — all six acts WebGL, act 2 ported with interaction parity, DOM-first content for fast load + fallback; U1–U10. Linear: EVE-87 (In Progress, overnight build). Supersedes EVE-77. |
 | [future-improvements](future-improvements.md) | 📋 catalog | owner-prioritized backlog (task queue itself lives in Linear — Personal Website project) |
 
 **Genuinely-remaining engineering surface (2026-07-14):** the six-act redesign (spec'd above) + three catalog items: real screenshots (EVE-78), first essay (EVE-79, becomes redesign act 5 content), custom domain (EVE-80).
