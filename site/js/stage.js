@@ -1,6 +1,39 @@
 // WebGL Renderer + Scene Manager + Quality Tiers
+// U10 → Scene Contract: ALL scenes implement createScene(ctx) returning {mount, unmount, tick(progress, time), resize, setQuality}
 
 import * as THREE from 'three';
+
+// ============ SCENE CONTRACT (five other agents build against this) ============
+/*
+createScene(ctx) → {mount, unmount, tick(progress, time), resize, setQuality}
+
+ctx = {
+  THREE: THREE module
+  renderer: THREE.WebGLRenderer (full-viewport, fixed canvas)
+  scene: THREE.Scene (one per act; scenes manage their own group)
+  camera: THREE.PerspectiveCamera (shared; scenes may replace or manage per-camera rigs)
+  section: HTMLElement (the #origin/#work/#path etc. section)
+  data: object with loaded data from site/js/data/*.js if needed
+  qualityTier: 'full' | 'medium' | 'low'
+  dpr: devicePixelRatio (capped at 2)
+  w, h: canvas width/height
+}
+
+Methods:
+  mount(): called when scene enters viewport → add geometry/materials to ctx.scene, setup state
+  unmount(): called on exit → dispose geometry/materials, clear ctx.scene
+  tick(progress, time): called every frame while visible
+    progress: [0..1] scroll-driven progress (0 = top of section, 1 = bottom)
+    time: global elapsed time in seconds (continues across scene changes)
+  resize(w, h): called on window.resize
+  setQuality(tier): called at init and if quality shifts; update geometry counts, post-processing toggles
+
+Contract constraints:
+  - One global THREE.Scene; each scene adds a THREE.Group to ctx.scene
+  - One global camera; scenes read it, do NOT replace it (per-scene rigs via groups + local transforms)
+  - Dispose all geometries/materials in unmount() — context loss recovery depends on clean disposal
+  - tick() MUST return immediately if unmount was called; no dangling references
+*/
 
 // Quality tier detection
 function getQualityTier() {
@@ -71,27 +104,51 @@ class SceneManager {
     this.renderer.setSize(w, h);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
+
+    if (this.activeScene?.resize) {
+      this.activeScene.resize(w, h);
+    }
   }
 
-  registerScene(name, SceneClass) {
-    this.scenes.set(name, new SceneClass());
+  async registerScene(name, createSceneFn) {
+    const section = document.getElementById(name);
+    const data = await import(`./data/${name}.js`).catch(() => ({}));
+    const ctx = {
+      THREE,
+      renderer: this.renderer,
+      scene: this.scene,
+      camera: this.camera,
+      section,
+      data,
+      qualityTier,
+      dpr: Math.min(devicePixelRatio || 1, 2),
+      w: this.canvas.clientWidth,
+      h: this.canvas.clientHeight
+    };
+
+    const sceneApi = createSceneFn(ctx);
+    this.scenes.set(name, { api: sceneApi, ctx, mounted: false });
   }
 
   activateScene(name) {
     if (this.activeScene) {
       this.activeScene.unmount();
+      this.activeScene.api.unmount?.();
     }
-    this.activeScene = this.scenes.get(name);
-    if (this.activeScene) {
-      this.activeScene.mount();
-    }
+
+    const entry = this.scenes.get(name);
+    if (!entry) return;
+
+    this.activeScene = entry.api;
+    entry.mounted = true;
+    entry.api.mount?.();
   }
 
   tick = () => {
     this.time += 1 / 60;
 
-    if (this.activeScene) {
-      this.activeScene.tick(this.time);
+    if (this.activeScene?.tick) {
+      this.activeScene.tick(0.5, this.time); // ponytail: progress=0.5 placeholder, real value from ScrollTrigger later
     }
 
     this.renderer.render(this.scene, this.camera);
@@ -99,165 +156,21 @@ class SceneManager {
   };
 }
 
-// Stub Scene Base Class
-class Scene {
-  constructor() {
-    this.group = new THREE.Group();
-  }
-
-  mount() {
-    // Override
-  }
-
-  unmount() {
-    // Override
-  }
-
-  tick(time) {
-    // Override
-  }
-}
-
-// Stub scene implementations
-class OriginScene extends Scene {
-  mount() {
-    // Placeholder: small colored threads drifting
-    const geom = new THREE.BufferGeometry();
-    const positions = new Float32Array([
-      -2, 0, 0,
-       2, 0, 0
-    ]);
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const mat = new THREE.LineBasicMaterial({ color: 0xC9A45C });
-    const line = new THREE.Line(geom, mat);
-    this.group.add(line);
-  }
-
-  tick(time) {
-    this.group.rotation.x = Math.sin(time * 0.3) * 0.1;
-  }
-
-  unmount() {
-    this.group.clear();
-  }
-}
-
-class WorkScene extends Scene {
-  mount() {
-    const geom = new THREE.BufferGeometry();
-    const positions = new Float32Array([
-      -3, 0, 0,
-       3, 0, 0
-    ]);
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const mat = new THREE.LineBasicMaterial({ color: 0x7C93E8 });
-    const line = new THREE.Line(geom, mat);
-    this.group.add(line);
-  }
-
-  tick(time) {
-    this.group.rotation.y = time * 0.2;
-  }
-
-  unmount() {
-    this.group.clear();
-  }
-}
-
-class PathScene extends Scene {
-  mount() {
-    const geom = new THREE.BufferGeometry();
-    const positions = new Float32Array([
-      0, 0, 0,
-      0, 0, 5
-    ]);
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const mat = new THREE.LineBasicMaterial({ color: 0xC9A45C });
-    const line = new THREE.Line(geom, mat);
-    this.group.add(line);
-  }
-
-  unmount() {
-    this.group.clear();
-  }
-}
-
-class CapitalScene extends Scene {
-  mount() {
-    const geom = new THREE.BufferGeometry();
-    const positions = new Float32Array([
-      -1, 0, 0,
-       0, 1, 0,
-       1, 0, 0
-    ]);
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const mat = new THREE.LineBasicMaterial({ color: 0xE08D66 });
-    const line = new THREE.LineSegments(geom, mat);
-    this.group.add(line);
-  }
-
-  unmount() {
-    this.group.clear();
-  }
-}
-
-class VoiceScene extends Scene {
-  mount() {
-    const geom = new THREE.BufferGeometry();
-    const positions = new Float32Array([
-      -2, 0, 0,
-       2, 0, 0
-    ]);
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const mat = new THREE.LineBasicMaterial({ color: 0x56C4D6 });
-    const line = new THREE.Line(geom, mat);
-    this.group.add(line);
-  }
-
-  unmount() {
-    this.group.clear();
-  }
-}
-
-class SignalScene extends Scene {
-  mount() {
-    const geom = new THREE.BufferGeometry();
-    const positions = new Float32Array([
-      -1, -1, 0,
-       1, -1, 0,
-       1,  1, 0,
-      -1,  1, 0,
-      -1, -1, 0
-    ]);
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const mat = new THREE.LineBasicMaterial({ color: 0x5FBF8E });
-    const line = new THREE.Line(geom, mat);
-    this.group.add(line);
-  }
-
-  tick(time) {
-    this.group.rotation.z = time * 0.1;
-  }
-
-  unmount() {
-    this.group.clear();
-  }
-}
-
 // Initialize
 const sceneManager = new SceneManager();
-sceneManager.registerScene('origin', OriginScene);
-sceneManager.registerScene('work', WorkScene);
-sceneManager.registerScene('path', PathScene);
-sceneManager.registerScene('capital', CapitalScene);
-sceneManager.registerScene('voice', VoiceScene);
-sceneManager.registerScene('signal', SignalScene);
+
+// Lazy-load scenes by name; createScene fn imported from site/js/scenes/{name}.js
+async function initScenes() {
+  const actNames = ['origin', 'work', 'path', 'capital', 'voice', 'signal'];
+  for (const name of actNames) {
+    try {
+      const mod = await import(`./scenes/${name}.js`);
+      await sceneManager.registerScene(name, mod.createScene);
+    } catch (e) {
+      console.error(`[stage] Failed to load scene: ${name}`, e);
+    }
+  }
+}
 
 // Activate scenes based on scroll position
 let currentActIndex = 0;
@@ -278,8 +191,11 @@ const actObserver = new IntersectionObserver(entries => {
 
 acts.forEach(act => actObserver.observe(act));
 
-// Activate first scene
-sceneManager.activateScene('origin');
+// Boot scenes and activate first
+initScenes().then(() => {
+  sceneManager.activateScene('origin');
+  console.log('[stage] Scenes initialized');
+});
 
 console.log('[stage] WebGL renderer initialized, quality tier:', qualityTier);
 
