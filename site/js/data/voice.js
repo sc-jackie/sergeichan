@@ -1,4 +1,5 @@
-// Act V: Voice — writing, mentions, talks, podcasts (placeholder)
+// DRAFT content — vault-harvested + placeholders; owner review pending (EVE-87 U9)
+// Act V: Voice — writing, mentions, talks, podcasts
 
 export const voice = [
   {

@@ -1,3 +1,4 @@
+// DRAFT content — vault-harvested + placeholders; owner review pending (EVE-87 U9)
 // Act I: About — biographical data (from current site)
 
 export const about = {

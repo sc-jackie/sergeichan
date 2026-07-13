@@ -1,3 +1,4 @@
+// DRAFT content — vault-harvested + placeholders; owner review pending (EVE-87 U9)
 // Act IV: Capital — investment streams (privacy-first schema, no amounts)
 
 export const capital = {

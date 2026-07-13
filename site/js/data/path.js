@@ -1,4 +1,5 @@
-// Act III: Path — timeline of past work (placeholder)
+// DRAFT content — vault-harvested + placeholders; owner review pending (EVE-87 U9)
+// Act III: Path — timeline of past work
 
 export const path = [
   {
