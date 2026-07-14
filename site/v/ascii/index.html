@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — ASCII Machine</title>
+<meta name="description" content="Terminal-meets-editorial. AI-native systems builder.">
+<meta name="theme-color" content="#0a0e0a">
+<link rel="preload" as="font" href="../../fonts/JetBrains-Mono-Regular.woff2" type="font/woff2" crossorigin>
+<style>
+  :root {
+    --crt-black: #0a0e0a;
+    --phosphor: #00d084;
+    --phosphor-dim: #00a060;
+    --phosphor-bright: #00ff9e;
+    --scanline: rgba(0, 0, 0, 0.15);
+    --paper-bg: #f5f1e8;
+    --paper-text: #2a2520;
+    --paper-accent: #c9a45c;
+  }
+
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('../../fonts/JetBrains-Mono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--crt-black);
+    color: var(--phosphor);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  html.reduced-motion-on {
+    scroll-behavior: auto;
+  }
+
+  /* ============ CRT SCANLINES & VIGNETTE ============ */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        var(--scanline),
+        var(--scanline) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  /* ============ PAPER TERMINAL THEME (for Acts III+) ============ */
+  body.paper-mode {
+    background: var(--paper-bg);
+    color: var(--paper-text);
+  }
+
+  body.paper-mode::before {
+    background-image: none;
+  }
+
+  body.paper-mode::after {
+    background: none;
+  }
+
+  /* ============ CANVAS CONTAINER ============ */
+  #canvas-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    cursor: pointer;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  /* ============ CONTENT OVERLAY (for text-heavy sections) ============ */
+  #content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+  }
+
+  .act-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    border-top: 1px solid rgba(0, 208, 132, 0.2);
+  }
+
+  .act-section.dark-mode {
+    background: var(--crt-black);
+    color: var(--phosphor);
+  }
+
+  .act-section.paper-mode {
+    background: var(--paper-bg);
+    color: var(--paper-text);
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .act-content {
+    max-width: 70em;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .act-title {
+    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    margin-bottom: 0.8em;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .act-subtitle {
+    font-size: 0.9em;
+    opacity: 0.7;
+    margin-bottom: 2em;
+    line-height: 1.8;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .ascii-art {
+    white-space: pre;
+    font-size: 0.75em;
+    line-height: 1.2;
+    margin: 2em 0;
+    overflow-x: auto;
+    opacity: 0.8;
+  }
+
+  /* ============ CURSOR BLINK ============ */
+  .cursor {
+    display: inline-block;
+    width: 1ch;
+    margin-left: 2px;
+    background: var(--phosphor);
+    animation: blink 0.8s infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor {
+      animation: none;
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* ============ GLITCH EFFECT ============ */
+  .glitch {
+    position: relative;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch::before {
+    animation: glitch-1 0.3s infinite;
+    color: var(--phosphor-bright);
+    z-index: -1;
+    text-shadow: -2px 0 var(--phosphor-dim);
+  }
+
+  .glitch::after {
+    animation: glitch-2 0.3s infinite;
+    color: var(--phosphor-dim);
+    z-index: -2;
+    text-shadow: 2px 0 var(--phosphor-bright);
+  }
+
+  @keyframes glitch-1 {
+    0% { clip-path: inset(40% 0 61% 0); transform: translate(0, -2px); }
+    20% { clip-path: inset(92% 0 1% 0); transform: translate(-2px, 2px); }
+    40% { clip-path: inset(43% 0 1% 0); transform: translate(-2px, -2px); }
+    60% { clip-path: inset(25% 0 58% 0); transform: translate(2px, -2px); }
+    80% { clip-path: inset(54% 0 7% 0); transform: translate(2px, 2px); }
+    100% { clip-path: inset(58% 0 43% 0); transform: translate(0, 0); }
+  }
+
+  @keyframes glitch-2 {
+    0% { clip-path: inset(27% 0 58% 0); transform: translate(2px, 2px); }
+    20% { clip-path: inset(3% 0 58% 0); transform: translate(-2px, -2px); }
+    40% { clip-path: inset(83% 0 10% 0); transform: translate(-2px, 2px); }
+    60% { clip-path: inset(10% 0 90% 0); transform: translate(2px, -2px); }
+    80% { clip-path: inset(40% 0 4% 0); transform: translate(0, 0); }
+    100% { clip-path: inset(32% 0 67% 0); transform: translate(-2px, -2px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glitch::before,
+    .glitch::after {
+      animation: none;
+      content: none;
+    }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 640px) {
+    .act-section {
+      min-height: 100vh;
+      padding: 30px 16px;
+    }
+
+    .act-title {
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="canvas-container">
+    <canvas id="ascii-canvas"></canvas>
+  </div>
+
+  <div id="content">
+    <!-- ACT I: Name resolves from noise -->
+    <section class="act-section dark-mode" id="act-1">
+      <div class="act-content">
+        <div class="act-title">
+          <span class="glitch" data-text="sergei tran">sergei tran</span>
+          <span class="cursor"></span>
+        </div>
+        <div class="act-subtitle">
+          <span>uk@odesa</span> ~ <span>vn@heritage</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT II: Five Projects -->
+    <section class="act-section dark-mode" id="act-2-newfin">
+      <div class="act-content">
+        <div class="act-title">$ newfin</div>
+        <div class="act-subtitle">Finance + Agents</div>
+        <div class="ascii-art">┌─────────────────────┐
+│ VAULT               │
+│ ┌─────────────────┐ │
+│ │ txn | amt | tag │ │
+│ │─────┼─────┼─────│ │
+│ │ *03 |  -88|food │ │
+│ │ *04 |  +45|gift │ │
+│ │ *05 | -200|rent │ │
+│ └─────────────────┘ │
+│ classified ✓        │
+│ reconciled ✓        │
+└─────────────────────┘</div>
+        <div class="act-subtitle">Smart account. Your vault, your LLM.</div>
+      </div>
+    </section>
+
+    <section class="act-section dark-mode" id="act-2-bunit">
+      <div class="act-content">
+        <div class="act-title">$ b-unit</div>
+        <div class="act-subtitle">Content + Network</div>
+        <div class="ascii-art">╔════════════════════╗
+║ Episode 001        ║
+║ Guest > Framework  ║
+║ Record → Edit      ║
+║ Distribute ✓       ║
+╚════════════════════╝
+Structured interviewing.
+Template-driven editing.</div>
+        <div class="act-subtitle">For the AI era.</div>
+      </div>
+    </section>
+
+    <section class="act-section dark-mode" id="act-2-jackieos">
+      <div class="act-content">
+        <div class="act-title">$ jackie-os</div>
+        <div class="act-subtitle">Systems + AI</div>
+        <div class="ascii-art">[obsidian vault]
+         ↓
+    [hermes agents]
+      ↙ ↓ ↘
+ brief  journal  sync
+
+capture ↔ counsel ↔ automate
+
+One life. One system.</div>
+        <div class="act-subtitle">Always-on agents. All decisions.</div>
+      </div>
+    </section>
+
+    <section class="act-section dark-mode" id="act-2-rodyna">
+      <div class="act-content">
+        <div class="act-title">$ rodyna</div>
+        <div class="act-subtitle">Investing + Data</div>
+        <div class="ascii-art">crypto │ ▄▄▄ │ +12%
+equity │ ▂▃▄ │  +8%
+angel  │ ▁▂▁ │  +3%
+estate │ ▀▀▀ │ stable
+
+─────────────────────
+total:       synth ✓
+reconciled:  agents ✓</div>
+        <div class="act-subtitle">One dashboard. All venues.</div>
+      </div>
+    </section>
+
+    <section class="act-section dark-mode" id="act-2-draw">
+      <div class="act-content">
+        <div class="act-title">$ draw</div>
+        <div class="act-subtitle">Development + Tools</div>
+        <div class="ascii-art">[local] ←→ [test] ←→ [prod]
+
+agent workflows
+↓
+integration hooks
+↓
+system check
+
+dev feedback loops</div>
+        <div class="act-subtitle">Workbench. Test first.</div>
+      </div>
+    </section>
+
+    <!-- ACT III: Path -->
+    <section class="act-section paper-mode" id="act-3">
+      <div class="act-content">
+        <div class="act-title">Path</div>
+        <div class="act-subtitle">2014 → now · Five chapters</div>
+        <div class="ascii-art">2014-18 │ Design    │ Freelance UI/UX
+2018-20 │ Research  │ Blockchain analyst
+2020-25 │ Markets   │ Full-time investing
+2025+   │ Systems   │ AI-native builder
+        │          │ Five products live</div>
+      </div>
+    </section>
+
+    <!-- ACT IV: Capital -->
+    <section class="act-section paper-mode" id="act-4">
+      <div class="act-content">
+        <div class="act-title">Capital</div>
+        <div class="act-subtitle">Three streams</div>
+        <div class="ascii-art">Angel
+  Backing builders
+  in known ecosystems
+
+Markets
+  Crypto since 2018
+  Full-time 2020–2025
+  Research-driven
+
+Real Estate
+  Long-horizon holdings
+  The quiet counterweight</div>
+      </div>
+    </section>
+
+    <!-- ACT V: Voice -->
+    <section class="act-section paper-mode" id="act-5">
+      <div class="act-content">
+        <div class="act-title">Voice</div>
+        <div class="act-subtitle">Writing (coming soon)</div>
+        <div class="ascii-art">Essays
+  Growing up between two cultures
+  Jackie-OS: operating system for one life
+
+Talks & mentions
+  (coming soon)
+
+Live now
+  docs: jackieos.vercel.app</div>
+      </div>
+    </section>
+
+    <!-- ACT VI: Signal -->
+    <section class="act-section paper-mode" id="act-6">
+      <div class="act-content">
+        <div class="act-title">Signal</div>
+        <div class="act-subtitle">Contact</div>
+        <div class="ascii-art">GitHub only
+  (link below)
+
+No email outreach.
+Let the work speak.</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Shared data modules -->
+  <script type="module" src="../../js/data/about.js"></script>
+  <script type="module" src="../../js/data/work.js"></script>
+  <script type="module" src="../../js/data/path.js"></script>
+  <script type="module" src="../../js/data/capital.js"></script>
+  <script type="module" src="../../js/data/voice.js"></script>
+
+  <!-- Vendor libraries -->
+  <script src="../../vendor/lenis.min.js"></script>
+  <script src="../../vendor/gsap.min.js"></script>
+  <script src="../../vendor/ScrollTrigger.min.js"></script>
+
+  <!-- ASCII Machine -->
+  <script type="module" src="js/ascii-renderer.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
