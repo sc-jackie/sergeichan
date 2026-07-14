@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — Moiré Direction</title>
+<meta name="description" content="Interference as imagery. Overlaid gratings shift and resolve, revealing five systems one page at a time.">
+<link rel="preload" as="font" href="../../fonts/Inter-Regular.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="../../fonts/Inter-Medium.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="script" href="../../vendor/gsap.min.js">
+<link rel="preload" as="script" href="../../vendor/ScrollTrigger.min.js">
+<link rel="preload" as="script" href="../../vendor/lenis.min.js">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #fafafa;
+  --blue: #00d9ff;
+  --space: #0C0E16;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.reduced-motion-on {
+  scroll-behavior: auto;
+}
+
+html.patterns-off {
+  --canvas-opacity: 0.08;
+}
+
+html:not(.patterns-off) {
+  --canvas-opacity: 1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============ CANVAS LAYER ============ */
+#pattern-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  opacity: var(--canvas-opacity);
+  transition: opacity 0.3s ease;
+}
+
+/* ============ HEADER & NAV ============ */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.4);
+  border-bottom: 1px solid rgba(250, 250, 250, 0.08);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
+
+.act-indicator {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 600;
+  min-width: 60px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.safety-toggle {
+  all: unset;
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  padding: 8px 12px;
+  border: 1px solid rgba(250, 250, 250, 0.2);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.safety-toggle:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.safety-toggle.active {
+  background: rgba(0, 217, 255, 0.1);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+@media (max-width: 640px) {
+  header {
+    padding: 16px 18px;
+    font-size: 12px;
+  }
+  .brand { font-size: 13px; }
+  .safety-toggle { font-size: 10px; padding: 6px 10px; }
+}
+
+/* ============ MAIN CONTENT ============ */
+main {
+  position: relative;
+  z-index: 10;
+}
+
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 32px 80px;
+  margin-top: 60px;
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: 100px 24px 60px;
+    margin-top: 50px;
+  }
+}
+
+/* ============ ACT I: ORIGIN ============ */
+#act-i {
+  text-align: center;
+}
+
+.act-title {
+  font-size: clamp(32px, 7vw, 72px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 24px;
+  color: var(--white);
+  max-width: 16ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.act-subtitle {
+  font-size: clamp(16px, 3vw, 24px);
+  font-weight: 400;
+  color: rgba(250, 250, 250, 0.7);
+  margin: 0 0 48px;
+  letter-spacing: 0.01em;
+  max-width: 52ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.act-i-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.bio-card {
+  padding: 28px;
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  border-radius: 8px;
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.bio-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0 0 12px;
+}
+
+.bio-card p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(250, 250, 250, 0.8);
+}
+
+/* ============ ACT II: WORK (PROJECTS) ============ */
+#act-ii {
+  padding: 120px 32px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.project-card {
+  position: relative;
+  padding: 32px 28px;
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  border-radius: 8px;
+  background: rgba(10, 10, 10, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--blue);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.project-name {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  margin: 0;
+}
+
+.project-roman {
+  font-size: 28px;
+  font-weight: 300;
+  color: rgba(0, 217, 255, 0.5);
+  font-family: Georgia, serif;
+}
+
+.project-kick {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.project-one {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(250, 250, 250, 0.8);
+  margin: 0 0 18px;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250, 250, 250, 0.5);
+  padding-top: 16px;
+  border-top: 1px solid rgba(250, 250, 250, 0.08);
+}
+
+.project-meta span {
+  display: flex;
+  gap: 4px;
+}
+
+.project-meta b {
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* ============ ACT III: PATH ============ */
+#act-iii {
+  padding: 120px 32px;
+}
+
+.timeline {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 32px;
+  padding-bottom: 48px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.timeline-item.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid var(--black);
+}
+
+.timeline-item:last-child::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 32px;
+  width: 2px;
+  height: calc(100% - 32px);
+  background: linear-gradient(to bottom, rgba(0, 217, 255, 0.4), transparent);
+}
+
+.timeline-year {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.timeline-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(250, 250, 250, 0.8);
+  margin: 0;
+}
+
+/* ============ ACT IV: CAPITAL ============ */
+#act-iv {
+  padding: 120px 32px;
+}
+
+.capital-zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.capital-zone {
+  padding: 28px;
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  border-radius: 8px;
+  background: rgba(10, 10, 10, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.capital-zone.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.capital-zone h3 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0 0 16px;
+}
+
+.capital-zone p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(250, 250, 250, 0.7);
+  margin: 0;
+}
+
+/* ============ ACT V: VOICE ============ */
+#act-v {
+  padding: 120px 32px;
+}
+
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.voice-row {
+  padding: 24px;
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  border-radius: 8px;
+  background: rgba(10, 10, 10, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.voice-row.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.voice-row h3 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0 0 12px;
+}
+
+.voice-row p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(250, 250, 250, 0.7);
+  margin: 0;
+}
+
+/* ============ ACT VI: SIGNAL ============ */
+#act-vi {
+  padding: 120px 32px;
+  text-align: center;
+}
+
+.signal-content {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.signal-cta {
+  font-size: 18px;
+  line-height: 1.8;
+  color: rgba(250, 250, 250, 0.8);
+  margin-bottom: 32px;
+}
+
+.signal-cta strong {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.contact-link {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid var(--blue);
+  border-radius: 4px;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.contact-link:hover {
+  background: rgba(0, 217, 255, 0.1);
+  color: var(--white);
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  #pattern-canvas {
+    opacity: 0.15;
+  }
+
+  .project-card,
+  .timeline-item,
+  .capital-zone,
+  .voice-row {
+    opacity: 1;
+    transform: none !important;
+    transition: none;
+  }
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 768px) {
+  .projects-grid,
+  .capital-zones,
+  .voice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #act-ii,
+  #act-iii,
+  #act-iv,
+  #act-v {
+    padding: 80px 24px;
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="pattern-canvas"></canvas>
+
+<header>
+  <div class="header-left">
+    <div class="brand">Sergei Tran</div>
+    <div class="act-indicator">Act I</div>
+  </div>
+  <div class="header-right">
+    <button class="safety-toggle" id="safety-btn" title="Toggle pattern visibility">Patterns</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ ACT I: ORIGIN ============ -->
+  <section id="act-i">
+    <h1 class="act-title">One Thread,<br>Many Vibrations</h1>
+    <p class="act-subtitle">Designer by training, builder of systems. Five products in production, orchestrated by always-on agents.</p>
+    <div class="act-i-content">
+      <div class="bio-card">
+        <h3>The Two Cultures</h3>
+        <p>Ukrainian engineer meets Vietnamese designer. Systems thinking meets visual form. That collision is the through-line across every project here: structured data, intentional craft, agents that never sleep.</p>
+      </div>
+      <div class="bio-card">
+        <h3>Now</h3>
+        <p>Five operating systems in production. Jackie-OS orchestrates personal life; Newfin handles finance; Rodyna tracks capital; B-Unit captures voice; Draw runs local development. All run on the same substrate: vault-first architecture and agent-driven synthesis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACT II: WORK ============ -->
+  <section id="act-ii">
+    <h2 class="act-title">Five Systems</h2>
+    <div class="projects-grid" id="projects-container"></div>
+  </section>
+
+  <!-- ============ ACT III: PATH ============ -->
+  <section id="act-iii">
+    <h2 class="act-title">The Journey</h2>
+    <div class="timeline" id="timeline-container"></div>
+  </section>
+
+  <!-- ============ ACT IV: CAPITAL ============ -->
+  <section id="act-iv">
+    <h2 class="act-title">Where Capital Flows</h2>
+    <div class="capital-zones" id="capital-container"></div>
+  </section>
+
+  <!-- ============ ACT V: VOICE ============ -->
+  <section id="act-v">
+    <h2 class="act-title">On Writing</h2>
+    <div class="voice-grid" id="voice-container"></div>
+  </section>
+
+  <!-- ============ ACT VI: SIGNAL ============ -->
+  <section id="act-vi">
+    <div class="signal-content">
+      <h2 class="act-title">Get in Touch</h2>
+      <p class="signal-cta">Always open to interesting conversations. Find me on <strong>GitHub</strong> — that's where the work lives.</p>
+      <a href="https://github.com/sergeichan" class="contact-link">GitHub Profile</a>
+    </div>
+  </section>
+</main>
+
+<script src="../../vendor/gsap.min.js"></script>
+<script src="../../vendor/ScrollTrigger.min.js"></script>
+<script src="../../vendor/lenis.min.js"></script>
+<script type="module">
+import { caseData } from '../../js/data/work.js';
+
+// ============ PATTERN ENGINE ============
+class MoirePattern {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d', { alpha: false });
+    this.width = canvas.width = window.innerWidth * Math.min(window.devicePixelRatio, 2);
+    this.height = canvas.height = window.innerHeight * Math.min(window.devicePixelRatio, 2);
+    this.scroll = 0;
+    this.isRunning = true;
+
+    window.addEventListener('resize', () => this.handleResize(), false);
+  }
+
+  handleResize() {
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    this.width = this.canvas.width = window.innerWidth * dpr;
+    this.height = this.canvas.height = window.innerHeight * dpr;
+  }
+
+  drawLinearGrating(x, y, w, h, spacing, angle, phase = 0, opacity = 0.85) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.globalAlpha = opacity;
+
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    ctx.translate(centerX, centerY);
+    ctx.rotate(angle);
+    ctx.translate(-centerX, -centerY);
+
+    for (let i = -w * 1.5; i < w * 2; i += spacing) {
+      const px = x + w / 2 + i + phase;
+      ctx.strokeStyle = 'rgba(250, 250, 250, 1)';
+      ctx.lineWidth = 0.75;
+      ctx.beginPath();
+      ctx.moveTo(px, y - h * 1.5);
+      ctx.lineTo(px, y + h * 2.5);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  drawRadialGrating(cx, cy, maxR, spacing, phase = 0, opacity = 0.7) {
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.globalAlpha = opacity;
+
+    for (let i = spacing; i < maxR * 2; i += spacing) {
+      const radius = i + phase;
+      ctx.strokeStyle = 'rgba(250, 250, 250, 1)';
+      ctx.lineWidth = 0.75;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  render(scrollPos) {
+    if (!this.isRunning) return;
+
+    this.scroll = scrollPos;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    // Phase shifts faster for more dynamic effect
+    const phase = (scrollPos / 400) % 360;
+    const phaseRad = (phase * Math.PI) / 180;
+
+    // Clear to black
+    this.ctx.fillStyle = 'rgb(10, 10, 10)';
+    this.ctx.fillRect(0, 0, this.width, this.height);
+
+    const w = this.width / dpr;
+    const h = this.height / dpr;
+    const cx = w / 2;
+    const cy = h / 2;
+
+    // Layer 1: Horizontal grating, strong
+    this.drawLinearGrating(0, 0, w, h, 10, 0, phase * 0.5, 0.8);
+
+    // Layer 2: Vertical grating, counter-phase for moiré effect
+    this.drawLinearGrating(0, 0, w, h, 10, Math.PI / 2, -phase * 0.4, 0.65);
+
+    // Layer 3: Subtle diagonal for complexity
+    this.drawLinearGrating(0, 0, w, h, 12, Math.PI / 6, phase * 0.3, 0.4);
+
+    // Optional: rare radial accent on scroll
+    if (Math.sin(phaseRad) > 0.3) {
+      this.drawRadialGrating(cx, cy, Math.max(w, h) / 2, 14, phase * 0.2, Math.sin(phaseRad) * 0.15);
+    }
+  }
+
+  pause() { this.isRunning = false; }
+  resume() { this.isRunning = true; }
+}
+
+// ============ INIT ============
+const canvas = document.getElementById('pattern-canvas');
+const moire = new MoirePattern(canvas);
+
+// ============ SMOOTH SCROLL ============
+const lenis = new Lenis({
+  lerp: 0.1,
+  wheelMultiplier: 1
+});
+
+function raf(time) {
+  lenis.raf(time);
+  moire.render(window.scrollY);
+  requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+
+gsap.registerPlugin(ScrollTrigger);
+
+// ============ ACT INDICATOR ============
+const actIndicator = document.querySelector('.act-indicator');
+const sections = document.querySelectorAll('section');
+const acts = ['Act I', 'Act II', 'Act III', 'Act IV', 'Act V', 'Act VI'];
+
+ScrollTrigger.create({
+  onUpdate: (self) => {
+    let currentAct = 0;
+    sections.forEach((section, idx) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (window.scrollY >= sectionTop - window.innerHeight / 2) {
+        currentAct = idx;
+      }
+    });
+    actIndicator.textContent = acts[currentAct];
+  }
+});
+
+// ============ PROJECT CARDS ANIMATION ============
+const projectsContainer = document.getElementById('projects-container');
+caseData.forEach((project, idx) => {
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  card.innerHTML = `
+    <div class="project-kick">${project.kick}</div>
+    <div class="project-header">
+      <h3 class="project-name">${project.name}</h3>
+      <span class="project-roman">${project.roman}</span>
+    </div>
+    <p class="project-one">${project.one}</p>
+    <div class="project-meta">
+      ${project.meta.map(m => `<span><b>${m.label}:</b> ${m.value}</span>`).join('')}
+    </div>
+  `;
+  projectsContainer.appendChild(card);
+
+  // Staggered reveal
+  gsap.to(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: 'top 80%',
+      markers: false
+    },
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    delay: idx * 0.1
+  });
+});
+
+// ============ TIMELINE ANIMATION ============
+const timelineData = [
+  { year: '2014', desc: 'Design begins: two years in Berlin and Kyiv, learning craft and systems thinking in parallel.' },
+  { year: '2018', desc: 'Pivot to blockchain analysis: early crypto researcher, tracking emergence of AI-finance intersection.' },
+  { year: '2020', desc: 'Full-time angel investing: five companies on the portfolio, five years of capital deployment and learning.' },
+  { year: '2025', desc: 'AI-native builder emerges: five operating systems in production, agents running daily. The through-line appears.' },
+  { year: 'Now', desc: 'One thread, many vibrations. Five systems orchestrated by one architecture, run by one person.' }
+];
+
+const timelineContainer = document.getElementById('timeline-container');
+timelineData.forEach((item, idx) => {
+  const element = document.createElement('div');
+  element.className = 'timeline-item';
+  element.innerHTML = `
+    <div class="timeline-year">${item.year}</div>
+    <p class="timeline-desc">${item.desc}</p>
+  `;
+  timelineContainer.appendChild(element);
+
+  gsap.to(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: 'top 75%'
+    },
+    opacity: 1,
+    x: 0,
+    duration: 0.6,
+    delay: idx * 0.08
+  });
+});
+
+// ============ CAPITAL ZONES ============
+const capitalData = [
+  { title: 'Angel Capital', desc: 'Five companies on portfolio; seed-stage bets on AI infrastructure and systems.' },
+  { title: 'Real Estate', desc: 'Properties in Poland and Ukraine; long-term holds for passive income and portfolio stability.' },
+  { title: 'Reinvestment', desc: 'Profits from the first four systems fund the fifth. The loop compounds.' }
+];
+
+const capitalContainer = document.getElementById('capital-container');
+capitalData.forEach((zone, idx) => {
+  const element = document.createElement('div');
+  element.className = 'capital-zone';
+  element.innerHTML = `
+    <h3>${zone.title}</h3>
+    <p>${zone.desc}</p>
+  `;
+  capitalContainer.appendChild(element);
+
+  gsap.to(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: 'top 75%'
+    },
+    opacity: 1,
+    scale: 1,
+    duration: 0.6,
+    delay: idx * 0.1
+  });
+});
+
+// ============ VOICE GRID ============
+const voiceData = [
+  { title: 'Writing', desc: 'Essays on systems design, agents, and the future of personal infrastructure. Coming soon to this site.' },
+  { title: 'Speaking', desc: 'Talks at AI conferences and investor forums on agent economics and vault-first architecture.' },
+  { title: 'Teaching', desc: 'Mentoring builders on how to think like a systems architect. One person, one vault, infinite scale.' }
+];
+
+const voiceContainer = document.getElementById('voice-container');
+voiceData.forEach((voice, idx) => {
+  const element = document.createElement('div');
+  element.className = 'voice-row';
+  element.innerHTML = `
+    <h3>${voice.title}</h3>
+    <p>${voice.desc}</p>
+  `;
+  voiceContainer.appendChild(element);
+
+  gsap.to(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: 'top 75%'
+    },
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    delay: idx * 0.1
+  });
+});
+
+// ============ IN-VIEW CLASS FALLBACK ============
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.project-card, .timeline-item, .capital-zone, .voice-row').forEach(el => {
+  observer.observe(el);
+});
+
+// ============ VESTIBULAR SAFETY TOGGLE ============
+const safetyBtn = document.getElementById('safety-btn');
+const html = document.documentElement;
+
+safetyBtn.addEventListener('click', () => {
+  html.classList.toggle('patterns-off');
+  safetyBtn.classList.toggle('active');
+});
+
+// Check for prefers-reduced-motion
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  html.classList.add('reduced-motion-on');
+  html.classList.add('patterns-off');
+  safetyBtn.classList.add('active');
+}
+</script>
+</body>
+</html>
