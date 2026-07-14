@@ -228,6 +228,16 @@
     html { scroll-behavior: auto !important; }
     * { transition: none !important; animation: none !important; }
   }
+
+  /* silkCanvas layout — was entirely missing (root cause of invisible cloth) */
+  #silkCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -252,27 +262,27 @@
       <div class="chord-card">
         <div class="chord-swatch" style="background: #7C93E8;"></div>
         <h3>Newfin</h3>
-        <p>Smart account. Vault-first personal finance for one person, orchestrated by always-on agents.</p>
+        <p>Self-hosted personal finance — net worth, cashflow, and a Telegram advisor, kept honest by always-on agents.</p>
       </div>
       <div class="chord-card">
         <div class="chord-swatch" style="background: #5FBF8E;"></div>
         <h3>B-Unit</h3>
-        <p>Podcast network. Structured interviewing for the AI era.</p>
+        <p>Gamified habit-building for a teen — quests, streaks, and a coach loop.</p>
       </div>
       <div class="chord-card">
         <div class="chord-swatch" style="background: #C9A45C;"></div>
         <h3>Jackie-OS</h3>
-        <p>Operating system for one life. Vault-first personal infrastructure, run by LLM agents.</p>
+        <p>A personal AI operating system — vault memory, daily rhythm, and agents that run it around the clock.</p>
       </div>
       <div class="chord-card">
         <div class="chord-swatch" style="background: #E08D66;"></div>
         <h3>Rodyna</h3>
-        <p>Investment tracker. Real-time portfolio synthesis via agents and the blockchain.</p>
+        <p>A family recipe app — heritage dishes captured, translated, and planned into the week.</p>
       </div>
       <div class="chord-card">
         <div class="chord-swatch" style="background: #56C4D6;"></div>
         <h3>Draw</h3>
-        <p>Workbench. Internal dev environment for AI-driven system design.</p>
+        <p>A tennis tournament platform — brackets, rankings, payments, and a Telegram bot for the club.</p>
       </div>
     </div>
   </div>
@@ -328,6 +338,58 @@
 <script src="/vendor/ScrollTrigger.min.js"></script>
 <script src="/vendor/lenis.min.js"></script>
 
+
+<script>
+// Fail-safe silk renderer: if the main cloth module dies (it has 3 rounds of
+// history doing so), this compact strand field takes over the same canvas.
+(function () {
+  function boot() {
+    setTimeout(function () {
+      var c = document.getElementById('silkCanvas');
+      if (!c) return;
+      if (c.width > 400) return; // main module sized the buffer -> it's alive
+      var DPR = Math.min(window.devicePixelRatio || 1, 2);
+      var W = window.innerWidth, H = window.innerHeight;
+      c.width = W * DPR; c.height = H * DPR;
+      var x = c.getContext('2d'); x.scale(DPR, DPR);
+      var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var UA = [[0, 91, 187], [255, 213, 0]], VN = [[218, 37, 29], [255, 215, 0]];
+      var N = 26, t = 0;
+      function strand(i, side, time) {
+        var f = i / (N - 1);
+        var pal = side < 0 ? UA : VN;
+        var cA = pal[0], cB = pal[1];
+        var mixv = 0.25 + 0.5 * f;
+        var r = Math.round(cA[0] * (1 - mixv) + cB[0] * mixv);
+        var g = Math.round(cA[1] * (1 - mixv) + cB[1] * mixv);
+        var b = Math.round(cA[2] * (1 - mixv) + cB[2] * mixv);
+        var ph = i * 1.7 + (side < 0 ? 0 : 2.4);
+        x.beginPath();
+        for (var k = 0; k <= 60; k++) {
+          var u = k / 60;
+          var sway = Math.sin(u * 7 + time * 0.9 + ph) * 14 * (1 - Math.abs(u - 0.5))
+                   + Math.sin(u * 3.2 - time * 0.55 + ph) * 8;
+          var px = W / 2 + side * (W * 0.32) * (1 - u) + side * (f - 0.5) * 90 * (1 - u * 0.7) + sway * 0.4;
+          var py = H * 0.12 + u * H * 0.76 + sway * 0.35;
+          k === 0 ? x.moveTo(px, py) : x.lineTo(px, py);
+        }
+        x.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',0.38)';
+        x.lineWidth = 1.4;
+        x.stroke();
+      }
+      function frame() {
+        x.clearRect(0, 0, W, H);
+        x.globalCompositeOperation = 'lighter';
+        for (var i = 0; i < N; i++) { strand(i, -1, t); strand(i, 1, t); }
+        x.globalCompositeOperation = 'source-over';
+        if (!reduced) { t += 1 / 60; requestAnimationFrame(frame); }
+      }
+      frame();
+    }, 600);
+  }
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', boot) : boot();
+})();
+</script>
 <script>
 (function() {
   'use strict';
@@ -357,17 +419,11 @@
   }
 
   let S = fitCanvas();
-  window.addEventListener('resize', () => { S = fitCanvas(); });
+  window.addEventListener('resize', () => { S = fitCanvas(); initCloth(); });
 
-  // Initialize immediately after canvas is sized
-  initCloth();
-  initialRender();
-
-  if (!reduced) {
-    animate();
-  } else {
-    staticRender();
-  }
+  // NOTE: boot happens at the END of this IIFE — initCloth() touches `let nodes/edges`
+  // declared below; calling it here dies in the temporal dead zone (the original bug
+  // that made the cloth invisible: silent ReferenceError killed the whole module).
 
   // Silk cloth simulation state
   let time = 0;
@@ -703,6 +759,15 @@
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
+  }
+
+  // Boot — all declarations above are now initialized
+  initCloth();
+  initialRender();
+  if (!reduced) {
+    animate();
+  } else {
+    staticRender();
   }
 })();
 </script>

@@ -3,26 +3,25 @@ import { caseData } from '../../js/data/work.js';
 
 export function renderProjectScene(projectData, index) {
   const scenes = [
-    // Newfin: vault table
+    // Newfin: finance vault table
     (data) => `┌──────────────────────────┐
-│ VAULT                    │
+│ NET WORTH · CASHFLOW     │
 │ ┌────────────────────┐   │
-│ │ status  │ count    │   │
-│ │─────────┼──────────│   │
-│ │ classified   ✓ 3m  │   │
-│ │ reconciled   ✓ 24h │   │
+│ │ sync     │ hourly  │   │
+│ │ reconcile│ daily   │   │
+│ │ advisor  │ telegram│   │
 │ └────────────────────┘   │
 │                          │
-│ ${data.state.substring(0, 24)} │
+│ ${String(data.state || 'in production').substring(0, 24)} │
 └──────────────────────────┘`,
 
-    // B-Unit: episode tracker
+    // B-Unit: quest log
     (data) => `╔═══════════════════════════╗
-║ PRODUCTION PIPELINE      ║
-║ Episodes: ${String(data.meta[1].value).padEnd(16)}║
-║ Guest interviews   ✓     ║
-║ Template-driven    ✓     ║
-║ Distribution       ✓     ║
+║ QUEST LOG · STREAK ██████ ║
+║ [x] morning training  +XP ║
+║ [x] read 20 pages     +XP ║
+║ [ ] awaiting coach verify ║
+║ level up → ceremony       ║
 ╚═══════════════════════════╝`,
 
     // Jackie-OS: system architecture
@@ -33,33 +32,30 @@ export function renderProjectScene(projectData, index) {
    automate
 
 Five projects tracked.
-${data.state.substring(0, 40)}...`,
+${String(data.state || '').substring(0, 40)}...`,
 
-    // Rodyna: portfolio overview
-    (data) => `crypto  │ ▄▄▄ │ portfolio
-equity  │ ▂▃▄ │ tracker
-angel   │ ▁▂▁ │ live
-estate  │ ▀▀▀ │ data
-        │     │
-Stage: ${String(data.meta[1].value).padEnd(22)}│
-Real-time synthesis   ✓`,
+    // Rodyna: family recipe week
+    (data) => `phở bà ngoại   │ vi → uk → en
+mon..sun menu  │ planned
+shopping list  │ auto-built
+family library │ growing
+originals immutable — translations additive`,
 
-    // Draw: dev environment
-    (data) => `[local] ←→ [test] ←→ [prod]
-
-agent workflows
-integration hooks
-system check
-
-Used daily.
-Internal dev environment.`
+    // Draw: tournament bracket
+    (data) => `qf ──┐
+     ├── sf ──┐
+qf ──┘        ├── FINAL
+qf ──┐        │
+     ├── sf ──┘
+qf ──┘
+rankings · payments · club bot`
   ];
 
   return scenes[index] ? scenes[index](projectData) : '';
 }
 
 export function populateProjectSections() {
-  // ponytail: populate Act II with TRUE facts from work.js
+  // populate Act II with TRUE facts from work.js
   const asciiArts = document.querySelectorAll('[data-project]');
 
   asciiArts.forEach((el) => {
