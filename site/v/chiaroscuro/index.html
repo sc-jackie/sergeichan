@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — Chiaroscuro</title>
+<link rel="preload" as="font" href="../../fonts/Fraunces-Bold.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="../../fonts/Inter-Regular.woff2" type="font/woff2" crossorigin>
+<style>
+:root {
+  --dark: #0d0b09;
+  --light: #f4e3c8;
+  --accent: #d4956f;
+  --dim: rgba(244, 227, 200, 0.3);
+  --dimmer: rgba(244, 227, 200, 0.15);
+  color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--dark);
+  color: var(--light);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  position: relative;
+}
+
+/* Canvas backdrop */
+#canvas-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content container */
+.viewport {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* Six act sections */
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+/* Act I: Origin — light rises on name */
+#act-i {
+  text-align: center;
+}
+
+#act-i .name {
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(48px, 12vw, 120px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+}
+
+#act-i .tagline {
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+  max-width: 600px;
+}
+
+/* Act II: Work — projects lit by the beam */
+#act-ii {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 80px;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-card {
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+  transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.project-emblem {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  opacity: 0.8;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+.project-name {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.project-one {
+  font-size: 14px;
+  color: var(--dim);
+  max-width: 280px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Acts III-VI: Dark sections revealing on scroll */
+section:nth-child(n+3) {
+  opacity: 0.6;
+}
+
+section:nth-child(n+3) h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(32px, 8vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+  opacity: 0.5;
+}
+
+section:nth-child(n+3) .content {
+  max-width: 600px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--dimmer);
+}
+
+/* Roman numeral nav (right side) */
+nav.scrollnav {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  pointer-events: auto;
+}
+
+nav.scrollnav a {
+  text-decoration: none;
+  color: var(--light);
+  opacity: 0.4;
+  transition: opacity 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+nav.scrollnav a.active {
+  opacity: 1;
+  color: var(--accent);
+}
+
+nav.scrollnav a:hover {
+  opacity: 0.8;
+  color: var(--accent);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  section {
+    padding: 40px 20px;
+  }
+
+  #act-i .name {
+    font-size: clamp(36px, 10vw, 72px);
+  }
+
+  #act-i .tagline {
+    font-size: clamp(16px, 3.5vw, 22px);
+  }
+
+  nav.scrollnav {
+    right: 12px;
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  #act-ii {
+    gap: 40px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #act-i .name,
+  #act-i .tagline,
+  .project-card,
+  section:nth-child(n+3) h2,
+  section:nth-child(n+3) .content {
+    animation: none !important;
+    transition: none !important;
+    opacity: 0.8 !important;
+    transform: none !important;
+  }
+
+  #canvas-bg {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<div class="viewport">
+  <!-- Act I: Origin -->
+  <section id="act-i">
+    <div class="name" id="name-text">Sergei Tran</div>
+    <div class="tagline" id="tagline-text">Vietnamese-Ukrainian · AI-native systems builder</div>
+  </section>
+
+  <!-- Act II: Work — Projects -->
+  <section id="act-ii">
+    <div class="project-card" id="proj-newfin">
+      <div class="project-emblem">💰</div>
+      <div class="project-name">Newfin</div>
+      <div class="project-one">Smart account. Vault-first personal finance orchestrated by agents.</div>
+    </div>
+    <div class="project-card" id="proj-bunit">
+      <div class="project-emblem">🎙</div>
+      <div class="project-name">B-Unit</div>
+      <div class="project-one">Podcast network. Structured interviewing for the AI era.</div>
+    </div>
+    <div class="project-card" id="proj-jackieos">
+      <div class="project-emblem">🖥</div>
+      <div class="project-name">Jackie-OS</div>
+      <div class="project-one">Operating system for one life. Vault-first AI infrastructure.</div>
+    </div>
+    <div class="project-card" id="proj-rodyna">
+      <div class="project-emblem">📈</div>
+      <div class="project-name">Rodyna</div>
+      <div class="project-one">Investment tracker. Real-time portfolio synthesis by agents.</div>
+    </div>
+    <div class="project-card" id="proj-draw">
+      <div class="project-emblem">🎾</div>
+      <div class="project-name">Draw</div>
+      <div class="project-one">Tennis platform. Tournaments, leagues and rankings for communities.</div>
+    </div>
+  </section>
+
+  <!-- Act III: Path -->
+  <section id="act-iii">
+    <h2>Act III: Path</h2>
+    <div class="content">
+      <p>2014–2018: Design — UI/UX for startups and automotive brands in Singapore.</p>
+      <p>2018–2020: Research — Blockchain analyst through the bear market.</p>
+      <p>2020–2025: Markets — Full-time investor, crypto and angel checks.</p>
+      <p>2025–now: Systems — Five AI-native products in production, run by always-on agents.</p>
+    </div>
+  </section>
+
+  <!-- Act IV: Capital -->
+  <section id="act-iv">
+    <h2>Act IV: Capital</h2>
+    <div class="content">
+      <p>Thesis-driven angel checks in AI infrastructure, agent frameworks, and personal systems.</p>
+      <p>Real estate across Warsaw and Odesa. Crypto from 2018 forward.</p>
+    </div>
+  </section>
+
+  <!-- Act V: Voice -->
+  <section id="act-v">
+    <h2>Act V: Voice</h2>
+    <div class="content">
+      <p><em>Coming soon.</em></p>
+      <p>Essays on growing up between two cultures, building with AI agents, and systems for a single life.</p>
+    </div>
+  </section>
+
+  <!-- Act VI: Signal -->
+  <section id="act-vi">
+    <h2>Act VI: Signal</h2>
+    <div class="content">
+      <p><a href="https://github.com/sc-jackie" style="color: var(--accent); text-decoration: underline;">github.com/sc-jackie</a></p>
+    </div>
+  </section>
+</div>
+
+<!-- Nav -->
+<nav class="scrollnav" aria-label="Navigate acts">
+  <a href="#act-i" aria-label="Act I: Origin">I</a>
+  <a href="#act-ii" aria-label="Act II: Work">II</a>
+  <a href="#act-iii" aria-label="Act III: Path">III</a>
+  <a href="#act-iv" aria-label="Act IV: Capital">IV</a>
+  <a href="#act-v" aria-label="Act V: Voice">V</a>
+  <a href="#act-vi" aria-label="Act VI: Signal">VI</a>
+</nav>
+
+<script>
+(function() {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+
+  // Canvas setup
+  const cv = document.getElementById('canvas-bg');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+
+  function fitCanvas() {
+    const rect = cv.getBoundingClientRect();
+    cv.width = Math.floor(rect.width * DPR);
+    cv.height = Math.floor(rect.height * DPR);
+  }
+  fitCanvas();
+  addEventListener('resize', fitCanvas);
+
+  // Light position driven by scroll
+  let scrollProgress = 0;
+  let scrollPos = 0;
+  const viewport = document.querySelector('.viewport');
+
+  function updateScrollProgress() {
+    const totalHeight = viewport.scrollHeight - window.innerHeight;
+    scrollProgress = totalHeight > 0 ? window.scrollY / totalHeight : 0;
+    scrollPos = window.scrollY;
+  }
+
+  addEventListener('scroll', updateScrollProgress, { passive: true });
+
+  // Draw light and shadows
+  function draw() {
+    ctx.fillStyle = 'rgba(13, 11, 9, 1)';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+
+    // Light source position: starts at top-center, moves diagonally down-right
+    const lightX = (cv.width / 2) + (scrollProgress * cv.width * 0.3);
+    const lightY = (cv.height / 2) + (scrollProgress * cv.height * 0.6);
+    const lightRadius = cv.height * (0.4 + scrollProgress * 0.3);
+
+    // Main light pool (warm radial gradient)
+    const lightGrad = ctx.createRadialGradient(lightX, lightY, 0, lightX, lightY, lightRadius);
+    lightGrad.addColorStop(0, 'rgba(244, 227, 200, 0.15)');
+    lightGrad.addColorStop(0.5, 'rgba(244, 227, 200, 0.08)');
+    lightGrad.addColorStop(1, 'rgba(244, 227, 200, 0)');
+
+    ctx.fillStyle = lightGrad;
+    ctx.fillRect(0, 0, cv.width, cv.height);
+
+    // Ambient glow (subtle, always visible)
+    const ambientGrad = ctx.createRadialGradient(cv.width / 2, cv.height / 2, 0, cv.width / 2, cv.height / 2, Math.max(cv.width, cv.height));
+    ambientGrad.addColorStop(0, 'rgba(244, 227, 200, 0.03)');
+    ambientGrad.addColorStop(1, 'rgba(244, 227, 200, 0)');
+    ctx.fillStyle = ambientGrad;
+    ctx.fillRect(0, 0, cv.width, cv.height);
+  }
+
+  // Scroll-driven animations for text
+  const nameText = document.getElementById('name-text');
+  const taglineText = document.getElementById('tagline-text');
+  const projCards = document.querySelectorAll('.project-card');
+
+  function updateAnimations() {
+    updateScrollProgress();
+
+    // Act I: Name and tagline rise with light
+    const actIProgress = Math.min(scrollProgress * 2, 1);
+    if (nameText) {
+      nameText.style.opacity = 0.3 + (actIProgress * 0.7);
+      nameText.style.transform = `translateY(${(1 - actIProgress) * 30}px)`;
+    }
+    if (taglineText) {
+      taglineText.style.opacity = Math.max(0, 0.2 + (actIProgress - 0.1) * 0.8);
+      taglineText.style.transform = `translateY(${Math.max(0, (1 - actIProgress) * 30)}px)`;
+    }
+
+    // Act II: Projects light up in sequence
+    const actIIStart = 0.15;
+    const actIIEnd = 0.65;
+    if (scrollProgress >= actIIStart && scrollProgress <= actIIEnd) {
+      const actIIProgress = (scrollProgress - actIIStart) / (actIIEnd - actIIStart);
+      projCards.forEach((card, idx) => {
+        const cardStart = idx * 0.18;
+        const cardProgress = Math.max(0, Math.min((actIIProgress - cardStart) / 0.18, 1));
+        card.style.opacity = cardProgress;
+        card.style.transform = `translateY(${(1 - cardProgress) * 30}px)`;
+      });
+    } else if (scrollProgress > actIIEnd) {
+      projCards.forEach(card => {
+        card.style.opacity = 1;
+        card.style.transform = 'translateY(0)';
+      });
+    }
+
+    // Update nav indicators
+    const navLinks = document.querySelectorAll('nav.scrollnav a');
+    const sections = document.querySelectorAll('section');
+    let activeIdx = 0;
+    sections.forEach((sec, idx) => {
+      const secTop = sec.offsetTop - window.innerHeight / 2;
+      if (scrollPos >= secTop) activeIdx = idx;
+    });
+    navLinks.forEach((link, idx) => {
+      link.classList.toggle('active', idx === activeIdx);
+    });
+  }
+
+  // Animation loop
+  function animate() {
+    if (!reduced) {
+      draw();
+    }
+    updateAnimations();
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+
+</body>
+</html>
