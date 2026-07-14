@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — one thread, many vibrations</title>
+<meta name="description" content="Designer by training, builder of AI-native systems. Five products in production, run day-to-day by always-on agents — Jackie-OS, Newfin, B-Unit, Rodyna, Draw.">
+<meta property="og:title" content="Sergei Tran — one thread, many vibrations">
+<meta property="og:description" content="Five systems in production, built with AI-native agents.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sergeichan.vercel.app">
+<meta name="theme-color" content="#0C0E16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230C0E16'/%3E%3Cpath d='M6 4v24M11 4v24M21 4v24M26 4v24' stroke='%23E5E7EF' stroke-opacity='.5' stroke-width='1.5'/%3E%3Cpath d='M16 4v24' stroke='%23C9A45C' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preload" as="font" href="fonts/Inter-Regular.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="fonts/Inter-Medium.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="fonts/Fraunces-Bold.woff2" type="font/woff2" crossorigin>
+<style>
+  :root{
+    --space:#0C0E16; --pearl:#E5E7EF; --muted:#9AA0B0; --dim:#6A7080;
+    --line:rgba(229,231,239,.12); --gold:#C9A45C;
+    color-scheme: dark;
+  }
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--space);color:var(--pearl);
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  html.reduced-motion-on { scroll-behavior: auto; }
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+  /* ============ HERO — permanently fixed background (z-index 0, sections sit above) ============ */
+  #hero{position:fixed;inset:0;background:var(--space);overflow:hidden;cursor:pointer;z-index:0}
+  #hero canvas{display:block;width:100%;height:100%}
+  #hero .ov{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:26px 32px}
+  #hero .bar{display:flex;justify-content:space-between;align-items:baseline}
+  #hero .brand{font-weight:600;font-size:15px;letter-spacing:.02em}
+  #hero .nav{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);pointer-events:auto}
+  #hero .nav button{all:unset;cursor:pointer;margin-left:22px;letter-spacing:inherit;color:inherit}
+  #hero .nav button:hover{color:var(--pearl)}
+  #hero .nav button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
+  #hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+  #hero .thesis{font-size:clamp(18px,2.5vw,25px);font-weight:250;max-width:20em;line-height:1.32}
+  #hero .thesis em{font-style:italic;color:#C6CBE8}
+  #hero .hint{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-align:right;line-height:1.9}
+  @media (max-width:640px){ #hero .hint{display:none} #hero .ov{padding:20px 18px} }
+
+  /* glimpse — small, quiet; the chord expansion is the real hover effect */
+  #glimpse{position:absolute;width:196px;pointer-events:none;opacity:0;transform:translate(-50%,-50%);
+    transition:opacity .35s ease, left .55s cubic-bezier(.25,.1,.25,1);
+    background:rgba(12,14,22,.66);border:1px solid rgba(229,231,239,.1);border-radius:10px;
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    padding:11px 13px 10px;z-index:5;--acc:#C9A45C}
+  #glimpse.on{opacity:1}
+  #glimpse .kick{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);opacity:.85}
+  #glimpse h4{margin:4px 0 0;font-size:16px;font-weight:350;letter-spacing:-.005em}
+  #glimpse .one{font-size:11.5px;color:var(--muted);line-height:1.45;margin:5px 0 0}
+  #glimpse .enterhint{margin-top:8px;font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);opacity:.8}
+  #glimpse .one,#glimpse .enterhint{opacity:0;transform:translateY(3px);transition:opacity .3s ease,transform .35s ease}
+  #glimpse.s1 .one{opacity:1;transform:none}
+  #glimpse.s2 .one{opacity:1;transform:none}
+  #glimpse.s2 .enterhint{opacity:.8;transform:none}
+  @media (max-width:640px){
+    #glimpse{left:50% !important;top:auto !important;bottom:14px;width:auto;min-width:200px;max-width:calc(100% - 28px)}
+  }
+
+  /* wireframe mock bits */
+  .wf{position:absolute;inset:10px;display:flex;flex-direction:column;gap:6px;--acc:#C9A45C}
+  .wf .row{display:flex;gap:6px;align-items:flex-end}
+  .wf .ln{height:6px;border-radius:3px;background:rgba(229,231,239,.2)}
+  .wf .ln.g{background:var(--acc);opacity:.75}
+  .wf .fig{font-family:ui-monospace,Menlo,monospace;font-size:15px;color:var(--pearl)}
+  .wf .bar{width:9px;border-radius:2px 2px 0 0;background:rgba(229,231,239,.22)}
+  .wf .bar.g{background:var(--acc);opacity:.8}
+  .wf .bub{max-width:72%;padding:5px 8px;border-radius:8px;background:rgba(229,231,239,.1);font-size:9px;color:var(--muted);line-height:1.35}
+  .wf .bub.me{align-self:flex-end;background:color-mix(in srgb, var(--acc) 20%, transparent);color:var(--pearl)}
+  .wf .chipline{display:flex;gap:5px}
+  .wf .chip{height:12px;padding:0 7px;border-radius:6px;border:1px solid rgba(229,231,239,.25);font-size:8px;line-height:12px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+
+  /* ============ CASE VIEW — transparent: the hero's own threads are the background ============ */
+  #case{position:fixed;inset:0;background:transparent;z-index:50;display:none;overflow-y:auto;opacity:0;
+    transition:opacity .45s ease;--acc:#C9A45C}
+  /* while a case is open, the hero pins fullscreen underneath and keeps living */
+  #hero.bgmode{position:fixed;inset:0;height:100vh;min-height:0;z-index:49;cursor:default}
+  #hero.bgmode .ov, #hero.bgmode #glimpse{display:none}
+  #case.open{display:block}
+  #case.vis{opacity:1}
+  #case .topline{position:sticky;top:0;height:2px;z-index:2;
+    background:linear-gradient(90deg,var(--acc) var(--read,10%),rgba(229,231,239,.1) var(--read,10%))}
+  #case .press{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:linear-gradient(90deg, rgba(12,14,22,.25) 0%, rgba(12,14,22,.72) 24%, rgba(12,14,22,.72) 76%, rgba(12,14,22,.25) 100%)}
+  #case #cIconCv{display:block;width:64px;height:64px;margin:2px 0 10px -6px}
+  #case .inner{max-width:760px;margin:0 auto;padding:34px 24px 90px;position:relative;z-index:1}
+  /* content arrives after the icon lands: staggered rise */
+  #case .inner > *{opacity:0;transform:translateY(12px);
+    transition:opacity .55s ease, transform .6s cubic-bezier(.25,.1,.25,1)}
+  #case.settled .inner > *{opacity:1;transform:none}
+  #case.settled .inner > *:nth-child(2){transition-delay:.05s}
+  #case.settled .inner > *:nth-child(3){transition-delay:.09s}
+  #case.settled .inner > *:nth-child(4){transition-delay:.13s}
+  #case.settled .inner > *:nth-child(5){transition-delay:.17s}
+  #case.settled .inner > *:nth-child(6){transition-delay:.21s}
+  #case.settled .inner > *:nth-child(7){transition-delay:.25s}
+  #case.settled .inner > *:nth-child(n+8){transition-delay:.42s}
+  /* the traveling icon — flies from the hero's center to its seat on the page */
+  #flyIcon{position:fixed;width:64px;height:64px;z-index:70;pointer-events:none;display:none}
+  #case .backbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:44px}
+  #case button.back{all:unset;cursor:pointer;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:8px 0}
+  #case button.back:hover{color:var(--pearl)}
+  #case button.back:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+  #case .roman{position:absolute;top:8px;right:12px;font-size:clamp(120px,22vw,220px);font-weight:100;
+    color:color-mix(in srgb, var(--acc) 9%, transparent);line-height:1;user-select:none;pointer-events:none;font-family:Georgia,serif}
+  #case .kick{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+  #case h1{font-size:clamp(34px,6vw,54px);font-weight:250;letter-spacing:-.02em;margin:10px 0 8px;line-height:1.05}
+  #case .one{font-size:17px;color:var(--muted);max-width:34em;margin:0}
+  #case .metarow{display:flex;flex-wrap:wrap;gap:16px;margin:22px 0 0;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  #case .metarow b{color:var(--pearl);font-weight:500}
+  #case h3{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:500;margin:52px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
+  #case p{color:#C6CAD6;font-size:15.5px;line-height:1.7;margin:0 0 14px;max-width:62ch}
+  #case p b{color:var(--pearl)}
+  #case ul.plain{margin:0;padding:0;list-style:none;color:#C6CAD6;font-size:15px}
+  #case ul.plain li{margin:6px 0;padding-left:16px;position:relative}
+  #case ul.plain li::before{content:'—';position:absolute;left:0;color:var(--acc)}
+  #case .statechips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+  #case .statechips span{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+  #case .statechips span.live{border-color:color-mix(in srgb, var(--acc) 55%, transparent);color:var(--acc)}
+  #case .frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
+  #case .frame{border:1px solid var(--line);border-radius:10px;background:#0A0C13;overflow:hidden}
+  #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  #case .frame .body{position:relative;height:190px}
+  #case .frame figcaption{padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim)}
+  #case .arch{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+  #case .arch .node{border:1px solid rgba(229,231,239,.25);border-radius:8px;padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--pearl);background:rgba(229,231,239,.03)}
+  #case .arch .node.g{border-color:color-mix(in srgb, var(--acc) 60%, transparent);color:var(--acc)}
+  #case .arch .arr{color:var(--dim);font-family:ui-monospace,Menlo,monospace}
+  /* ============ optional case sections — jackie-os flagship (rendered only when data present) ============ */
+  /* two ledgers: second brain / agent */
+  #case .vaultcard{margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0A0C13}
+  #case .duo{display:grid;grid-template-columns:1fr 1fr}
+  @media (max-width:680px){ #case .duo{grid-template-columns:1fr} }
+  #case .duo > div{padding:22px 24px 26px}
+  #case .duo > div + div{border-left:1px solid var(--line)}
+  @media (max-width:680px){ #case .duo > div + div{border-left:none;border-top:1px solid var(--line)} }
+  #case .duo h4{display:flex;align-items:center;gap:9px;margin:0;font-size:16px;font-weight:500;color:var(--pearl);letter-spacing:-.01em}
+  #case .duo h4 svg{width:17px;height:17px;color:var(--acc);flex:0 0 auto}
+  #case .duo .who{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);display:block;margin:8px 0 16px}
+  #case .duo ul{list-style:none;margin:0;padding:0}
+  #case .duo li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+  #case .duo li b{color:var(--pearl);font-weight:500}
+  #case .duo li span{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim);white-space:nowrap;padding-top:2px}
+  #case .duo .foot{margin-top:14px;font-size:13px;color:var(--dim);line-height:1.5}
+  /* linked-memory figure (particle field) */
+  #case .memfig{margin:0;border-top:1px solid var(--line);padding:0 24px}
+  #case .memfig .body{position:relative;height:240px;margin-top:18px}
+  #case .memfig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #case .memfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:8px 0 18px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  #case .memfig figcaption b{color:var(--acc);font-weight:500}
+  /* the loop — six jobs (with icons) */
+  #case .cjobs{margin-top:6px}
+  #case .cjob{display:grid;grid-template-columns:26px 116px 1fr auto;gap:18px;align-items:baseline;padding:15px 2px 15px 10px;border-bottom:1px solid var(--line);border-left:2px solid transparent;transition:border-color .2s}
+  #case .cjob:hover{border-left-color:var(--acc)}
+  #case .cjob .ic{width:20px;height:20px;color:var(--dim);align-self:center;transition:color .2s,transform .25s}
+  #case .cjob:hover .ic{color:var(--acc);transform:translateY(-1px)}
+  #case .cjob .jt{font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.02em;color:var(--pearl)}
+  #case .cjob:hover .jt{color:var(--acc)}
+  #case .cjob .jd{color:#C6CAD6;font-size:14.5px;line-height:1.55}
+  #case .cjob .jm{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
+  #case .cjob:last-child{border-bottom:none}
+  @media (max-width:640px){ #case .cjob{grid-template-columns:20px 1fr auto;gap:6px 12px} #case .cjob .jd{grid-column:1/-1;padding-left:32px} }
+  /* a day strip */
+  #case .cday{display:flex;margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:#0A0C13}
+  #case .cday .tick{flex:1 0 auto;min-width:132px;padding:16px 16px 18px;border-left:1px solid var(--line)}
+  #case .cday .tick:first-child{border-left:none}
+  #case .cday time{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--acc);display:block;margin-bottom:7px}
+  #case .cday b{font-size:14px;color:var(--pearl);font-weight:500;display:block;margin-bottom:3px}
+  #case .cday span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block}
+  /* the trick — before / after */
+  #case .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  @media (max-width:680px){ #case .ba{grid-template-columns:1fr} }
+  #case .ba .panel{position:relative;border:1px solid var(--line);border-radius:10px;padding:22px 24px 24px;background:#0A0C13}
+  #case .ba .panel.good{border-color:color-mix(in srgb, var(--acc) 42%, transparent)}
+  #case .ba .panel .who{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:14px}
+  #case .ba .panel.bad .who{color:var(--dim)}
+  #case .ba .panel.good .who{color:var(--acc)}
+  #case .ba .panel .q{font-size:16px;font-weight:450;color:var(--pearl);line-height:1.45;margin:0 0 10px;text-wrap:balance}
+  #case .ba .panel p{font-size:14px;color:var(--muted);line-height:1.6;margin:0;max-width:none}
+  #case .ba .panel p b{color:var(--pearl)}
+  #case .ba .dots{position:absolute;top:16px;right:16px;display:flex;gap:5px}
+  #case .ba .dots i{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--dim)}
+  #case .ba .panel.good .dots i:first-child{background:var(--acc);border-color:var(--acc)}
+  /* ownership truths */
+  #case .truths{display:grid;grid-template-columns:1fr 1fr;gap:32px 48px;margin-top:20px}
+  @media (max-width:600px){ #case .truths{grid-template-columns:1fr;gap:26px} }
+  #case .truth{display:block}
+  #case .truth b{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;letter-spacing:.03em;color:var(--pearl);font-weight:500;margin-bottom:9px}
+  #case .truth span{display:block;color:var(--muted);font-size:14.5px;line-height:1.6;max-width:42ch}
+  /* docs link */
+  #case .doclink{margin-top:16px}
+  #case .doclink a{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);text-decoration:none}
+  #case .doclink a:hover{text-decoration:underline;text-underline-offset:.25em}
+  #case .nextrow{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  #case a.next{color:var(--pearl);text-decoration:none;font-size:15px}
+  #case a.next:hover span:last-child{text-decoration:underline;text-underline-offset:.2em}
+  #case a.next .mono{font-size:10px;letter-spacing:.16em;display:block;margin-bottom:3px;text-transform:uppercase}
+
+  /* ============ NOTES + PHONE ============ */
+  .notes{max-width:1000px;margin:0 auto;padding:56px 20px 40px}
+  .notes h3{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:500;margin:0 0 14px}
+  .notes .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 34px}
+  .notes .item{padding:14px 0;border-bottom:1px solid var(--line)}
+  .notes h4{margin:0 0 6px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:500}
+  .notes p{margin:0;color:var(--muted);font-size:14px}
+  .notes b{color:var(--pearl);font-weight:600}
+  .phonewrap{max-width:1000px;margin:0 auto;padding:10px 20px 80px;display:flex;gap:34px;flex-wrap:wrap;align-items:flex-start}
+  .bezel{width:300px;height:614px;border-radius:40px;border:2px solid rgba(229,231,239,.22);background:#000;padding:10px;box-sizing:border-box;position:relative;flex:none}
+  .bezel .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:22px;border-radius:0 0 14px 14px;background:#000;z-index:3}
+  .bezel .screen{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:var(--space)}
+  .bezel canvas{display:block;width:100%;height:100%}
+  .bezel .ovm{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:36px 18px 16px}
+  .bezel .b1{font-weight:600;font-size:13px}
+  .bezel .b2{font-size:16px;font-weight:250;line-height:1.35;max-width:16em}
+  .bezel .b2 em{font-style:italic;color:#C6CBE8}
+  .bezel .b3{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+  .pnote{flex:1;min-width:260px;color:var(--muted);font-size:14px}
+  .pnote b{color:var(--pearl)}
+  footer{max-width:1000px;margin:0 auto;padding:0 20px 90px;color:var(--muted);font-size:14px}
+  footer b{color:var(--pearl)}
+  /* ============ PANELS (About / Writing) ============ */
+  .ovl{position:fixed;inset:0;z-index:52;display:none;opacity:0;transition:opacity .4s ease;overflow-y:auto;background:transparent}
+  .ovl.open{display:block}
+  .ovl.vis{opacity:1}
+  .ovl .press{position:fixed;inset:0;pointer-events:none;
+    background:linear-gradient(90deg, rgba(12,14,22,.3) 0%, rgba(12,14,22,.78) 24%, rgba(12,14,22,.78) 76%, rgba(12,14,22,.3) 100%)}
+  .ovl .pinner{max-width:640px;margin:0 auto;padding:44px 24px 90px;position:relative;z-index:1}
+  .ovl .pback{all:unset;cursor:pointer;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:8px 0;display:block;margin-bottom:40px}
+  .ovl .pback:hover{color:var(--pearl)}
+  .ovl .pback:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  .ovl .pkick{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.2em;color:var(--gold)}
+  .ovl h1{font-size:clamp(32px,5.6vw,50px);font-weight:250;letter-spacing:-.02em;margin:10px 0 22px;line-height:1.06}
+  .ovl p{color:#C6CAD6;font-size:15.5px;line-height:1.7;margin:0 0 16px;max-width:58ch}
+  .ovl .pcontact{margin-top:30px;font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.04em}
+  .ovl .pcontact a{color:var(--gold);text-decoration:none}
+  .ovl .pcontact a:hover{text-decoration:underline;text-underline-offset:.25em}
+  .ovl .pcontact span{color:var(--dim)}
+
+  /* ============ SIX-ACT SECTIONS ============ */
+  section{
+    min-height:100svh;
+    position:relative;
+    z-index:1;
+    background:var(--space);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+
+  /* nav rail — fixed right, roman numerals */
+  nav.scrollnav{
+    position:fixed;
+    right:32px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:60;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    font-family:Georgia,serif;
+    font-size:18px;
+    color:var(--muted);
+  }
+  nav.scrollnav a{
+    text-decoration:none;
+    color:inherit;
+    opacity:.5;
+    transition:opacity .2s, color .2s;
+  }
+  nav.scrollnav a:hover, nav.scrollnav a.active{
+    color:var(--pearl);
+    opacity:1;
+  }
+  nav.scrollnav a:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:4px;
+    border-radius:2px;
+  }
+  @media (max-width:640px){
+    nav.scrollnav{
+      right:16px;
+      font-size:14px;
+      gap:14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #glimpse,#glimpse .one,#glimpse .meta,#glimpse .mini,#glimpse .enterhint,#case,
+    #case .inner > *{transition:none !important}
+  }
+
+  /* ============ THREAD SPINE — continuous weave between acts ============ */
+  #threadSpine{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ============ SIX-ACT SECTIONS ============ */
+  section {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    background: var(--space);
+  }
+  #hero {
+    z-index: 0;
+  }
+
+  /* ============ NAV RAIL — fixed roman numerals ============ */
+  nav.scrollnav {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  nav.scrollnav a {
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.5;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  nav.scrollnav a.active {
+    color: var(--pearl);
+    opacity: 1;
+  }
+  nav.scrollnav a:hover {
+    color: var(--pearl);
+    opacity: 0.8;
+  }
+  nav.scrollnav a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+  @media (max-width: 768px) {
+    nav.scrollnav {
+      right: 16px;
+      font-size: 14px;
+      gap: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HOME / HERO ================= -->
+<div id="hero" tabindex="0" aria-label="Interactive hero: five silk chords in depth, one per project. Arrow keys cycle, Enter dives.">
+  <canvas id="cv"></canvas>
+  <div class="ov">
+    <div class="bar"><span class="brand">Sergei Tran</span><span class="nav"><button data-go="home">Work</button><button data-go="panelWriting">Writing</button><button data-go="panelAbout">About</button></span></div>
+    <div class="foot">
+      <div class="thesis">One thread, <em>many vibrations</em> — five systems in production, built with AI-native agents.</div>
+      <div class="hint">hover a chord — the threads part around your cursor<br>click anywhere / enter = dive · ← → cycle</div>
+    </div>
+  </div>
+  <div id="glimpse" role="status">
+    <div class="kick" id="gKick"></div>
+    <p class="one" id="gOne"></p>
+    <div class="enterhint">click to dive ↵</div>
+  </div>
+</div>
+
+<!-- ================= CASE VIEW ================= -->
+<div id="case" aria-live="polite">
+  <div class="topline"></div>
+  <div class="press" aria-hidden="true"></div>
+  <div class="inner">
+    <div class="backbar">
+      <button class="back" id="backBtn">← Resurface</button>
+      <span class="mono" style="font-size:10px;letter-spacing:.16em;color:var(--dim)" id="caseIdx"></span>
+    </div>
+    <div class="roman" id="cRoman"></div>
+    <canvas id="cIconCv" aria-hidden="true"></canvas>
+    <div class="kick" id="cKick"></div>
+    <h1 id="cName"></h1>
+    <p class="one" id="cOne"></p>
+    <div class="metarow" id="cMeta"></div>
+    <h3>What it is</h3><div id="cWhat"></div>
+    <h3>Why it exists</h3><div id="cWhy"></div>
+    <div class="opt" id="secDuo">
+      <h3>One vault, one agent</h3>
+      <div class="vaultcard">
+        <div class="duo" id="cDuo"></div>
+        <figure class="memfig">
+          <div class="body"><canvas id="memCv" aria-hidden="true"></canvas></div>
+          <figcaption><span>the vault, over time</span><b id="memTag">linked memory</b></figcaption>
+        </figure>
+      </div>
+    </div>
+    <h3>What it solves</h3><div id="cSolve"></div>
+    <div class="opt" id="secLoop"><h3>The loop — six jobs</h3><div class="cjobs" id="cJobs"></div></div>
+    <div class="opt" id="secDay"><h3>A day with it</h3><div class="cday" id="cDay"></div></div>
+    <div class="opt" id="secTrick"><h3>No cold start</h3><div class="ba" id="cTrick"></div></div>
+    <div class="opt" id="secTruths"><h3>No lock-in</h3><div class="truths" id="cTruths"></div></div>
+    <h3>Current state</h3><div id="cState"></div>
+    <h3>How it looks</h3><div class="frames" id="cFrames"></div>
+    <h3>Architecture</h3><div class="arch" id="cArch"></div><p id="cArchNote" style="margin-top:12px"></p>
+    <div class="nextrow">
+      <button class="back" id="backBtn2">← Resurface</button>
+      <a class="next" href="#" id="nextLink"><span class="mono" id="nextMono">Next thread</span><span id="nextName"></span></a>
+    </div>
+  </div>
+</div>
+
+<canvas id="flyIcon" aria-hidden="true"></canvas>
+
+<!-- ================= THREAD SPINE — continuous weave ================= -->
+<canvas id="threadSpine" aria-hidden="true"></canvas>
+
+<!-- ================= PANELS: About / Writing ================= -->
+<div class="ovl" id="panelAbout" aria-label="About">
+  <div class="press" aria-hidden="true"></div>
+  <div class="pinner">
+    <button class="back pback">← Back</button>
+    <div class="pkick">ABOUT</div>
+    <h1>Sergei Tran</h1>
+    <p>Designer by training — 2014–2018 in UI/UX, from startups to Lexus, Suzuki and Toyota dealer sites in Singapore. Then blockchain research and community. Then a long run as a full-time investor.</p>
+    <p>Now I build AI-native systems in Warsaw: five products in production, run day to day by always-on agents — an operating system for one life, and the tools that ride on its rails.</p>
+    <p>Vietnamese-Ukrainian, born in Odesa, raised between two languages. That is the thread the writing here will follow.</p>
+    <p class="pcontact"><a href="mailto:sergei.tran@gmail.com">sergei.tran@gmail.com</a><span> · </span><a href="https://github.com/sc-jackie" rel="me">github.com/sc-jackie</a></p>
+  </div>
+</div>
+<div class="ovl" id="panelWriting" aria-label="Writing">
+  <div class="press" aria-hidden="true"></div>
+  <div class="pinner">
+    <button class="back pback">← Back</button>
+    <div class="pkick">WRITING</div>
+    <h1>Coming soon.</h1>
+    <p>The first essay is about growing up between two cultures — one thread, many vibrations. Until it is ready, the work speaks.</p>
+  </div>
+</div>
+
+<!-- ================= SIX-ACT SCROLL SECTIONS ================= -->
+<section id="origin" aria-label="Origin"></section>
+<section id="work" aria-label="Work"></section>
+<section id="path" aria-label="Path"></section>
+<section id="capital" aria-label="Capital"></section>
+<section id="voice" aria-label="Voice"></section>
+<section id="signal" aria-label="Signal"></section>
+
+<!-- ================= NAV RAIL ================= -->
+<nav class="scrollnav" aria-label="Navigate acts">
+  <a href="#origin" aria-label="Act I: Origin">I</a>
+  <a href="#work" aria-label="Act II: Work">II</a>
+  <a href="#path" aria-label="Act III: Path">III</a>
+  <a href="#capital" aria-label="Act IV: Capital">IV</a>
+  <a href="#voice" aria-label="Act V: Voice">V</a>
+  <a href="#signal" aria-label="Act VI: Signal">VI</a>
+</nav>
+
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DPR = Math.min(devicePixelRatio || 1, 2);
+  function rgba(rgb, a){ return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a + ')'; }
+  function smooth(p){ return p*p*(3-2*p); }
+
+  /* ---------- data (order on screen; jackie center) ---------- */
+  function wf(html){ return '<div class="wf">' + html + '</div>'; }
+  var P = [
+    { id:'newfin', roman:'II', name:'Newfin', u:0.15, color:'#7C93E8', rgb:[124,147,232],
+      one:'Net worth, cashflow and an LLM advisor for a genuinely mixed portfolio.',
+      meta:'2026 · TS MONOREPO · SUPABASE + VERCEL · LIVE',
+      what:'<p>A household finance platform for a portfolio that doesn\'t fit any app: liquid and vesting crypto, futures, real estate across two countries, private deals, receivables, cash. One system of record, an API-first server, a web dashboard, and a scoped Telegram agent for the household.</p>',
+      why:'<p>Every tool I tried could track <b>a slice</b> — none could hold the whole book truthfully. And numbers without judgment are noise: I wanted an advisor that reads the actual state and answers with positions sized in dollars and percent, not market clichés.</p>',
+      solve:'<ul class="plain"><li>One truthful net-worth line across every asset class and currency</li><li>An LLM advisor bound to the real payload — recommendations with numbers, never generic advice</li><li>Household access with hard scoping: the owner sees everything; family members see only their view</li><li>Read-only by design — it can describe a move, never execute one</li></ul>',
+      state:'<p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than I maintain it.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div>',
+      frames:[
+        {h:'PORTFOLIO', cap:'the whole book, one line (demo data)', m: wf('<div class="fig">$ ---,---</div><div class="row" style="height:52px"><div class="bar" style="height:30%"></div><div class="bar" style="height:44%"></div><div class="bar" style="height:38%"></div><div class="bar g" style="height:62%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:70%"></div><div class="bar g" style="height:78%"></div></div><div class="ln" style="width:58%"></div>')},
+        {h:'ADVISOR · TELEGRAM', cap:'judgment over the real payload', m: wf('<div class="bub me">should I trim anything?</div><div class="bub">Concentration flag: one position is above your band. Trimming ~8% restores the target and adds runway. Liabilities are clear.</div>')}
+      ],
+      arch:['Integrations','Server (Express)','Supabase','Web PWA','Persik bot'], archG:4,
+      archNote:'Shared workspace owns the net-worth math; exchange/wallet/bank integrations feed the server; the Telegram agent gets role-scoped views of the same truth.'
+    },
+    { id:'bunit', roman:'III', name:'B-Unit', u:0.325, color:'#5FBF8E', rgb:[95,191,142],
+      one:'A gamified habit economy for a teenager — real quests, real rewards, agent coaching.',
+      meta:'2026 · SUPABASE + NEXT.JS + TELEGRAM · LIVE PILOT',
+      what:'<p>A habit tracker built as a game economy for a 14-year-old in the family: daily quests earn XP and coins, coins cash out into real rewards, levels unlock equipment and themes — with a coach in the loop verifying that the habits actually happened.</p>',
+      why:'<p>Telling a teenager to "build habits" doesn\'t work; game economies do. So the loop is honest game design instead of parental nagging — and it doubled as a testbed for something bigger: <b>autonomous agents shipping production code</b>, since two AI agents work its backlog end-to-end.</p>',
+      solve:'<ul class="plain"><li>A motivation loop that survives week two: quests → XP/coins → real cashout</li><li>Anti-cheat: coach verification and timer-verified quests keep the economy honest</li><li>Progression that feels like a game: levels, equipment, streaks, themes</li><li>For me: a live experiment in agents dispatching, coding and shipping from a backlog</li></ul>',
+      state:'<p>Live on production with its pilot user active. The economy survived contact with a real teenager (v2 hardened after the first exploits — a good sign someone cares). Two autonomous agents keep working the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div>',
+      frames:[
+        {h:'QUEST BOARD', cap:'today\'s run', m: wf('<div class="chipline"><span class="chip">LVL 7</span><span class="chip">STREAK 12</span></div><div class="ln g" style="width:70%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:64%"></div><div class="ln" style="width:78%"></div><div class="chipline"><span class="chip">+120 XP</span><span class="chip">+40 COINS</span></div>')},
+        {h:'COACH VERIFY · TELEGRAM', cap:'the human in the loop', m: wf('<div class="bub">Quest submitted: "30 min reading" — verify?</div><div class="bub me">✓ verified</div><div class="bub">+40 coins credited. Streak: 12 days.</div>')}
+      ],
+      arch:['Telegram bot','Next.js PWA','Supabase','Agent loop (Linear)'], archG:3,
+      archNote:'Edge functions run the economy with append-only migrations and integrity tests; the agent loop dispatches issues to two coding agents whose PRs sync back to the board.'
+    },
+    { id:'jackieos', roman:'I', name:'Jackie-OS', u:0.5, color:'#C9A45C', rgb:[201,164,92], core:true,
+      one:'A personal AI operating system — memory, skills, and always-on agents running one life.',
+      meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
+      what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
+      why:'<p>I work across tools that don\'t share memory. Knowledge lives in an Obsidian vault, code in separate repos, and the assistant keeps changing — mostly Claude Code on the Mac, Codex or a different model when the task wants one. Every one of them starts cold, so I keep re-explaining the same projects and the same decisions.</p><p>So the memory lives outside all of them. The system is plain <b>markdown in git</b>, and the skills are instructions any harness can run, so I can switch model, provider or tool without losing context. A small agent on a VPS keeps the loop turning while the Mac is closed — the 07:30 brief, hourly journal capture from a Telegram message, project status written back on merge. The journaling is the part I underrated: each note gets linked to the projects and people it touches, and the daily pile slowly turns into something I can actually query.</p>',
+      solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
+      jobs:[
+        {t:'Capture', m:'hourly', ic:'<path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 15v5h16v-5"/>', d:'A DM — a thought, a link, "met Sarah" — is filed to your journal, your clippings, or the person it mentions, and linked.'},
+        {t:'Brief', m:'07:30 daily', ic:'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9.5 12h6M9.5 16h6"/>', d:'The morning brief reads the vault, the repos and the calendar: what changed, the top three, and what is blocked — delivered to Telegram.'},
+        {t:'Build', m:'on dispatch', ic:'<circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="8" r="2.2"/><path d="M6 7.7v8.6M17.8 10.2c-.6 3.6-4.6 5-8.4 5"/>', d:'Worker agents take tracker issues to pull requests in isolated worktrees, reporting progress back on the issue.'},
+        {t:'Sync', m:'on merge', ic:'<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 3v4.5h-4.5"/>', d:'Merges write back to each project status note — the vault knows what actually shipped, not what was meant to.'},
+        {t:'Link', m:'daily', ic:'<circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M8 11l8-4.5M8 13l8 4.5"/>', d:'After each brief the agent proposes connections between journal, projects and people. The pile becomes a web.'},
+        {t:'Compound', m:'weekly +', ic:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13.5l9 5 9-5"/>', d:'Weekly, monthly and yearly reviews; fixes documented and indexed. Next month, the agent is smarter than today.'}
+      ],
+      day:[
+        {time:'07:00', b:'Sweep', s:'links you sent overnight, filed'},
+        {time:'07:30', b:'Brief', s:'what changed, top 3, calendar — on your phone'},
+        {time:'hourly', b:'Journal', s:'your DMs become daily notes'},
+        {time:'09:12', b:'PR opened', s:'a worker picked up an issue'},
+        {time:'on merge', b:'Status synced', s:'vault updated, nothing drifts'},
+        {time:'Sunday', b:'Review', s:'the week, compounded'}
+      ],
+      duo:{
+        left:{h:'The second brain', glyph:'<rect x="4" y="4" width="16" height="16"/><path d="M4 9h16M9 13h6"/>', who:'written by you', items:[['Daily journal','DM or type'],['Project notes, decisions','markdown'],['People, places, ideas','wikilinked']], foot:'An Obsidian vault, versioned in git. Notes link like Wikipedia and compound over time.'},
+        right:{h:'The agent', glyph:'<circle cx="12" cy="14" r="5.5"/><path d="M12 8.5V4M8.5 4h7M12 12v2.5l2 1.2"/>', who:'written back for you', items:[['Morning brief + reviews','07:30 / weekly'],['Project status, from git','on merge'],['Clippings, links, learnings','as they land']], foot:'Hermes runs 24/7 on a small server. It reads the vault before acting and writes results back to Telegram and to the vault itself.'}
+      },
+      trick:{
+        bad:{who:'any other AI', q:'"Hi! What are we working on today?"', p:'Zero context. You paste links, summarize your week, explain the project again. Ten minutes of warmup before any real work.'},
+        good:{who:'jackie-os', q:'"The retention PR merged last night. Friday is still blocked on the key rotation, and one decision is waiting on you."', p:'Every agent reads <b>hot.md</b> first: a living, ~500-word summary of where you are, refreshed at every session end.'}
+      },
+      truths:[
+        ['Markdown + git','The whole system is plain text in a repository you own. Readable in ten years, greppable today.'],
+        ['Any agent','Claude Code, Cursor, Codex: open the folder and each becomes the same system with the same memory.'],
+        ['Runs without you','One small always-on agent keeps the loop turning while your laptop sleeps.'],
+        ['Yours to fork','The quickstart template gives you the vault, the skills and the loop. Bring your own agent.']
+      ],
+      state:'<p>Running in production on a VPS for months: 4 agent crons + system jobs, the other four projects riding its rails daily. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 CRONS</span><span>PUBLIC TEMPLATE</span><span>MULTI-AGENT</span></div><p class="doclink"><a href="/jackie-os/docs/">Read the full docs →</a></p>',
+      frames:[
+        {h:'MORNING BRIEF · TELEGRAM', cap:'07:30, every day, from real state', m: wf('<div class="bub">Morning brief — Thu. 2 PRs merged overnight. Retention set awaits approval.</div><div class="bub">Calendar: tennis 18:00. Focus: EVE-29.</div><div class="bub me">approve EVE-29</div>')},
+        {h:'AGENT QUEUE', cap:'backlog → autonomous PRs', m: wf('<div class="chipline"><span class="chip">EVE-29 · IN PROGRESS</span><span class="chip">AGENT A</span></div><div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div><div class="chipline"><span class="chip">EVE-31 · QUEUED</span><span class="chip">AGENT B</span></div><div class="ln" style="width:74%"></div><div class="ln g" style="width:38%"></div>')}
+      ],
+      arch:['Obsidian vault','Skills (md)','Hermes VPS agent','Telegram'], archG:2,
+      archNote:'The vault is memory, skills are the contract, the VPS agent is the always-on instance; product repos orbit as satellites with their own agent loops.'
+    },
+    { id:'rodyna', roman:'IV', name:'Rodyna', u:0.675, color:'#E08D66', rgb:[224,141,102],
+      one:'Family recipes with their stories — captured from YouTube, photos or text, in two languages.',
+      meta:'2026 · DENO EDGE + GEMINI · LIVE · ~$0/MO',
+      what:'<p>A Telegram-first recipe keeper for a Vietnamese-Ukrainian family in Warsaw: send a YouTube link, a photo, or plain text, and it becomes a structured bilingual recipe — ingredients, nutrition, provenance and the story of whose dish it is — with weekly menus and grocery lists in a Mini App.</p>',
+      why:'<p>Family recipes were dying in chat scrollback — half in Vietnamese memory, half in Ukrainian, links rotting on YouTube. The wording of a grandmother\'s instruction <b>is</b> the heirloom, so originals are immutable: translations are additive, never destructive.</p>',
+      solve:'<ul class="plain"><li>Zero-friction capture: the bot acknowledges in under a second, AI does the slow work async</li><li>Bilingual by default (EN + UK), original wording preserved verbatim</li><li>Nutrition computed per recipe; menus and grocery lists generated from the week</li><li>Multi-tenant from day one — family now, product later — at ~$0/month</li></ul>',
+      state:'<p>Live and used by the family group. The ingestion pipeline is the hardened part — idempotent jobs, retries, immutable originals with full version history.</p><div class="statechips"><span class="live">LIVE</span><span>FAMILY GROUP</span><span>EN + UK</span><span>~$0/MO</span></div>',
+      frames:[
+        {h:'RECIPE CARD', cap:'from a YouTube link', m: wf('<div class="ln g" style="width:55%"></div><div class="ln" style="width:40%"></div><div class="ln" style="width:72%"></div><div class="ln" style="width:66%"></div><div class="chipline"><span class="chip">EN</span><span class="chip">UK</span><span class="chip">NUTRI B</span></div>')},
+        {h:'CAPTURE · TELEGRAM', cap:'ack < 1s, magic async', m: wf('<div class="bub me">youtube.com/watch?v=…</div><div class="bub">Got it — extracting the recipe ✨</div><div class="bub">Бабусин борщ · 12 ingredients · saved to Library</div>')}
+      ],
+      arch:['Telegram webhook','Job queue','Gemini extract','USDA nutrition','Mini App'], archG:2,
+      archNote:'The webhook only acknowledges and enqueues; an async worker extracts with Gemini, validates with zod, prices nutrition via USDA, and persists behind row-level security.'
+    },
+    { id:'draw', roman:'V', name:'Draw', u:0.85, color:'#56C4D6', rgb:[86,196,214],
+      one:'Tournaments, leagues and rankings for tennis communities.',
+      meta:'2026 · NEXT.JS + REACT NATIVE · IN DEVELOPMENT',
+      what:'<p>A community tennis platform: tournament registration with skill-level gating, generated draws (single elimination, round robin, Swiss), live scoring, standings, seasonal leagues, challenge matches and rankings — delivered as a Telegram Mini App, web app and native mobile on one backend.</p>',
+      why:'<p>I play, and I\'ve watched organizers run 30-player tournaments through spreadsheets and pinned messages. The draw math, the scheduling, the endless "what\'s my next match?" — all of it is software pretending to be a volunteer\'s weekend.</p>',
+      solve:'<ul class="plain"><li>Draw generation that respects seeding and skill gates, without spreadsheet surgery</li><li>One source of truth for scores, standings and rankings across a season</li><li>Players get their schedule; organizers get their weekend back</li></ul>',
+      state:'<p>In active development, not yet in production — the platform is built, the community launch is the remaining work. The only thread here still being woven.</p><div class="statechips"><span>IN DEV</span><span>WEB + MOBILE</span><span>5 LANGUAGES</span></div>',
+      frames:[
+        {h:'BRACKET', cap:'generated, seeded, live', m: wf('<div class="row"><div class="ln" style="width:26%"></div><div class="ln" style="width:26%;opacity:.4"></div></div><div class="row"><div class="ln g" style="width:26%"></div><div class="ln" style="width:26%"></div></div><div class="row"><div class="ln" style="width:26%;opacity:.4"></div><div class="ln g" style="width:26%"></div></div><div class="chipline"><span class="chip">QF · COURT 2 · 18:30</span></div>')},
+        {h:'STANDINGS', cap:'season table', m: wf('<div class="ln g" style="width:76%"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:64%"></div><div class="ln" style="width:58%"></div><div class="ln" style="width:52%"></div>')}
+      ],
+      arch:['Next.js web','React Native','Supabase','Draw engine (shared)'], archG:3,
+      archNote:'Domain logic — draw algorithms, rankings, i18n — lives in a shared package consumed by web and mobile; one Postgres with row-level security underneath.'
+    }
+  ];
+
+  /* ============ shared: 3D icons + halo (used by hero AND case pages) ============ */
+  function proj3(v, rx, ry){
+    var c=Math.cos(ry), s=Math.sin(ry);
+    var x=v[0]*c - v[2]*s, z=v[0]*s + v[2]*c, y=v[1];
+    c=Math.cos(rx); s=Math.sin(rx);
+    var y2=y*c - z*s, z2=y*s + z*c;
+    var d=3/(3+z2);
+    return [x*d, y2*d];
+  }
+  function circlePts(r, n, sy, rot){
+    var pts=[]; sy=sy||1; rot=rot||0;
+    for (var k=0;k<=n;k++){
+      var th=k/n*Math.PI*2, x=Math.cos(th)*r, y=Math.sin(th)*r*sy;
+      pts.push([x*Math.cos(rot)-y*Math.sin(rot), x*Math.sin(rot)+y*Math.cos(rot)]);
+    }
+    return pts;
+  }
+  var ICONS = {
+    jackieos: [circlePts(0.48, 20), circlePts(0.9, 24, 0.36, -0.45)],
+    newfin:   [[[-0.8,0.45],[-0.25,-0.1],[0.15,0.25],[0.8,-0.55]], circlePts(0.09, 8).map(function(q){return [q[0]+0.8, q[1]-0.55];})],
+    bunit:    [[[-0.6,0.55],[0,-0.05],[0.6,0.55]], [[-0.6,0.05],[0,-0.55],[0.6,0.05]]],
+    rodyna:   [
+      (function(){ var a2=[]; for (var k=0;k<=14;k++){ var th=0.15+(Math.PI-0.3)*k/14; a2.push([Math.cos(th)*0.68, 0.05+Math.sin(th)*0.55]); } return a2; })(),
+      [[-0.75,0.05],[0.75,0.05]],
+      [[-0.15,-0.22],[-0.3,-0.4],[-0.04,-0.56],[-0.14,-0.78]]
+    ],
+    draw:     [circlePts(0.62, 22),
+      (function(){ var a2=[]; for (var k=0;k<=12;k++){ var u2=k/12; a2.push([-0.62+1.24*u2, Math.sin(u2*Math.PI*2)*0.34*(u2<0.5?-1:-1)* -1 ]); } return a2; })()]
+  };
+  function drawCoreSphereG(ctx, id, cxp, cyp, r, tt, col, sphereA, iconA){
+    // the halo: breath + one quiet departing ring — subtle but eye-catching
+    if (sphereA > 0.01){
+      var pg = ctx.createRadialGradient(cxp, cyp, 0, cxp, cyp, r*2);
+      pg.addColorStop(0, 'rgba(12,14,22,' + (0.7*Math.min(sphereA*1.4,1)) + ')');
+      pg.addColorStop(1, 'rgba(12,14,22,0)');
+      ctx.fillStyle = pg; ctx.beginPath(); ctx.arc(cxp, cyp, r*2, 0, 7); ctx.fill();
+      var breath = 0.5 + 0.5*Math.sin(tt*Math.PI);
+      var gg = ctx.createRadialGradient(cxp, cyp, 0, cxp, cyp, r*(1.5 + 0.4*breath*sphereA));
+      gg.addColorStop(0, rgba(col, sphereA*(0.12 + 0.16*breath))); gg.addColorStop(1, rgba(col, 0));
+      ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(cxp, cyp, r*(1.5 + 0.4*breath*sphereA), 0, 7); ctx.fill();
+      var ringGate = Math.max(0, (sphereA - 0.5)/0.5);
+      if (ringGate > 0.02){
+        var q = (tt*0.5) % 1;
+        ctx.strokeStyle = rgba(col, 0.32*ringGate*(1 - q));
+        ctx.lineWidth = 1.1*DPR;
+        ctx.beginPath(); ctx.arc(cxp, cyp, r*(1.2 + q*2.3), 0, 7); ctx.stroke();
+      }
+    }
+    if (iconA <= 0.01) return;
+    // the icon oscillates (±35° yaw) — always facing you
+    var ry = Math.sin(tt*0.55)*0.6, rx = Math.sin(tt*0.33)*0.14;
+    ctx.strokeStyle = rgba(col, iconA); ctx.lineWidth = 1.4*DPR; ctx.lineCap='round'; ctx.lineJoin='round';
+    (ICONS[id] || []).forEach(function(line){
+      ctx.beginPath();
+      line.forEach(function(pt2, k){
+        var q = proj3([pt2[0], pt2[1], 0], rx, ry);
+        var X = cxp + q[0]*r*0.85, Y = cyp + q[1]*r*0.85;
+        k ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y);
+      });
+      ctx.stroke();
+    });
+  }
+
+  /* ================= HERO RENDERER (reusable) ================= */
+  function createHero(host, cv, opts){
+    var cx = cv.getContext('2d');
+    var S = fitC();
+    function fitC(){
+      var r = cv.getBoundingClientRect();
+      cv.width = Math.floor(r.width*DPR); cv.height = Math.floor(r.height*DPR);
+      return {w: cv.width, h: cv.height};
+    }
+    addEventListener('resize', function(){ S = fitC(); });
+    var mobile = opts && opts.mobile;
+    var t = 0, focus = 2, focusAmt = [0,0,1,0,0], focusT = 0, manualUntil = -9, ptrX = -1, ptrY = -1;
+    var mode = 'home', dive = {p:0, idx:-1};
+    var eyeYs = [0,0,0,0,0];   // smoothed per-chord expansion center
+    var api = {};
+
+    /* core drawing uses the shared global helpers (drawCoreSphereG) */
+
+    function setFocus(i, manual){
+      if (i === focus) return;
+      focus = i; focusT = 0;
+      if (manual) manualUntil = t + 4;
+      if (opts && opts.onFocus) opts.onFocus(i);
+    }
+    host.addEventListener('pointermove', function(e){
+      var r = cv.getBoundingClientRect();
+      ptrX = (e.clientX - r.left)/r.width;
+      ptrY = (e.clientY - r.top)/r.height;
+      var best = 0, bd = 9;
+      P.forEach(function(p, i){ var d = Math.abs(ptrX - p.u); if (d < bd){ bd = d; best = i; } });
+      setFocus(best, true); manualUntil = t + 4;
+    }, {passive:true});
+    if (opts && opts.interactive){
+      host.addEventListener('click', function(e){
+        if (mode !== 'home') return;
+        // touch: first tap focuses, second tap (already focused near tap x) dives
+        var r = cv.getBoundingClientRect();
+        var x = (e.clientX - r.left)/r.width;
+        var best = 0, bd = 9;
+        P.forEach(function(p, i){ var d = Math.abs(x - p.u); if (d < bd){ bd = d; best = i; } });
+        var coarse = matchMedia('(pointer: coarse)').matches;
+        if (coarse && best !== focus){ setFocus(best, true); return; }
+        startDive(focus);
+      });
+      host.addEventListener('keydown', function(e){
+        if (mode !== 'home') return;
+        if (e.key === 'ArrowRight'){ setFocus((focus+1)%5, true); e.preventDefault(); }
+        if (e.key === 'ArrowLeft'){ setFocus((focus+4)%5, true); e.preventDefault(); }
+        if (e.key === 'Enter'){ startDive(focus); }
+      });
+    }
+    function startDive(i){
+      if (reduced){ if (opts.onDiveDone) opts.onDiveDone(i); return; }
+      mode = 'diving'; dive = {p:0, idx:i};
+      if (opts && opts.onDiveStart) opts.onDiveStart(i);
+    }
+    api.resurface = function(){
+      if (reduced){ mode = 'home'; dive.p = 0; return; }
+      mode = 'resurfacing';
+    };
+    api.getFocus = function(){ return focus; };
+    api.getFocusT = function(){ return focusT; };
+    api.isManual = function(){ return t < manualUntil; };
+    api.mode = function(){ return mode; };
+    api.refit = function(){ S = fitC(); };
+    api.screenX = function(u){ // for glimpse positioning
+      var pr = P[dive.idx >= 0 && mode !== 'home' ? dive.idx : focus];
+      return u*cv.clientWidth;
+    };
+
+    function chordX(u, zoom, camU){
+      return S.w/2 + (u - camU)*S.w*zoom;
+    }
+
+    function draw(){
+      t += 1/60;
+      // focus lifecycle
+      if (mode === 'home'){
+        if (t >= manualUntil && Math.floor(t/3.6) % 5 !== focus && !(opts && opts.holdAuto)){
+          setFocus(Math.floor(t/3.6) % 5, false);
+        }
+        focusT += 1/60;
+      }
+      for (var i = 0; i < 5; i++){
+        focusAmt[i] += ((i === focus ? 1 : 0) - focusAmt[i]) * 0.06;
+      }
+      // dive progress — three acts over ~2.1s: bloom → warp → arrival
+      var zoom = 1, camU = 0.5, bloom = 0, warp = 0, arrive = 0;
+      if (mode === 'diving' || mode === 'resurfacing'){
+        dive.p += (mode === 'diving' ? 1/158 : -1/86);   // ~2.6s out, ~1.4s back — unhurried both ways
+        if (mode === 'diving' && dive.p >= 0.8 && !dive.prepped && opts.onCasePrep){
+          dive.prepped = true; opts.onCasePrep(dive.idx);   // the page begins over the settled silk
+        }
+        if (dive.p >= 1){ dive.p = 1; mode = 'in-case'; if (opts.onDiveDone) opts.onDiveDone(dive.idx); }
+        if (dive.p <= 0){ dive.p = 0; mode = 'home'; dive.idx = -1; dive.prepped = false; }
+      }
+      if (dive.p > 0){
+        bloom  = smooth(Math.min(dive.p/0.32, 1));                    // act I — the chord unfurls
+        warp   = smooth(Math.max(0, Math.min((dive.p - 0.32)/0.5, 1)));// act II — fly through the fan
+        arrive = Math.max(0, (dive.p - 0.84)/0.16);                   // act III — collapse + flash
+        var target = P[dive.idx].u;
+        camU = 0.5 + (target - 0.5)*bloom;
+        zoom = 1 + bloom*0.5 + Math.pow(warp, 1.7)*14;
+      }
+      var D = dive.idx >= 0 ? P[dive.idx] : P[focus];
+
+      // ---- draw ----
+      cx.fillStyle = '#0C0E16'; cx.fillRect(0,0,S.w,S.h);
+      var focusGlow = Math.max.apply(null, focusAmt);
+
+      // dust
+      for (var d2 = 0; d2 < 14; d2++){
+        var dx = ((d2*0.137 + t*0.004) % 1)*S.w, dy = ((d2*0.61) % 1)*S.h;
+        cx.fillStyle = 'rgba(229,231,239,' + (0.06 + 0.05*Math.sin(t + d2)) + ')';
+        cx.fillRect(dx, dy, 1*DPR, 1*DPR);
+      }
+      // nebula — each chord's color hangs faintly behind it (no lines, no horizontals)
+      P.forEach(function(p, i){
+        var a = focusAmt[i];
+        var nx = chordX(p.u, zoom, camU);
+        var isDT = dive.idx === i && dive.p > 0;
+        var base = (0.035 + a*0.05 + Math.sin(t*0.7 + i*1.9)*0.007) * (isDT ? 1 + warp*2 : (1 - warp));
+        if (base <= 0.004) return;
+        var g = cx.createRadialGradient(nx, S.h*0.46, 0, nx, S.h*0.46, S.w*(0.2 + (isDT ? warp*0.5 : 0)));
+        g.addColorStop(0, rgba(p.rgb, base)); g.addColorStop(1, rgba(p.rgb, 0));
+        cx.fillStyle = g; cx.fillRect(0, 0, S.w, S.h);
+      });
+
+      // project chords — smooth expanded silk fans (v3 feel) over the nebula
+      var ptrYpx = ptrY >= 0 ? ptrY*S.h : S.h*0.5;
+      var manualNow = t < manualUntil;
+      P.forEach(function(p, i){
+        var a = focusAmt[i];
+        var isDiveTarget = dive.idx === i && dive.p > 0;
+        var x0 = chordX(p.u, zoom, camU);
+        var offscreen = x0 < -80*DPR || x0 > S.w + 80*DPR;
+        if (offscreen && !isDiveTarget) return;
+        var coreY = S.h*0.5 + Math.sin(t*0.8 + i*2)*4*DPR;
+        // expansion center eases toward the pointer — smooth, never snappy
+        if (!eyeYs[i]) eyeYs[i] = coreY;
+        var targetY = (manualNow && a > 0.3 && !isDiveTarget) ? ptrYpx : coreY;
+        eyeYs[i] += (targetY - eyeYs[i]) * 0.055;
+
+        var hoverSpread = a * 48*DPR;
+        // dive: one continuous, unhurried spread — a faint pulse rides it, but never steps
+        var diveSpread = 0;
+        if (isDiveTarget){
+          var swell = 1 + 0.045*Math.sin(dive.p*Math.PI*3)*(1 - dive.p);
+          diveSpread = smooth(Math.min(dive.p/0.85, 1)) * S.w*0.56 * swell;
+        }
+        var NF = isDiveTarget ? 15 : 9;
+        var baseAlpha = (0.34 + a*0.6) * (isDiveTarget ? 1 : (1 - warp)*(1 - bloom*0.6));
+        var lw = ((p.core ? 1.5 : 1.1) + a*0.4)*DPR;
+        var coreR = (15 + a*4)*DPR;                       // the core never scales — it pulses
+        // threads straighten as they spread: no center pull at top and bottom
+        var straight = isDiveTarget ? smooth(Math.min(dive.p/0.5, 1)) : 0;
+        var settleBg = isDiveTarget ? smooth(Math.max(0, (dive.p - 0.5))/0.5) : 0;
+
+        for (var f = 0; f < NF; f++){
+          var core3 = f < 3;
+          if (!core3 && !isDiveTarget && a < 0.05) continue;
+          var fan = (f/(NF-1) - 0.5) * 2;
+          var extraA = core3 ? 1 : (isDiveTarget ? 0.85 : a);
+          var ph = f*1.7 + i;
+          cx.beginPath();
+          for (var j = 0; j <= 40; j++){
+            var v = j/40, y = v*S.h;
+            // every filament sways on its OWN phase — no synchronous drift, on hero or page
+            var braid = Math.sin(v*7 + t*0.9 + ph) * 3.1*DPR + Math.sin(v*3.2 - t*0.55 + i + f*0.8)*1.6*DPR;
+            var breathe = a * Math.sin(Math.PI*v*2) * Math.sin(t*2.2 + f*0.9) * 5.5*DPR;
+            // settled as page background: extra independent wander so the silk keeps the hero's life
+            var wander = settleBg * Math.sin(v*4.6 + t*0.75 + f*2.3) * 5*DPR;
+            // hover: smooth fan envelope easing toward the pointer;
+            // dive: envelope flattens to 1 so threads leave as parallel verticals
+            var dz = (y - eyeYs[i]) / (S.h*0.5);
+            var envH = 0.6*Math.sin(Math.PI*v) + 0.4*Math.exp(-dz*dz);
+            var envelope = envH*(1 - straight) + straight;
+            var spread = fan * (hoverSpread*(1 - straight*0.3) + diveSpread) * envelope;
+            var x = x0 + braid + breathe + spread + wander;
+            j ? cx.lineTo(x, y) : cx.moveTo(x, y);
+          }
+          var sheen = 0.72 + 0.28*Math.sin(t*1.6 + f*0.8);
+          var edgeFade = 1 - Math.abs(fan)*0.4;
+          // the spread threads recede INTO the background and stay — with their color kept
+          var alphaMod = 1 - settleBg*0.62;
+          if (a > 0.04 || isDiveTarget){
+            cx.strokeStyle = rgba(p.rgb, baseAlpha*sheen*extraA*edgeFade*alphaMod);
+          } else {
+            cx.strokeStyle = 'rgba(229,231,239,' + baseAlpha*0.85*sheen + ')';
+          }
+          cx.lineWidth = lw*(core3 && f === 1 ? 1 : 0.7);
+          cx.stroke();
+        }
+        // ---- the core: pulsating halo (never swelling) + steady icon; hands off near the end ----
+        var handT = mode === 'resurfacing' ? 0.55 : 0.78;
+        var sphereA = isDiveTarget
+          ? 0.7 * (dive.p < handT ? 1 : Math.max(0, 1 - (dive.p - handT)/0.08))
+          : 0.35 + a*0.5;
+        var iconA = isDiveTarget
+          ? (dive.p < handT ? 0.95 : Math.max(0, 0.95*(1 - (dive.p - handT)/0.08)))
+          : 0.45 + a*0.5;
+        drawCoreSphereG(cx, p.id, x0, coreY, coreR, t,
+                       (a > 0.04 || isDiveTarget) ? p.rgb : [229,231,239],
+                       sphereA, iconA);
+        // ---- name: hidden until engagement, revealed under the core ----
+        if (a > 0.15 && !isDiveTarget && bloom < 0.3){
+          var na = Math.min(1, (a - 0.15)/0.5);
+          cx.fillStyle = rgba(p.rgb, na);
+          cx.font = '500 ' + (10.5*DPR)+'px ui-monospace,Menlo,monospace';
+          cx.textAlign = 'center';
+          cx.fillText(p.name.toUpperCase() + (p.core ? ' · CORE' : ''), x0, coreY + (20 + a*8)*DPR + 26*DPR);
+          cx.textAlign = 'start';
+        }
+      });
+
+      // dive — a small color well around the icon only, gone before the page arrives
+      if (dive.idx >= 0 && dive.p > 0 && warp > 0){
+        var wellFade = 1 - smooth(Math.min(1, Math.max(0, (dive.p - 0.62))/0.28));
+        if (wellFade > 0.01){
+          var g3 = cx.createRadialGradient(S.w/2, S.h*0.5, 0, S.w/2, S.h*0.5, 85*DPR);
+          g3.addColorStop(0, rgba(D.rgb, 0.16*warp*wellFade)); g3.addColorStop(1, rgba(D.rgb, 0));
+          cx.fillStyle = g3; cx.beginPath(); cx.arc(S.w/2, S.h*0.5, 85*DPR, 0, 7); cx.fill();
+        }
+      }
+      // dive act III — no veil: the spread threads simply ARE the page's background now
+      // pressed zone
+      if (warp < 0.4){
+        var g2 = cx.createLinearGradient(0, S.h*0.62, 0, S.h);
+        g2.addColorStop(0, 'rgba(12,14,22,0)'); g2.addColorStop(1, 'rgba(12,14,22,.62)');
+        cx.fillStyle = g2; cx.fillRect(0, S.h*0.62, S.w, S.h*0.38);
+      }
+      if (opts && opts.onFrame) opts.onFrame(api);
+    }
+    if (reduced){
+      // static designed pose: center chord focused, one clean render
+      focusAmt = [0.05, 0.05, 1, 0.05, 0.05]; t = 2.1;
+      draw();
+    } else {
+      var running = false, raf = 0;
+      function loop(){ draw(); raf = requestAnimationFrame(loop); }
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if (e.isIntersecting && !running){ running = true; raf = requestAnimationFrame(loop); }
+          else if (!e.isIntersecting && running){ running = false; cancelAnimationFrame(raf); }
+        });
+      }, {threshold:.05}).observe(host);
+    }
+    return api;
+  }
+
+  /* ================= MAIN HERO + GLIMPSE + CASE ================= */
+  var glimpse = document.getElementById('glimpse');
+  var caseEl = document.getElementById('case');
+  var hero = document.getElementById('hero');
+  var lastGlimpseIdx = -1;
+
+  function setGlimpse(i){
+    var p = P[i];
+    glimpse.style.setProperty('--acc', p.color);
+    document.getElementById('gKick').textContent = 'MODE ' + p.roman + ' · CASE STUDY';
+    document.getElementById('gOne').textContent = p.one;
+  }
+
+  var mainApi = createHero(hero, document.getElementById('cv'), {
+    interactive: true,
+    onFocus: function(i){ setGlimpse(i); lastGlimpseIdx = i; },
+    onDiveStart: function(){ glimpse.classList.remove('on','s1','s2','s3'); },
+    onCasePrep: function(i){ casePrep(i); },
+    onDiveDone: function(i){
+      if (!caseEl.classList.contains('open')){   // reduced-motion path: everything at once
+        populate(i); pinHero();
+        caseEl.classList.add('open','vis','settled');
+        caseEl.scrollTop = 0; startCaseAnim();
+        document.getElementById('backBtn').focus({preventScroll:true});
+      }
+    },
+    onFrame: function(api){
+      if (api.mode() !== 'home'){ glimpse.classList.remove('on'); return; }
+      var i = api.getFocus(), ft = api.getFocusT(), manual = api.isManual();
+      if (lastGlimpseIdx !== i){ setGlimpse(i); lastGlimpseIdx = i; }
+      var narrow = innerWidth <= 640;
+      if (!narrow){
+        var xpc = P[i].u*100;
+        glimpse.style.left = 'calc(' + Math.max(14, Math.min(xpc, 86)) + '%)';
+        glimpse.style.top = '72%';
+      }
+      glimpse.classList.add('on');
+      // idle cycle shows only name; the one-liner and dive hint appear on engagement
+      glimpse.classList.toggle('s1', (manual && ft > 0.6) || reduced);
+      glimpse.classList.toggle('s2', manual && ft > 1.3);
+    }
+  });
+
+  /* --- the hero's life continues inside the case page: thread band + breathing icon --- */
+  var caseAnim = {raf: 0, running: false, t: 0, idx: 2};
+  function drawCaseFrame(){
+    caseAnim.t += 1/60;
+    var t = caseAnim.t, p = P[caseAnim.idx];
+    // no second set of threads — the hero's own canvas lives underneath as the background;
+    // the icon with its breathing halo, beside the masthead
+    var icv = document.getElementById('cIconCv'), ix = icv.getContext('2d');
+    if (icv.width !== 64*DPR){ icv.width = 64*DPR; icv.height = 64*DPR; }
+    ix.clearRect(0, 0, icv.width, icv.height);
+    drawCoreSphereG(ix, p.id, 32*DPR, 32*DPR, 14*DPR, t, p.rgb, 0.85, 0.95);
+    if (caseAnim.running) caseAnim.raf = requestAnimationFrame(drawCaseFrame);
+  }
+  function startCaseAnim(){
+    if (caseAnim.running) return;
+    caseAnim.running = true;
+    if (reduced){ caseAnim.running = false; caseAnim.t = 1.3; drawCaseFrame(); return; }
+    caseAnim.raf = requestAnimationFrame(drawCaseFrame);
+  }
+  function stopCaseAnim(){ caseAnim.running = false; cancelAnimationFrame(caseAnim.raf); }
+
+  /* --- the flying icon: shared element between hero center and its seat on the page --- */
+  var flyCv = document.getElementById('flyIcon'), flyCtx = flyCv.getContext('2d');
+  flyCv.width = 64*DPR; flyCv.height = 64*DPR;
+  var flight = null;
+  function startFlight(idx, from, to, onLand){
+    flight = {t: 0, dur: 0.7};
+    flyCv.style.display = 'block';
+    // a gentle arc: the icon rises slightly as it travels, like being carried
+    var cpx = (from.x + to.x)/2, cpy = Math.min(from.y, to.y) - 70;
+    (function step(){
+      if (!flight) return;
+      flight.t += 1/60;
+      var q = smooth(smooth(Math.min(flight.t/flight.dur, 1)));   // double-eased: velvet ends
+      var mq = 1 - q;
+      var x = mq*mq*from.x + 2*mq*q*cpx + q*q*to.x;
+      var y = mq*mq*from.y + 2*mq*q*cpy + q*q*to.y;
+      flyCv.style.left = (x - 32) + 'px'; flyCv.style.top = (y - 32) + 'px';
+      flyCtx.clearRect(0, 0, flyCv.width, flyCv.height);
+      drawCoreSphereG(flyCtx, P[idx].id, 32*DPR, 32*DPR, 14*DPR, performance.now()/1000, P[idx].rgb, 0.85, 0.95);
+      if (flight.t < flight.dur){ requestAnimationFrame(step); }
+      else { flight = null; flyCv.style.display = 'none'; if (onLand) onLand(); }
+    })();
+  }
+  function pinHero(){
+    if (!document.getElementById('heroSpacer')){
+      var sp = document.createElement('div');
+      sp.id = 'heroSpacer'; sp.style.height = hero.offsetHeight + 'px';
+      hero.parentNode.insertBefore(sp, hero);
+    }
+    hero.classList.add('bgmode');
+    mainApi.refit();
+  }
+  function unpinHero(){
+    hero.classList.remove('bgmode');
+    var sp = document.getElementById('heroSpacer');
+    if (sp) sp.remove();
+    mainApi.refit();
+  }
+  function casePrep(i){
+    // the hero pins fullscreen and stays — its threads ARE the page background
+    populate(i);
+    pinHero();
+    caseEl.classList.add('open');
+    caseEl.scrollTop = 0;
+    startCaseAnim();
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      caseEl.classList.add('vis');
+      var seatEl = document.getElementById('cIconCv');
+      var seat = seatEl.getBoundingClientRect();
+      var heroR = hero.getBoundingClientRect();
+      seatEl.style.visibility = 'hidden';
+      startFlight(i,
+        {x: heroR.left + heroR.width/2, y: heroR.top + heroR.height*0.5},
+        {x: seat.left + seat.width/2, y: seat.top + seat.height/2},
+        function(){
+          seatEl.style.visibility = 'visible';
+          caseEl.classList.add('settled');           // now the text and elements rise in
+          document.getElementById('backBtn').focus({preventScroll:true});
+        });
+    }); });
+  }
+  function resurface(){
+    // reverse: content sinks, the icon flies home, the same silk re-gathers beneath
+    var seatEl = document.getElementById('cIconCv');
+    var seat = seatEl.getBoundingClientRect();
+    var heroR = hero.getBoundingClientRect();
+    caseEl.classList.remove('settled');
+    caseEl.classList.remove('vis');
+    mainApi.resurface();
+    if (!reduced && seat.width){
+      seatEl.style.visibility = 'hidden';
+      startFlight(caseAnim.idx,
+        {x: seat.left + seat.width/2, y: seat.top + seat.height/2},
+        {x: heroR.left + heroR.width/2, y: heroR.top + heroR.height*0.5},
+        function(){ seatEl.style.visibility = 'visible'; });
+    }
+    setTimeout(function(){ caseEl.classList.remove('open'); stopCaseAnim(); }, reduced ? 0 : 500);
+    // un-pin the hero only after the silk has fully re-gathered (spacer makes it reflow-free)
+    setTimeout(function(){ unpinHero(); }, reduced ? 0 : 1550);
+  }
+  document.getElementById('backBtn').addEventListener('click', resurface);
+  document.getElementById('backBtn2').addEventListener('click', resurface);
+  addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    if (caseEl.classList.contains('open')){ resurface(); return; }
+    closePanels();
+  });
+  /* ---- About / Writing panels over the living threads ---- */
+  function openPanel(id){
+    closePanels();
+    var el = document.getElementById(id);
+    el.classList.add('open');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('vis'); }); });
+    el.querySelector('.pback').focus({preventScroll:true});
+  }
+  function closePanels(){
+    document.querySelectorAll('.ovl.open').forEach(function(el){
+      el.classList.remove('vis');
+      setTimeout(function(){ el.classList.remove('open'); }, 380);
+    });
+  }
+  document.querySelectorAll('#hero .nav button').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var go = b.getAttribute('data-go');
+      if (go === 'home') closePanels(); else openPanel(go);
+    });
+  });
+  document.querySelectorAll('.ovl .pback').forEach(function(b){
+    b.addEventListener('click', closePanels);
+  });
+
+  function populate(i){
+    var p = P[i];
+    caseAnim.idx = i;
+    caseEl.style.setProperty('--acc', p.color);
+    document.getElementById('cRoman').textContent = p.roman;
+    document.getElementById('cKick').textContent = 'MODE ' + p.roman + ' · CASE STUDY';
+    document.getElementById('cName').textContent = p.name;
+    document.getElementById('cOne').textContent = p.one;
+    document.getElementById('caseIdx').textContent = (i+1) + ' / ' + P.length;
+    document.getElementById('cMeta').innerHTML = p.meta.split('·').map(function(m){ return '<b>' + m.trim() + '</b>'; }).join('<span>·</span>');
+    document.getElementById('cWhat').innerHTML = p.what;
+    document.getElementById('cWhy').innerHTML = p.why;
+    document.getElementById('cSolve').innerHTML = p.solve;
+    var secDuo = document.getElementById('secDuo');
+    if (p.duo){
+      secDuo.style.display = '';
+      var ledger = function(side){
+        return '<div><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">' + side.glyph + '</svg>' + side.h + '</h4><span class="who">' + side.who + '</span><ul>' +
+          side.items.map(function(it){ return '<li><b>' + it[0] + '</b><span>' + it[1] + '</span></li>'; }).join('') +
+          '</ul><p class="foot">' + side.foot + '</p></div>';
+      };
+      document.getElementById('cDuo').innerHTML = ledger(p.duo.left) + ledger(p.duo.right);
+    } else { secDuo.style.display = 'none'; }
+    var secLoop = document.getElementById('secLoop');
+    if (p.jobs){
+      secLoop.style.display = '';
+      document.getElementById('cJobs').innerHTML = p.jobs.map(function(j){
+        return '<div class="cjob"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">' + (j.ic||'') + '</svg><span class="jt">' + j.t + '</span><span class="jd">' + j.d + '</span><span class="jm">' + j.m + '</span></div>';
+      }).join('');
+    } else { secLoop.style.display = 'none'; }
+    var secDay = document.getElementById('secDay');
+    if (p.day){
+      secDay.style.display = '';
+      document.getElementById('cDay').innerHTML = p.day.map(function(d){
+        return '<div class="tick"><time>' + d.time + '</time><b>' + d.b + '</b><span>' + d.s + '</span></div>';
+      }).join('');
+    } else { secDay.style.display = 'none'; }
+    var secTrick = document.getElementById('secTrick');
+    if (p.trick){
+      secTrick.style.display = '';
+      var panel = function(kind, d){
+        return '<div class="panel ' + kind + '"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="who">' + d.who + '</span><p class="q">' + d.q + '</p><p>' + d.p + '</p></div>';
+      };
+      document.getElementById('cTrick').innerHTML = panel('bad', p.trick.bad) + panel('good', p.trick.good);
+    } else { secTrick.style.display = 'none'; }
+    var secTruths = document.getElementById('secTruths');
+    if (p.truths){
+      secTruths.style.display = '';
+      document.getElementById('cTruths').innerHTML = p.truths.map(function(t){
+        return '<div class="truth"><b>' + t[0] + '</b><span>' + t[1] + '</span></div>';
+      }).join('');
+    } else { secTruths.style.display = 'none'; }
+    document.getElementById('cState').innerHTML = p.state;
+    document.getElementById('cFrames').innerHTML = p.frames.map(function(f){
+      return '<figure class="frame" style="margin:0"><div class="head">' + f.h + '</div><div class="body">' + f.m + '</div><figcaption>' + f.cap + '</figcaption></figure>';
+    }).join('');
+    document.getElementById('cFrames').querySelectorAll('.wf').forEach(function(el){ el.style.setProperty('--acc', p.color); });
+    document.getElementById('cArch').innerHTML = p.arch.map(function(n, j){
+      var node = '<span class="node' + (j === p.archG ? ' g' : '') + '">' + n + '</span>';
+      return j < p.arch.length - 1 ? node + '<span class="arr">→</span>' : node;
+    }).join('');
+    document.getElementById('cArchNote').textContent = p.archNote;
+    document.getElementById('cArchNote').style.color = '#C6CAD6';
+    var ni = (i+1) % P.length, next = P[ni];
+    document.getElementById('nextMono').style.color = next.color;
+    document.getElementById('nextName').textContent = 'Mode ' + next.roman + ' — ' + next.name;
+    var nl = document.getElementById('nextLink');
+    nl.onclick = function(e){ e.preventDefault(); populate(ni); caseEl.scrollTop = 0; };
+  }
+  caseEl.addEventListener('scroll', function(){
+    var pr = caseEl.scrollTop / Math.max(1, caseEl.scrollHeight - caseEl.clientHeight);
+    caseEl.querySelector('.topline').style.setProperty('--read', Math.round(8 + pr*92) + '%');
+  }, {passive:true});
+
+  /* ---- linked-memory particle field (jackie-os figure): scattered thoughts → notes, filed → linked memory ---- */
+  (function initMemViz(){
+    var canvas = document.getElementById('memCv');
+    if (!canvas) return;
+    var tag = document.getElementById('memTag');
+    var ctx = canvas.getContext('2d');
+    var W = 0, H = 0, pts = [], edges = [], layouts = [], state = 0, edgeA = 0, raf = 0, running = false, ready = false;
+    var STATES = ['scattered thoughts', 'notes, filed', 'linked memory'];
+    var PEARL = [229,231,239], GOLD = [201,164,92];
+    function prng(seed){ var s = seed; return function(){ return (s = (s*48271) % 2147483647) / 2147483647; }; }
+    function scatter(n,w,h){ var r = prng(42), o = []; for (var i=0;i<n;i++) o.push([r()*w, r()*h]); return o; }
+    function grid(n,w,h){ var o = [], cols = Math.max(4, Math.round(Math.sqrt(n*w/Math.max(1,h)))), rows = Math.ceil(n/cols), gx = w/(cols+1), gy = h/(rows+1); for (var i=0;i<n;i++) o.push([gx*(1+i%cols), gy*(1+Math.floor(i/cols))]); return o; }
+    function web(n,w,h){ var r = prng(7), o = [], hubs = [], nh = 6; for (var i=0;i<nh;i++) hubs.push([w*(0.18+0.64*r()), h*(0.16+0.68*r())]); for (var j=0;j<n;j++){ var hb = hubs[j%nh], a = r()*Math.PI*2, rr = Math.pow(r(),1.6)*Math.min(w,h)*0.26; o.push([Math.min(w-6,Math.max(6,hb[0]+Math.cos(a)*rr)), Math.min(h-6,Math.max(6,hb[1]+Math.sin(a)*rr*1.1))]); } return o; }
+    function buildEdges(L){ var e = []; for (var i=0;i<L.length;i++){ var b1=-1,b2=-1,d1=1e18,d2=1e18; for (var j=0;j<L.length;j++){ if (i===j) continue; var dx=L[i][0]-L[j][0], dy=L[i][1]-L[j][1], d=dx*dx+dy*dy; if (d<d1){d2=d1;b2=b1;d1=d;b1=j;} else if (d<d2){d2=d;b2=j;} } if (b1>i) e.push([i,b1]); if (b2>i) e.push([i,b2]); } return e; }
+    function rgba(c,a){ return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+    function setup(){
+      var r = canvas.getBoundingClientRect();
+      W = r.width; H = r.height;
+      if (W < 4 || H < 4){ ready = false; return; }
+      var dpr = Math.min(2, devicePixelRatio || 1);
+      canvas.width = W*dpr; canvas.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      var n = Math.min(340, Math.max(140, Math.round(W*H/1200)));
+      layouts = [scatter(n,W,H), grid(n,W,H), web(n,W,H)];
+      edges = buildEdges(layouts[2]);
+      if (pts.length !== n){ var r2 = prng(1234); pts = layouts[0].map(function(p){ return {x:p[0], y:p[1], gold:r2()<0.06}; }); }
+      ready = true;
+    }
+    var mx = -1e4, my = -1e4;
+    canvas.addEventListener('pointermove', function(e){ var r = canvas.getBoundingClientRect(); mx = e.clientX-r.left; my = e.clientY-r.top; }, {passive:true});
+    canvas.addEventListener('pointerleave', function(){ mx = my = -1e4; });
+    function drawEdges(a){ ctx.strokeStyle = rgba(PEARL, 0.16*a); ctx.lineWidth = 1; ctx.beginPath(); for (var i=0;i<edges.length;i++){ var e = edges[i]; ctx.moveTo(pts[e[0]].x, pts[e[0]].y); ctx.lineTo(pts[e[1]].x, pts[e[1]].y); } ctx.stroke(); }
+    function drawPoints(){ for (var i=0;i<pts.length;i++){ var p = pts[i]; ctx.fillStyle = rgba(p.gold?GOLD:PEARL, p.gold?0.95:0.6); var r = p.gold?2.4:1.5; ctx.fillRect(p.x-r/2, p.y-r/2, r, r); } }
+    function frame(){
+      if (!ready){ raf = requestAnimationFrame(frame); return; }
+      ctx.clearRect(0,0,W,H);
+      var target = layouts[state];
+      edgeA += ((state===2?1:0) - edgeA) * 0.03;
+      if (edgeA > 0.02) drawEdges(edgeA);
+      for (var i=0;i<pts.length;i++){
+        var p = pts[i], t = target[i];
+        p.x += (t[0]-p.x)*0.045; p.y += (t[1]-p.y)*0.045;
+        var dx = p.x-mx, dy = p.y-my, d2 = dx*dx+dy*dy;
+        if (d2 < 8100){ var d = Math.sqrt(d2)||1, f = (90-d)/90*3.0; p.x += dx/d*f; p.y += dy/d*f; }
+      }
+      drawPoints();
+      raf = requestAnimationFrame(frame);
+    }
+    function drawStatic(){ setup(); if (!ready) return; pts.forEach(function(p,i){ p.x = layouts[2][i][0]; p.y = layouts[2][i][1]; }); ctx.clearRect(0,0,W,H); drawEdges(1); drawPoints(); if (tag) tag.textContent = STATES[2]; }
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (tag) tag.textContent = STATES[state];
+    if (!reduced) setInterval(function(){ state = (state+1)%3; if (tag) tag.textContent = STATES[state]; }, 4600);
+    addEventListener('resize', function(){ reduced ? drawStatic() : setup(); });
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting){
+          if (reduced){ drawStatic(); return; }
+          if (!running){ setup(); running = true; raf = requestAnimationFrame(frame); }
+        } else if (running){ running = false; cancelAnimationFrame(raf); }
+      });
+    }, {threshold:0.08}).observe(canvas);
+  })();
+
+})();
+</script>
+
+<!-- Vendor libs: GSAP, ScrollTrigger, Lenis -->
+<script src="/vendor/gsap.min.js"></script>
+<script src="/vendor/ScrollTrigger.min.js"></script>
+<script src="/vendor/lenis.min.js"></script>
+
+<!-- Six-act site orchestration -->
+<script type="module" src="/js/main.js"></script>
+
+<!-- ================= THREAD SPINE ENGINE — silk weave transitions ================= -->
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DPR = Math.min(devicePixelRatio || 1, 2);
+  var threadCv = document.getElementById('threadSpine');
+  var ctx = threadCv.getContext('2d');
+  var W = 0, H = 0, scrollY = 0, scrollRatio = 0, t = 0, raf = 0, running = false;
+
+  // Act colors: match the production design
+  var ACTS = [
+    {name: 'origin', idx: 0, color: [186, 116, 181]},  // UA/VN heritage
+    {name: 'work', idx: 1, color: [201, 164, 92]},     // Gold (center)
+    {name: 'path', idx: 2, color: [201, 164, 92]},     // Gold
+    {name: 'capital', idx: 3, color: [224, 141, 102]}, // Warm
+    {name: 'voice', idx: 4, color: [86, 196, 214]},    // Cyan
+    {name: 'signal', idx: 5, color: [174, 174, 174]}   // Silver/muted
+  ];
+
+  function fitC(){
+    var r = threadCv.getBoundingClientRect();
+    threadCv.width = Math.floor(r.width*DPR);
+    threadCv.height = Math.floor(r.height*DPR);
+    W = threadCv.width;
+    H = threadCv.height;
+  }
+  fitC();
+  addEventListener('resize', fitC);
+
+  // Thread spine: smooth continuous vertical curve flowing through center
+  function drawThreadSpine(scrollPos){
+    var centerX = W / 2;
+
+    // Main spine thread — continuous vertical line with organic sway
+    ctx.strokeStyle = 'rgba(201, 164, 92, ' + (reduced ? '0.4' : '0.22') + ')';
+    ctx.lineWidth = 2.4 * DPR;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    ctx.beginPath();
+    for (var i = 0; i <= 80; i++){
+      var v = i / 80;
+      var y = v * H;
+      // Multi-layer sway: slow breathing motion + faster organic movement
+      var breathe = Math.sin(scrollPos * 0.2 + v * 8) * 8 * DPR;
+      var organic = Math.sin(v * 12.4 + t * 0.5) * 6 * DPR;
+      var flutter = Math.sin(y * 0.006 + t * 1.1 + v) * 3 * DPR;
+      var x = centerX + breathe + organic + flutter;
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.stroke();
+
+    // Secondary threads: gentle filaments on either side for depth
+    if (!reduced){
+      ctx.strokeStyle = 'rgba(201, 164, 92, 0.08)';
+      ctx.lineWidth = 1.1 * DPR;
+      for (var side = -1; side <= 1; side += 2){
+        ctx.beginPath();
+        for (var i = 0; i <= 80; i++){
+          var v = i / 80;
+          var y = v * H;
+          var offset = side * (18 + Math.sin(v * 6 + t * 0.4) * 6) * DPR;
+          var sway = Math.sin(scrollPos * 0.15 + v * 9 + side) * 5 * DPR;
+          var x = centerX + offset + sway;
+          i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Act transition: unraveling/threading effect at boundaries
+  function drawActTransition(scrollPos, actIdx){
+    if (actIdx >= ACTS.length - 1) return;
+
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var sectionsPerAct = docHeight / 6;
+    var actProgress = (scrollPos - actIdx * sectionsPerAct) / sectionsPerAct;
+
+    if (actProgress < 0.35 || actProgress > 0.65) return;
+
+    var ease = actProgress < 0.5
+      ? 2 * actProgress * actProgress
+      : 1 - 2 * (1 - actProgress) * (1 - actProgress);
+
+    var currAct = ACTS[actIdx];
+    var nextAct = ACTS[actIdx + 1];
+    var transAlpha = Math.sin(ease * Math.PI) * 0.35;
+
+    var centerX = W / 2;
+    var boundaryY = H * 0.5;
+
+    // Outgoing threads unravel upward
+    ctx.strokeStyle = 'rgba(' + currAct.color[0] + ',' + currAct.color[1] + ',' + currAct.color[2] + ',' + (transAlpha * 0.6) + ')';
+    ctx.lineWidth = 1.8 * DPR;
+    ctx.lineCap = 'round';
+
+    for (var t_idx = 0; t_idx < 5; t_idx++){
+      var angle = (t_idx / 4 - 0.5) * Math.PI * 0.6;
+      var dist = Math.pow(ease, 1.5) * 80 * DPR;
+      var startX = centerX + Math.cos(angle) * 8;
+      var endX = centerX + Math.cos(angle) * (8 + dist);
+      var startY = boundaryY - 20 * DPR;
+      var endY = startY - Math.sin(angle) * dist;
+
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+    }
+
+    // Incoming threads weave in from below
+    ctx.strokeStyle = 'rgba(' + nextAct.color[0] + ',' + nextAct.color[1] + ',' + nextAct.color[2] + ',' + (transAlpha * 0.6) + ')';
+
+    for (var t_idx = 0; t_idx < 5; t_idx++){
+      var angle = (t_idx / 4 - 0.5) * Math.PI * 0.6;
+      var dist = Math.pow(1 - ease, 1.5) * 80 * DPR;
+      var startX = centerX + Math.cos(angle) * 8;
+      var endX = centerX + Math.cos(angle) * (8 + dist);
+      var startY = boundaryY + 20 * DPR;
+      var endY = startY + Math.sin(angle) * dist;
+
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+    }
+  }
+
+  function draw(){
+    if (!running && !reduced) return;
+    t += 1/60;
+    ctx.fillStyle = 'rgba(12, 14, 22, 0)';
+    ctx.fillRect(0, 0, W, H);
+
+    scrollY = window.scrollY || window.pageYOffset;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    scrollRatio = docHeight > 0 ? scrollY / docHeight : 0;
+
+    drawThreadSpine(scrollY);
+
+    // Draw transition effects for current and adjacent acts
+    var currentAct = Math.floor(scrollRatio * 6);
+    if (currentAct < ACTS.length){
+      drawActTransition(scrollY, currentAct);
+    }
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  if (reduced){
+    t = 0;
+    draw();
+  } else {
+    running = true;
+    raf = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('beforeunload', function(){
+    if (raf) cancelAnimationFrame(raf);
+  });
+})();
+</script>
+
+</body>
+</html>
