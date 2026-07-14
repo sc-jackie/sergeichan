@@ -70,6 +70,28 @@ header {
   text-align: center;
   border-bottom: 3px solid var(--ink);
   background: linear-gradient(180deg, var(--paper) 0%, color-mix(in srgb, var(--draft-blue) 2%, var(--paper)) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid paper background - faint grid */
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(0deg, transparent 23.5%, color-mix(in srgb, var(--draft-blue) 1.2%, transparent) 24%, color-mix(in srgb, var(--draft-blue) 1.2%, transparent) 25%, transparent 25.5%),
+    linear-gradient(90deg, transparent 23.5%, color-mix(in srgb, var(--draft-blue) 1.2%, transparent) 24%, color-mix(in srgb, var(--draft-blue) 1.2%, transparent) 25%, transparent 25.5%);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+header > * {
+  position: relative;
+  z-index: 1;
 }
 
 header h1 {
@@ -297,11 +319,36 @@ header p {
   border: 1px dashed var(--grid-line);
   background: color-mix(in srgb, var(--draft-blue) 1%, var(--paper));
   border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-canvas svg {
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 640px) {
   .project-canvas {
     height: 200px;
+  }
+}
+
+/* Stroke animation for wireframes */
+.wireframe-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: none;
+}
+
+.wireframe-line.animate {
+  animation: drawLine 1.2s ease-out forwards;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
@@ -617,8 +664,48 @@ footer {
 <body>
 
 <header>
+  <svg style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;" viewBox="0 0 1440 350" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <!-- Horizontal dimension line (top) -->
+    <line x1="280" y1="50" x2="1160" y2="50" stroke="var(--dim-ink)" stroke-width="0.5" opacity="0.35"/>
+    <line x1="280" y1="45" x2="280" y2="55" stroke="var(--dim-ink)" stroke-width="0.75" opacity="0.35"/>
+    <line x1="1160" y1="45" x2="1160" y2="55" stroke="var(--dim-ink)" stroke-width="0.75" opacity="0.35"/>
+    <text x="700" y="43" font-family="monospace" font-size="7" fill="var(--dim-ink)" text-anchor="middle" opacity="0.25">880 px</text>
+
+    <!-- Vertical dimension line (left) -->
+    <line x1="240" y1="80" x2="240" y2="240" stroke="var(--dim-ink)" stroke-width="0.5" opacity="0.35"/>
+    <line x1="235" y1="80" x2="245" y2="80" stroke="var(--dim-ink)" stroke-width="0.75" opacity="0.35"/>
+    <line x1="235" y1="240" x2="245" y2="240" stroke="var(--dim-ink)" stroke-width="0.75" opacity="0.35"/>
+    <text x="210" y="165" font-family="monospace" font-size="7" fill="var(--dim-ink)" text-anchor="end" opacity="0.25" transform="rotate(-90 210 165)">160 px</text>
+
+    <!-- Title block (bottom-right corner) -->
+    <g opacity="0.4">
+      <rect x="1040" y="260" width="380" height="80" fill="none" stroke="var(--dim-ink)" stroke-width="1"/>
+      <!-- Header section -->
+      <line x1="1040" y1="290" x2="1420" y2="290" stroke="var(--dim-ink)" stroke-width="0.5"/>
+      <!-- Middle divider -->
+      <line x1="1280" y1="260" x2="1280" y2="340" stroke="var(--dim-ink)" stroke-width="0.5"/>
+
+      <!-- Left text area -->
+      <text x="1055" y="278" font-family="monospace" font-size="7" fill="var(--dim-ink)" letter-spacing="0.3">PROJECT: BLUEPRINT</text>
+      <text x="1055" y="305" font-family="monospace" font-size="7" fill="var(--dim-ink)" letter-spacing="0.3">SHEET: 01 / 06</text>
+      <text x="1055" y="325" font-family="monospace" font-size="7" fill="var(--dim-ink)" letter-spacing="0.3">SCALE: 1:1</text>
+
+      <!-- Right date area -->
+      <text x="1290" y="305" font-family="monospace" font-size="7" fill="var(--dim-ink)" letter-spacing="0.3">DATE</text>
+      <text x="1290" y="325" font-family="monospace" font-size="8" fill="var(--dim-ink)" letter-spacing="0.3" font-weight="bold">2026-07-14</text>
+    </g>
+
+    <!-- Leader line annotations -->
+    <g opacity="0.25" stroke-dasharray="1.5,1.5" stroke="var(--dim-ink)" stroke-width="0.5" fill="none">
+      <!-- Arrow pointer to name -->
+      <path d="M 750 180 L 720 140 L 710 145 L 740 185" stroke="var(--dim-ink)" stroke-width="0.5" fill="none"/>
+      <line x1="710" y1="145" x2="650" y2="120"/>
+      <text x="640" y="115" font-family="monospace" font-size="6" fill="var(--dim-ink)" text-anchor="end" opacity="0.6">AI-native systems builder</text>
+    </g>
+  </svg>
+
   <h1>Sergei Tran</h1>
-  <p>BLUEPRINT DRAFT • AI-native systems in technical drawing form</p>
+  <p>AI-native systems builder</p>
 </header>
 
 <!-- Act I: Origin -->
@@ -743,18 +830,18 @@ function populateProjects() {
       <div class="project-one">${project.one}</div>
       <div class="project-desc">${project.what}</div>
       ${metaHTML}
-      <canvas class="project-canvas" data-project="${project.id}"></canvas>
+      <div class="project-canvas" data-project="${project.id}"></div>
     `;
 
     grid.appendChild(projectEl);
   });
 
-  // Draw simple wireframes on each canvas
+  // Draw SVG wireframes on each canvas container
   drawProjectWireframes();
+  setupScrollAnimations();
 }
 
 function drawProjectWireframes() {
-  // Define colors explicitly (light mode only)
   const colors = {
     paper: '#F6F5F0',
     ink: '#1F1E1A',
@@ -762,129 +849,242 @@ function drawProjectWireframes() {
     draftBlue: '#0D47A1'
   };
 
-  document.querySelectorAll('.project-canvas').forEach(canvas => {
-    const ctx = canvas.getContext('2d');
-    const rect = canvas.getBoundingClientRect();
-    const w = rect.width;
-    const h = rect.height;
-    const dpr = window.devicePixelRatio || 1;
+  document.querySelectorAll('.project-canvas').forEach(container => {
+    const w = 600;
+    const h = 300;
+    const projectId = container.dataset.project;
 
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.scale(dpr, dpr);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 
-    // Paper background
-    ctx.fillStyle = colors.paper;
-    ctx.fillRect(0, 0, w, h);
+    // Grid background
+    const gridDefs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+    pattern.setAttribute('id', `grid-${projectId}`);
+    pattern.setAttribute('width', '40');
+    pattern.setAttribute('height', '30');
+    pattern.setAttribute('patternUnits', 'userSpaceOnUse');
 
-    ctx.strokeStyle = colors.gridLine;
-    ctx.lineWidth = 1;
+    const pLine1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    pLine1.setAttribute('x1', '40');
+    pLine1.setAttribute('y1', '0');
+    pLine1.setAttribute('x2', '40');
+    pLine1.setAttribute('y2', '30');
+    pLine1.setAttribute('stroke', colors.gridLine);
+    pLine1.setAttribute('stroke-width', '1');
 
-    // Simple grid
-    for (let x = 0; x < w; x += 40) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, h);
-      ctx.stroke();
-    }
-    for (let y = 0; y < h; y += 30) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(w, y);
-      ctx.stroke();
-    }
+    const pLine2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    pLine2.setAttribute('x1', '0');
+    pLine2.setAttribute('y1', '30');
+    pLine2.setAttribute('x2', '40');
+    pLine2.setAttribute('y2', '30');
+    pLine2.setAttribute('stroke', colors.gridLine);
+    pLine2.setAttribute('stroke-width', '1');
+
+    pattern.appendChild(pLine1);
+    pattern.appendChild(pLine2);
+    gridDefs.appendChild(pattern);
+    svg.appendChild(gridDefs);
+
+    // Grid background rect
+    const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bgRect.setAttribute('width', '100%');
+    bgRect.setAttribute('height', '100%');
+    bgRect.setAttribute('fill', `url(#grid-${projectId})`);
+    svg.appendChild(bgRect);
 
     // Draw project-specific wireframe
-    const projectId = canvas.dataset.project;
-    ctx.strokeStyle = colors.ink;
-    ctx.lineWidth = 2;
+    createWireframe(svg, projectId, w, h, colors);
 
-    switch (projectId) {
-      case 'newfin':
-        // Vault diagram
-        ctx.fillStyle = 'rgba(13, 71, 161, 0.06)';
-        ctx.fillRect(30, 30, w - 60, h - 60);
-        ctx.strokeRect(30, 30, w - 60, h - 60);
+    container.appendChild(svg);
+  });
+}
 
-        ctx.fillStyle = colors.ink;
-        ctx.font = '11px monospace';
-        ctx.fillText('VAULT', 50, 55);
-        ctx.fillText('[transactions]', 50, 100);
-        ctx.fillText('[agents]', w - 200, 100);
-        break;
+function createWireframe(svg, projectId, w, h, colors) {
+  const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
-      case 'bunit':
-        // Podcast loop
-        const cx = w / 2, cy = h / 2;
-        const r = 60;
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.font = '11px monospace';
-        ctx.fillStyle = colors.ink;
-        ctx.fillText('GUEST', cx - 30, cy - r - 10);
-        ctx.fillText('EDIT', cx + 40, cy);
-        break;
+  switch (projectId) {
+    case 'newfin': {
+      // Vault diagram with animating box
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', '30');
+      rect.setAttribute('y', '30');
+      rect.setAttribute('width', w - 60);
+      rect.setAttribute('height', h - 60);
+      rect.setAttribute('fill', 'rgba(13, 71, 161, 0.06)');
+      rect.setAttribute('stroke', colors.ink);
+      rect.setAttribute('stroke-width', '2');
+      rect.classList.add('wireframe-line');
+      group.appendChild(rect);
 
-      case 'jackieos':
-        // System diagram
-        ctx.font = '11px monospace';
-        ctx.fillStyle = colors.ink;
-
-        // Three boxes
-        [30, 130, 230].forEach((y, i) => {
-          ctx.strokeRect(50, y, 120, 40);
-          const labels = ['VAULT', 'AGENTS', 'API'];
-          ctx.fillText(labels[i], 60, y + 25);
-        });
-
-        // Connecting lines
-        ctx.strokeStyle = colors.draftBlue;
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([3, 3]);
-        ctx.beginPath();
-        ctx.moveTo(110, 70);
-        ctx.lineTo(110, 130);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(110, 170);
-        ctx.lineTo(110, 230);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        break;
-
-      case 'rodyna':
-        // Portfolio grid
-        ctx.fillStyle = 'rgba(13, 71, 161, 0.04)';
-        for (let i = 0; i < 4; i++) {
-          const x = 40 + (i % 2) * (w / 2 - 60);
-          const y = 40 + Math.floor(i / 2) * (h / 2 - 40);
-          ctx.fillRect(x, y, w / 2 - 80, h / 2 - 60);
-          ctx.strokeRect(x, y, w / 2 - 80, h / 2 - 60);
-        }
-        break;
-
-      case 'draw':
-        // Local-first workflow
-        ctx.font = '10px monospace';
-        ctx.fillStyle = colors.ink;
-
-        ctx.strokeRect(30, h / 2 - 30, 100, 60);
-        ctx.fillText('LOCAL', 50, h / 2 + 5);
-
-        ctx.strokeRect(w - 130, h / 2 - 30, 100, 60);
-        ctx.fillText('PROD', w - 110, h / 2 + 5);
-
-        ctx.strokeStyle = colors.draftBlue;
-        ctx.lineWidth = 2;
-        ctx.setLineDash([4, 4]);
-        ctx.beginPath();
-        ctx.moveTo(130, h / 2);
-        ctx.lineTo(w - 130, h / 2);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        break;
+      const text1 = createText('VAULT', 50, 55, colors.ink);
+      const text2 = createText('[transactions]', 50, 100, colors.ink);
+      const text3 = createText('[agents]', w - 200, 100, colors.ink);
+      group.appendChild(text1);
+      group.appendChild(text2);
+      group.appendChild(text3);
+      break;
     }
+
+    case 'bunit': {
+      // Podcast loop circle
+      const cx = w / 2, cy = h / 2, r = 60;
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', cx);
+      circle.setAttribute('cy', cy);
+      circle.setAttribute('r', r);
+      circle.setAttribute('fill', 'none');
+      circle.setAttribute('stroke', colors.ink);
+      circle.setAttribute('stroke-width', '2');
+      circle.classList.add('wireframe-line');
+      group.appendChild(circle);
+
+      const text1 = createText('GUEST', cx - 30, cy - r - 10, colors.ink);
+      const text2 = createText('EDIT', cx + 40, cy, colors.ink);
+      group.appendChild(text1);
+      group.appendChild(text2);
+      break;
+    }
+
+    case 'jackieos': {
+      // System diagram with three boxes
+      [30, 130, 230].forEach((y, i) => {
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', '50');
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', '120');
+        rect.setAttribute('height', '40');
+        rect.setAttribute('fill', 'none');
+        rect.setAttribute('stroke', colors.ink);
+        rect.setAttribute('stroke-width', '2');
+        rect.classList.add('wireframe-line');
+        group.appendChild(rect);
+
+        const labels = ['VAULT', 'AGENTS', 'API'];
+        const text = createText(labels[i], 60, y + 25, colors.ink);
+        group.appendChild(text);
+      });
+
+      // Connecting dashed lines
+      const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line1.setAttribute('x1', '110');
+      line1.setAttribute('y1', '70');
+      line1.setAttribute('x2', '110');
+      line1.setAttribute('y2', '130');
+      line1.setAttribute('stroke', colors.draftBlue);
+      line1.setAttribute('stroke-width', '1.5');
+      line1.setAttribute('stroke-dasharray', '3,3');
+      line1.classList.add('wireframe-line');
+      group.appendChild(line1);
+
+      const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line2.setAttribute('x1', '110');
+      line2.setAttribute('y1', '170');
+      line2.setAttribute('x2', '110');
+      line2.setAttribute('y2', '230');
+      line2.setAttribute('stroke', colors.draftBlue);
+      line2.setAttribute('stroke-width', '1.5');
+      line2.setAttribute('stroke-dasharray', '3,3');
+      line2.classList.add('wireframe-line');
+      group.appendChild(line2);
+      break;
+    }
+
+    case 'rodyna': {
+      // Portfolio grid - 2x2
+      for (let i = 0; i < 4; i++) {
+        const x = 40 + (i % 2) * (w / 2 - 60);
+        const y = 40 + Math.floor(i / 2) * (h / 2 - 40);
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', w / 2 - 80);
+        rect.setAttribute('height', h / 2 - 60);
+        rect.setAttribute('fill', 'rgba(13, 71, 161, 0.04)');
+        rect.setAttribute('stroke', colors.ink);
+        rect.setAttribute('stroke-width', '2');
+        rect.classList.add('wireframe-line');
+        group.appendChild(rect);
+      }
+      break;
+    }
+
+    case 'draw': {
+      // Local-first workflow - two boxes with connecting line
+      const rect1 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect1.setAttribute('x', '30');
+      rect1.setAttribute('y', h / 2 - 30);
+      rect1.setAttribute('width', '100');
+      rect1.setAttribute('height', '60');
+      rect1.setAttribute('fill', 'none');
+      rect1.setAttribute('stroke', colors.ink);
+      rect1.setAttribute('stroke-width', '2');
+      rect1.classList.add('wireframe-line');
+      group.appendChild(rect1);
+
+      const rect2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect2.setAttribute('x', w - 130);
+      rect2.setAttribute('y', h / 2 - 30);
+      rect2.setAttribute('width', '100');
+      rect2.setAttribute('height', '60');
+      rect2.setAttribute('fill', 'none');
+      rect2.setAttribute('stroke', colors.ink);
+      rect2.setAttribute('stroke-width', '2');
+      rect2.classList.add('wireframe-line');
+      group.appendChild(rect2);
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', '130');
+      line.setAttribute('y1', h / 2);
+      line.setAttribute('x2', w - 130);
+      line.setAttribute('y2', h / 2);
+      line.setAttribute('stroke', colors.draftBlue);
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-dasharray', '4,4');
+      line.classList.add('wireframe-line');
+      group.appendChild(line);
+
+      const text1 = createText('LOCAL', 50, h / 2 + 5, colors.ink);
+      const text2 = createText('PROD', w - 110, h / 2 + 5, colors.ink);
+      group.appendChild(text1);
+      group.appendChild(text2);
+      break;
+    }
+  }
+
+  svg.appendChild(group);
+}
+
+function createText(content, x, y, color) {
+  const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  text.setAttribute('x', x);
+  text.setAttribute('y', y);
+  text.setAttribute('fill', color);
+  text.setAttribute('font-family', 'monospace');
+  text.setAttribute('font-size', '11');
+  text.setAttribute('text-anchor', 'start');
+  text.textContent = content;
+  return text;
+}
+
+function setupScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const lines = entry.target.querySelectorAll('.wireframe-line');
+        lines.forEach((line, idx) => {
+          setTimeout(() => {
+            line.classList.add('animate');
+          }, idx * 100);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.project-canvas').forEach(canvas => {
+    observer.observe(canvas);
   });
 }
 
@@ -956,8 +1156,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateVoice();
 });
 
-// Handle resize for canvases (HiDPI support)
-window.addEventListener('resize', drawProjectWireframes);
+// SVG scales automatically with viewBox
 </script>
 
 </body>
