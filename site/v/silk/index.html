@@ -62,7 +62,7 @@
     min-height: 100svh;
     position: relative;
     z-index: 1;
-    background: var(--space);
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,7 +70,15 @@
     padding: 60px 20px;
   }
 
-  section.act-i { background: linear-gradient(180deg, var(--indigo-dark) 0%, var(--space) 100%); }
+  section.act-i {
+    background: transparent;
+    z-index: 1;
+  }
+
+  .act-i .inner {
+    position: relative;
+    z-index: 10;
+  }
 
   /* Act I: braiding threads */
   .act-i .inner {
@@ -340,12 +348,26 @@
   // Canvas sizing
   function fitCanvas() {
     const rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * DPR);
-    canvas.height = Math.floor(rect.height * DPR);
-    return { w: canvas.width, h: canvas.height };
+    const w = Math.max(rect.width, window.innerWidth);
+    const h = Math.max(rect.height, window.innerHeight);
+    canvas.width = Math.floor(w * DPR);
+    canvas.height = Math.floor(h * DPR);
+    ctx.scale(DPR, DPR);
+    return { w: w, h: h };
   }
+
   let S = fitCanvas();
   window.addEventListener('resize', () => { S = fitCanvas(); });
+
+  // Initialize immediately after canvas is sized
+  initCloth();
+  initialRender();
+
+  if (!reduced) {
+    animate();
+  } else {
+    staticRender();
+  }
 
   // Silk cloth simulation state
   let time = 0;
@@ -357,11 +379,21 @@
   function initCloth() {
     nodes = [];
     edges = [];
-    const spacing = S.w / (clothWidth - 1);
+
+    // Scale cloth to fit viewport with some margin
+    const maxWidth = S.w * 0.9;
+    const maxHeight = S.h * 0.7;
+    const spacingX = maxWidth / (clothWidth - 1);
+    const spacingY = maxHeight / (clothHeight - 1);
+
+    // Center the cloth
+    const offsetX = (S.w - maxWidth) / 2;
+    const offsetY = (S.h - maxHeight) / 2 + 60;
+
     for (let y = 0; y < clothHeight; y++) {
       for (let x = 0; x < clothWidth; x++) {
-        const px = x * spacing;
-        const py = y * spacing * 1.5;
+        const px = offsetX + x * spacingX;
+        const py = offsetY + y * spacingY;
         nodes.push({
           x: px, y: py,
           px: px, py: py,
@@ -371,15 +403,16 @@
         });
       }
     }
+
     // edges connect neighbors
     for (let y = 0; y < clothHeight; y++) {
       for (let x = 0; x < clothWidth; x++) {
         const idx = y * clothWidth + x;
         if (x < clothWidth - 1) {
-          edges.push({ a: idx, b: idx + 1, rest: spacing });
+          edges.push({ a: idx, b: idx + 1, rest: spacingX });
         }
         if (y < clothHeight - 1) {
-          edges.push({ a: idx, b: idx + clothWidth, rest: spacing * 1.5 });
+          edges.push({ a: idx, b: idx + clothWidth, rest: spacingY });
         }
       }
     }
@@ -449,60 +482,42 @@
   }
 
   function drawCloth(threadAlpha) {
-    if (!nodes.length) return;
+    if (!nodes || nodes.length === 0) return;
 
-    // ponytail: visible woven filaments on load, pearl + UA/VN palette alternating
-    const baseAlpha = Math.max(0.65, threadAlpha);
-
-    // Alternating weft colors: pearl, UA blue, VN red for iridescent weave
+    // Simple weft bands: alternating colors across full width
+    const bandHeight = S.h / clothHeight;
     for (let y = 0; y < clothHeight; y++) {
       const row = y % 3;
       let rgb = PEARL;
       if (row === 1) rgb = UA_BLUE;
       if (row === 2) rgb = VN_RED;
 
-      ctx.strokeStyle = `rgba(${rgb.join(',')}, ${0.48 * baseAlpha})`;
-      ctx.lineWidth = 1.5 * DPR;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-
-      ctx.beginPath();
-      for (let x = 0; x < clothWidth; x++) {
-        const n = nodes[y * clothWidth + x];
-        x === 0 ? ctx.moveTo(n.x, n.y) : ctx.lineTo(n.x, n.y);
-      }
-      ctx.stroke();
+      ctx.fillStyle = `rgb(${rgb.join(',')})`;
+      ctx.fillRect(0, y * bandHeight, S.w, bandHeight);
     }
 
-    // Vertical lines (warp) — pearl dominant with gold shimmer
-    ctx.strokeStyle = `rgba(${PEARL.join(',')}, ${0.36 * baseAlpha})`;
-    ctx.lineWidth = 1.4 * DPR;
-    for (let x = 0; x < clothWidth; x++) {
-      ctx.beginPath();
-      for (let y = 0; y < clothHeight; y++) {
-        const n = nodes[y * clothWidth + x];
-        y === 0 ? ctx.moveTo(n.x, n.y) : ctx.lineTo(n.x, n.y);
-      }
-      ctx.stroke();
-    }
-
-    // Gold accent shimmer across the weave
-    ctx.strokeStyle = `rgba(${UA_GOLD.join(',')}, ${0.22 * baseAlpha})`;
-    ctx.lineWidth = 1.1 * DPR;
+    // Gold stripes: every 4th band
     for (let y = 2; y < clothHeight; y += 4) {
+      ctx.fillStyle = `rgb(${UA_GOLD.join(',')})`;
+      ctx.fillRect(0, y * bandHeight, S.w, bandHeight * 0.3);
+    }
+
+    // Vertical warp lines
+    const lineSpacing = S.w / (clothWidth / 2);
+    ctx.strokeStyle = `rgb(${PEARL.join(',')})`;
+    ctx.lineWidth = 2;
+    for (let x = lineSpacing; x < S.w; x += lineSpacing) {
       ctx.beginPath();
-      for (let x = 0; x < clothWidth; x++) {
-        const n = nodes[y * clothWidth + x];
-        x === 0 ? ctx.moveTo(n.x, n.y) : ctx.lineTo(n.x, n.y);
-      }
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, S.h);
       ctx.stroke();
     }
 
     // Fill with gradient for shimmer (iridescent roll)
     const gradient = ctx.createLinearGradient(0, 0, S.w, S.h);
-    gradient.addColorStop(0, `rgba(${INDIGO.join(',')}, ${0.12 * baseAlpha})`);
-    gradient.addColorStop(0.5, `rgba(${PEARL.join(',')}, ${0.04 * baseAlpha})`);
-    gradient.addColorStop(1, `rgba(${INDIGO.join(',')}, ${0.12 * baseAlpha})`);
+    gradient.addColorStop(0, `rgba(${INDIGO.join(',')}, ${0.12 * threadAlpha})`);
+    gradient.addColorStop(0.5, `rgba(${PEARL.join(',')}, ${0.04 * threadAlpha})`);
+    gradient.addColorStop(1, `rgba(${INDIGO.join(',')}, ${0.12 * threadAlpha})`);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, S.w, S.h);
   }
@@ -595,15 +610,45 @@
     requestAnimationFrame(animate);
   }
 
-  // Initialize and start
-  initCloth();
+  // Force initial render before animation loop
+  function initialRender() {
+    const scrollPx = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollNorm = maxScroll > 0 ? scrollPx / maxScroll : 0;
 
-  if (!reduced) {
-    // Full animation: cloth physics + thread braiding
-    animate();
-  } else {
-    // Reduced motion: static render
-    function staticRender() {
+    // Clear canvas with deep indigo base
+    ctx.fillStyle = '#0C0E16';
+    ctx.fillRect(0, 0, S.w, S.h);
+
+    // Nebula: opaque indigo for max visibility
+    ctx.fillStyle = '#1a1f3a';
+    ctx.fillRect(0, 0, S.w, S.h * 0.5);
+    ctx.fillStyle = '#0f1420';
+    ctx.fillRect(0, S.h * 0.5, S.w, S.h * 0.5);
+
+    // Cloth is visible from load
+    updateCloth(0);
+    drawCloth(0.65);
+
+    // Test: draw visible diagonal lines to verify canvas works
+    ctx.strokeStyle = 'rgba(255, 215, 0, 0.9)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(S.w * 0.1, S.h * 0.3);
+    ctx.lineTo(S.w * 0.9, S.h * 0.7);
+    ctx.stroke();
+
+    // Dust particles
+    const dustAlpha = 0.03;
+    ctx.fillStyle = `rgba(229, 231, 239, ${dustAlpha})`;
+    for (let i = 0; i < 6; i++) {
+      const dx = (i * 0.137) * S.w;
+      const dy = (i * 0.61) * S.h;
+      ctx.fillRect(dx, dy, 1.5 * DPR, 1.5 * DPR);
+    }
+  }
+
+  function staticRender() {
       ctx.fillStyle = '#0C0E16';
       ctx.fillRect(0, 0, S.w, S.h);
       const nebula = ctx.createLinearGradient(0, 0, S.w, S.h);
@@ -624,7 +669,6 @@
         ctx.stroke();
       }
     }
-    staticRender();
   }
 
   // Nav rail activation

@@ -72,29 +72,33 @@ h2 { font-size: clamp(18px, 4vw, 24px); }
 
 .board-row {
   display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 6px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
   align-items: center;
-  min-height: 60px;
+  min-height: 72px;
 }
 
 .flip-cell {
   position: relative;
-  width: 64px;
-  height: 80px;
-  background: var(--departure-green);
-  border-radius: 6px;
+  width: 56px;
+  height: 72px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 100%);
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 28px;
-  letter-spacing: 0.08em;
+  font-weight: 900;
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: -0.02em;
   color: #000;
+  background-color: var(--departure-green);
   box-shadow:
-    inset 0 -3px 12px rgba(0,0,0,0.4),
-    0 6px 16px rgba(0,0,0,0.5);
+    inset 0 -1px 0 rgba(0,0,0,0.6),
+    inset 0 1px 3px rgba(255,255,255,0.1),
+    0 4px 12px rgba(0,0,0,0.5);
   overflow: hidden;
   transform-style: preserve-3d;
   perspective: 800px;
@@ -108,7 +112,8 @@ h2 { font-size: clamp(18px, 4vw, 24px); }
 .flip-cell.space {
   background: transparent;
   box-shadow: none;
-  width: 32px;
+  width: 28px;
+  border: none;
 }
 
 .flip-cell .char {
@@ -128,7 +133,7 @@ h2 { font-size: clamp(18px, 4vw, 24px); }
 
 .flip-cell .char.active {
   opacity: 1;
-  animation: land 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: land 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* Flip animation for individual cells */
@@ -515,10 +520,10 @@ h2 { font-size: clamp(18px, 4vw, 24px); }
 
 @media (max-width: 640px) {
   section { padding: 40px 16px; min-height: auto; }
-  .flip-cell { width: 52px; height: 64px; font-size: 20px; }
+  .flip-cell { width: 48px; height: 60px; font-size: 20px; }
   .flip-cell .char { font-size: 20px; }
   .flip-cell.space { width: 24px; }
-  .board-row { gap: 8px; }
+  .board-row { gap: 4px; }
   .board { padding: 24px 16px; }
   h1, h2 { font-size: clamp(18px, 4vw, 24px); }
   .timeline { max-width: 100%; }
@@ -619,9 +624,11 @@ import { voice } from '../../js/data/voice.js';
 // Character set for flipping animation
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789- ';
 
-// Render a text into flip cells
+// Render a text into flip cells with deterministic timing
 function renderBoardRow(text, container) {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   container.innerHTML = '';
+
   text.split('').forEach((char, i) => {
     const cell = document.createElement('div');
     cell.className = 'flip-cell';
@@ -638,47 +645,55 @@ function renderBoardRow(text, container) {
       cell.classList.add('amber');
     }
 
-    // Populate character options
-    const charIdx = CHARS.indexOf(char.toUpperCase());
+    // Fixed sequence: 4-5 random chars then target (deterministic count, ~500ms per cell)
+    const target = char.toUpperCase();
     const sequence = [];
 
-    // Shuffle through some characters
-    for (let j = 0; j < 8; j++) {
+    // Add 4 random characters
+    for (let j = 0; j < 4; j++) {
       const randIdx = Math.floor(Math.random() * CHARS.length);
       sequence.push(CHARS[randIdx]);
     }
-    sequence.push(char.toUpperCase());
+    sequence.push(target);
 
     sequence.forEach(c => {
       const charDiv = document.createElement('div');
       charDiv.className = 'char';
       charDiv.textContent = c;
+      if (c === target) charDiv.dataset.isFinal = 'true';
       cell.appendChild(charDiv);
     });
 
     container.appendChild(cell);
   });
 
-  // Stagger the flip animation (respects reduced-motion)
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const delay = prefersReducedMotion ? 0 : 300;
+  // Start animation: 200ms initial delay, then stagger cells, ~2.2s total
+  const initialDelay = prefersReducedMotion ? 0 : 200;
+  const cellStagger = prefersReducedMotion ? 0 : 40; // stagger cells by 40ms
 
   setTimeout(() => {
     const cells = container.querySelectorAll('.flip-cell');
     cells.forEach((cell, i) => {
       setTimeout(() => {
-        animateCell(cell);
-      }, i * (prefersReducedMotion ? 0 : 60));
+        animateCell(cell, prefersReducedMotion);
+      }, i * cellStagger);
     });
-  }, delay);
+  }, initialDelay);
 }
 
-// Animate a single cell through its sequence
-function animateCell(cell) {
+// Animate a single cell through its sequence, completing quickly
+function animateCell(cell, prefersReducedMotion) {
   const chars = cell.querySelectorAll('.char');
   if (chars.length === 0) return;
 
+  if (prefersReducedMotion) {
+    // Under reduced-motion, show final character instantly
+    chars[chars.length - 1].classList.add('active');
+    return;
+  }
+
   let idx = 0;
+  const frameTime = 100; // 100ms per frame = 5 frames per char
 
   const advance = () => {
     if (idx < chars.length) {
@@ -687,24 +702,22 @@ function animateCell(cell) {
       }
       chars[idx].classList.add('active');
       idx++;
-      setTimeout(advance, 120);
+      setTimeout(advance, frameTime);
     }
   };
 
   advance();
 }
 
-// Act I: Render about board on scroll
-const aboutRows = document.querySelectorAll('#act-i .board-row');
-const aboutObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && entry.target.children.length === 0) {
-      renderBoardRow(entry.target.dataset.text, entry.target);
+// Act I: Render about board immediately on page load (must settle within ~2.5s)
+document.addEventListener('DOMContentLoaded', () => {
+  const aboutRows = document.querySelectorAll('#act-i .board-row');
+  aboutRows.forEach(row => {
+    if (row.children.length === 0) {
+      renderBoardRow(row.dataset.text, row);
     }
   });
-}, { threshold: 0.3 });
-
-aboutRows.forEach(row => aboutObserver.observe(row));
+});
 
 // Act II: Render project rows
 const projectRows = document.getElementById('project-rows');
