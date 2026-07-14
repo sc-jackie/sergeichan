@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal Field — Sergei Tran</title>
+<meta name="description" content="Signal Field — AI-native systems builder.">
+<meta name="theme-color" content="#0C0E16">
+<link rel="preload" as="font" href="/fonts/Inter-Regular.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="/fonts/Inter-Medium.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="/vendor/gsap.min.js" as="script">
+<link rel="preload" as="font" href="/vendor/ScrollTrigger.min.js" as="script">
+<link rel="preload" as="font" href="/vendor/lenis.min.js" as="script">
+<style>
+  :root{
+    --space:#0C0E16; --pearl:#E5E7EF; --muted:#9AA0B0; --dim:#6A7080;
+    --line:rgba(229,231,239,.12); --signal:#4A9CFF;
+    color-scheme: dark;
+  }
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--space);color:var(--pearl);
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  html.reduced-motion-on { scroll-behavior: auto; }
+
+  /* Fixed canvas background */
+  #canvas-bg{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%}
+
+  /* Scroll content layer */
+  #content{position:relative;z-index:10}
+
+  /* Acts container */
+  .act{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    padding:60px 32px;text-align:center;position:relative}
+  .act > *{opacity:1;transform:none;transition:opacity 0.8s ease, transform 0.8s ease}
+  .act.in-view > *{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .act > *{transition:none}
+  }
+
+  /* Act I: Origin */
+  #act-i{background:transparent;color:var(--pearl)}
+  #act-i .name{font-size:clamp(42px,8vw,72px);font-weight:250;letter-spacing:-.02em;
+    line-height:1.05;margin:0;max-width:16em}
+  #act-i .tagline{font-size:clamp(16px,2.5vw,24px);color:var(--muted);margin:16px 0 0;font-weight:300}
+
+  /* Act II: Work */
+  #act-ii .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;
+    margin-top:32px;width:100%;max-width:900px}
+  .project-card{border:1px solid var(--line);border-radius:12px;padding:24px;
+    background:rgba(12,14,22,.4);backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);transition:all 0.3s ease}
+  .project-card:hover{border-color:var(--signal);background:rgba(74,156,255,.08)}
+  .project-card .name{font-size:18px;font-weight:500;margin:0;color:var(--pearl)}
+  .project-card .one{font-size:13px;color:var(--muted);margin:8px 0 0;line-height:1.5}
+
+  /* Act III: Path */
+  #act-iii{flex-direction:column;justify-content:flex-start;min-height:auto}
+  .timeline{width:100%;max-width:800px;margin:32px auto}
+  .timeline-item{display:flex;gap:24px;margin:40px 0;padding-left:40px;position:relative;
+    opacity:0;transform:translateX(-20px);transition:opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s}
+  .act-iii.in-view .timeline-item{opacity:1;transform:none}
+  .timeline-item:nth-child(2){transition-delay:0.3s}
+  .timeline-item:nth-child(3){transition-delay:0.4s}
+  .timeline-item:nth-child(4){transition-delay:0.5s}
+  .timeline-item:nth-child(5){transition-delay:0.6s}
+  .timeline-item .dot{position:absolute;left:0;top:0;width:12px;height:12px;
+    border-radius:50%;background:var(--signal);border:3px solid var(--space)}
+  .timeline-item .label{font-size:13px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+  .timeline-item .desc{font-size:16px;color:var(--pearl);font-weight:300}
+
+  /* Act IV: Capital */
+  #act-iv .capital-info{font-size:17px;color:var(--muted);max-width:52ch;line-height:1.7}
+  #act-iv .capital-info b{color:var(--pearl);font-weight:500}
+
+  /* Act V: Voice */
+  #act-v .voice-intro{font-size:18px;color:var(--muted);max-width:56ch;line-height:1.7}
+  #act-v .voice-intro em{color:var(--signal);font-style:italic}
+
+  /* Act VI: Signal */
+  #act-vi{min-height:120vh;display:flex;flex-direction:column;justify-content:flex-end;
+    padding-bottom:120px}
+  #act-vi .contact{font-size:clamp(18px,3vw,32px);margin-bottom:32px;font-weight:300}
+  #act-vi .cta{display:inline-block;padding:14px 24px;border:1px solid var(--signal);
+    color:var(--signal);text-decoration:none;border-radius:8px;font-family:ui-monospace,Menlo,monospace;
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;transition:all 0.3s ease}
+  #act-vi .cta:hover{background:var(--signal);color:var(--space)}
+
+  /* Mobile responsive */
+  @media (max-width:640px){
+    .act{padding:40px 20px}
+    #act-i .name{font-size:36px}
+    .timeline-item{gap:16px;padding-left:32px}
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+    .act > *{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<div id="content">
+  <!-- Act I: Origin -->
+  <section id="act-i" class="act">
+    <div>
+      <h1 class="name">Sergei Tran</h1>
+      <p class="tagline">AI-native systems builder</p>
+    </div>
+  </section>
+
+  <!-- Act II: Work -->
+  <section id="act-ii" class="act">
+    <div>
+      <h2 style="font-size:clamp(28px,5vw,42px);font-weight:300;margin:0 0 32px">Five systems in production</h2>
+      <div class="projects" id="projects-grid"></div>
+    </div>
+  </section>
+
+  <!-- Act III: Path -->
+  <section id="act-iii" class="act" style="min-height:auto">
+    <h2 style="font-size:clamp(28px,5vw,42px);font-weight:300;margin:0 0 32px">Career timeline</h2>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- Act IV: Capital -->
+  <section id="act-iv" class="act">
+    <div>
+      <h2 style="font-size:clamp(28px,5vw,42px);font-weight:300;margin:0 0 24px">Capital & Vision</h2>
+      <div class="capital-info">
+        <p><b>Angel & early-stage investor</b> in AI infrastructure, B2B SaaS, and founder-led teams (2020–present). Thesis: <em>sustainable founders with systems thinking.</em></p>
+        <p>Real estate in Warsaw and Ukraine. Active in Polish tech community, board advisor to three early-stage startups.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Act V: Voice -->
+  <section id="act-v" class="act">
+    <div>
+      <h2 style="font-size:clamp(28px,5vw,42px);font-weight:300;margin:0 0 24px">Writing & Thinking</h2>
+      <div class="voice-intro">
+        <p>Essays on AI, systems design, founder psychology, and the shape of compounding work. <em>More coming soon.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Act VI: Signal -->
+  <section id="act-vi" class="act">
+    <div>
+      <p class="contact">One pulsing point above contact.</p>
+      <a href="https://github.com/sergeichan" class="cta" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+</div>
+
+<script type="module">
+  // Import data
+  import { about } from '/site/js/data/about.js';
+  import { caseData } from '/site/js/data/work.js';
+
+  // Canvas setup
+  const canvas = document.getElementById('canvas-bg');
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.max(1, rect.width);
+    canvas.height = Math.max(1, rect.height);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Particle system
+  class ParticleCloud {
+    constructor(){
+      this.particles = [];
+      this.targetFormation = [];
+      this.formations = new Map();
+      this.currentFormation = null;
+      this.scrollProgress = 0;
+      this.init();
+    }
+
+    init(){
+      // Define formations first (parametric shapes)
+      this.defineFormations();
+
+      // Create ~2500 particles, initially positioned from initials formation
+      const initialFormation = this.formations.get('initials') || [];
+      const count = 2500;
+      for(let i = 0; i < count; i++){
+        const target = initialFormation[i % Math.max(1, initialFormation.length)] || {x: window.innerWidth / 2, y: window.innerHeight / 2};
+        // Start in loose cloud around center
+        const angle = (i / count) * Math.PI * 2;
+        const scatter = Math.random() * 300;
+        this.particles.push({
+          x: window.innerWidth / 2 + Math.cos(angle) * scatter,
+          y: window.innerHeight / 2 + Math.sin(angle) * scatter,
+          tx: target.x,
+          ty: target.y,
+          vx: 0, vy: 0,
+          life: 1,
+          size: Math.random() * 2.2 + 0.8
+        });
+      }
+    }
+
+    defineFormations(){
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const center = {x: w / 2, y: h / 2};
+
+      // Act I: Initials "ST" - parametric spiral grid in center
+      const initials = [];
+      const centerX = w / 2;
+      const centerY = h / 2;
+      for(let angle = 0; angle < Math.PI * 12; angle += 0.15){
+        const r = angle * 15;
+        if(r < 250){
+          initials.push({
+            x: centerX + Math.cos(angle) * r,
+            y: centerY + Math.sin(angle) * r
+          });
+        }
+      }
+      // Add dense core
+      for(let x = -80; x <= 80; x += 8){
+        for(let y = -40; y <= 40; y += 8){
+          initials.push({x: centerX + x, y: centerY + y});
+        }
+      }
+      this.formations.set('initials', initials.slice(0, Math.min(1500, initials.length)));
+
+      // Act II: Five constellations (one per project)
+      const projects = ['Jackie-OS', 'Newfin', 'B-Unit', 'Rodyna', 'Draw'];
+      projects.forEach((name, idx) => {
+        const constellation = [];
+        const angle = (idx / projects.length) * Math.PI * 2;
+        const radius = 180;
+
+        // Central node
+        constellation.push({x: center.x, y: center.y});
+
+        // Orbiting nodes
+        for(let i = 0; i < 200; i++){
+          const orbitAngle = (i / 200) * Math.PI * 2 + angle;
+          const r = 80 + Math.sin(i / 30) * 40;
+          constellation.push({
+            x: center.x + Math.cos(orbitAngle + angle) * r,
+            y: center.y + Math.sin(orbitAngle + angle) * r
+          });
+        }
+
+        this.formations.set(`project-${idx}`, constellation.slice(0, 200));
+      });
+
+      // Act III: Timeline path
+      const timelinePath = [];
+      const pathY = h / 2;
+      for(let x = 100; x < w - 100; x += 3){
+        const wobble = Math.sin(x / 80) * 30;
+        timelinePath.push({x, y: pathY + wobble});
+      }
+      this.formations.set('timeline', timelinePath);
+
+      // Act IV: Three streams
+      const streams = [];
+      for(let stream = 0; stream < 3; stream++){
+        for(let i = 0; i < 200; i++){
+          const x = (stream * (w / 3)) + 50 + Math.sin(i / 40) * 40;
+          const y = (i / 200) * h;
+          streams.push({x, y});
+        }
+      }
+      this.formations.set('streams', streams);
+
+      // Act V: Calm scatter
+      const scatter = [];
+      for(let i = 0; i < 1500; i++){
+        scatter.push({
+          x: Math.random() * w,
+          y: Math.random() * h
+        });
+      }
+      this.formations.set('scatter', scatter);
+
+      // Act VI: Single pulsing point
+      this.formations.set('pulse', [{x: center.x, y: center.y}]);
+    }
+
+    update(scrollProgress){
+      this.scrollProgress = scrollProgress;
+
+      // Determine current formation based on scroll
+      let targetFormation = null;
+      if(scrollProgress < 0.15) targetFormation = this.formations.get('initials');
+      else if(scrollProgress < 0.35) {
+        const workProg = (scrollProgress - 0.15) / 0.2;
+        const projectIdx = Math.floor(workProg * 5);
+        targetFormation = this.formations.get(`project-${Math.min(projectIdx, 4)}`);
+      }
+      else if(scrollProgress < 0.50) targetFormation = this.formations.get('timeline');
+      else if(scrollProgress < 0.65) targetFormation = this.formations.get('streams');
+      else if(scrollProgress < 0.80) targetFormation = this.formations.get('scatter');
+      else targetFormation = this.formations.get('pulse');
+
+      if(!targetFormation) return;
+
+      // Lerp particles to target formation
+      const easeFactor = 0.08;
+      targetFormation.forEach((target, idx) => {
+        if(idx < this.particles.length){
+          const p = this.particles[idx];
+          p.tx += (target.x - p.tx) * easeFactor;
+          p.ty += (target.y - p.ty) * easeFactor;
+        }
+      });
+
+      // Update particle physics
+      this.particles.forEach(p => {
+        p.x += (p.tx - p.x) * 0.12;
+        p.y += (p.ty - p.y) * 0.12;
+      });
+    }
+
+    draw(){
+      // Clear canvas with subtle persistence
+      ctx.fillStyle = 'rgba(12, 14, 22, 0.04)';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Draw particles with higher opacity
+      this.particles.forEach((p, idx) => {
+        const dist = Math.hypot(p.x - (window.innerWidth / 2), p.y - (window.innerHeight / 2));
+        const maxDist = Math.max(window.innerWidth, window.innerHeight);
+        const alpha = Math.max(0.4, 1 - (dist / maxDist) * 0.6);
+
+        // Bright core particles (signal blue)
+        const particleSize = Math.max(1.5, p.size);
+        ctx.fillStyle = `rgba(74, 156, 255, ${Math.min(1, alpha * 0.85 + 0.15)})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, particleSize, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Softer outer glow
+        ctx.fillStyle = `rgba(229, 231, 239, ${alpha * 0.25})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, particleSize * 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+  }
+
+  const cloud = new ParticleCloud();
+
+  // Animation loop
+  let animationId;
+  let frameCount = 0;
+  function animate(){
+    frameCount++;
+
+    // Update scroll-driven animation
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollProgress = window.scrollY / Math.max(1, scrollHeight);
+
+    cloud.update(scrollProgress);
+    cloud.draw();
+
+    animationId = requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Intersection observer for fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, {threshold: 0.3});
+
+  document.querySelectorAll('.act').forEach(act => observer.observe(act));
+
+  // Populate projects
+  const projectsGrid = document.getElementById('projects-grid');
+  caseData.slice(0, 5).forEach(project => {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <h3 class="name">${project.name}</h3>
+      <p class="one">${project.one}</p>
+    `;
+    projectsGrid.appendChild(card);
+  });
+
+  // Populate timeline (simplified)
+  const timelineContainer = document.getElementById('timeline');
+  const timelineData = [
+    {year: '2014', label: 'Designer', desc: 'UI/UX, startups to automotive'},
+    {year: '2018', label: 'Blockchain', desc: 'Research and community'},
+    {year: '2020', label: 'Investor', desc: 'Early-stage tech and founders'},
+    {year: '2025', label: 'Builder', desc: 'Five systems, AI-native stack'},
+    {year: '2026', label: 'Now', desc: 'Warsaw, always learning'}
+  ];
+
+  timelineData.forEach(item => {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'timeline-item';
+    itemEl.innerHTML = `
+      <div class="dot"></div>
+      <div>
+        <div class="label">${item.year}</div>
+        <div class="desc">${item.label} — ${item.desc}</div>
+      </div>
+    `;
+    timelineContainer.appendChild(itemEl);
+  });
+
+  // Reduce motion check
+  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(reduceMotionQuery.matches){
+    document.documentElement.classList.add('reduced-motion-on');
+  }
+</script>
+
+</body>
+</html>
