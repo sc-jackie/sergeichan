@@ -350,8 +350,9 @@
     <!-- ACT I: ORIGIN -->
     <section id="act-origin" class="act-i">
       <div class="inner">
-        <h1>One thread</h1>
-        <p><em>Vietnamese silk heritage meets Ukrainian thread</em> — two cultures braid into one cloth, drawn as the page loads.</p>
+        <h1 id="hero-name">Sergei Tran</h1>
+        <p id="hero-tagline"><em>AI-native systems builder</em></p>
+        <p id="hero-background"></p>
       </div>
     </section>
 
@@ -431,8 +432,9 @@
   <!-- ACT I: ORIGIN -->
   <section id="act-origin-v" class="act-i">
     <div class="inner">
-      <h1>One thread</h1>
-      <p><em>Vietnamese silk heritage meets Ukrainian thread</em> — two cultures braid into one cloth, drawn as the page loads.</p>
+      <h1 id="hero-name-v">Sergei Tran</h1>
+      <p id="hero-tagline-v"><em>AI-native systems builder</em></p>
+      <p id="hero-background-v"></p>
     </div>
   </section>
 
@@ -534,7 +536,10 @@
 <script src="/vendor/ScrollTrigger.min.js"></script>
 <script src="/vendor/lenis.min.js"></script>
 
-<script>
+<script type="module">
+// Load about data for Act I
+import about from '../../js/data/about.js';
+
 (function() {
   'use strict';
 
@@ -543,6 +548,17 @@
   const DPR = Math.min(devicePixelRatio || 1, 2);
   const canvas = document.getElementById('loomCanvas');
   const ctx = canvas.getContext('2d');
+
+  // Populate Act I with identity from data
+  function populateActI() {
+    const heroName = document.getElementById('hero-name') || document.getElementById('hero-name-v');
+    const heroTagline = document.getElementById('hero-tagline') || document.getElementById('hero-tagline-v');
+    const heroBackground = document.getElementById('hero-background') || document.getElementById('hero-background-v');
+
+    if (heroName) heroName.textContent = about.name;
+    if (heroTagline) heroTagline.innerHTML = `<em>${about.tagline}</em>`;
+    if (heroBackground) heroBackground.textContent = about.background;
+  }
 
   // Colors
   const UA_BLUE = [0, 91, 187];
@@ -581,22 +597,38 @@
     const y1 = S.h * 0.25;
     const y2 = S.h * 0.75;
 
-    // Main warp thread (tension-based thickness)
-    const thickness = 2 + threadState.warpTension * 3;
-    ctx.strokeStyle = `rgba(${PEARL.join(',')}, ${0.3 + 0.2 * threadState.warpTension})`;
+    // Main warp thread (enhanced visibility)
+    const thickness = 3 + threadState.warpTension * 2;
+    ctx.strokeStyle = `rgba(${PEARL.join(',')}, ${0.5 + 0.3 * threadState.warpTension})`;
     ctx.lineWidth = thickness * DPR;
+    ctx.lineCap = 'round';
     ctx.lineCap = 'round';
     ctx.beginPath();
     ctx.moveTo(x, y1);
     ctx.lineTo(x, y2);
     ctx.stroke();
 
-    // Shimmer glow (iridescent)
-    const glow = ctx.createRadialGradient(x, (y1 + y2) * 0.5, 0, x, (y1 + y2) * 0.5, 40);
-    glow.addColorStop(0, `rgba(201, 164, 92, ${0.15 * threadState.warpTension})`);
+    // Golden silk shimmer (more prominent)
+    const glowRadius = 50 + threadState.warpTension * 30;
+    const glow = ctx.createRadialGradient(x, (y1 + y2) * 0.5, 0, x, (y1 + y2) * 0.5, glowRadius);
+    glow.addColorStop(0, `rgba(201, 164, 92, ${0.25 + 0.15 * threadState.warpTension})`);
+    glow.addColorStop(0.5, `rgba(201, 164, 92, ${0.1 * threadState.warpTension})`);
     glow.addColorStop(1, `rgba(201, 164, 92, 0)`);
     ctx.fillStyle = glow;
-    ctx.fillRect(x - 30, y1 - 30, 60, y2 - y1 + 60);
+    ctx.fillRect(x - glowRadius, y1 - glowRadius, glowRadius * 2, y2 - y1 + glowRadius * 2);
+
+    // Connecting thread to next panel (visual guide)
+    if (progress < 0.95) {
+      const nextPanelX = S.w;
+      ctx.strokeStyle = `rgba(${PEARL.join(',')}, ${(0.15 + 0.1 * threadState.warpTension) * (1 - progress * 6)})`;
+      ctx.lineWidth = (1.5 + threadState.warpTension) * DPR;
+      ctx.setLineDash([4 * DPR, 8 * DPR]);
+      ctx.beginPath();
+      ctx.moveTo(x, (y1 + y2) * 0.5);
+      ctx.lineTo(nextPanelX, (y1 + y2) * 0.5);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
   }
 
   function drawShuttle(progress) {
@@ -653,6 +685,11 @@
   function setupHorizontalScroll() {
     const track = document.getElementById('loom-track');
     const acts = document.querySelectorAll('#loom-track section');
+
+    // Initialize track x to 0 (prevent FOUC of empty panel)
+    if (track && typeof gsap !== 'undefined') {
+      gsap.set(track, { x: 0 });
+    }
 
     if (!reduced && typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
       // Extend scroll height for horizontal movement
@@ -724,6 +761,8 @@
   }
 
   // ============ INITIALIZATION ============
+  populateActI();
+
   if (!reduced) {
     animate();
   } else {
