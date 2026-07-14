@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — Split-Flap Direction</title>
+<meta name="description" content="A mechanical departures board spelling the story of systems, one row at a time.">
+<style>
+:root {
+  --board-black: #0a0a0a;
+  --departure-green: #2ea044;
+  --amber: #e8a825;
+  --pearl: #e5e7ef;
+  --muted: #8a8f9e;
+  --card-depth: 8px;
+}
+
+@font-face {
+  font-family: 'IBMPlexMono';
+  src: url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&display=swap');
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.reduced-motion-on {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--board-black);
+  color: var(--pearl);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+h1, h2 { margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+h1 { font-size: clamp(20px, 5vw, 28px); }
+h2 { font-size: clamp(18px, 4vw, 24px); }
+
+/* ============ FLIP CELL BOARD ============ */
+
+.board {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  background: var(--board-black);
+  border: 2px solid #1a1a1a;
+  border-radius: 8px;
+  perspective: 1200px;
+}
+
+.board-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 60px;
+}
+
+.flip-cell {
+  position: relative;
+  width: 64px;
+  height: 80px;
+  background: var(--departure-green);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 0.08em;
+  color: #000;
+  box-shadow:
+    inset 0 -3px 12px rgba(0,0,0,0.4),
+    0 6px 16px rgba(0,0,0,0.5);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+
+.flip-cell.amber {
+  background: var(--amber);
+  color: #000;
+}
+
+.flip-cell.space {
+  background: transparent;
+  box-shadow: none;
+  width: 32px;
+}
+
+.flip-cell .char {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  opacity: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.flip-cell .char.active {
+  opacity: 1;
+  animation: land 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Flip animation for individual cells */
+@keyframes land {
+  0% {
+    transform: rotateX(90deg) scaleY(0.8);
+  }
+  40% {
+    transform: rotateX(-10deg) scaleY(1.05);
+  }
+  100% {
+    transform: rotateX(0deg) scaleY(1);
+  }
+}
+
+/* Detail row separators and labels */
+.row-label {
+  position: absolute;
+  left: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+  opacity: 0.6;
+  width: 70px;
+}
+
+@media (max-width: 768px) {
+  .row-label { display: none; }
+}
+
+/* ============ ACT I: ABOUT ============ */
+
+#act-i {
+  background: linear-gradient(135deg, rgba(46,160,68,0.05) 0%, rgba(232,168,37,0.05) 100%);
+  padding: 60px 20px;
+}
+
+.about-intro {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.board.about-board {
+  max-width: 600px;
+}
+
+.tagline {
+  position: absolute;
+  top: -60px;
+  left: 40px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .tagline { display: none; }
+  .board { padding: 30px 20px; }
+}
+
+/* ============ ACT II: WORK ============ */
+
+#act-ii {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(46,160,68,0.02) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.work-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.work-header h1 {
+  margin: 0;
+  color: var(--departure-green);
+  font-size: clamp(24px, 6vw, 32px);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.work-header .subline {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.project-row {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-row.active .project-detail {
+  max-height: 300px;
+  opacity: 1;
+  margin-top: 20px;
+}
+
+.project-detail {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease, opacity 0.4s ease;
+  padding: 20px;
+  background: rgba(46, 160, 68, 0.08);
+  border-left: 2px solid var(--departure-green);
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.project-detail .label {
+  color: var(--departure-green);
+  font-weight: 500;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+/* ============ ACT III: PATH ============ */
+
+#act-iii {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(46,160,68,0.02) 100%);
+}
+
+.path-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.path-header h1 {
+  color: var(--amber);
+  font-size: clamp(24px, 6vw, 32px);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.timeline-row {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(232, 168, 37, 0.04);
+  border: 1px solid rgba(232, 168, 37, 0.1);
+  border-radius: 4px;
+  position: relative;
+}
+
+.timeline-time {
+  font-weight: 600;
+  color: var(--amber);
+  min-width: 80px;
+  font-size: 13px;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-role {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--departure-green);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.timeline-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ============ ACT IV: CAPITAL ============ */
+
+#act-iv {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(46,160,68,0.02) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.capital-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.capital-header h1 {
+  color: var(--departure-green);
+  font-size: clamp(24px, 6vw, 32px);
+}
+
+.streams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stream-card {
+  padding: 24px;
+  background: rgba(46, 160, 68, 0.06);
+  border: 1px solid rgba(46, 160, 68, 0.2);
+  border-radius: 4px;
+}
+
+.stream-name {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+  color: var(--departure-green);
+}
+
+.stream-aggregate {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.stream-thesis {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--pearl);
+}
+
+/* ============ ACT V: VOICE ============ */
+
+#act-v {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(232,168,37,0.05) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.voice-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.voice-header h1 {
+  color: var(--amber);
+  font-size: clamp(24px, 6vw, 32px);
+}
+
+.voice-board {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.voice-item {
+  padding: 16px;
+  background: rgba(232, 168, 37, 0.06);
+  border: 1px solid rgba(232, 168, 37, 0.15);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.voice-status {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.voice-status.live {
+  color: var(--departure-green);
+}
+
+.voice-status.coming-soon {
+  color: var(--amber);
+}
+
+.voice-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.voice-meta {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.voice-item a {
+  color: var(--amber);
+  text-decoration: none;
+  border-bottom: 1px solid var(--amber);
+  transition: opacity 0.3s ease;
+}
+
+.voice-item a:hover {
+  opacity: 0.7;
+}
+
+/* ============ ACT VI: SIGNAL ============ */
+
+#act-vi {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(46,160,68,0.05) 100%);
+}
+
+.signal-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.signal-header h1 {
+  color: var(--departure-green);
+  font-size: clamp(24px, 6vw, 32px);
+}
+
+.signal-board {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.signal-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 28px;
+  background: rgba(46, 160, 68, 0.08);
+  border: 2px solid var(--departure-green);
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pearl);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.signal-link:hover {
+  background: rgba(46, 160, 68, 0.15);
+  transform: translateX(8px);
+}
+
+.signal-link .arrow {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cline x1="5" y1="12" x2="19" y2="12"/%3E%3Cpolyline points="12 5 19 12 12 19"/%3E%3C/svg%3E');
+  mask-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cline x1="5" y1="12" x2="19" y2="12"/%3E%3Cpolyline points="12 5 19 12 12 19"/%3E%3C/svg%3E');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width: 640px) {
+  section { padding: 40px 16px; min-height: auto; }
+  .flip-cell { width: 52px; height: 64px; font-size: 20px; }
+  .flip-cell .char { font-size: 20px; }
+  .flip-cell.space { width: 24px; }
+  .board-row { gap: 8px; }
+  .board { padding: 24px 16px; }
+  h1, h2 { font-size: clamp(18px, 4vw, 24px); }
+  .timeline { max-width: 100%; }
+  .streams { grid-template-columns: 1fr; }
+}
+
+/* ============ PREFERS REDUCED MOTION ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .flip-cell .char {
+    opacity: 1 !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Act I: About -->
+<section id="act-i">
+  <div class="board about-board">
+    <div class="tagline">NOW BOARDING</div>
+    <div class="board-row" data-text="SERGEI TRAN"></div>
+    <div class="board-row" data-text="VIETNAMESE-UKRAINIAN"></div>
+    <div class="board-row" data-text="BORN IN ODESA"></div>
+    <div class="board-row" data-text="WARSAW-BASED BUILDER"></div>
+  </div>
+</section>
+
+<!-- Act II: Work -->
+<section id="act-ii">
+  <div style="width: 100%; max-width: 800px;">
+    <div class="work-header">
+      <h1>LIVE PROJECTS</h1>
+      <div class="subline">Five systems in production</div>
+    </div>
+    <div class="project-rows" id="project-rows"></div>
+  </div>
+</section>
+
+<!-- Act III: Path -->
+<section id="act-iii">
+  <div style="width: 100%; max-width: 700px;">
+    <div class="path-header">
+      <h1>DEPARTURE TIMES</h1>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- Act IV: Capital -->
+<section id="act-iv">
+  <div style="width: 100%; max-width: 900px;">
+    <div class="capital-header">
+      <h1>INVESTMENT STREAMS</h1>
+    </div>
+    <div class="streams" id="streams"></div>
+  </div>
+</section>
+
+<!-- Act V: Voice -->
+<section id="act-v">
+  <div style="width: 100%; max-width: 700px;">
+    <div class="voice-header">
+      <h1>NOW BOARDING: WRITING</h1>
+    </div>
+    <div class="voice-board" id="voice-board"></div>
+  </div>
+</section>
+
+<!-- Act VI: Signal -->
+<section id="act-vi">
+  <div style="width: 100%; max-width: 500px;">
+    <div class="signal-header">
+      <h1>SIGNAL</h1>
+    </div>
+    <div class="signal-board">
+      <a href="https://github.com/sc-jackie" class="signal-link">
+        GitHub
+        <span class="arrow"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+import { caseData } from '../../js/data/work.js';
+import { about } from '../../js/data/about.js';
+import { path } from '../../js/data/path.js';
+import { capital } from '../../js/data/capital.js';
+import { voice } from '../../js/data/voice.js';
+
+// Character set for flipping animation
+const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789- ';
+
+// Render a text into flip cells
+function renderBoardRow(text, container) {
+  container.innerHTML = '';
+  text.split('').forEach((char, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'flip-cell';
+
+    if (char === ' ') {
+      cell.classList.add('space');
+      cell.appendChild(document.createElement('div'));
+      container.appendChild(cell);
+      return;
+    }
+
+    // Randomly choose a color accent (mostly green, some amber)
+    if (Math.random() > 0.85) {
+      cell.classList.add('amber');
+    }
+
+    // Populate character options
+    const charIdx = CHARS.indexOf(char.toUpperCase());
+    const sequence = [];
+
+    // Shuffle through some characters
+    for (let j = 0; j < 8; j++) {
+      const randIdx = Math.floor(Math.random() * CHARS.length);
+      sequence.push(CHARS[randIdx]);
+    }
+    sequence.push(char.toUpperCase());
+
+    sequence.forEach(c => {
+      const charDiv = document.createElement('div');
+      charDiv.className = 'char';
+      charDiv.textContent = c;
+      cell.appendChild(charDiv);
+    });
+
+    container.appendChild(cell);
+  });
+
+  // Stagger the flip animation
+  setTimeout(() => {
+    const cells = container.querySelectorAll('.flip-cell');
+    cells.forEach((cell, i) => {
+      setTimeout(() => {
+        animateCell(cell);
+      }, i * 60);
+    });
+  }, 300);
+}
+
+// Animate a single cell through its sequence
+function animateCell(cell) {
+  const chars = cell.querySelectorAll('.char');
+  if (chars.length === 0) return;
+
+  let idx = 0;
+
+  const advance = () => {
+    if (idx > 0) {
+      chars[idx - 1].classList.remove('active');
+    }
+
+    if (idx < chars.length) {
+      chars[idx].classList.add('active');
+      idx++;
+      setTimeout(advance, 120); // Longer interval for more readable flip
+    }
+  };
+
+  advance();
+}
+
+// Act I: Render about board on scroll
+const aboutRows = document.querySelectorAll('#act-i .board-row');
+const aboutObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && entry.target.children.length === 0) {
+      renderBoardRow(entry.target.dataset.text, entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+aboutRows.forEach(row => aboutObserver.observe(row));
+
+// Act II: Render project rows
+const projectRows = document.getElementById('project-rows');
+caseData.forEach((project, idx) => {
+  const row = document.createElement('div');
+  row.className = 'project-row';
+
+  const status = project.meta[1].value === 'Production' ? 'IN PRODUCTION' : 'IN DEV';
+
+  const rowBoard = document.createElement('div');
+  rowBoard.className = 'board-row';
+  rowBoard.style.cursor = 'pointer';
+  rowBoard.dataset.text = `${project.name} / ${project.meta[0].value} / ${status}`;
+
+  row.appendChild(rowBoard);
+
+  const detail = document.createElement('div');
+  detail.className = 'project-detail';
+  detail.innerHTML = `
+    <div class="label">${project.name}</div>
+    <div>${project.one}</div>
+  `;
+  row.appendChild(detail);
+
+  rowBoard.addEventListener('click', () => {
+    row.classList.toggle('active');
+  });
+
+  projectRows.appendChild(row);
+});
+
+// Animate project rows on scroll
+const projectObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const rowBoard = entry.target.querySelector('.board-row');
+      if (rowBoard.children.length === 0) {
+        renderBoardRow(rowBoard.dataset.text, rowBoard);
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('#act-ii .project-row').forEach(row => {
+  projectObserver.observe(row);
+});
+
+// Act III: Render timeline
+const timeline = document.getElementById('timeline');
+path.forEach(item => {
+  const row = document.createElement('div');
+  row.className = 'timeline-row';
+  row.innerHTML = `
+    <div class="timeline-time">${item.era}</div>
+    <div class="timeline-content">
+      <div class="timeline-role">${item.role}</div>
+      <div class="timeline-desc">${item.line}</div>
+    </div>
+  `;
+  timeline.appendChild(row);
+});
+
+// Act IV: Render capital streams
+const streams = document.getElementById('streams');
+capital.streams.forEach(stream => {
+  const card = document.createElement('div');
+  card.className = 'stream-card';
+  card.innerHTML = `
+    <div class="stream-name">${stream.name}</div>
+    <div class="stream-aggregate">${stream.aggregate}</div>
+    <div class="stream-thesis">${stream.thesis}</div>
+  `;
+  streams.appendChild(card);
+});
+
+// Act V: Render voice items
+const voiceBoard = document.getElementById('voice-board');
+voice.forEach(item => {
+  const voiceRow = document.createElement('div');
+  voiceRow.className = 'voice-item';
+
+  let statusClass = item.status;
+  let statusText = item.status === 'live' ? 'LIVE' : 'COMING SOON';
+
+  let content = `
+    <div class="voice-status ${statusClass}">${statusText}</div>
+    <div class="voice-title">${item.title}</div>
+    <div class="voice-meta">${item.year} · ${item.source}</div>
+  `;
+
+  if (item.url) {
+    content = `
+      <div class="voice-status ${statusClass}">${statusText}</div>
+      <div class="voice-title"><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></div>
+      <div class="voice-meta">${item.year} · ${item.source}</div>
+    `;
+  }
+
+  voiceRow.innerHTML = content;
+  voiceBoard.appendChild(voiceRow);
+});
+
+console.log('Split-flap direction loaded');
+</script>
+
+</body>
+</html>
