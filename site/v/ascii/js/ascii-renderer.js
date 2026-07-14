@@ -30,8 +30,9 @@ export class ASCIIRenderer {
   }
 
   // Draw animated background noise (CRT effect)
+  // ponytail: live character field fills hero; intensity modulates with time
   drawNoise(intensity = 0.3) {
-    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#$%&';
+    const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const cellSize = 16;
     const gridW = Math.ceil(this.width / cellSize);
     const gridH = Math.ceil(this.height / cellSize);
@@ -45,8 +46,13 @@ export class ASCIIRenderer {
           const x = i * cellSize + 5;
           const y = j * cellSize + 14;
 
-          // Random color variation
-          const alpha = Math.random() * 0.15;
+          // Modulated alpha: brightest in center, dimmer at edges
+          const distX = (i / gridW - 0.5) * 2;
+          const distY = (j / gridH - 0.5) * 2;
+          const dist = Math.sqrt(distX * distX + distY * distY);
+          const baseBrightness = Math.max(0.05, 0.3 - dist * 0.1);
+          const alpha = baseBrightness * Math.random() * 0.35;
+
           this.ctx.fillStyle = `rgba(0, 208, 132, ${alpha})`;
           this.ctx.fillText(char, x, y);
         }
@@ -87,8 +93,10 @@ export class ASCIIRenderer {
     this.ctx.fillStyle = '#0a0e0a';
     this.ctx.fillRect(0, 0, this.width, this.height);
 
-    // Draw subtle animated noise (CRT-like interference)
-    this.drawNoise(0.05 + Math.sin(this.time * 0.001) * 0.02);
+    // Draw animated noise field (fills hero with churning glyphs)
+    // Modulate intensity over time for living effect
+    const baseIntensity = 0.35 + Math.sin(this.time * 0.0005) * 0.08;
+    this.drawNoise(baseIntensity);
 
     // Draw scanlines
     this.drawScanlines();

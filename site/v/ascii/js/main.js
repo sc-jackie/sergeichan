@@ -1,4 +1,5 @@
 import { ASCIIRenderer } from './ascii-renderer.js';
+import { populateProjectSections } from './project-scenes.js';
 import { about } from '../../js/data/about.js';
 import { caseData } from '../../js/data/work.js';
 import { path } from '../../js/data/path.js';
@@ -10,6 +11,9 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 if (prefersReducedMotion) {
   document.documentElement.classList.add('reduced-motion-on');
 }
+
+// Populate Act II sections with TRUE facts from work.js
+populateProjectSections();
 
 // Initialize ASCII renderer
 const canvas = document.getElementById('ascii-canvas');

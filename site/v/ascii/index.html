@@ -9,10 +9,12 @@
 <link rel="preload" as="font" href="../../fonts/JetBrains-Mono-Regular.woff2" type="font/woff2" crossorigin>
 <style>
   :root {
+    /* ponytail: phosphor green palette — intentional choice for depth + reading comfort */
     --crt-black: #0a0e0a;
     --phosphor: #00d084;
     --phosphor-dim: #00a060;
     --phosphor-bright: #00ff9e;
+    --phosphor-glow: rgba(0, 255, 158, 0.4);
     --scanline: rgba(0, 0, 0, 0.15);
     --paper-bg: #f5f1e8;
     --paper-text: #2a2520;
@@ -54,8 +56,8 @@
     background-image:
       repeating-linear-gradient(
         0deg,
-        var(--scanline),
-        var(--scanline) 1px,
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.25) 1px,
         transparent 1px,
         transparent 2px
       );
@@ -68,7 +70,7 @@
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.25) 100%);
+      radial-gradient(ellipse at 50% 50%, transparent 10%, rgba(0, 0, 0, 0.35) 100%);
     pointer-events: none;
     z-index: 9998;
   }
@@ -140,12 +142,19 @@
   }
 
   .act-title {
-    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    font-size: clamp(2.4rem, 8vw, 5.5rem);
     margin-bottom: 0.8em;
     font-weight: 600;
     letter-spacing: 0.05em;
     line-height: 1.1;
     font-family: 'JetBrains Mono', monospace;
+  }
+
+  #act-1 .act-title {
+    /* Hero: name resolves bright from noise field */
+    font-size: clamp(3rem, 11vw, 7rem);
+    text-shadow: 0 0 20px var(--phosphor-glow), 0 0 40px rgba(0, 255, 158, 0.2);
+    letter-spacing: 0.08em;
   }
 
   .act-subtitle {
@@ -274,90 +283,49 @@
       </div>
     </section>
 
-    <!-- ACT II: Five Projects -->
+    <!-- ACT II: Five Projects (populated from work.js) -->
     <section class="act-section dark-mode" id="act-2-newfin">
       <div class="act-content">
-        <div class="act-title">$ newfin</div>
-        <div class="act-subtitle">Finance + Agents</div>
-        <div class="ascii-art">┌─────────────────────┐
-│ VAULT               │
-│ ┌─────────────────┐ │
-│ │ txn | amt | tag │ │
-│ │─────┼─────┼─────│ │
-│ │ *03 |  -88|food │ │
-│ │ *04 |  +45|gift │ │
-│ │ *05 | -200|rent │ │
-│ └─────────────────┘ │
-│ classified ✓        │
-│ reconciled ✓        │
-└─────────────────────┘</div>
-        <div class="act-subtitle">Smart account. Your vault, your LLM.</div>
+        <div class="act-title" data-project="0">$ newfin</div>
+        <div class="act-subtitle" data-project="0">Finance + Agents</div>
+        <div class="ascii-art" data-project="0"></div>
+        <div class="act-subtitle" data-project="0">Smart account. Your vault, your LLM.</div>
       </div>
     </section>
 
     <section class="act-section dark-mode" id="act-2-bunit">
       <div class="act-content">
-        <div class="act-title">$ b-unit</div>
-        <div class="act-subtitle">Content + Network</div>
-        <div class="ascii-art">╔════════════════════╗
-║ Episode 001        ║
-║ Guest > Framework  ║
-║ Record → Edit      ║
-║ Distribute ✓       ║
-╚════════════════════╝
-Structured interviewing.
-Template-driven editing.</div>
-        <div class="act-subtitle">For the AI era.</div>
+        <div class="act-title" data-project="1">$ b-unit</div>
+        <div class="act-subtitle" data-project="1">Content + Network</div>
+        <div class="ascii-art" data-project="1"></div>
+        <div class="act-subtitle" data-project="1">Structured interviewing. For the AI era.</div>
       </div>
     </section>
 
     <section class="act-section dark-mode" id="act-2-jackieos">
       <div class="act-content">
-        <div class="act-title">$ jackie-os</div>
-        <div class="act-subtitle">Systems + AI</div>
-        <div class="ascii-art">[obsidian vault]
-         ↓
-    [hermes agents]
-      ↙ ↓ ↘
- brief  journal  sync
-
-capture ↔ counsel ↔ automate
-
-One life. One system.</div>
-        <div class="act-subtitle">Always-on agents. All decisions.</div>
+        <div class="act-title" data-project="2">$ jackie-os</div>
+        <div class="act-subtitle" data-project="2">Systems + AI</div>
+        <div class="ascii-art" data-project="2"></div>
+        <div class="act-subtitle" data-project="2">Always-on agents. All decisions.</div>
       </div>
     </section>
 
     <section class="act-section dark-mode" id="act-2-rodyna">
       <div class="act-content">
-        <div class="act-title">$ rodyna</div>
-        <div class="act-subtitle">Investing + Data</div>
-        <div class="ascii-art">crypto │ ▄▄▄ │ +12%
-equity │ ▂▃▄ │  +8%
-angel  │ ▁▂▁ │  +3%
-estate │ ▀▀▀ │ stable
-
-─────────────────────
-total:       synth ✓
-reconciled:  agents ✓</div>
-        <div class="act-subtitle">One dashboard. All venues.</div>
+        <div class="act-title" data-project="3">$ rodyna</div>
+        <div class="act-subtitle" data-project="3">Investing + Data</div>
+        <div class="ascii-art" data-project="3"></div>
+        <div class="act-subtitle" data-project="3">One dashboard. All venues.</div>
       </div>
     </section>
 
     <section class="act-section dark-mode" id="act-2-draw">
       <div class="act-content">
-        <div class="act-title">$ draw</div>
-        <div class="act-subtitle">Development + Tools</div>
-        <div class="ascii-art">[local] ←→ [test] ←→ [prod]
-
-agent workflows
-↓
-integration hooks
-↓
-system check
-
-dev feedback loops</div>
-        <div class="act-subtitle">Workbench. Test first.</div>
+        <div class="act-title" data-project="4">$ draw</div>
+        <div class="act-subtitle" data-project="4">Development + Tools</div>
+        <div class="ascii-art" data-project="4"></div>
+        <div class="act-subtitle" data-project="4">Workbench. Test first.</div>
       </div>
     </section>
 
