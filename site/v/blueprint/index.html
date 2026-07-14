@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — Blueprint</title>
+<meta name="description" content="Sergei Tran's portfolio: five AI-native systems, rendered as technical drawings.">
+<meta name="theme-color" content="#F6F5F0">
+<meta name="color-scheme" content="light">
+<link rel="preload" as="font" href="/fonts/Inter-Regular.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="/fonts/Inter-Medium.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="/fonts/Fraunces-Bold.woff2" type="font/woff2" crossorigin>
+<style>
+:root {
+  --paper: #F6F5F0;
+  --ink: #1F1E1A;
+  --draft-blue: #0D47A1;
+  --grid-line: #E5E0D8;
+  --dim-ink: #7A7767;
+  --accent-blue: #2196F3;
+  color-scheme: light only;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.reduced-motion-on {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.6 Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--draft-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Mono font for annotations */
+.mono, .label, .dimension, .sheet-num {
+  font-family: 'Fragment Mono', 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
+/* ============ Layout ============ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header {
+  padding: 80px 20px 60px;
+  text-align: center;
+  border-bottom: 3px solid var(--ink);
+  background: linear-gradient(180deg, var(--paper) 0%, color-mix(in srgb, var(--draft-blue) 2%, var(--paper)) 100%);
+}
+
+header h1 {
+  font-size: clamp(40px, 6vw, 56px);
+  font-weight: 250;
+  margin: 0 0 12px;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+header p {
+  font-size: 12px;
+  color: var(--dim-ink);
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============ Acts ============ */
+.act {
+  position: relative;
+  padding: 80px 20px;
+  border-top: 2px solid var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.act:first-child {
+  border-top: none;
+}
+
+.act .sheet-num {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: var(--dim-ink);
+  font-size: 10px;
+}
+
+@media (max-width: 640px) {
+  .act {
+    padding: 60px 16px;
+    min-height: auto;
+  }
+}
+
+/* Act content */
+.act-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.act h2 {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 500;
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.act h2 .act-num {
+  font-family: Georgia, serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--draft-blue);
+  opacity: 0.3;
+  line-height: 1;
+  min-width: 60px;
+}
+
+@media (max-width: 640px) {
+  .act h2 {
+    font-size: 20px;
+  }
+
+  .act h2 .act-num {
+    font-size: 32px;
+  }
+}
+
+/* ============ Act I: Origin ============ */
+#origin {
+  background: linear-gradient(135deg, var(--paper) 0%, color-mix(in srgb, var(--draft-blue) 3%, var(--paper)) 100%);
+}
+
+.bio-text {
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 24px 0 0;
+}
+
+.bio-text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tagline {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--draft-blue);
+  margin: 20px 0 0;
+}
+
+/* ============ Act II: Work (Projects) ============ */
+#work {
+  background: var(--paper);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 80px;
+  margin-top: 40px;
+}
+
+.project {
+  position: relative;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 48px;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--grid-line), 0 1px 3px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 640px) {
+  .project {
+    padding: 24px;
+  }
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--grid-line);
+}
+
+.project-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.project-title h3 {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.project-title .roman {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--draft-blue);
+  opacity: 0.35;
+  line-height: 1;
+}
+
+.project-kick {
+  color: var(--draft-blue);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.project-one {
+  font-size: 17px;
+  font-weight: 400;
+  margin: 0 0 20px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.project-desc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--dim-ink);
+  margin: 20px 0;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--grid-line);
+  font-size: 11px;
+}
+
+.project-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-meta-label {
+  color: var(--dim-ink);
+  letter-spacing: 0.05em;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.project-meta-value {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.project-canvas {
+  width: 100%;
+  height: 300px;
+  margin-top: 20px;
+  border: 1px dashed var(--grid-line);
+  background: color-mix(in srgb, var(--draft-blue) 1%, var(--paper));
+  border-radius: 2px;
+}
+
+@media (max-width: 640px) {
+  .project-canvas {
+    height: 200px;
+  }
+}
+
+/* ============ Act III: Path ============ */
+#path {
+  background: linear-gradient(135deg, var(--paper) 0%, color-mix(in srgb, var(--draft-blue) 2%, var(--paper)) 100%);
+}
+
+.timeline {
+  position: relative;
+  margin-top: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 40px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--grid-line);
+}
+
+@media (max-width: 640px) {
+  .timeline::before {
+    left: 20px;
+  }
+}
+
+.era {
+  position: relative;
+  margin-left: 120px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--grid-line);
+}
+
+@media (max-width: 640px) {
+  .era {
+    margin-left: 80px;
+  }
+}
+
+.era::before {
+  content: '';
+  position: absolute;
+  left: -90px;
+  top: 28px;
+  width: 50px;
+  height: 2px;
+  background: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .era::before {
+    left: -60px;
+    width: 40px;
+  }
+}
+
+.era-dates {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--draft-blue);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.era-role {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+
+.era-org {
+  font-size: 12px;
+  color: var(--dim-ink);
+  margin: 6px 0 0;
+  letter-spacing: 0.02em;
+}
+
+.era-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--dim-ink);
+  margin: 8px 0 0;
+}
+
+/* ============ Act IV: Capital ============ */
+#capital {
+  background: var(--paper);
+}
+
+.capital-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.capital-stream {
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  padding: 30px;
+  background: color-mix(in srgb, var(--draft-blue) 1%, var(--paper));
+}
+
+.capital-stream h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.capital-stream .stream-name {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--draft-blue);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.capital-stream .thesis {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--dim-ink);
+}
+
+.capital-stream .aggregate {
+  font-size: 12px;
+  color: var(--dim-ink);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--grid-line);
+  letter-spacing: 0.02em;
+}
+
+/* ============ Act V: Voice ============ */
+#voice {
+  background: linear-gradient(135deg, var(--paper) 0%, color-mix(in srgb, var(--draft-blue) 2%, var(--paper)) 100%);
+}
+
+.voice-list {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.voice-item {
+  border-left: 2px solid var(--ink);
+  padding-left: 20px;
+  position: relative;
+}
+
+.voice-item::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  border-radius: 50%;
+}
+
+.voice-item h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+
+.voice-item .meta {
+  font-size: 12px;
+  color: var(--dim-ink);
+  letter-spacing: 0.05em;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.voice-item .status {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 8px;
+  border: 1px solid var(--grid-line);
+  border-radius: 2px;
+  color: var(--dim-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.voice-item .status.live {
+  background: color-mix(in srgb, var(--draft-blue) 10%, var(--paper));
+  border-color: var(--draft-blue);
+  color: var(--draft-blue);
+}
+
+/* ============ Act VI: Signal ============ */
+#signal {
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.signal-content {
+  max-width: 600px;
+  padding: 60px 40px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+}
+
+.signal-content h2 {
+  font-size: 36px;
+  font-weight: 300;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.signal-content p {
+  font-size: 14px;
+  color: var(--dim-ink);
+  margin: 12px 0;
+  line-height: 1.8;
+}
+
+.signal-content a {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+.signal-content .github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 12px 20px;
+  border: 2px solid var(--draft-blue);
+  border-radius: 4px;
+  color: var(--draft-blue);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.signal-content .github-link:hover {
+  background: color-mix(in srgb, var(--draft-blue) 10%, var(--paper));
+  transform: translate(-2px, -2px);
+}
+
+@media (max-width: 640px) {
+  .signal-content {
+    padding: 40px 24px;
+  }
+
+  .signal-content h2 {
+    font-size: 24px;
+  }
+}
+
+/* ============ Footer ============ */
+footer {
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 2px solid var(--ink);
+  color: var(--dim-ink);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 640px) {
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .project-title h3 {
+    font-size: 18px;
+  }
+
+  .capital-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Reduced Motion ============ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Sergei Tran</h1>
+  <p>BLUEPRINT DRAFT • AI-native systems in technical drawing form</p>
+</header>
+
+<!-- Act I: Origin -->
+<section class="act" id="origin">
+  <div class="act-content">
+    <h2>
+      <span class="act-num">I</span>
+      Origin
+    </h2>
+    <div class="tagline">Vietnamese-Ukrainian · AI-native builder</div>
+    <div class="bio-text">
+      <strong>Born in Odesa, raised between two languages.</strong> Designer by training (2014–2018): UI/UX work from startups to Lexus, Suzuki and Toyota dealer sites in Singapore. Then blockchain research and community (2018–2020). Then a long run as a full-time investor (2020–2025).
+    </div>
+    <div class="bio-text">
+      Now building AI-native systems in Warsaw: five products in production, run day to day by always-on agents — an operating system for one life, and the tools that ride on its rails.
+    </div>
+  </div>
+  <div class="sheet-num">SHT 01/06</div>
+</section>
+
+<!-- Act II: Work (Projects) -->
+<section class="act" id="work">
+  <div class="act-content">
+    <h2>
+      <span class="act-num">II</span>
+      Work
+    </h2>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </div>
+  <div class="sheet-num">SHT 02/06</div>
+</section>
+
+<!-- Act III: Path -->
+<section class="act" id="path">
+  <div class="act-content">
+    <h2>
+      <span class="act-num">III</span>
+      Path
+    </h2>
+    <div class="timeline" id="timeline"></div>
+  </div>
+  <div class="sheet-num">SHT 03/06</div>
+</section>
+
+<!-- Act IV: Capital -->
+<section class="act" id="capital">
+  <div class="act-content">
+    <h2>
+      <span class="act-num">IV</span>
+      Capital
+    </h2>
+    <div class="capital-grid" id="capitalGrid"></div>
+  </div>
+  <div class="sheet-num">SHT 04/06</div>
+</section>
+
+<!-- Act V: Voice -->
+<section class="act" id="voice">
+  <div class="act-content">
+    <h2>
+      <span class="act-num">V</span>
+      Voice
+    </h2>
+    <div class="voice-list" id="voiceList"></div>
+  </div>
+  <div class="sheet-num">SHT 05/06</div>
+</section>
+
+<!-- Act VI: Signal -->
+<section class="act" id="signal">
+  <div class="signal-content">
+    <h2>Signal</h2>
+    <p>The work lives in public. Code on GitHub.</p>
+    <p>Essays and writing coming soon.</p>
+    <a href="https://github.com/sergeichan" target="_blank" rel="noopener" class="github-link">
+      → GitHub
+    </a>
+  </div>
+  <div class="sheet-num">SHT 06/06</div>
+</section>
+
+<footer>
+  Blueprint direction for sergeichan.vercel.app · Five systems, six acts, light technical drawing
+</footer>
+
+<script type="module">
+import { caseData } from '/js/data/work.js';
+import { path } from '/js/data/path.js';
+import { capital } from '/js/data/capital.js';
+import { voice } from '/js/data/voice.js';
+
+// Populate projects
+function populateProjects() {
+  const grid = document.getElementById('projectsGrid');
+  caseData.forEach(project => {
+    const projectEl = document.createElement('div');
+    projectEl.className = 'project';
+
+    const headerHTML = `
+      <div class="project-header">
+        <div class="project-title">
+          <span class="roman">${project.roman}</span>
+          <h3>${project.name}</h3>
+        </div>
+        <div class="project-kick">${project.kick}</div>
+      </div>
+    `;
+
+    const metaHTML = `
+      <div class="project-meta">
+        ${project.meta.map(m => `
+          <div>
+            <div class="project-meta-label">${m.label}</div>
+            <div class="project-meta-value">${m.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    projectEl.innerHTML = `
+      ${headerHTML}
+      <div class="project-one">${project.one}</div>
+      <div class="project-desc">${project.what}</div>
+      ${metaHTML}
+      <canvas class="project-canvas" data-project="${project.id}"></canvas>
+    `;
+
+    grid.appendChild(projectEl);
+  });
+
+  // Draw simple wireframes on each canvas
+  drawProjectWireframes();
+}
+
+function drawProjectWireframes() {
+  // Define colors explicitly (light mode only)
+  const colors = {
+    paper: '#F6F5F0',
+    ink: '#1F1E1A',
+    gridLine: '#E5E0D8',
+    draftBlue: '#0D47A1'
+  };
+
+  document.querySelectorAll('.project-canvas').forEach(canvas => {
+    const ctx = canvas.getContext('2d');
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.scale(dpr, dpr);
+
+    // Paper background
+    ctx.fillStyle = colors.paper;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.strokeStyle = colors.gridLine;
+    ctx.lineWidth = 1;
+
+    // Simple grid
+    for (let x = 0; x < w; x += 40) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = 0; y < h; y += 30) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
+
+    // Draw project-specific wireframe
+    const projectId = canvas.dataset.project;
+    ctx.strokeStyle = colors.ink;
+    ctx.lineWidth = 2;
+
+    switch (projectId) {
+      case 'newfin':
+        // Vault diagram
+        ctx.fillStyle = 'rgba(13, 71, 161, 0.06)';
+        ctx.fillRect(30, 30, w - 60, h - 60);
+        ctx.strokeRect(30, 30, w - 60, h - 60);
+
+        ctx.fillStyle = colors.ink;
+        ctx.font = '11px monospace';
+        ctx.fillText('VAULT', 50, 55);
+        ctx.fillText('[transactions]', 50, 100);
+        ctx.fillText('[agents]', w - 200, 100);
+        break;
+
+      case 'bunit':
+        // Podcast loop
+        const cx = w / 2, cy = h / 2;
+        const r = 60;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.font = '11px monospace';
+        ctx.fillStyle = colors.ink;
+        ctx.fillText('GUEST', cx - 30, cy - r - 10);
+        ctx.fillText('EDIT', cx + 40, cy);
+        break;
+
+      case 'jackieos':
+        // System diagram
+        ctx.font = '11px monospace';
+        ctx.fillStyle = colors.ink;
+
+        // Three boxes
+        [30, 130, 230].forEach((y, i) => {
+          ctx.strokeRect(50, y, 120, 40);
+          const labels = ['VAULT', 'AGENTS', 'API'];
+          ctx.fillText(labels[i], 60, y + 25);
+        });
+
+        // Connecting lines
+        ctx.strokeStyle = colors.draftBlue;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(110, 70);
+        ctx.lineTo(110, 130);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(110, 170);
+        ctx.lineTo(110, 230);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        break;
+
+      case 'rodyna':
+        // Portfolio grid
+        ctx.fillStyle = 'rgba(13, 71, 161, 0.04)';
+        for (let i = 0; i < 4; i++) {
+          const x = 40 + (i % 2) * (w / 2 - 60);
+          const y = 40 + Math.floor(i / 2) * (h / 2 - 40);
+          ctx.fillRect(x, y, w / 2 - 80, h / 2 - 60);
+          ctx.strokeRect(x, y, w / 2 - 80, h / 2 - 60);
+        }
+        break;
+
+      case 'draw':
+        // Local-first workflow
+        ctx.font = '10px monospace';
+        ctx.fillStyle = colors.ink;
+
+        ctx.strokeRect(30, h / 2 - 30, 100, 60);
+        ctx.fillText('LOCAL', 50, h / 2 + 5);
+
+        ctx.strokeRect(w - 130, h / 2 - 30, 100, 60);
+        ctx.fillText('PROD', w - 110, h / 2 + 5);
+
+        ctx.strokeStyle = colors.draftBlue;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(130, h / 2);
+        ctx.lineTo(w - 130, h / 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        break;
+    }
+  });
+}
+
+// Populate timeline
+function populatePath() {
+  const timeline = document.getElementById('timeline');
+  path.forEach(era => {
+    const eraEl = document.createElement('div');
+    eraEl.className = 'era';
+    eraEl.innerHTML = `
+      <div class="era-dates">${era.era}</div>
+      <h3 class="era-role">${era.role}</h3>
+      <div class="era-org">${era.org}</div>
+      <div class="era-desc">${era.line}</div>
+    `;
+    timeline.appendChild(eraEl);
+  });
+}
+
+// Populate capital
+function populateCapital() {
+  const grid = document.getElementById('capitalGrid');
+  capital.streams.forEach(stream => {
+    const streamEl = document.createElement('div');
+    streamEl.className = 'capital-stream';
+    streamEl.innerHTML = `
+      <div class="stream-name">${stream.name}</div>
+      <p class="thesis">${stream.thesis}</p>
+      <div class="aggregate">${stream.aggregate}</div>
+    `;
+    grid.appendChild(streamEl);
+  });
+}
+
+// Populate voice
+function populateVoice() {
+  const list = document.getElementById('voiceList');
+  voice.forEach(item => {
+    const itemEl = document.createElement('div');
+    itemEl.className = 'voice-item';
+
+    const link = item.url ? `<a href="${item.url}" target="_blank" rel="noopener">${item.title}</a>` : item.title;
+    const statusClass = item.status === 'live' ? 'live' : '';
+
+    itemEl.innerHTML = `
+      <h3>${link}</h3>
+      <div class="meta">
+        <span>${item.year}</span>
+        <span class="status ${statusClass}">${item.status}</span>
+      </div>
+    `;
+    list.appendChild(itemEl);
+  });
+}
+
+// Check for reduced motion preference
+function checkReducedMotion() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('reduced-motion-on');
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  checkReducedMotion();
+  populateProjects();
+  populatePath();
+  populateCapital();
+  populateVoice();
+});
+
+// Handle resize for canvases (HiDPI support)
+window.addEventListener('resize', drawProjectWireframes);
+</script>
+
+</body>
+</html>
