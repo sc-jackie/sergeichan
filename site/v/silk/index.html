@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — Silk</title>
+<meta name="description" content="One cloth is the whole surface. Simulated silk ripples and folds as scroll pulls it.">
+<style>
+  :root {
+    --space: #0C0E16;
+    --pearl: #E5E7EF;
+    --muted: #9AA0B0;
+    --dim: #6A7080;
+    --line: rgba(229,231,239,.12);
+    --gold: #C9A45C;
+    --indigo: #1a1f3a;
+    --indigo-dark: #0f1420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html.reduced-motion-on { scroll-behavior: auto; }
+  body {
+    background: var(--space);
+    color: var(--pearl);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  @font-face {
+    font-family: 'Fraunces';
+    font-weight: 250;
+    src: url('/fonts/Fraunces-Bold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-weight: 400;
+    src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-weight: 500;
+    src: url('/fonts/Inter-Medium.woff2') format('woff2');
+  }
+
+  /* ============ HERO CANVAS ============ */
+  #hero {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  #hero canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ============ SIX ACTS SECTIONS ============ */
+  section {
+    min-height: 100svh;
+    position: relative;
+    z-index: 1;
+    background: var(--space);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+  }
+
+  section.act-i { background: linear-gradient(180deg, var(--indigo-dark) 0%, var(--space) 100%); }
+
+  /* Act I: braiding threads */
+  .act-i .inner {
+    text-align: center;
+    max-width: 45em;
+  }
+  .act-i h1 {
+    font-size: clamp(32px, 6.5vw, 56px);
+    font-family: Fraunces, serif;
+    font-weight: 250;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--pearl);
+    line-height: 1.15;
+  }
+  .act-i p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin: 0;
+    letter-spacing: 0.3px;
+  }
+  .act-i p em {
+    font-style: italic;
+    color: #C6CBE8;
+    font-weight: 500;
+  }
+
+  /* Act II: five chords */
+  section.act-ii {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .chord-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+    max-width: 1000px;
+    margin: 60px auto;
+    width: 100%;
+    padding: 0 20px;
+  }
+  .chord-card {
+    text-align: center;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 24px;
+    background: rgba(12, 14, 22, 0.4);
+    backdrop-filter: blur(8px);
+    transition: all 0.35s ease;
+  }
+  .chord-card:hover {
+    border-color: var(--gold);
+    background: rgba(12, 14, 22, 0.6);
+  }
+  .chord-card h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .chord-card p {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .chord-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+  }
+
+  /* Acts III–VI: content over horizon */
+  section.act-content {
+    background: transparent;
+  }
+  .act-content .inner {
+    max-width: 640px;
+    text-align: center;
+  }
+  .act-content h2 {
+    font-size: clamp(36px, 6vw, 52px);
+    font-family: Fraunces, serif;
+    font-weight: 250;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .act-content p {
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+  .act-content p em {
+    font-style: italic;
+    color: #C6CBE8;
+  }
+  .act-content p a {
+    color: var(--gold);
+    text-decoration: none;
+    position: relative;
+    transition: opacity 0.25s ease;
+  }
+  .act-content p a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  /* Nav rail — roman numerals */
+  nav.scrollnav {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  nav.scrollnav a {
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.5;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  nav.scrollnav a:hover,
+  nav.scrollnav a.active {
+    color: var(--pearl);
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    nav.scrollnav { right: 16px; font-size: 14px; gap: 12px; }
+    section { padding: 40px 16px; }
+    .chord-grid { gap: 20px; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto !important; }
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="hero">
+  <canvas id="silkCanvas"></canvas>
+</div>
+
+<!-- ACT I: BRAIDING THREADS (two bundles become one cloth) -->
+<section id="act-origin" class="act-i">
+  <div class="inner">
+    <h1>One thread</h1>
+    <p><em>Vietnamese silk heritage meets Ukrainian thread</em> — two cultures braid into one cloth, drawn as the page loads. The weave holds five projects in equal weight.</p>
+  </div>
+</section>
+
+<!-- ACT II: FIVE CHORDS (cloth re-threads per project) -->
+<section id="act-work" class="act-ii">
+  <div class="inner" style="width: 100%; max-width: 1100px; margin: 0 auto;">
+    <h2 style="font-size: clamp(28px, 5vw, 42px); margin-bottom: 40px;">The five chords</h2>
+    <div class="chord-grid">
+      <div class="chord-card">
+        <div class="chord-swatch" style="background: #7C93E8;"></div>
+        <h3>Newfin</h3>
+        <p>Net worth, cashflow and an LLM advisor for a genuinely mixed portfolio.</p>
+      </div>
+      <div class="chord-card">
+        <div class="chord-swatch" style="background: #5FBF8E;"></div>
+        <h3>B-Unit</h3>
+        <p>A gamified habit economy for a teenager — real quests, real rewards, agent coaching.</p>
+      </div>
+      <div class="chord-card">
+        <div class="chord-swatch" style="background: #C9A45C;"></div>
+        <h3>Jackie-OS</h3>
+        <p>A personal AI operating system — memory, skills, and always-on agents running one life.</p>
+      </div>
+      <div class="chord-card">
+        <div class="chord-swatch" style="background: #E08D66;"></div>
+        <h3>Rodyna</h3>
+        <p>Family recipes with their stories — captured from YouTube, photos or text, in two languages.</p>
+      </div>
+      <div class="chord-card">
+        <div class="chord-swatch" style="background: #56C4D6;"></div>
+        <h3>Draw</h3>
+        <p>Tournaments, leagues and rankings for tennis communities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT III: PATH -->
+<section id="act-path" class="act-content">
+  <div class="inner">
+    <h2>Path</h2>
+    <p>Designer 2014–18 → blockchain analyst 2018–20 → full-time investor 2020–25 → AI-native builder, now.</p>
+    <p>Five years into each, the pattern repeats: arrive to solve something real, stay to compound, move when the next thing calls.</p>
+  </div>
+</section>
+
+<!-- ACT IV: CAPITAL -->
+<section id="act-capital" class="act-content">
+  <div class="inner">
+    <h2>Capital</h2>
+    <p>Angel investor across Southeast Asia, Europe and crypto. Real estate in two countries. Positions in private markets, futures and liquid crypto. The portfolio is the system Jackie-OS was built to hold.</p>
+  </div>
+</section>
+
+<!-- ACT V: VOICE -->
+<section id="act-voice" class="act-content">
+  <div class="inner">
+    <h2>Voice</h2>
+    <p><em>Coming soon.</em></p>
+    <p>The first essay is about growing up between two cultures — one thread, many vibrations. Until it is ready, the work speaks.</p>
+  </div>
+</section>
+
+<!-- ACT VI: SIGNAL -->
+<section id="act-signal" class="act-content">
+  <div class="inner">
+    <h2>Signal</h2>
+    <p><a href="https://github.com/sc-jackie" style="color: var(--gold); text-decoration: none;">github.com/sc-jackie</a></p>
+    <p>No email. Code is the message.</p>
+  </div>
+</section>
+
+<!-- NAV RAIL -->
+<nav class="scrollnav" aria-label="Navigate acts">
+  <a href="#act-origin" aria-label="Act I: Origin">I</a>
+  <a href="#act-work" aria-label="Act II: Work">II</a>
+  <a href="#act-path" aria-label="Act III: Path">III</a>
+  <a href="#act-capital" aria-label="Act IV: Capital">IV</a>
+  <a href="#act-voice" aria-label="Act V: Voice">V</a>
+  <a href="#act-signal" aria-label="Act VI: Signal">VI</a>
+</nav>
+
+<!-- GSAP + ScrollTrigger + Lenis -->
+<script src="/vendor/gsap.min.js"></script>
+<script src="/vendor/ScrollTrigger.min.js"></script>
+<script src="/vendor/lenis.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  const canvas = document.getElementById('silkCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Colors: VN (#DA251D/#FFD700) + UA (#005BBB/#FFD500) + gold
+  const UA_BLUE = [0, 91, 187];
+  const UA_GOLD = [255, 213, 0];
+  const VN_RED = [218, 37, 29];
+  const VN_GOLD = [255, 215, 0];
+  const INDIGO = [26, 31, 58];
+  const PEARL = [229, 231, 239];
+
+  // Canvas sizing
+  function fitCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.floor(rect.width * DPR);
+    canvas.height = Math.floor(rect.height * DPR);
+    return { w: canvas.width, h: canvas.height };
+  }
+  let S = fitCanvas();
+  window.addEventListener('resize', () => { S = fitCanvas(); });
+
+  // Silk cloth simulation state
+  let time = 0;
+  const clothWidth = 40;  // nodes wide
+  const clothHeight = 50; // nodes tall
+  let nodes = [];
+  let edges = [];
+
+  function initCloth() {
+    nodes = [];
+    edges = [];
+    const spacing = S.w / (clothWidth - 1);
+    for (let y = 0; y < clothHeight; y++) {
+      for (let x = 0; x < clothWidth; x++) {
+        const px = x * spacing;
+        const py = y * spacing * 1.5;
+        nodes.push({
+          x: px, y: py,
+          px: px, py: py,
+          ax: 0, ay: 0.08,  // gravity
+          pinned: y === 0,   // top row pinned
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    // edges connect neighbors
+    for (let y = 0; y < clothHeight; y++) {
+      for (let x = 0; x < clothWidth; x++) {
+        const idx = y * clothWidth + x;
+        if (x < clothWidth - 1) {
+          edges.push({ a: idx, b: idx + 1, rest: spacing });
+        }
+        if (y < clothHeight - 1) {
+          edges.push({ a: idx, b: idx + clothWidth, rest: spacing * 1.5 });
+        }
+      }
+    }
+  }
+
+  function updateCloth(scrollPx) {
+    const damping = 0.9945;
+    const constraintIter = 4;
+    const scrollNorm = Math.min(scrollPx / window.innerHeight, 2);
+
+    // Update positions (Verlet integration)
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      if (n.pinned) continue;
+
+      const vx = (n.x - n.px) * damping;
+      const vy = (n.y - n.py) * damping;
+      n.px = n.x;
+      n.py = n.y;
+
+      // Gravity
+      n.ay = 0.12;
+
+      // Wind: oscillates at different phases per column
+      const colNorm = (i % clothWidth) / clothWidth;
+      const windBase = Math.sin(time * 0.8 + n.phase) * 0.015;
+      const windVary = Math.cos(time * 1.3 + colNorm * Math.PI * 2) * 0.01;
+      n.ax = windBase + windVary;
+
+      // Scroll deformation: cloth pulls upward and ripples
+      const rowIdx = Math.floor(i / clothWidth);
+      const rowNorm = rowIdx / clothHeight;
+      if (scrollNorm > 0.1) {
+        const ripple = Math.sin(time * 1.2 + rowNorm * Math.PI * 3) * 0.05;
+        const pullUp = -Math.pow(scrollNorm * 0.3, 1.2);
+        n.ay += ripple + pullUp;
+      }
+
+      n.x += vx + n.ax * 0.5;
+      n.y += vy + n.ay;
+    }
+
+    // Constraint solving
+    for (let iter = 0; iter < constraintIter; iter++) {
+      for (let i = 0; i < edges.length; i++) {
+        const e = edges[i];
+        const a = nodes[e.a];
+        const b = nodes[e.b];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const delta = (dist - e.rest) / dist * 0.5;
+        b.x -= dx * delta;
+        b.y -= dy * delta;
+        a.x += dx * delta;
+        a.y -= dy * delta;
+      }
+    }
+
+    // Boundary containment
+    for (let i = 0; i < nodes.length; i++) {
+      const n = nodes[i];
+      if (n.y > S.h) n.y = S.h;
+      if (n.x < 0) { n.x = 0; n.px = 0; }
+      if (n.x > S.w) { n.x = S.w; n.px = S.w; }
+    }
+  }
+
+  function drawCloth(threadAlpha) {
+    if (!nodes.length) return;
+
+    // Draw cloth as a mesh
+    ctx.strokeStyle = `rgba(${PEARL.join(',')}, ${0.15 * threadAlpha})`;
+    ctx.lineWidth = 1.2 * DPR;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // Horizontal lines (weft)
+    for (let y = 0; y < clothHeight; y++) {
+      ctx.beginPath();
+      for (let x = 0; x < clothWidth; x++) {
+        const n = nodes[y * clothWidth + x];
+        x === 0 ? ctx.moveTo(n.x, n.y) : ctx.lineTo(n.x, n.y);
+      }
+      ctx.stroke();
+    }
+
+    // Vertical lines (warp)
+    for (let x = 0; x < clothWidth; x++) {
+      ctx.beginPath();
+      for (let y = 0; y < clothHeight; y++) {
+        const n = nodes[y * clothWidth + x];
+        y === 0 ? ctx.moveTo(n.x, n.y) : ctx.lineTo(n.x, n.y);
+      }
+      ctx.stroke();
+    }
+
+    // Fill with gradient for shimmer (iridescent roll)
+    const gradient = ctx.createLinearGradient(0, 0, S.w, S.h);
+    gradient.addColorStop(0, `rgba(${INDIGO.join(',')}, ${0.08 * threadAlpha})`);
+    gradient.addColorStop(0.5, `rgba(${PEARL.join(',')}, ${0.04 * threadAlpha})`);
+    gradient.addColorStop(1, `rgba(${INDIGO.join(',')}, ${0.08 * threadAlpha})`);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, S.w, S.h);
+  }
+
+  function drawThreadBundles(progress) {
+    // Act I: Two threads (UA + VN) braid into one
+    const bundleAlpha = Math.min(progress * 1.2, 1);
+    if (bundleAlpha < 0.05) return;
+
+    const bundleWidth = S.w * 0.06;
+    const centerX = S.w * 0.5;
+    const centerY = S.h * 0.48;
+
+    // UA blue thread (left) — oscillates toward center
+    const uaPhase = Math.sin(progress * Math.PI) * 0.3;
+    const uaX = S.w * 0.35 + uaPhase * (S.w * 0.1 - uaPhase * S.w * 0.08);
+    const uaY = centerY + Math.sin(time * 1.1 + progress * Math.PI) * 20;
+    drawBundleGlow(uaX, uaY, bundleWidth * (1 + bundleAlpha * 0.4), UA_BLUE, bundleAlpha * 0.65);
+
+    // VN red thread (right) — oscillates toward center
+    const vnPhase = Math.cos(progress * Math.PI) * 0.3;
+    const vnX = S.w * 0.65 + vnPhase * (-(S.w * 0.1 - vnPhase * S.w * 0.08));
+    const vnY = centerY + Math.cos(time * 1.1 + progress * Math.PI) * 20;
+    drawBundleGlow(vnX, vnY, bundleWidth * (1 + bundleAlpha * 0.4), VN_RED, bundleAlpha * 0.65);
+
+    // Center merge glow (appears ~20% through scroll)
+    if (progress > 0.15) {
+      const mergeProgress = Math.min((progress - 0.15) / 0.65, 1);
+      const mergeAlpha = bundleAlpha * mergeProgress * 0.5;
+      const mergeWidth = bundleWidth * 1.5 * (1 + mergeProgress * 0.6);
+      drawBundleGlow(centerX, centerY, mergeWidth, PEARL, mergeAlpha);
+
+      // Gold accent (iridescent roll)
+      if (mergeProgress > 0.3) {
+        const goldAlpha = Math.min((mergeProgress - 0.3) / 0.4, 1);
+        drawBundleGlow(centerX, centerY - 40, bundleWidth * 0.8, UA_GOLD, mergeAlpha * goldAlpha * 0.4);
+      }
+    }
+  }
+
+  function drawBundleGlow(x, y, w, rgb, alpha) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, w);
+    g.addColorStop(0, `rgba(${rgb.join(',')}, ${alpha})`);
+    g.addColorStop(1, `rgba(${rgb.join(',')}, 0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, w, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function animate() {
+    time += 1/60;
+    const scrollPx = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollNorm = maxScroll > 0 ? scrollPx / maxScroll : 0;
+
+    // Clear canvas with deep indigo base
+    ctx.fillStyle = '#0C0E16';
+    ctx.fillRect(0, 0, S.w, S.h);
+
+    // Nebula: indigo-pearl gradient that shifts with scroll
+    const nebula = ctx.createLinearGradient(0, -S.h * scrollNorm * 0.3, S.w, S.h * (1 + scrollNorm * 0.3));
+    nebula.addColorStop(0, 'rgba(26, 31, 58, 0.25)');
+    nebula.addColorStop(0.5, 'rgba(229, 231, 239, 0.04)');
+    nebula.addColorStop(1, 'rgba(26, 31, 58, 0.25)');
+    ctx.fillStyle = nebula;
+    ctx.fillRect(0, 0, S.w, S.h);
+
+    // Act I: thread braiding during scroll through first section
+    const actIProgress = Math.min(scrollPx / window.innerHeight * 1.1, 1.1);
+    if (actIProgress < 1.2) {
+      drawThreadBundles(actIProgress);
+    }
+
+    // Cloth is always present, responds to scroll position
+    updateCloth(scrollPx);
+    // Cloth visibility increases over first viewport, then maintains
+    const clothAlpha = Math.min(0.15 + scrollPx / window.innerHeight * 0.7, 1);
+    drawCloth(clothAlpha);
+
+    // Ambient dust particles - subtle motion
+    const dustAlpha = 0.03 + 0.015 * Math.sin(time * 0.4 + scrollNorm * Math.PI);
+    ctx.fillStyle = `rgba(229, 231, 239, ${dustAlpha})`;
+    for (let i = 0; i < 6; i++) {
+      const dx = ((i * 0.137 + time * 0.001 + scrollNorm * 0.2) % 1) * S.w;
+      const dy = ((i * 0.61 + scrollNorm * 0.1) % 1) * S.h;
+      ctx.fillRect(dx, dy, 1.5 * DPR, 1.5 * DPR);
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  // Initialize and start
+  initCloth();
+
+  if (!reduced) {
+    // Full animation: cloth physics + thread braiding
+    animate();
+  } else {
+    // Reduced motion: static render
+    function staticRender() {
+      ctx.fillStyle = '#0C0E16';
+      ctx.fillRect(0, 0, S.w, S.h);
+      const nebula = ctx.createLinearGradient(0, 0, S.w, S.h);
+      nebula.addColorStop(0, 'rgba(26, 31, 58, 0.25)');
+      nebula.addColorStop(0.5, 'rgba(229, 231, 239, 0.04)');
+      nebula.addColorStop(1, 'rgba(26, 31, 58, 0.25)');
+      ctx.fillStyle = nebula;
+      ctx.fillRect(0, 0, S.w, S.h);
+      // Draw static cloth at rest
+      ctx.strokeStyle = `rgba(229, 231, 239, 0.2)`;
+      ctx.lineWidth = 1.2 * DPR;
+      for (let y = 0; y < clothHeight; y++) {
+        ctx.beginPath();
+        for (let x = 0; x < clothWidth; x++) {
+          const n = nodes[y * clothWidth + x];
+          x === 0 ? ctx.moveTo(n.x, n.y) : ctx.lineTo(n.x, n.y);
+        }
+        ctx.stroke();
+      }
+    }
+    staticRender();
+  }
+
+  // Nav rail activation
+  const nav = document.querySelector('nav.scrollnav');
+  if (nav) {
+    const sections = document.querySelectorAll('section');
+    function updateNav() {
+      const scrollPos = window.scrollY + window.innerHeight * 0.5;
+      sections.forEach((section, idx) => {
+        const links = nav.querySelectorAll('a');
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (scrollPos >= top && scrollPos < bottom) {
+          links.forEach((link, i) => {
+            link.classList.toggle('active', i === idx);
+          });
+        }
+      });
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+  }
+
+  // Lenis smooth scroll (optional, for agency feel)
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+})();
+</script>
+</body>
+</html>
