@@ -123,6 +123,7 @@ h2 { font-size: clamp(18px, 4vw, 24px); }
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 0.08em;
+  color: inherit;
 }
 
 .flip-cell .char.active {
@@ -182,15 +183,18 @@ h2 { font-size: clamp(18px, 4vw, 24px); }
   max-width: 600px;
 }
 
-.tagline {
-  position: absolute;
-  top: -60px;
-  left: 40px;
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  color: var(--amber);
+.board-title {
+  font-size: 11px;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: var(--amber);
+  text-align: center;
+  margin-bottom: 24px;
   font-weight: 500;
+}
+
+.tagline {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -541,7 +545,7 @@ h2 { font-size: clamp(18px, 4vw, 24px); }
 <!-- Act I: About -->
 <section id="act-i">
   <div class="board about-board">
-    <div class="tagline">NOW BOARDING</div>
+    <div class="board-title">NOW BOARDING</div>
     <div class="board-row" data-text="SERGEI TRAN"></div>
     <div class="board-row" data-text="VIETNAMESE-UKRAINIAN"></div>
     <div class="board-row" data-text="BORN IN ODESA"></div>
@@ -655,15 +659,18 @@ function renderBoardRow(text, container) {
     container.appendChild(cell);
   });
 
-  // Stagger the flip animation
+  // Stagger the flip animation (respects reduced-motion)
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const delay = prefersReducedMotion ? 0 : 300;
+
   setTimeout(() => {
     const cells = container.querySelectorAll('.flip-cell');
     cells.forEach((cell, i) => {
       setTimeout(() => {
         animateCell(cell);
-      }, i * 60);
+      }, i * (prefersReducedMotion ? 0 : 60));
     });
-  }, 300);
+  }, delay);
 }
 
 // Animate a single cell through its sequence
@@ -674,14 +681,13 @@ function animateCell(cell) {
   let idx = 0;
 
   const advance = () => {
-    if (idx > 0) {
-      chars[idx - 1].classList.remove('active');
-    }
-
     if (idx < chars.length) {
+      if (idx > 0) {
+        chars[idx - 1].classList.remove('active');
+      }
       chars[idx].classList.add('active');
       idx++;
-      setTimeout(advance, 120); // Longer interval for more readable flip
+      setTimeout(advance, 120);
     }
   };
 
