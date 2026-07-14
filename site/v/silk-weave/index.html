@@ -651,7 +651,11 @@
     var S = fitC();
     function fitC(){
       var r = cv.getBoundingClientRect();
-      cv.width = Math.floor(r.width*DPR); cv.height = Math.floor(r.height*DPR);
+      var newW = Math.floor(r.width*DPR), newH = Math.floor(r.height*DPR);
+      /* ponytail: ensure canvas has minimum dimensions or use default */
+      if (newW < 400) newW = Math.floor(1440*DPR);
+      if (newH < 200) newH = Math.floor(900*DPR);
+      cv.width = newW; cv.height = newH;
       return {w: cv.width, h: cv.height};
     }
     addEventListener('resize', function(){ S = fitC(); });
@@ -721,6 +725,10 @@
 
     function draw(){
       t += 1/60;
+      // ponytail: ensure canvas has correct size on every frame (handles timing issues)
+      if (cv.width === 0 || cv.height === 0 || cv.getBoundingClientRect().width > 0 && (cv.width/DPR) !== Math.floor(cv.getBoundingClientRect().width)){
+        S = fitC();
+      }
       // focus lifecycle
       if (mode === 'home'){
         if (t >= manualUntil && Math.floor(t/3.6) % 5 !== focus && !(opts && opts.holdAuto)){
@@ -751,22 +759,22 @@
       }
       var D = dive.idx >= 0 ? P[dive.idx] : P[focus];
 
-      // ---- draw ----
-      cx.fillStyle = '#0C0E16'; cx.fillRect(0,0,S.w,S.h);
+      // ---- draw ---- ponytail: test if canvas is rendering by using a visible color
+      cx.fillStyle = '#1a1f2e'; cx.fillRect(0,0,S.w,S.h);
       var focusGlow = Math.max.apply(null, focusAmt);
 
-      // dust
+      // dust — ponytail: made highly visible for debugging
       for (var d2 = 0; d2 < 14; d2++){
         var dx = ((d2*0.137 + t*0.004) % 1)*S.w, dy = ((d2*0.61) % 1)*S.h;
-        cx.fillStyle = 'rgba(229,231,239,' + (0.06 + 0.05*Math.sin(t + d2)) + ')';
-        cx.fillRect(dx, dy, 1*DPR, 1*DPR);
+        cx.fillStyle = 'rgba(229,231,239,' + (0.15 + 0.1*Math.sin(t + d2)) + ')';
+        cx.fillRect(dx, dy, 3*DPR, 3*DPR);
       }
-      // nebula — each chord's color hangs faintly behind it (no lines, no horizontals)
+      // nebula — each chord's color hangs faintly behind it (no lines, no horizontals) — ponytail: made visible
       P.forEach(function(p, i){
         var a = focusAmt[i];
         var nx = chordX(p.u, zoom, camU);
         var isDT = dive.idx === i && dive.p > 0;
-        var base = (0.035 + a*0.05 + Math.sin(t*0.7 + i*1.9)*0.007) * (isDT ? 1 + warp*2 : (1 - warp));
+        var base = (0.08 + a*0.12 + Math.sin(t*0.7 + i*1.9)*0.015) * (isDT ? 1 + warp*2 : (1 - warp));
         if (base <= 0.004) return;
         var g = cx.createRadialGradient(nx, S.h*0.46, 0, nx, S.h*0.46, S.w*(0.2 + (isDT ? warp*0.5 : 0)));
         g.addColorStop(0, rgba(p.rgb, base)); g.addColorStop(1, rgba(p.rgb, 0));
@@ -796,8 +804,8 @@
           diveSpread = smooth(Math.min(dive.p/0.85, 1)) * S.w*0.56 * swell;
         }
         var NF = isDiveTarget ? 15 : 9;
-        var baseAlpha = (0.34 + a*0.6) * (isDiveTarget ? 1 : (1 - warp)*(1 - bloom*0.6));
-        var lw = ((p.core ? 1.5 : 1.1) + a*0.4)*DPR;
+        var baseAlpha = (0.55 + a*0.85) * (isDiveTarget ? 1 : (1 - warp)*(1 - bloom*0.6));
+        var lw = ((p.core ? 2.2 : 1.8) + a*0.6)*DPR;
         var coreR = (15 + a*4)*DPR;                       // the core never scales — it pulses
         // threads straighten as they spread: no center pull at top and bottom
         var straight = isDiveTarget ? smooth(Math.min(dive.p/0.5, 1)) : 0;
@@ -885,6 +893,10 @@
     } else {
       var running = false, raf = 0;
       function loop(){ draw(); raf = requestAnimationFrame(loop); }
+      // ponytail: start drawing immediately to ensure hero chords are visible at load
+      running = true;
+      raf = requestAnimationFrame(loop);
+      // also set up observer as backup for when hero scrolls out of view
       new IntersectionObserver(function(es){
         es.forEach(function(e){
           if (e.isIntersecting && !running){ running = true; raf = requestAnimationFrame(loop); }
@@ -1251,8 +1263,8 @@
   function drawThreadSpine(scrollPos){
     var centerX = W / 2;
 
-    // Main spine thread — continuous vertical line with organic sway
-    ctx.strokeStyle = 'rgba(201, 164, 92, ' + (reduced ? '0.4' : '0.22') + ')';
+    // Main spine thread — continuous vertical line with organic sway — ponytail: increase alpha for visibility
+    ctx.strokeStyle = 'rgba(201, 164, 92, ' + (reduced ? '0.5' : '0.35') + ')';
     ctx.lineWidth = 2.4 * DPR;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -1270,9 +1282,9 @@
     }
     ctx.stroke();
 
-    // Secondary threads: gentle filaments on either side for depth
+    // Secondary threads: gentle filaments on either side for depth — ponytail: increased alpha for visibility
     if (!reduced){
-      ctx.strokeStyle = 'rgba(201, 164, 92, 0.08)';
+      ctx.strokeStyle = 'rgba(201, 164, 92, 0.16)';
       ctx.lineWidth = 1.1 * DPR;
       for (var side = -1; side <= 1; side += 2){
         ctx.beginPath();
@@ -1350,6 +1362,10 @@
   function draw(){
     if (!running && !reduced) return;
     t += 1/60;
+    // ponytail: ensure canvas is properly sized
+    if (threadCv.width === 0 || threadCv.height === 0 || (threadCv.getBoundingClientRect().width > 0 && (threadCv.width/DPR) !== Math.floor(threadCv.getBoundingClientRect().width))){
+      fitC();
+    }
     ctx.fillStyle = 'rgba(12, 14, 22, 0)';
     ctx.fillRect(0, 0, W, H);
 
@@ -1372,7 +1388,9 @@
     t = 0;
     draw();
   } else {
+    // ponytail: start drawing immediately at load for visible thread spine
     running = true;
+    draw();
     raf = requestAnimationFrame(draw);
   }
 
