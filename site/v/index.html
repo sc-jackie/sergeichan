@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ten Doors — Sergei's Worlds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --space: #0C0E16;
+      --pearl: #F6F5F0;
+      --gold: #D4AF37;
+      --gold-dim: #9D8A2A;
+      --ink: #1A1816;
+      --signal-blue: #0066FF;
+      font-family: 'Inter', sans-serif;
+      color-scheme: dark;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--space) 0%, #161829 100%);
+      color: var(--pearl);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 6rem;
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--pearl) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #A89F94;
+      letter-spacing: 0.05em;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 5rem;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Cards */
+    .card {
+      position: relative;
+      padding: 2rem;
+      background: rgba(31, 40, 62, 0.4);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
+      transition: left 0.5s ease-out;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      background: rgba(31, 40, 62, 0.7);
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .card-header {
+      margin-bottom: 1rem;
+    }
+
+    .card-number {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--pearl);
+      line-height: 1.2;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: #A89F94;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .card-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.3s ease;
+    }
+
+    .card:hover .card-link {
+      gap: 0.8rem;
+    }
+
+    .card-link::after {
+      content: '→';
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-link::after {
+      transform: translateX(4px);
+    }
+
+    /* Stagger animations */
+    .gallery:nth-of-type(1) .card:nth-child(1) { animation-delay: 0.4s; }
+    .gallery:nth-of-type(1) .card:nth-child(2) { animation-delay: 0.5s; }
+    .gallery:nth-of-type(1) .card:nth-child(3) { animation-delay: 0.6s; }
+    .gallery:nth-of-type(1) .card:nth-child(4) { animation-delay: 0.7s; }
+    .gallery:nth-of-type(1) .card:nth-child(5) { animation-delay: 0.8s; }
+    .gallery:nth-of-type(1) .card:nth-child(6) { animation-delay: 0.9s; }
+    .gallery:nth-of-type(1) .card:nth-child(7) { animation-delay: 1s; }
+
+    .gallery:nth-of-type(2) .card:nth-child(1) { animation-delay: 1.2s; }
+    .gallery:nth-of-type(2) .card:nth-child(2) { animation-delay: 1.3s; }
+    .gallery:nth-of-type(2) .card:nth-child(3) { animation-delay: 1.4s; }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer hint */
+    .hint {
+      text-align: center;
+      margin-top: 4rem;
+      font-size: 0.85rem;
+      color: #6B6460;
+      font-weight: 300;
+      animation: fadeInUp 0.8s ease-out 1.6s forwards;
+      opacity: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.5rem;
+      }
+
+      header {
+        margin-bottom: 3rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .card {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Ten Doors</h1>
+      <p>Pick the one that feels like me</p>
+    </header>
+
+    <!-- Seven Directions -->
+    <section class="section">
+      <h2 class="section-title">Seven Directions</h2>
+      <div class="gallery">
+        <a href="/v/silk/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Direction 1</div>
+            <div class="card-title">Silk</div>
+          </div>
+          <p class="card-description">One cloth is the whole surface — simulated silk ripples and folds respond to scroll, physics-based convergence of two threads.</p>
+          <span class="card-link">View Direction</span>
+        </a>
+
+        <a href="/v/signal-field/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Direction 2</div>
+            <div class="card-title">Signal Field</div>
+          </div>
+          <p class="card-description">Two thousand five hundred particles morph through six formations per scroll—spiral resolves from scatter into one living system.</p>
+          <span class="card-link">View Direction</span>
+        </a>
+
+        <a href="/v/blueprint/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Direction 3</div>
+            <div class="card-title">Blueprint</div>
+          </div>
+          <p class="card-description">Light technical drawing aesthetic — work is the hero, precision is aesthetic. Wireframe schematics render each project's identity.</p>
+          <span class="card-link">View Direction</span>
+        </a>
+
+        <a href="/v/ascii/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Direction 4</div>
+            <div class="card-title">ASCII Machine</div>
+          </div>
+          <p class="card-description">CRT effect engine with noise, scanlines, vignette. Name resolves from digital noise. Six acts as ASCII scenes and diagrams.</p>
+          <span class="card-link">View Direction</span>
+        </a>
+
+        <a href="/v/chiaroscuro/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Direction 5</div>
+            <div class="card-title">Chiaroscuro</div>
+          </div>
+          <p class="card-description">Scroll-driven light reveal with cinematic restraint. A warm light source moves across darkness, revealing identity and projects.</p>
+          <span class="card-link">View Direction</span>
+        </a>
+
+        <a href="/v/split-flap/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Direction 6</div>
+            <div class="card-title">Split-Flap</div>
+          </div>
+          <p class="card-description">Mechanical departures board in CSS 3D. Text cycles through random characters before landing—authentic flip rhythm and clack feedback.</p>
+          <span class="card-link">View Direction</span>
+        </a>
+
+        <a href="/v/moire/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Direction 7</div>
+            <div class="card-title">Moiré</div>
+          </div>
+          <p class="card-description">Gallery-grade optical portfolio—precision moiré interference patterns phase-shift as you scroll. Work through dynamic bloom and dissolve.</p>
+          <span class="card-link">View Direction</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Three Silk Flows -->
+    <section class="section">
+      <h2 class="section-title">Three Silk Flows — Same Site, Different Motion</h2>
+      <div class="gallery">
+        <a href="/v/silk-weave/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Flow A</div>
+            <div class="card-title">Continuous Weave</div>
+          </div>
+          <p class="card-description">Canvas thread spine flows vertically through all six acts. Acts transition with unraveling and threading effects—woven handoffs between chapters.</p>
+          <span class="card-link">View Flow</span>
+        </a>
+
+        <a href="/v/silk-curtain/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Flow B</div>
+            <div class="card-title">Curtain Cuts</div>
+          </div>
+          <p class="card-description">Six full-screen acts connected by theatrical silk-curtain wipes. Dissolving title cards, then free-scroll content. Wave-distorted fabric folds.</p>
+          <span class="card-link">View Flow</span>
+        </a>
+
+        <a href="/v/silk-loom/" class="card" tabindex="0">
+          <div class="card-header">
+            <div class="card-number">Flow C</div>
+            <div class="card-title">Horizontal Loom</div>
+          </div>
+          <p class="card-description">Horizontal scroll interpretation—six acts glide as side-by-side full-viewport panels. Vertical scroll maps to x-translation on desktop; vertical fallback on mobile.</p>
+          <span class="card-link">View Flow</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="hint">
+      Use arrow keys or tab to navigate. Each direction is a complete, standalone world.
+    </div>
+  </div>
+</body>
+</html>
