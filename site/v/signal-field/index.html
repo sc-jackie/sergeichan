@@ -31,7 +31,11 @@
 
   /* Acts container */
   .act{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
-    padding:60px 32px;text-align:center;position:relative}
+    padding:80px 60px;text-align:center;position:relative}
+  @media (max-width:768px){
+    .act{padding:60px 40px}
+    #act-ii{padding-left:40px;padding-right:40px}
+  }
   .act > *{opacity:1;transform:none;transition:opacity 0.8s ease, transform 0.8s ease}
   .act.in-view > *{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){
@@ -39,17 +43,23 @@
   }
 
   /* Act I: Origin */
-  #act-i{background:transparent;color:var(--pearl)}
-  #act-i .name{font-size:clamp(42px,8vw,72px);font-weight:250;letter-spacing:-.02em;
-    line-height:1.05;margin:0;max-width:16em}
+  #act-i{background:transparent;color:var(--pearl);position:relative}
+  #act-i-content{position:relative;z-index:20;opacity:1;animation:fadeInName 0.8s ease-out forwards}
+  @keyframes fadeInName{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:none}
+  }
+  #act-i .name{font-size:clamp(48px,9vw,84px);font-weight:300;letter-spacing:-.025em;
+    line-height:1.05;margin:0;max-width:16em;text-shadow:0 2px 16px rgba(0,0,0,0.4)}
   #act-i .tagline{font-size:clamp(16px,2.5vw,24px);color:var(--muted);margin:16px 0 0;font-weight:300}
 
   /* Act II: Work */
+  #act-ii{padding-left:60px;padding-right:60px}
   #act-ii .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;
     margin-top:32px;width:100%;max-width:900px}
   .project-card{border:1px solid var(--line);border-radius:12px;padding:24px;
     background:rgba(12,14,22,.4);backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);transition:all 0.3s ease}
+    -webkit-backdrop-filter:blur(8px);transition:all 0.3s ease;min-height:160px;display:flex;flex-direction:column;justify-content:space-between}
   .project-card:hover{border-color:var(--signal);background:rgba(74,156,255,.08)}
   .project-card .name{font-size:18px;font-weight:500;margin:0;color:var(--pearl)}
   .project-card .one{font-size:13px;color:var(--muted);margin:8px 0 0;line-height:1.5}
@@ -107,7 +117,7 @@
 <div id="content">
   <!-- Act I: Origin -->
   <section id="act-i" class="act">
-    <div>
+    <div id="act-i-content">
       <h1 class="name">Sergei Tran</h1>
       <p class="tagline">AI-native systems builder</p>
     </div>
@@ -159,21 +169,54 @@
 
 <script type="module">
   // Import data
-  import { about } from '/site/js/data/about.js';
-  import { caseData } from '/site/js/data/work.js';
+  import { about } from '/js/data/about.js';
+  import { caseData } from '/js/data/work.js';
 
   // Canvas setup
   const canvas = document.getElementById('canvas-bg');
   const ctx = canvas.getContext('2d');
 
   function resizeCanvas(){
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = Math.max(1, rect.width);
-    canvas.height = Math.max(1, rect.height);
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.scale(dpr, dpr);
   }
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
+
+  // Simple name constellation formation
+  function createNameFormation(centerX, centerY) {
+    const points = [];
+
+    // Create a dense grid-based formation spelling "SERGEI TRAN" conceptually
+    // Using concentric circles and spiral for visual interest
+    const layers = [
+      { radius: 60, count: 200 },   // Dense inner ring
+      { radius: 120, count: 150 },  // Middle ring
+      { radius: 180, count: 100 }   // Outer ring
+    ];
+
+    layers.forEach((layer, layerIdx) => {
+      for (let i = 0; i < layer.count; i++) {
+        const angle = (i / layer.count) * Math.PI * 2;
+        // Slight rotation per layer for visual flow
+        const rotatedAngle = angle + (layerIdx * 0.5);
+        const x = centerX + Math.cos(rotatedAngle) * layer.radius;
+        const y = centerY + Math.sin(rotatedAngle) * layer.radius;
+        points.push({ x, y });
+      }
+    });
+
+    // Add dense central cluster
+    for (let x = -50; x <= 50; x += 8) {
+      for (let y = -50; y <= 50; y += 8) {
+        points.push({ x: centerX + x, y: centerY + y });
+      }
+    }
+
+    return points.slice(0, 2500);
+  }
 
   // Particle system
   class ParticleCloud {
@@ -197,7 +240,7 @@
         const target = initialFormation[i % Math.max(1, initialFormation.length)] || {x: window.innerWidth / 2, y: window.innerHeight / 2};
         // Start in loose cloud around center
         const angle = (i / count) * Math.PI * 2;
-        const scatter = Math.random() * 300;
+        const scatter = Math.random() * 400;
         this.particles.push({
           x: window.innerWidth / 2 + Math.cos(angle) * scatter,
           y: window.innerHeight / 2 + Math.sin(angle) * scatter,
@@ -215,48 +258,37 @@
       const h = window.innerHeight;
       const center = {x: w / 2, y: h / 2};
 
-      // Act I: Initials "ST" - parametric spiral grid in center
-      const initials = [];
-      const centerX = w / 2;
-      const centerY = h / 2;
-      for(let angle = 0; angle < Math.PI * 12; angle += 0.15){
-        const r = angle * 15;
-        if(r < 250){
-          initials.push({
-            x: centerX + Math.cos(angle) * r,
-            y: centerY + Math.sin(angle) * r
-          });
-        }
-      }
-      // Add dense core
-      for(let x = -80; x <= 80; x += 8){
-        for(let y = -40; y <= 40; y += 8){
-          initials.push({x: centerX + x, y: centerY + y});
-        }
-      }
-      this.formations.set('initials', initials.slice(0, Math.min(1500, initials.length)));
+      // Act I: Name constellation - dense spiral and rings
+      const nameFormation = createNameFormation(center.x, center.y);
+      this.formations.set('initials', nameFormation);
 
-      // Act II: Five constellations (one per project)
+      // Act II: Five constellations (one per project) — more structured
       const projects = ['Jackie-OS', 'Newfin', 'B-Unit', 'Rodyna', 'Draw'];
       projects.forEach((name, idx) => {
         const constellation = [];
         const angle = (idx / projects.length) * Math.PI * 2;
-        const radius = 180;
 
-        // Central node
-        constellation.push({x: center.x, y: center.y});
-
-        // Orbiting nodes
-        for(let i = 0; i < 200; i++){
-          const orbitAngle = (i / 200) * Math.PI * 2 + angle;
-          const r = 80 + Math.sin(i / 30) * 40;
+        // Central dense cluster
+        for(let i = 0; i < 150; i++){
+          const r = Math.random() * 120;
+          const a = Math.random() * Math.PI * 2;
           constellation.push({
-            x: center.x + Math.cos(orbitAngle + angle) * r,
-            y: center.y + Math.sin(orbitAngle + angle) * r
+            x: center.x + Math.cos(a) * r,
+            y: center.y + Math.sin(a) * r
           });
         }
 
-        this.formations.set(`project-${idx}`, constellation.slice(0, 200));
+        // Orbiting halo
+        for(let i = 0; i < 100; i++){
+          const orbitAngle = (i / 100) * Math.PI * 2 + angle;
+          const r = 180 + Math.sin(i / 20) * 50;
+          constellation.push({
+            x: center.x + Math.cos(orbitAngle) * r,
+            y: center.y + Math.sin(orbitAngle) * r
+          });
+        }
+
+        this.formations.set(`project-${idx}`, constellation.slice(0, 250));
       });
 
       // Act III: Timeline path
@@ -296,23 +328,39 @@
     update(scrollProgress){
       this.scrollProgress = scrollProgress;
 
-      // Determine current formation based on scroll
+      // Determine current formation based on scroll — refined timing
       let targetFormation = null;
-      if(scrollProgress < 0.15) targetFormation = this.formations.get('initials');
-      else if(scrollProgress < 0.35) {
-        const workProg = (scrollProgress - 0.15) / 0.2;
+      if(scrollProgress < 0.18) {
+        // Act I: Name glyph holds longer
+        targetFormation = this.formations.get('initials');
+      }
+      else if(scrollProgress < 0.38) {
+        // Act II: Cycle through projects smoothly
+        const workProg = (scrollProgress - 0.18) / 0.2;
         const projectIdx = Math.floor(workProg * 5);
         targetFormation = this.formations.get(`project-${Math.min(projectIdx, 4)}`);
       }
-      else if(scrollProgress < 0.50) targetFormation = this.formations.get('timeline');
-      else if(scrollProgress < 0.65) targetFormation = this.formations.get('streams');
-      else if(scrollProgress < 0.80) targetFormation = this.formations.get('scatter');
-      else targetFormation = this.formations.get('pulse');
+      else if(scrollProgress < 0.52) {
+        // Act III: Timeline
+        targetFormation = this.formations.get('timeline');
+      }
+      else if(scrollProgress < 0.68) {
+        // Act IV: Streams
+        targetFormation = this.formations.get('streams');
+      }
+      else if(scrollProgress < 0.82) {
+        // Act V: Scatter
+        targetFormation = this.formations.get('scatter');
+      }
+      else {
+        // Act VI: Pulse
+        targetFormation = this.formations.get('pulse');
+      }
 
       if(!targetFormation) return;
 
-      // Lerp particles to target formation
-      const easeFactor = 0.08;
+      // Lerp particles to target formation — slightly faster
+      const easeFactor = 0.12;
       targetFormation.forEach((target, idx) => {
         if(idx < this.particles.length){
           const p = this.particles[idx];
@@ -321,35 +369,35 @@
         }
       });
 
-      // Update particle physics
+      // Update particle physics — slightly faster convergence
       this.particles.forEach(p => {
-        p.x += (p.tx - p.x) * 0.12;
-        p.y += (p.ty - p.y) * 0.12;
+        p.x += (p.tx - p.x) * 0.16;
+        p.y += (p.ty - p.y) * 0.16;
       });
     }
 
     draw(){
-      // Clear canvas with subtle persistence
-      ctx.fillStyle = 'rgba(12, 14, 22, 0.04)';
+      // Clear canvas — slightly more persistent for better visual cohesion
+      ctx.fillStyle = 'rgba(12, 14, 22, 0.08)';
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-      // Draw particles with higher opacity
-      this.particles.forEach((p, idx) => {
+      // Draw particles with gradient falloff from center
+      this.particles.forEach((p) => {
         const dist = Math.hypot(p.x - (window.innerWidth / 2), p.y - (window.innerHeight / 2));
-        const maxDist = Math.max(window.innerWidth, window.innerHeight);
-        const alpha = Math.max(0.4, 1 - (dist / maxDist) * 0.6);
+        const maxDist = Math.sqrt(window.innerWidth * window.innerWidth + window.innerHeight * window.innerHeight) / 2;
+        const alpha = Math.max(0.2, 1 - Math.pow(dist / maxDist, 1.5) * 0.8);
 
         // Bright core particles (signal blue)
-        const particleSize = Math.max(1.5, p.size);
-        ctx.fillStyle = `rgba(74, 156, 255, ${Math.min(1, alpha * 0.85 + 0.15)})`;
+        const particleSize = Math.max(1.2, p.size * 0.9);
+        ctx.fillStyle = `rgba(74, 156, 255, ${Math.min(1, alpha * 0.9)})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, particleSize, 0, Math.PI * 2);
         ctx.fill();
 
-        // Softer outer glow
-        ctx.fillStyle = `rgba(229, 231, 239, ${alpha * 0.25})`;
+        // Subtle outer glow
+        ctx.fillStyle = `rgba(229, 231, 239, ${alpha * 0.15})`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, particleSize * 2.2, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, particleSize * 2.5, 0, Math.PI * 2);
         ctx.fill();
       });
     }
