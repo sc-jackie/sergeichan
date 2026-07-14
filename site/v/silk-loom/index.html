@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sergei Tran — Silk Loom</title>
+<meta name="description" content="Six acts woven as horizontal panels on one loom thread—scroll vertically to glide across the cloth.">
+<style>
+  :root {
+    --space: #0C0E16;
+    --pearl: #E5E7EF;
+    --muted: #9AA0B0;
+    --dim: #6A7080;
+    --line: rgba(229,231,239,.12);
+    --gold: #C9A45C;
+    --indigo: #1a1f3a;
+    --indigo-dark: #0f1420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html.reduced-motion-on { scroll-behavior: auto; }
+  body {
+    background: var(--space);
+    color: var(--pearl);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  @font-face {
+    font-family: 'Fraunces';
+    font-weight: 250;
+    src: url('/fonts/Fraunces-Bold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-weight: 400;
+    src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Inter';
+    font-weight: 500;
+    src: url('/fonts/Inter-Medium.woff2') format('woff2');
+  }
+
+  /* ============ HERO CANVAS (warp-thread + shuttle) ============ */
+  #hero {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  #hero canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ============ CONTAINERS (JS-CONTROLLED) ============ */
+  #loom-scroll,
+  #vertical-stack {
+    display: none;
+  }
+
+  /* ============ HORIZONTAL LOOM CONTAINER ============ */
+  @media (min-width: 1024px) {
+    #loom-scroll {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      width: 100vw;
+      height: 100svh;
+      overflow: hidden;
+      display: block;
+    }
+
+    #vertical-stack {
+      display: none !important;
+    }
+
+    #loom-track {
+      display: flex;
+      will-change: transform;
+      width: fit-content;
+    }
+
+    section {
+      flex-shrink: 0;
+      width: 100vw;
+      height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 40px;
+      position: relative;
+      z-index: 1;
+      background: rgba(12, 14, 22, 0.95);
+      backdrop-filter: blur(4px);
+      border-right: 1px solid var(--line);
+    }
+  }
+
+  /* ============ VERTICAL FALLBACK (mobile < 1024px) ============ */
+  @media (max-width: 1023px) {
+    #loom-scroll {
+      display: none !important;
+    }
+
+    #vertical-stack {
+      display: block;
+    }
+
+    #loom-scroll,
+    #loom-track {
+      position: static !important;
+      transform: none !important;
+      width: 100% !important;
+      height: auto !important;
+      will-change: auto !important;
+    }
+
+    section {
+      min-height: 100svh;
+      position: relative;
+      z-index: 1;
+      background: var(--space);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+      width: 100% !important;
+      border-right: none !important;
+    }
+  }
+
+  /* ============ ACT STYLES ============ */
+  section.act-i {
+    background: linear-gradient(180deg, var(--indigo-dark) 0%, rgba(12, 14, 22, 0.95) 100%);
+  }
+
+  .act-i .inner {
+    text-align: center;
+    max-width: 45em;
+  }
+  .act-i h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-family: Fraunces, serif;
+    font-weight: 250;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--pearl);
+    line-height: 1.15;
+  }
+  .act-i p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin: 0;
+    letter-spacing: 0.3px;
+  }
+  .act-i p em {
+    font-style: italic;
+    color: #C6CBE8;
+    font-weight: 500;
+  }
+
+  /* Act II: five chords */
+  section.act-ii {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .chord-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+  }
+  .chord-card {
+    text-align: center;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 16px;
+    background: rgba(12, 14, 22, 0.4);
+    backdrop-filter: blur(8px);
+    transition: all 0.35s ease;
+  }
+  .chord-card:hover {
+    border-color: var(--gold);
+    background: rgba(12, 14, 22, 0.6);
+  }
+  .chord-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .chord-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .chord-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+  }
+
+  /* Acts III–VI: content */
+  section.act-content .inner {
+    max-width: 640px;
+    text-align: center;
+  }
+  section.act-content h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-family: Fraunces, serif;
+    font-weight: 250;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  section.act-content p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+  section.act-content p em {
+    font-style: italic;
+    color: #C6CBE8;
+  }
+  section.act-content p a {
+    color: var(--gold);
+    text-decoration: none;
+    position: relative;
+    transition: opacity 0.25s ease;
+  }
+  section.act-content p a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  /* ============ SHUTTLE NAV ============ */
+  .shuttle-nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 70;
+    display: none;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: Georgia, serif;
+  }
+
+  @media (min-width: 1024px) {
+    .shuttle-nav {
+      display: flex;
+    }
+  }
+
+  .shuttle-dots {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .shuttle-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.4;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .shuttle-dot.active {
+    background: var(--pearl);
+    opacity: 1;
+    width: 20px;
+    border-radius: 4px;
+  }
+  .shuttle-dot:hover {
+    opacity: 0.7;
+  }
+
+  /* ============ NAV RAIL (MOBILE) ============ */
+  nav.scrollnav {
+    position: fixed;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 1023px) {
+    nav.scrollnav {
+      display: flex;
+    }
+  }
+
+  nav.scrollnav a {
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.5;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  nav.scrollnav a:hover,
+  nav.scrollnav a.active {
+    color: var(--pearl);
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    nav.scrollnav { right: 12px; font-size: 12px; gap: 12px; }
+    section { padding: 40px 16px; }
+    .chord-grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto !important; }
+    * { transition: none !important; animation: none !important; }
+    #loom-track { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="hero">
+  <canvas id="loomCanvas"></canvas>
+</div>
+
+<!-- HORIZONTAL LOOM SCROLL CONTAINER (desktop only) -->
+<div id="loom-scroll">
+  <div id="loom-track">
+    <!-- ACT I: ORIGIN -->
+    <section id="act-origin" class="act-i">
+      <div class="inner">
+        <h1>One thread</h1>
+        <p><em>Vietnamese silk heritage meets Ukrainian thread</em> — two cultures braid into one cloth, drawn as the page loads.</p>
+      </div>
+    </section>
+
+    <!-- ACT II: WORK (five chords) -->
+    <section id="act-work" class="act-ii">
+      <div style="width: 100%; text-align: center;">
+        <h2 style="font-size: clamp(24px, 4vw, 36px); margin-bottom: 32px;">Five chords</h2>
+        <div class="chord-grid">
+          <div class="chord-card">
+            <div class="chord-swatch" style="background: #7C93E8;"></div>
+            <h3>Newfin</h3>
+            <p>Net worth, cashflow and an LLM advisor.</p>
+          </div>
+          <div class="chord-card">
+            <div class="chord-swatch" style="background: #5FBF8E;"></div>
+            <h3>B-Unit</h3>
+            <p>A gamified habit economy for teens.</p>
+          </div>
+          <div class="chord-card">
+            <div class="chord-swatch" style="background: #C9A45C;"></div>
+            <h3>Jackie-OS</h3>
+            <p>A personal AI operating system.</p>
+          </div>
+          <div class="chord-card">
+            <div class="chord-swatch" style="background: #E08D66;"></div>
+            <h3>Rodyna</h3>
+            <p>Family recipes with their stories.</p>
+          </div>
+          <div class="chord-card">
+            <div class="chord-swatch" style="background: #56C4D6;"></div>
+            <h3>Draw</h3>
+            <p>Tournaments for tennis communities.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT III: PATH -->
+    <section id="act-path" class="act-content">
+      <div class="inner">
+        <h2>Path</h2>
+        <p>Designer 2014–18 → blockchain analyst 2018–20 → full-time investor 2020–25 → AI-native builder, now.</p>
+        <p>Five years into each, the pattern repeats: arrive to solve something real, stay to compound, move when the next thing calls.</p>
+      </div>
+    </section>
+
+    <!-- ACT IV: CAPITAL -->
+    <section id="act-capital" class="act-content">
+      <div class="inner">
+        <h2>Capital</h2>
+        <p>Angel investor across Southeast Asia, Europe and crypto. Real estate in two countries. Positions in private markets, futures and liquid crypto.</p>
+      </div>
+    </section>
+
+    <!-- ACT V: VOICE -->
+    <section id="act-voice" class="act-content">
+      <div class="inner">
+        <h2>Voice</h2>
+        <p><em>Coming soon.</em></p>
+        <p>The first essay is about growing up between two cultures — one thread, many vibrations. Until it is ready, the work speaks.</p>
+      </div>
+    </section>
+
+    <!-- ACT VI: SIGNAL -->
+    <section id="act-signal" class="act-content">
+      <div class="inner">
+        <h2>Signal</h2>
+        <p><a href="https://github.com/sc-jackie" style="color: var(--gold); text-decoration: none;">github.com/sc-jackie</a></p>
+        <p>No email. Code is the message.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- VERTICAL FALLBACK (mobile) -->
+<div id="vertical-stack">
+  <!-- ACT I: ORIGIN -->
+  <section id="act-origin-v" class="act-i">
+    <div class="inner">
+      <h1>One thread</h1>
+      <p><em>Vietnamese silk heritage meets Ukrainian thread</em> — two cultures braid into one cloth, drawn as the page loads.</p>
+    </div>
+  </section>
+
+  <!-- ACT II: WORK (five chords) -->
+  <section id="act-work-v" class="act-ii">
+    <div style="width: 100%; max-width: 1000px; margin: 0 auto;">
+      <h2 style="font-size: clamp(24px, 5vw, 36px); text-align: center; margin-bottom: 40px;">Five chords</h2>
+      <div class="chord-grid" style="grid-template-columns: 1fr;">
+        <div class="chord-card">
+          <div class="chord-swatch" style="background: #7C93E8;"></div>
+          <h3>Newfin</h3>
+          <p>Net worth, cashflow and an LLM advisor for a genuinely mixed portfolio.</p>
+        </div>
+        <div class="chord-card">
+          <div class="chord-swatch" style="background: #5FBF8E;"></div>
+          <h3>B-Unit</h3>
+          <p>A gamified habit economy for a teenager — real quests, real rewards, agent coaching.</p>
+        </div>
+        <div class="chord-card">
+          <div class="chord-swatch" style="background: #C9A45C;"></div>
+          <h3>Jackie-OS</h3>
+          <p>A personal AI operating system — memory, skills, and always-on agents running one life.</p>
+        </div>
+        <div class="chord-card">
+          <div class="chord-swatch" style="background: #E08D66;"></div>
+          <h3>Rodyna</h3>
+          <p>Family recipes with their stories — captured from YouTube, photos or text, in two languages.</p>
+        </div>
+        <div class="chord-card">
+          <div class="chord-swatch" style="background: #56C4D6;"></div>
+          <h3>Draw</h3>
+          <p>Tournaments, leagues and rankings for tennis communities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT III: PATH -->
+  <section id="act-path-v" class="act-content">
+    <div class="inner">
+      <h2>Path</h2>
+      <p>Designer 2014–18 → blockchain analyst 2018–20 → full-time investor 2020–25 → AI-native builder, now.</p>
+      <p>Five years into each, the pattern repeats: arrive to solve something real, stay to compound, move when the next thing calls.</p>
+    </div>
+  </section>
+
+  <!-- ACT IV: CAPITAL -->
+  <section id="act-capital-v" class="act-content">
+    <div class="inner">
+      <h2>Capital</h2>
+      <p>Angel investor across Southeast Asia, Europe and crypto. Real estate in two countries. Positions in private markets, futures and liquid crypto. The portfolio is the system Jackie-OS was built to hold.</p>
+    </div>
+  </section>
+
+  <!-- ACT V: VOICE -->
+  <section id="act-voice-v" class="act-content">
+    <div class="inner">
+      <h2>Voice</h2>
+      <p><em>Coming soon.</em></p>
+      <p>The first essay is about growing up between two cultures — one thread, many vibrations. Until it is ready, the work speaks.</p>
+    </div>
+  </section>
+
+  <!-- ACT VI: SIGNAL -->
+  <section id="act-signal-v" class="act-content">
+    <div class="inner">
+      <h2>Signal</h2>
+      <p><a href="https://github.com/sc-jackie" style="color: var(--gold); text-decoration: none;">github.com/sc-jackie</a></p>
+      <p>No email. Code is the message.</p>
+    </div>
+  </section>
+</div>
+
+<!-- SHUTTLE NAV (desktop horizontal scroll) -->
+<div class="shuttle-nav" id="shuttle-nav">
+  <span style="color: var(--dim); font-size: 11px;">Acts</span>
+  <div class="shuttle-dots">
+    <div class="shuttle-dot active" data-act="0" title="Origin"></div>
+    <div class="shuttle-dot" data-act="1" title="Work"></div>
+    <div class="shuttle-dot" data-act="2" title="Path"></div>
+    <div class="shuttle-dot" data-act="3" title="Capital"></div>
+    <div class="shuttle-dot" data-act="4" title="Voice"></div>
+    <div class="shuttle-dot" data-act="5" title="Signal"></div>
+  </div>
+</div>
+
+<!-- NAV RAIL (mobile fallback) -->
+<nav class="scrollnav" aria-label="Navigate acts" id="scrollnav-mobile" style="display: none;">
+  <a href="#act-origin-v" aria-label="Act I: Origin">I</a>
+  <a href="#act-work-v" aria-label="Act II: Work">II</a>
+  <a href="#act-path-v" aria-label="Act III: Path">III</a>
+  <a href="#act-capital-v" aria-label="Act IV: Capital">IV</a>
+  <a href="#act-voice-v" aria-label="Act V: Voice">V</a>
+  <a href="#act-signal-v" aria-label="Act VI: Signal">VI</a>
+</nav>
+
+<!-- GSAP + ScrollTrigger + Lenis -->
+<script src="/vendor/gsap.min.js"></script>
+<script src="/vendor/ScrollTrigger.min.js"></script>
+<script src="/vendor/lenis.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktop = matchMedia('(min-width: 1024px)').matches;
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  const canvas = document.getElementById('loomCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Colors
+  const UA_BLUE = [0, 91, 187];
+  const VN_RED = [218, 37, 29];
+  const INDIGO = [26, 31, 58];
+  const PEARL = [229, 231, 239];
+
+  // Canvas sizing
+  function fitCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.floor(rect.width * DPR);
+    canvas.height = Math.floor(rect.height * DPR);
+    return { w: canvas.width, h: canvas.height };
+  }
+  let S = fitCanvas();
+  window.addEventListener('resize', () => { S = fitCanvas(); });
+
+  // ============ LAYOUT SETUP ============
+  function setupLayout() {
+    if (isDesktop) {
+      setupHorizontalScroll();
+    } else {
+      setupVerticalScroll();
+    }
+  }
+
+  // ============ CANVAS: WARP THREAD + SHUTTLE ============
+  const threadState = {
+    scrollProgress: 0,
+    shuttleX: 0,
+    warpTension: 0.5
+  };
+
+  function drawWarpThread(progress) {
+    const x = S.w * progress;
+    const y1 = S.h * 0.25;
+    const y2 = S.h * 0.75;
+
+    // Main warp thread (tension-based thickness)
+    const thickness = 2 + threadState.warpTension * 3;
+    ctx.strokeStyle = `rgba(${PEARL.join(',')}, ${0.3 + 0.2 * threadState.warpTension})`;
+    ctx.lineWidth = thickness * DPR;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x, y1);
+    ctx.lineTo(x, y2);
+    ctx.stroke();
+
+    // Shimmer glow (iridescent)
+    const glow = ctx.createRadialGradient(x, (y1 + y2) * 0.5, 0, x, (y1 + y2) * 0.5, 40);
+    glow.addColorStop(0, `rgba(201, 164, 92, ${0.15 * threadState.warpTension})`);
+    glow.addColorStop(1, `rgba(201, 164, 92, 0)`);
+    ctx.fillStyle = glow;
+    ctx.fillRect(x - 30, y1 - 30, 60, y2 - y1 + 60);
+  }
+
+  function drawShuttle(progress) {
+    const x = S.w * progress;
+    const y = S.h * 0.5;
+    const shuttleWidth = 24 * DPR;
+    const shuttleHeight = 16 * DPR;
+
+    // Shuttle body (rounded rect)
+    ctx.fillStyle = `rgba(${PEARL.join(',')}, 0.8)`;
+    ctx.beginPath();
+    ctx.roundRect(x - shuttleWidth * 0.5, y - shuttleHeight * 0.5, shuttleWidth, shuttleHeight, 4 * DPR);
+    ctx.fill();
+
+    // Shuttle highlight
+    ctx.fillStyle = `rgba(${PEARL.join(',')}, 0.4)`;
+    ctx.beginPath();
+    ctx.ellipse(x, y - shuttleHeight * 0.25, shuttleWidth * 0.3, shuttleHeight * 0.2, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function animate() {
+    const scrollPx = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollNorm = maxScroll > 0 ? scrollPx / maxScroll : 0;
+
+    threadState.scrollProgress = scrollNorm;
+
+    // Clear canvas
+    ctx.fillStyle = '#0C0E16';
+    ctx.fillRect(0, 0, S.w, S.h);
+
+    // Background gradient
+    const bg = ctx.createLinearGradient(0, 0, S.w, S.h);
+    bg.addColorStop(0, 'rgba(26, 31, 58, 0.2)');
+    bg.addColorStop(0.5, 'rgba(26, 31, 58, 0.1)');
+    bg.addColorStop(1, 'rgba(26, 31, 58, 0.2)');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, S.w, S.h);
+
+    // Warp thread (horizontal position = scroll progress)
+    threadState.warpTension = 0.4 + scrollNorm * 0.5;
+    drawWarpThread(scrollNorm);
+
+    // Shuttle (visible on desktop only)
+    if (isDesktop) {
+      drawShuttle(scrollNorm);
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  // ============ HORIZONTAL SCROLL SETUP ============
+  function setupHorizontalScroll() {
+    const track = document.getElementById('loom-track');
+    const acts = document.querySelectorAll('#loom-track section');
+
+    if (!reduced && typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
+      // Extend scroll height for horizontal movement
+      const totalWidth = acts.length * window.innerWidth;
+      const scrollHeight = totalWidth + window.innerHeight;
+      document.documentElement.style.minHeight = scrollHeight + 'px';
+
+      // Create scroll trigger that maps vertical scroll to horizontal glide
+      ScrollTrigger.create({
+        trigger: '#loom-scroll',
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const maxX = -totalWidth + window.innerWidth;
+          const x = maxX * self.progress;
+          gsap.set(track, { x, overwrite: 'auto' });
+          updateShuttleNav(self.progress);
+        }
+      });
+    }
+  }
+
+  function updateShuttleNav(progress) {
+    const dots = document.querySelectorAll('.shuttle-dot');
+    const activeIdx = Math.floor(progress * (dots.length - 1) + 0.5);
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === activeIdx);
+    });
+  }
+
+  // Shuttle nav click handlers
+  document.querySelectorAll('.shuttle-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const actIdx = parseInt(dot.getAttribute('data-act'));
+      const targetProgress = actIdx / 5;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      window.scrollTo({ top: maxScroll * targetProgress, behavior: 'smooth' });
+    });
+  });
+
+  // ============ VERTICAL SCROLL SETUP (MOBILE) ============
+  function setupVerticalScroll() {
+    // Standard vertical scroll — nav rail auto-activates
+    const navLinks = document.querySelectorAll('#scrollnav-mobile a');
+    if (navLinks.length > 0) {
+      const sections = [
+        document.getElementById('act-origin-v'),
+        document.getElementById('act-work-v'),
+        document.getElementById('act-path-v'),
+        document.getElementById('act-capital-v'),
+        document.getElementById('act-voice-v'),
+        document.getElementById('act-signal-v')
+      ];
+
+      function updateNavMobile() {
+        const scrollPos = window.scrollY + window.innerHeight * 0.5;
+        sections.forEach((section, idx) => {
+          if (section) {
+            const top = section.offsetTop;
+            const bottom = top + section.offsetHeight;
+            navLinks[idx].classList.toggle('active', scrollPos >= top && scrollPos < bottom);
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateNavMobile, { passive: true });
+      updateNavMobile();
+    }
+  }
+
+  // ============ INITIALIZATION ============
+  if (!reduced) {
+    animate();
+  } else {
+    // Static render for reduced motion
+    ctx.fillStyle = '#0C0E16';
+    ctx.fillRect(0, 0, S.w, S.h);
+    const bg = ctx.createLinearGradient(0, 0, S.w, S.h);
+    bg.addColorStop(0, 'rgba(26, 31, 58, 0.2)');
+    bg.addColorStop(0.5, 'rgba(26, 31, 58, 0.1)');
+    bg.addColorStop(1, 'rgba(26, 31, 58, 0.2)');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, S.w, S.h);
+  }
+
+  setupLayout();
+
+  // Handle window resize to switch between horizontal/vertical
+  window.addEventListener('resize', () => {
+    const newIsDesktop = matchMedia('(min-width: 1024px)').matches;
+    if (newIsDesktop !== isDesktop) {
+      location.reload();
+    }
+  });
+
+  // Lenis smooth scroll (optional)
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
+})();
+</script>
+</body>
+</html>
