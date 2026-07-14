@@ -183,6 +183,9 @@ section {
   max-width: 16ch;
   margin-left: auto;
   margin-right: auto;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .act-subtitle {
@@ -602,12 +605,12 @@ section {
     <p class="act-subtitle">Designer by training, builder of systems. Five products in production, orchestrated by always-on agents.</p>
     <div class="act-i-content">
       <div class="bio-card">
-        <h3>The Two Cultures</h3>
-        <p>Ukrainian engineer meets Vietnamese designer. Systems thinking meets visual form. That collision is the through-line across every project here: structured data, intentional craft, agents that never sleep.</p>
+        <h3>The Foundation</h3>
+        <p>Vietnamese-Ukrainian, designer by training — 2014–2018 in UI/UX across startups and auto design. Then blockchain research and full-time investing. Now AI-native systems builder. Five products in production, run day to day by always-on agents.</p>
       </div>
       <div class="bio-card">
-        <h3>Now</h3>
-        <p>Five operating systems in production. Jackie-OS orchestrates personal life; Newfin handles finance; Rodyna tracks capital; B-Unit captures voice; Draw runs local development. All run on the same substrate: vault-first architecture and agent-driven synthesis.</p>
+        <h3>Five Systems</h3>
+        <p><strong>Jackie-OS</strong>: personal operating system. <strong>Newfin</strong>: vault-first finance. <strong>Rodyna</strong>: investment portfolio tracker. <strong>B-Unit</strong>: podcast network. <strong>Draw</strong>: local dev workbench. All orchestrated by Hermes: always-on agents running daily.</p>
       </div>
     </div>
   </section>
@@ -716,8 +719,8 @@ class MoirePattern {
 
     this.scroll = scrollPos;
     const dpr = Math.min(window.devicePixelRatio, 2);
-    // Phase shifts faster for more dynamic effect
-    const phase = (scrollPos / 400) % 360;
+    // Phase-shift creates moiré interference that evolves with scroll
+    const phase = (scrollPos / 200);
     const phaseRad = (phase * Math.PI) / 180;
 
     // Clear to black
@@ -729,18 +732,17 @@ class MoirePattern {
     const cx = w / 2;
     const cy = h / 2;
 
-    // Layer 1: Horizontal grating, strong
-    this.drawLinearGrating(0, 0, w, h, 10, 0, phase * 0.5, 0.8);
+    // Primary grating: 12px spacing at ~22.5°, phase-shifted strongly
+    this.drawLinearGrating(0, 0, w, h, 12, Math.PI / 8, phase * 2, 0.9);
 
-    // Layer 2: Vertical grating, counter-phase for moiré effect
-    this.drawLinearGrating(0, 0, w, h, 10, Math.PI / 2, -phase * 0.4, 0.65);
+    // Secondary grating: 10px spacing at -22.5°, counter-phase
+    // The interference between these two creates the moiré bloom
+    this.drawLinearGrating(0, 0, w, h, 10, -Math.PI / 8, -phase * 1.8, 0.75);
 
-    // Layer 3: Subtle diagonal for complexity
-    this.drawLinearGrating(0, 0, w, h, 12, Math.PI / 6, phase * 0.3, 0.4);
-
-    // Optional: rare radial accent on scroll
-    if (Math.sin(phaseRad) > 0.3) {
-      this.drawRadialGrating(cx, cy, Math.max(w, h) / 2, 14, phase * 0.2, Math.sin(phaseRad) * 0.15);
+    // Rare radial accent intensifies on scroll extremes
+    const intensityBurst = Math.abs(Math.sin(phase * 0.5)) * 0.25;
+    if (intensityBurst > 0.1) {
+      this.drawRadialGrating(cx, cy, Math.max(w, h) / 2, 14, phase * 0.3, intensityBurst);
     }
   }
 
@@ -905,6 +907,20 @@ voiceData.forEach((voice, idx) => {
     y: 0,
     duration: 0.6,
     delay: idx * 0.1
+  });
+});
+
+// ============ HEADLINE DEVELOPMENT EFFECT ============
+document.querySelectorAll('.act-title').forEach((title, idx) => {
+  gsap.to(title, {
+    scrollTrigger: {
+      trigger: title,
+      start: 'top 75%'
+    },
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    delay: idx * 0.05
   });
 });
 
