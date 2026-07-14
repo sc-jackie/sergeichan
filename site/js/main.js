@@ -1,7 +1,12 @@
 // Main entry point: six-act cinematic scroll site
-// Lenis + GSAP ScrollTrigger + Work scene
+// Lenis + GSAP ScrollTrigger + all six act scenes
 
+import { OriginScene } from './scenes/origin.js';
 import { WorkScene } from './scenes/work.js';
+import { PathScene } from './scenes/path.js';
+import { CapitalScene } from './scenes/capital.js';
+import { VoiceScene } from './scenes/voice.js';
+import { SignalScene } from './scenes/signal.js';
 
 (function() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -63,21 +68,25 @@ import { WorkScene } from './scenes/work.js';
     }
   });
 
-  // U2: Act 2 (Work) scene setup
-  const workScene = new WorkScene();
-  let workTrigger = null;
+  // Scenes: create all six
+  const scenes = {
+    origin: new OriginScene(),
+    work: new WorkScene(),
+    path: new PathScene(),
+    capital: new CapitalScene(),
+    voice: new VoiceScene(),
+    signal: new SignalScene()
+  };
 
   function setupActTriggers() {
     if (!reduced) {
-      // Act 2: detect case open/close and pause scroll
+      // Detect case open/close and pause scroll
       const caseEl = document.getElementById('case');
 
-      // Detect case open/close and pause scroll
       const caseObserver = new MutationObserver(() => {
         const isOpen = caseEl.classList.contains('open');
         if (isOpen) {
           lenis.stop(); // Pause smooth scroll
-          // Disable all ScrollTriggers except case scroll
           ScrollTrigger.getAll().forEach(t => t.disable());
         } else {
           lenis.start(); // Resume smooth scroll
@@ -88,18 +97,24 @@ import { WorkScene } from './scenes/work.js';
 
       caseObserver.observe(caseEl, { attributes: true, attributeFilter: ['class'] });
 
-      // Work trigger: activate scene when in view
-      const workEl = document.getElementById('work');
-      workTrigger = ScrollTrigger.create({
-        trigger: workEl,
-        start: 'top 50%',
-        end: 'bottom 50%',
-        onEnter: () => workScene.mount(),
-        onLeave: () => workScene.unmount(),
-        onEnterBack: () => workScene.mount(),
-        onLeaveBack: () => workScene.unmount(),
-        markers: false
+      // Create triggers for each scene
+      const sceneNames = ['origin', 'work', 'path', 'capital', 'voice', 'signal'];
+      sceneNames.forEach(name => {
+        const el = document.getElementById(name);
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          onEnter: () => scenes[name].mount(),
+          onLeave: () => scenes[name].unmount(),
+          onEnterBack: () => scenes[name].mount(),
+          onLeaveBack: () => scenes[name].unmount(),
+          markers: false
+        });
       });
+    } else {
+      // Reduced motion: just mount all scenes immediately
+      Object.values(scenes).forEach(s => s.mount());
     }
   }
 
