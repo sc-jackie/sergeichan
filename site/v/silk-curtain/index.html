@@ -89,23 +89,30 @@
   }
   .act-title-card .numeral {
     font-family: Georgia, serif;
-    font-size: clamp(80px, 20vw, 160px);
-    font-weight: 100;
-    color: rgba(201, 164, 92, 0.3);
+    font-size: clamp(14px, 2.2vw, 28px);
+    font-weight: 400;
+    color: var(--gold);
     line-height: 1;
     margin: 0;
-    letter-spacing: -0.04em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .act-title-card .numeral span {
+    color: rgba(201, 164, 92, 0.4);
+    margin: 0 8px;
+    font-weight: 300;
   }
   .act-title-card .name {
     font-family: Georgia, serif;
-    font-size: clamp(20px, 4vw, 36px);
+    font-size: clamp(28px, 5.5vw, 48px);
     font-weight: 300;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     color: var(--pearl);
     text-transform: uppercase;
-    margin-top: 16px;
+    margin-top: 12px;
     line-height: 1.1;
     text-align: center;
+    font-weight: 250;
   }
 
   /* Silk curtain wipe overlay — Canvas-based */
@@ -233,6 +240,7 @@
 <!-- Hero canvas background (production-exact) -->
 <div id="hero">
   <canvas id="cv"></canvas>
+  <canvas id="silkAccent" style="position: absolute; inset: 0; z-index: 1; opacity: 0.3;"></canvas>
   <div class="ov">
     <div class="bar">
       <div class="brand">Sergei Tran</div>
@@ -259,8 +267,7 @@
 <!-- Six-act content structure -->
 <section id="origin" aria-label="Origin">
   <div class="act-title-card">
-    <h2 class="numeral">I</h2>
-    <p class="name">Origin</p>
+    <h2 class="numeral">act i<span>·</span>sergei tran</h2>
   </div>
   <div class="content">
     <h1>Designer, then builder</h1>
@@ -342,6 +349,60 @@
 (function() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ============ HERO SILK ACCENT ============
+  if (!reduced) {
+    const silkAccentCanvas = document.getElementById('silkAccent');
+    const silkCtx = silkAccentCanvas.getContext('2d', { alpha: true });
+    let time = 0;
+
+    function resizeSilkAccent() {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      silkAccentCanvas.width = window.innerWidth * dpr;
+      silkAccentCanvas.height = window.innerHeight * dpr;
+      silkCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drawSilkFilaments(t) {
+      const W = silkAccentCanvas.width / (window.devicePixelRatio || 1);
+      const H = silkAccentCanvas.height / (window.devicePixelRatio || 1);
+      silkCtx.clearRect(0, 0, W, H);
+
+      // ponytail: subtle drifting filaments in gold palette
+      const filamentCount = 5;
+      for (let i = 0; i < filamentCount; i++) {
+        const phase = (t * 0.0003 + i * Math.PI * 2 / filamentCount);
+        const x = W / 2 + Math.sin(phase * 0.7) * W * 0.3;
+        const yStart = -50;
+        const yEnd = H + 50;
+        const waveAmp = 40 + i * 20;
+
+        silkCtx.strokeStyle = `rgba(201, 164, 92, ${0.08 + i * 0.04})`;
+        silkCtx.lineWidth = 0.8;
+        silkCtx.beginPath();
+
+        for (let y = yStart; y <= yEnd; y += 30) {
+          const waveX = x + Math.sin((y / 100 + phase) * 0.5) * waveAmp;
+          if (y === yStart) {
+            silkCtx.moveTo(waveX, y);
+          } else {
+            silkCtx.lineTo(waveX, y);
+          }
+        }
+        silkCtx.stroke();
+      }
+    }
+
+    function animateSilkAccent() {
+      time += 16;
+      drawSilkFilaments(time);
+      requestAnimationFrame(animateSilkAccent);
+    }
+
+    window.addEventListener('resize', resizeSilkAccent);
+    resizeSilkAccent();
+    animateSilkAccent();
+  }
+
   // ============ CURTAIN WIPE EFFECT ============
   const curtainCanvas = document.getElementById('curtainOverlay');
   const curtainCtx = curtainCanvas.getContext('2d', { alpha: true });
@@ -370,58 +431,58 @@
       ? 2 * progress * progress
       : -1 + (4 - 2 * progress) * progress;
 
-    // Silk curtain wipe: central sweep with layered strands
+    // Silk curtain: layered strand fabric with depth
     const centerX = W * eased;
-    const strandCount = 8;
-    const strandHeight = H / strandCount;
+    const strandCount = 12;
+    const baseStrandWidth = 24;
 
-    // Main curtain: dark body with gradient depth
-    const mainGrad = curtainCtx.createLinearGradient(centerX - 60, 0, centerX + 40, 0);
-    mainGrad.addColorStop(0, 'rgba(12, 14, 22, 0)');
-    mainGrad.addColorStop(0.2, 'rgba(12, 14, 22, 0.5)');
-    mainGrad.addColorStop(0.5, 'rgba(12, 14, 22, 0.95)');
-    mainGrad.addColorStop(0.8, 'rgba(12, 14, 22, 0.6)');
-    mainGrad.addColorStop(1, 'rgba(201, 164, 92, 0.1)');
-
-    curtainCtx.fillStyle = mainGrad;
-    curtainCtx.fillRect(0, 0, centerX + 50, H);
-
-    // Thread strand layers: vertical ripples for silk texture
+    // ponytail: layered silk strands via composited gradients
     for (let i = 0; i < strandCount; i++) {
-      const yStart = i * strandHeight;
-      const yEnd = yStart + strandHeight;
-      const phase = progress * Math.PI * 1.5 + i * 0.3;
-      const waveOffset = Math.sin(phase) * 12;
+      const strandX = centerX - (strandCount / 2) * baseStrandWidth + i * baseStrandWidth;
+      const phase = progress * Math.PI * 2 + i * 0.4;
+      const waveOffset = Math.sin(phase) * 8;
 
-      // Strand edge definition
-      curtainCtx.strokeStyle = `rgba(201, 164, 92, ${0.2 * (1 - Math.abs(waveOffset) / 12)})`;
-      curtainCtx.lineWidth = 1;
-      curtainCtx.beginPath();
-      curtainCtx.moveTo(centerX + waveOffset - 2, yStart);
-      curtainCtx.quadraticCurveTo(
-        centerX + waveOffset + 8,
-        (yStart + yEnd) / 2,
-        centerX + waveOffset - 2,
-        yEnd
+      // Per-strand gradient for fabric depth
+      const strandGrad = curtainCtx.createLinearGradient(
+        strandX - baseStrandWidth / 2, 0,
+        strandX + baseStrandWidth / 2, 0
       );
-      curtainCtx.stroke();
+      strandGrad.addColorStop(0, 'rgba(12, 14, 22, 0)');
+      strandGrad.addColorStop(0.15, `rgba(12, 14, 22, ${0.3 + i * 0.05})`);
+      strandGrad.addColorStop(0.5, `rgba(12, 14, 22, ${0.8 + i * 0.08})`);
+      strandGrad.addColorStop(0.85, `rgba(12, 14, 22, ${0.4 + i * 0.06})`);
+      strandGrad.addColorStop(1, 'rgba(12, 14, 22, 0)');
+
+      curtainCtx.fillStyle = strandGrad;
+      curtainCtx.fillRect(strandX - baseStrandWidth / 2, 0, baseStrandWidth, H);
+
+      // Silk thread edge (gold accent)
+      const goldEdgeGrad = curtainCtx.createLinearGradient(
+        strandX + baseStrandWidth / 2 - 3, 0,
+        strandX + baseStrandWidth / 2 + 3, 0
+      );
+      goldEdgeGrad.addColorStop(0, `rgba(201, 164, 92, ${0.15 * (1 - Math.abs(waveOffset) / 8)})`);
+      goldEdgeGrad.addColorStop(0.5, `rgba(201, 164, 92, ${0.28 * (1 - Math.abs(waveOffset) / 8)})`);
+      goldEdgeGrad.addColorStop(1, `rgba(201, 164, 92, ${0.08 * (1 - Math.abs(waveOffset) / 8)})`);
+
+      curtainCtx.fillStyle = goldEdgeGrad;
+      curtainCtx.fillRect(strandX + baseStrandWidth / 2 - 3 + waveOffset, 0, 6, H);
     }
 
-    // Highlight: golden silk edge catch
-    const highlightGrad = curtainCtx.createLinearGradient(centerX - 15, 0, centerX + 5, 0);
-    highlightGrad.addColorStop(0, 'rgba(201, 164, 92, 0)');
-    highlightGrad.addColorStop(0.5, 'rgba(201, 164, 92, 0.35)');
-    highlightGrad.addColorStop(1, 'rgba(201, 164, 92, 0)');
-
-    curtainCtx.fillStyle = highlightGrad;
-    curtainCtx.fillRect(centerX - 15, 0, 20, H);
-
-    // Shadow soften (fade edges)
-    const shadowGrad = curtainCtx.createLinearGradient(0, 0, 80, 0);
-    shadowGrad.addColorStop(0, 'rgba(12, 14, 22, 0.1)');
-    shadowGrad.addColorStop(1, 'rgba(12, 14, 22, 0)');
+    // Soft shadow fade on approach
+    const shadowGrad = curtainCtx.createLinearGradient(centerX - 100, 0, centerX, 0);
+    shadowGrad.addColorStop(0, 'rgba(12, 14, 22, 0)');
+    shadowGrad.addColorStop(1, 'rgba(12, 14, 22, 0.15)');
     curtainCtx.fillStyle = shadowGrad;
-    curtainCtx.fillRect(0, 0, 80, H);
+    curtainCtx.fillRect(centerX - 100, 0, 100, H);
+
+    // Bright silhouette on exit edge
+    const brightGrad = curtainCtx.createLinearGradient(centerX, 0, centerX + 120, 0);
+    brightGrad.addColorStop(0, 'rgba(201, 164, 92, 0.25)');
+    brightGrad.addColorStop(0.5, 'rgba(201, 164, 92, 0.12)');
+    brightGrad.addColorStop(1, 'rgba(201, 164, 92, 0)');
+    curtainCtx.fillStyle = brightGrad;
+    curtainCtx.fillRect(centerX, 0, 120, H);
   }
 
   function animateCurtainWipe(fromProgress, toProgress, duration) {
@@ -524,7 +585,7 @@
     });
   }
 
-  // Curtain wipe on act boundaries
+  // Curtain wipe on act boundaries (both directions)
   function setupCurtainWipes() {
     if (reduced) return;
 
@@ -537,6 +598,9 @@
         end: 'top 50%',
         onEnter: () => {
           animateCurtainWipe(0, 1, 700);
+        },
+        onEnterBack: () => {
+          animateCurtainWipe(1, 0, 700);
         }
       });
     });
