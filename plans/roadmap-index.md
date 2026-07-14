@@ -12,7 +12,7 @@ _Last audited against `main` on 2026-07-14 (`c49e93b`)._
 
 | Plan doc | State | Open work |
 | -------- | ----- | --------- |
-| [2026-07-13-001 cinematic six-act scroll redesign](2026-07-13-001-feat-cinematic-six-act-scroll-redesign-plan.md) | ⤴ rev-2 reverted → 🔵 **rev 3 in build (PR-gated)** | Rev-2 Three.js build shipped 07-14 overnight, **reverted same morning by owner** (`14bd8e1`); old site restored on prod. Rev 3 = original Canvas-2D architecture (no Three.js, binding), reuses truth-gated data/content/CSS/scroll from the reverted branch. EVE-87 back to Todo→build; EVE-88 canceled. Delivery: **PR for owner review**. Gotchas: `docs/solutions/frontend/webgl-overnight-build-gotchas.md`. |
+| [2026-07-13-001 cinematic six-act scroll redesign](2026-07-13-001-feat-cinematic-six-act-scroll-redesign-plan.md) | ⤴ archived (owner verdict, 2026-07-14) | Two overnight builds rejected: Three.js v1 (shipped→reverted `14bd8e1`), Canvas-2D ten-door gallery (PR #2 closed unmerged; branch `sergeitran/eve-87-canvas2d-six-acts` archived). EVE-87 canceled. Prod = original one-scene site. Post-mortem on the Linear issue; future attempt = design-led with early static-mockup review, not fleet breadth. |
 | [future-improvements](future-improvements.md) | 📋 catalog | owner-prioritized backlog (task queue itself lives in Linear — Personal Website project) |
 
 **Genuinely-remaining engineering surface (2026-07-14):** the six-act redesign (spec'd above) + three catalog items: real screenshots (EVE-78), first essay (EVE-79, becomes redesign act 5 content), custom domain (EVE-80).
