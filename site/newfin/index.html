@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Newfin — Stop guessing what you own</title>
+<meta name="description" content="Newfin is a private household finance app: net worth, cashflow, trading desk, and Persik on Telegram — one book.">
+<meta name="theme-color" content="#12100e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · macrostructure: split-studio · route: custom (tuned) · theme: night-ledger
+ * paper: oklch(12% 0.012 55) · accent: oklch(78% 0.14 72) · display: Fraunces · body: Manrope · mono: IBM Plex Mono
+ * idea: "warm night + split proof" · gates: honest-copy, token-locked, no-italic-headers, no-fake-chrome
+ * pre-emit critique: P5 H5 E5 S5 R4 V5
+ */
+
+:root {
+  --color-paper: oklch(12% 0.012 55);
+  --color-paper-2: oklch(16% 0.014 55);
+  --color-paper-3: oklch(20% 0.016 55);
+  --color-ink: oklch(96% 0.012 85);
+  --color-muted: oklch(72% 0.02 80);
+  --color-faint: oklch(55% 0.02 75);
+  --color-line: oklch(28% 0.018 60);
+  --color-accent: oklch(78% 0.14 72);
+  --color-accent-ink: oklch(16% 0.03 70);
+  --color-ok: oklch(72% 0.12 155);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --radius: 10px;
+  --max: 1120px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --space-section: clamp(4.5rem, 10vw, 7rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 40;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+
+.wrap {
+  width: min(100% - 2.5rem, var(--max));
+  margin-inline: auto;
+}
+
+/* —— Nav (N: quiet bar) —— */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in oklab, var(--color-paper) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-line);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+}
+.brand {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+.brand b { color: var(--color-accent); font-weight: 600; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+.nav-links a:hover { color: var(--color-ink); }
+.nav-links a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: transform 140ms var(--ease), background 160ms var(--ease), border-color 160ms var(--ease), color 160ms var(--ease);
+}
+.btn:active { transform: scale(0.98); }
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+.btn-primary:hover { filter: brightness(1.06); }
+.btn-outline {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-line);
+}
+.btn-outline:hover {
+  border-color: color-mix(in oklab, var(--color-accent) 45%, var(--color-line));
+  background: var(--color-paper-2);
+}
+.btn-sm { min-height: 2.3rem; padding: 0.4rem 0.9rem; font-size: 0.88rem; }
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+/* —— Hero split —— */
+.hero {
+  padding: clamp(3.5rem, 9vw, 6.5rem) 0 var(--space-section);
+}
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 0.85rem 0 1.15rem;
+  max-width: 11ch;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  text-wrap: balance;
+}
+.hero h1 .hl {
+  color: var(--color-accent);
+  box-decoration-break: clone;
+  background: linear-gradient(transparent 68%, color-mix(in oklab, var(--color-accent) 28%, transparent) 68%);
+}
+.lede {
+  margin: 0 0 1.75rem;
+  color: var(--color-muted);
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  max-width: 34ch;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.fine {
+  margin: 0;
+  color: var(--color-faint);
+  font-size: 0.88rem;
+}
+
+/* proof panel — not fake browser chrome */
+.proof {
+  position: relative;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-line);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 1.25rem;
+  overflow: hidden;
+}
+.proof::before {
+  content: "";
+  position: absolute;
+  inset: -30% 40% auto -20%;
+  height: 70%;
+  background: radial-gradient(circle, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 65%);
+  pointer-events: none;
+}
+.proof-head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.15rem;
+}
+.proof-head strong {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+.meter {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+}
+.meter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem 1rem;
+  align-items: center;
+}
+.meter-row span { color: var(--color-muted); font-size: 0.95rem; }
+.meter-row b {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+.track {
+  grid-column: 1 / -1;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-paper-3);
+  overflow: hidden;
+}
+.track > i {
+  display: block;
+  height: 100%;
+  width: var(--w);
+  background: var(--color-accent);
+  border-radius: inherit;
+  transform-origin: left;
+  animation: fill 1s var(--ease) both;
+}
+.track.alt > i { background: var(--color-ok); }
+@keyframes fill {
+  from { transform: scaleX(0.2); opacity: 0.5; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+.proof-note {
+  position: relative;
+  margin: 1.15rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-faint);
+  font-size: 0.82rem;
+}
+
+/* —— Split modules —— */
+.module {
+  padding: var(--space-section) 0;
+  border-top: 1px solid var(--color-line);
+}
+.module-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-items: center;
+}
+.module-split.flip .copy { order: 2; }
+.module-split.flip .viz { order: 1; }
+
+.copy .mono { display: block; margin-bottom: 0.85rem; color: var(--color-accent); }
+.copy h2 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 0.9rem;
+  max-width: 14ch;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  text-wrap: balance;
+}
+.copy p {
+  margin: 0 0 1.35rem;
+  color: var(--color-muted);
+  max-width: 36ch;
+  font-size: 1.02rem;
+}
+
+.viz {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-line);
+  border-radius: calc(var(--radius) + 2px);
+  padding: 1.35rem;
+  min-width: 0;
+}
+.viz h3 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0 0 0.85rem;
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+.list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background: var(--color-paper);
+  font-size: 0.95rem;
+}
+.list li span { color: var(--color-muted); }
+.list li strong {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.chat {
+  display: grid;
+  gap: 0.65rem;
+}
+.bubble {
+  max-width: 92%;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.bubble.bot {
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+}
+.bubble.you {
+  justify-self: end;
+  background: color-mix(in oklab, var(--color-accent) 18%, var(--color-paper));
+  border: 1px solid color-mix(in oklab, var(--color-accent) 40%, var(--color-line));
+  color: var(--color-ink);
+}
+
+/* —— Closing —— */
+.close {
+  padding: var(--space-section) 0;
+  border-top: 1px solid var(--color-line);
+  background:
+    radial-gradient(80% 60% at 50% 0%, color-mix(in oklab, var(--color-accent) 12%, transparent), transparent 70%),
+    var(--color-paper);
+  text-align: center;
+}
+.close h2 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0 auto 0.9rem;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.close p {
+  margin: 0 auto 1.6rem;
+  color: var(--color-muted);
+  max-width: 34ch;
+}
+.close .actions { justify-content: center; }
+
+footer {
+  border-top: 1px solid var(--color-line);
+  padding: 1.4rem 0 2rem;
+  color: var(--color-faint);
+  font-size: 0.88rem;
+}
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  justify-content: space-between;
+}
+.foot a:hover { color: var(--color-ink); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal.delay { transition-delay: 90ms; }
+
+@media (max-width: 860px) {
+  .hero-split,
+  .module-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .module-split.flip .copy,
+  .module-split.flip .viz { order: unset; }
+  .nav .hide { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/newfin">New<b>fin</b></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="hide" href="#book">The book</a>
+      <a class="hide" href="#desk">Desk</a>
+      <a class="hide" href="#persik">Persik</a>
+      <a href="/">sergeichan</a>
+      <a class="btn btn-primary btn-sm" href="https://newfin-evegelin.vercel.app/portfolio">Open app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-split">
+      <div class="reveal">
+        <span class="mono">Private household finance</span>
+        <h1>Stop guessing what you <span class="hl">own</span></h1>
+        <p class="lede">Newfin keeps net worth, spending, and the trading desk in one book — with Persik on Telegram when you’re away from the laptop.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://newfin-evegelin.vercel.app/portfolio">Open Newfin</a>
+          <a class="btn btn-outline" href="https://t.me/Persik_finbot">Message Persik</a>
+        </div>
+        <p class="fine">Invite-only. Built for one household — not a public signup funnel.</p>
+      </div>
+
+      <aside class="proof reveal delay" aria-label="Composition preview — labels only, not live balances">
+        <div class="proof-head">
+          <strong>Composition</strong>
+          <span class="mono">Labels only</span>
+        </div>
+        <div class="meter">
+          <div class="meter-row">
+            <span>Crypto liquid</span>
+            <b>bucket</b>
+            <div class="track" style="--w:70%"><i></i></div>
+          </div>
+          <div class="meter-row">
+            <span>Trading · IBKR + HL</span>
+            <b>bucket</b>
+            <div class="track alt" style="--w:54%"><i></i></div>
+          </div>
+          <div class="meter-row">
+            <span>Cash</span>
+            <b>bucket</b>
+            <div class="track" style="--w:32%"><i></i></div>
+          </div>
+          <div class="meter-row">
+            <span>Property · equity · other</span>
+            <b>locked</b>
+            <div class="track" style="--w:48%"><i></i></div>
+          </div>
+        </div>
+        <p class="proof-note">Liquid vs locked stay separate so vesting and OPM don’t inflate what you can actually move.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="module" id="book">
+    <div class="wrap module-split reveal">
+      <div class="copy">
+        <span class="mono">01 · The book</span>
+        <h2>One number that doesn’t lie to you</h2>
+        <p>Portfolio across crypto, cash, property, equities, and trading accounts. Liquid called out. Locked called out. The same math the bot and the web app share.</p>
+        <a class="btn btn-outline" href="https://newfin-evegelin.vercel.app/portfolio">View portfolio</a>
+      </div>
+      <div class="viz">
+        <h3>What shows up</h3>
+        <ul class="list">
+          <li><span>Net worth</span><strong>All buckets</strong></li>
+          <li><span>Liquid</span><strong>Crypto + cash + trading</strong></li>
+          <li><span>Cashflow</span><strong>Spend · income · budgets</strong></li>
+          <li><span>Sync</span><strong>Wallets · IBKR · cards</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" id="desk">
+    <div class="wrap module-split flip reveal">
+      <div class="copy">
+        <span class="mono">02 · Live desk</span>
+        <h2>IBKR and Hyperliquid without tab chaos</h2>
+        <p>One desk for venues you already use. Positions, exposure, and sync that runs on a schedule — including when the market’s quiet and Activity Flex is late.</p>
+        <a class="btn btn-outline" href="https://newfin-evegelin.vercel.app/trading">Open trading</a>
+      </div>
+      <div class="viz">
+        <h3>On the board</h3>
+        <ul class="list">
+          <li><span>Hyperliquid</span><strong>Perps · marks</strong></li>
+          <li><span>IBKR</span><strong>Equities · Flex</strong></li>
+          <li><span>All view</span><strong>Cross-venue</strong></li>
+          <li><span>Cadence</span><strong>App sync + VPS cron</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="module" id="persik">
+    <div class="wrap module-split reveal">
+      <div class="copy">
+        <span class="mono">03 · Persik</span>
+        <h2>Ask the book from Telegram</h2>
+        <p>@Persik_finbot answers day and week money questions from the phone. Same Newfin backend as the web app — not a second spreadsheet living in chat.</p>
+        <a class="btn btn-outline" href="https://t.me/Persik_finbot">Open Persik</a>
+      </div>
+      <div class="viz" aria-label="Illustrative chat — sample wording">
+        <h3>In the chat</h3>
+        <div class="chat">
+          <div class="bubble you">How did we do this week?</div>
+          <div class="bubble bot">Pulls the week from the book — spend, income, and what moved in the portfolio. No invented totals.</div>
+          <div class="bubble you">Sync vault</div>
+          <div class="bubble bot">Owner ops stay on the same API the dashboard uses.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap reveal">
+      <span class="mono">Open it</span>
+      <h2>Your book is already running</h2>
+      <p>Jump into the app, or text Persik if that’s closer right now.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://newfin-evegelin.vercel.app/portfolio">Open Newfin</a>
+        <a class="btn btn-outline" href="https://t.me/Persik_finbot">Message Persik</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>Newfin · project page on sergeichan</span>
+    <span>
+      <a href="https://github.com/sc-jackie/Newfin">GitHub</a>
+      ·
+      <a href="/">Home</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const nodes = document.querySelectorAll('.reveal');
+  if (!nodes.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    nodes.forEach((n) => n.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12 });
+  nodes.forEach((n) => io.observe(n));
+})();
+</script>
+</body>
+</html>
