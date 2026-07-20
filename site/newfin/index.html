@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;700&family=Spectral:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/newfin/style.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -39,15 +39,30 @@
       <path d="M8 9h32v24H22l-9 7v-7H8z"/>
       <path d="M15 17h18M15 24h12"/>
     </symbol>
+    <symbol id="icon-eye" viewBox="0 0 48 48">
+      <path d="M5 24s7-12 19-12 19 12 19 12-7 12-19 12S5 24 5 24z"/>
+      <circle cx="24" cy="24" r="5"/>
+    </symbol>
+    <symbol id="icon-stack" viewBox="0 0 48 48">
+      <path d="m24 7 18 9-18 9L6 16z"/>
+      <path d="m6 24 18 9 18-9"/>
+      <path d="m6 32 18 9 18-9"/>
+    </symbol>
+    <symbol id="icon-people" viewBox="0 0 48 48">
+      <circle cx="18" cy="17" r="7"/>
+      <circle cx="34" cy="20" r="5"/>
+      <path d="M5 40c0-8 5-13 13-13s13 5 13 13"/>
+      <path d="M30 29c7 0 12 4 12 11"/>
+    </symbol>
   </svg>
 
   <header class="nav" id="nav">
     <div class="nav__inner">
       <a class="wordmark" href="/newfin" aria-label="Newfin home">New<span class="wordmark__mark">fin</span></a>
       <nav class="nav__links" aria-label="Landing page">
-        <a href="#system">The system</a>
-        <a href="#persik">Persik</a>
-        <a href="/">Sergei Chan</a>
+        <a href="#why">Why</a>
+        <a href="#use-cases">Use cases</a>
+        <a href="#architecture">Architecture</a>
       </nav>
       <a class="button" href="https://newfin-evegelin.vercel.app/portfolio">Open app</a>
     </div>
@@ -112,6 +127,30 @@
             </g>
           </svg>
         </figure>
+      </div>
+    </section>
+
+    <section class="why" id="why">
+      <div class="wrap why__grid">
+        <div class="why__copy">
+          <h2>Your financial life doesn’t live in one system.</h2>
+          <p>Broker accounts settle on their own clock. Cards describe purchases differently from wallets. Property and private equity have no live feed at all. A single balance can look precise while hiding what is liquid, stale, borrowed, or locked.</p>
+          <p>Newfin exists to reconcile those disagreements into one inspectable household book — without pretending unlike assets are the same thing.</p>
+        </div>
+        <dl class="tensions">
+          <div>
+            <dt>Balance isn’t liquidity.</dt>
+            <dd>Vesting, property, receivables, and OPM belong in net worth, but not in the number you can move today.</dd>
+          </div>
+          <div>
+            <dt>A transfer isn’t spending.</dt>
+            <dd>Moving cash between a Safe, a card, and a trading venue should not become three expenses.</dd>
+          </div>
+          <div>
+            <dt>A bot shouldn’t become a second ledger.</dt>
+            <dd>Persik reads the same scoped state as the web app, so a Telegram answer cannot drift into its own version of the truth.</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -227,6 +266,132 @@
             </article>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="use-cases" id="use-cases">
+      <div class="wrap">
+        <header class="section-copy">
+          <h2>The moments Newfin is built for.</h2>
+          <p>Not another dashboard to stare at. A set of answers that matter when the household has to decide, reconcile, or explain.</p>
+        </header>
+
+        <div class="use-case-list">
+          <article class="use-case">
+            <div class="use-case__glyph"><svg class="glyph" aria-hidden="true"><use href="#icon-eye"/></svg></div>
+            <h3>Start the day with the whole book.</h3>
+            <p>See net worth, liquid capital, stale accounts, current positions, and what changed — before opening five providers.</p>
+            <span class="use-case__result">Portfolio · snapshots · alerts</span>
+          </article>
+          <article class="use-case">
+            <div class="use-case__glyph"><svg class="glyph" aria-hidden="true"><use href="#icon-trading"/></svg></div>
+            <h3>Check risk before adding another position.</h3>
+            <p>Put IBKR equities and Hyperliquid perps beside the household book, so venue exposure has context beyond one account’s margin screen.</p>
+            <span class="use-case__result">Live desk · exposure · pre-trade context</span>
+          </article>
+          <article class="use-case">
+            <div class="use-case__glyph"><svg class="glyph" aria-hidden="true"><use href="#icon-flow"/></svg></div>
+            <h3>Reconcile what happened after money moved.</h3>
+            <p>Separate card spend from transfers, compare on-chain cash with the wallet provider, and keep categories tied to the source records.</p>
+            <span class="use-case__result">Cashflow · cards · wallet sync</span>
+          </article>
+          <article class="use-case">
+            <div class="use-case__glyph"><svg class="glyph" aria-hidden="true"><use href="#icon-book"/></svg></div>
+            <h3>Review the week without rebuilding it.</h3>
+            <p>Pull portfolio movement, spending, income, goals, and open alerts from the stored book instead of assembling a report by hand.</p>
+            <span class="use-case__result">Weekly brief · goals · history</span>
+          </article>
+          <article class="use-case">
+            <div class="use-case__glyph"><svg class="glyph" aria-hidden="true"><use href="#icon-chat"/></svg></div>
+            <h3>Ask from the phone when the laptop is closed.</h3>
+            <p>Use Persik for household questions and owner operations. Role scoping decides what enters the answer before the model sees it.</p>
+            <span class="use-case__result">Telegram · owner · spouse · family group</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="audience" id="for-whom">
+      <div class="wrap audience__grid">
+        <div class="audience__statement">
+          <svg class="audience__glyph glyph" aria-hidden="true"><use href="#icon-people"/></svg>
+          <h2>For a household with more moving parts than a bank app can explain.</h2>
+          <p>Newfin is not trying to be a mass-market budgeting app. It is an operating layer for one technically hands-on household whose assets, spending, and decisions cross systems.</p>
+        </div>
+        <dl class="roles">
+          <div>
+            <dt>Owner</dt>
+            <dd>The complete book, advisor context, trading surfaces, operations, and private integrations.</dd>
+          </div>
+          <div>
+            <dt>Spouse</dt>
+            <dd>Household-scoped balances, cashflow, and answers — without leaking owner-only routes or integrations.</dd>
+          </div>
+          <div>
+            <dt>Family group</dt>
+            <dd>Shared questions and useful household context through Persik, constrained before any model call.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="architecture" id="architecture">
+      <div class="wrap">
+        <header class="section-copy architecture__intro">
+          <h2>One ledger in the middle. Different surfaces around it.</h2>
+          <p>The app stays understandable because ingestion, financial truth, AI context, and delivery are separate layers.</p>
+        </header>
+
+        <figure class="architecture-map" aria-labelledby="architecture-caption">
+          <div class="architecture-lane">
+            <h3>Sources</h3>
+            <ul>
+              <li>Wallets &amp; cards</li>
+              <li>IBKR &amp; Hyperliquid</li>
+              <li>Crypto &amp; on-chain cash</li>
+              <li>Property &amp; private assets</li>
+            </ul>
+          </div>
+          <div class="architecture-flow" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="architecture-core">
+            <svg class="architecture-core__glyph glyph" aria-hidden="true"><use href="#icon-stack"/></svg>
+            <h3>Newfin core</h3>
+            <p>Node 20 + Express API</p>
+            <p>Supabase Postgres, Auth &amp; RLS</p>
+            <p>Shared net-worth and scoping logic</p>
+            <p>Auditable FinancialState for AI turns</p>
+          </div>
+          <div class="architecture-flow architecture-flow--out" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="architecture-lane architecture-lane--outputs">
+            <h3>Surfaces</h3>
+            <ul>
+              <li>React + Vite web PWA</li>
+              <li>Persik Telegram bot</li>
+              <li>Versioned REST API</li>
+              <li>Hermes VPS jobs &amp; research</li>
+            </ul>
+          </div>
+          <figcaption id="architecture-caption">Vercel serves the web and API. Supabase holds the financial record. Hermes schedules background work; it does not replace the ledger.</figcaption>
+        </figure>
+
+        <dl class="architecture-facts">
+          <div>
+            <dt>Read-only AI</dt>
+            <dd>Models reason over a scoped FinancialState payload. They do not receive signing keys and cannot move money.</dd>
+          </div>
+          <div>
+            <dt>Role before model</dt>
+            <dd>Owner, spouse, and group scope is applied when the payload is assembled — not after an answer is generated.</dd>
+          </div>
+          <div>
+            <dt>Portable by default</dt>
+            <dd>React, Node, Postgres, and a versioned API keep the system self-hostable instead of coupling the book to one interface.</dd>
+          </div>
+        </dl>
       </div>
     </section>
 

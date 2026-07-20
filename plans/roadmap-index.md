@@ -21,7 +21,7 @@ _Last audited against `main` on 2026-07-21._
 
 | Area | Shipped in | Notes |
 | ---- | ---------- | ----- |
-| Newfin marketing landing | this ship | `/newfin`: Hallmark Feature Stack, custom dark/indigo theme, hand-built SVG account orbit, scroll-synced product story. |
+| Newfin marketing landing | current `main` | `/newfin`: Hallmark Feature Stack, custom dark/indigo theme, hand-built SVG account orbit, scroll-synced product story, audience/use-case/why copy, and an inspectable system architecture map. |
 | Jackie-OS case study | `685a45d` (#1) | Fuller rework: linked-memory particle field, two-ledger vault card, six-job loop w/ icons, before/after, ownership grid, grounded copy. The standalone landing (jackieos.vercel.app) was retired into this; that Vercel project is deleted. |
 | Docs → Fumadocs | `ba7915e` | Replaced MkDocs Material with a Fumadocs (Next.js static-export) site at `/jackie-os/docs` (shadcn-neutral + gold accent, ⌘K search). Source app in `docs-src/`; built export in `site/jackie-os/`. |
 
