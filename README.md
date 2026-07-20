@@ -10,14 +10,15 @@ Live target: **https://sergeichan.vercel.app**
 ## Layout
 
 ```
-site/               deployable site (index.html — self-contained)
-site/newfin/        Newfin marketing landing (Hallmark)
-site/newfin-fable/  Newfin landing, Fable version (case-dossier structure)
-docs/               design plan + full iteration log
-vercel.json         static deploy (outputDirectory: site)
+site/                 deployable site (index.html — self-contained)
+site/newfin/          Newfin marketing landing (Hallmark, Feature Stack)
+site/newfin-fable/    Newfin landing, Fable version (case-dossier + canvas threads)
+site/newfin-fable-2/  Newfin landing, Hallmark bespoke (standalone, constellation)
+docs/                 design plan + full iteration log
+vercel.json           static deploy (outputDirectory: site)
 ```
 
-**Routes:** `/` · `/newfin` · `/newfin-fable` · `/jackie-os`
+**Routes:** `/` · `/newfin` · `/newfin-fable` · `/newfin-fable-2` · `/jackie-os`
 
 ## Deploy
 

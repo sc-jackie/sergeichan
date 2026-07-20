@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-07-21",
+    "macrostructure": "Marquee Hero",
+    "theme": "custom",
+    "theme_axes": "dark / display-heavy / cool",
+    "vibe": "midnight constellation declarative kinetic",
+    "enrichment": "E5 custom canvas constellation · Tier A/B",
+    "nav": "N2 floating chip",
+    "footer": "Ft8 marquee",
+    "brief": "Newfin standalone landing /newfin-fable-2"
+  },
+  {
+    "date": "2026-07-21",
     "macrostructure": "Feature Stack",
     "theme": "custom",
     "theme_axes": "dark / roman-serif / cool",

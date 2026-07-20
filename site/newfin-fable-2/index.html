@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Newfin — every account. One book.</title>
+  <meta name="description" content="Newfin reconciles a genuinely mixed portfolio into one truthful book — and answers with numbers, not clichés.">
+  <meta name="theme-color" content="#0a0912">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/newfin-fable-2/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- N2 · floating chip nav -->
+  <div class="chip" role="banner">
+    <a class="chip__brand" href="/newfin-fable-2">NEW<b>FIN</b></a>
+    <a class="chip__cta" href="https://newfin-evegelin.vercel.app/portfolio">Open app</a>
+  </div>
+
+  <main id="main">
+    <!-- ═══ MARQUEE HERO · constellation ═══ -->
+    <section class="fold">
+      <canvas id="sky" class="fold__sky" aria-hidden="true"></canvas>
+      <div class="fold__center">
+        <p class="fold__eyebrow">Household finance, reconciled</p>
+        <h1 class="fold__title">
+          <span class="line"><i>EVERY</i></span>
+          <span class="line"><i>ACCOUNT.</i></span>
+          <span class="line line--hl"><i>ONE&nbsp;BOOK.</i></span>
+        </h1>
+        <p class="fold__sub">Crypto, futures, property, private deals, cards, cash — one truthful record, and an advisor that answers with numbers.</p>
+        <div class="fold__actions">
+          <a class="cta" href="https://newfin-evegelin.vercel.app/portfolio"><span>Open Newfin</span></a>
+          <a class="cta cta--line" href="https://t.me/Persik_finbot"><span>Message Persik</span></a>
+        </div>
+      </div>
+      <p class="fold__hint" aria-hidden="true">scroll<span class="fold__hint-line"></span></p>
+    </section>
+
+    <!-- kinetic band -->
+    <div class="band" aria-hidden="true">
+      <div class="band__track">
+        <span>EVERY ACCOUNT · ONE BOOK ·&nbsp;</span><span>EVERY ACCOUNT · ONE BOOK ·&nbsp;</span><span>EVERY ACCOUNT · ONE BOOK ·&nbsp;</span><span>EVERY ACCOUNT · ONE BOOK ·&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ═══ MANIFESTO ═══ -->
+    <section class="creed" id="creed">
+      <div class="col">
+        <p class="tag">The position</p>
+        <p class="creed__line"><mark>Balance isn’t liquidity.</mark></p>
+        <p class="creed__line"><mark>A transfer isn’t spending.</mark></p>
+        <p class="creed__line"><mark>A bot shouldn’t become a second ledger.</mark></p>
+        <p class="creed__note">Every finance app tracks a slice. None could hold the whole book without lying somewhere — vesting counted as cash, a transfer counted as spending, property with no place at all. Newfin exists to hold it all, truthfully.</p>
+      </div>
+    </section>
+
+    <!-- ═══ LIQUID / LOCKED divider toy ═══ -->
+    <section class="split" id="split" aria-label="Liquid versus locked — the line Newfin never blurs">
+      <div class="col">
+        <p class="tag">The line that matters</p>
+        <h2>Liquid <span class="split__vs">≠</span> Locked</h2>
+        <div class="meter" id="meter">
+          <div class="meter__side meter__side--a" id="meterA">
+            <b>LIQUID</b>
+            <span>crypto · cash · trading</span>
+          </div>
+          <div class="meter__handle" id="handle" role="slider" tabindex="0" aria-label="Drag to compare liquid and locked" aria-valuemin="20" aria-valuemax="80" aria-valuenow="50">
+            <i></i><i></i>
+          </div>
+          <div class="meter__side meter__side--b" id="meterB">
+            <b>LOCKED</b>
+            <span>vesting · property · deals</span>
+          </div>
+        </div>
+        <p class="split__note">Both belong in net worth. Only one is money you can move today — so Newfin never adds them into one flattering number.</p>
+      </div>
+    </section>
+
+    <!-- ═══ BENTO · what it solves ═══ -->
+    <section class="solve" id="solve">
+      <div class="col col--wide">
+        <p class="tag">What it solves</p>
+        <h2>Built for the book<br>no app could hold.</h2>
+        <div class="bento">
+          <article class="tile tile--big">
+            <svg class="tile__ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 11.5c6.2-2 11.5-.8 16 3.2v25c-4.5-4-9.8-5.2-16-3.2z"/><path d="M40 11.5c-6.2-2-11.5-.8-16 3.2v25c4.5-4 9.8-5.2 16-3.2z"/><path d="M24 14.7v25"/></svg>
+            <h3>One truthful net-worth line</h3>
+            <p>Every asset class, every currency, one calculation — with liquid and locked kept apart so the number you can move is never inflated.</p>
+          </article>
+          <article class="tile">
+            <svg class="tile__ic" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16"/><path d="M24 14v10l7 5"/></svg>
+            <h3>An advisor with numbers</h3>
+            <p>It reads a scoped snapshot of the real book and answers in dollars and percent — never market clichés.</p>
+          </article>
+          <article class="tile">
+            <svg class="tile__ic" viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="17" r="7"/><circle cx="34" cy="20" r="5"/><path d="M5 40c0-8 5-13 13-13s13 5 13 13"/><path d="M30 29c7 0 12 4 12 11"/></svg>
+            <h3>Hard household scoping</h3>
+            <p>The owner sees everything. Family members see only their view — enforced before the model runs.</p>
+          </article>
+          <article class="tile">
+            <svg class="tile__ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="20" width="28" height="20" rx="3"/><path d="M16 20v-6a8 8 0 0 1 16 0v6"/><path d="M24 28v6"/></svg>
+            <h3>Read-only by design</h3>
+            <p>It can describe a move. It can never execute one. No keys, no orders, no transfers.</p>
+          </article>
+          <article class="tile tile--wide">
+            <svg class="tile__ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 37V26M10 18v-7"/><path d="M24 40V30M24 22V8"/><path d="M38 37V20M38 12V8"/><rect x="6" y="18" width="8" height="8" rx="1"/><rect x="20" y="22" width="8" height="8" rx="1"/><rect x="34" y="12" width="8" height="8" rx="1"/></svg>
+            <h3>A live desk beside the book</h3>
+            <p>IBKR equities and Hyperliquid perps on one desk — so a new position is sized against everything you own, not one account’s margin screen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- kinetic band (reverse) -->
+    <div class="band band--rev" aria-hidden="true">
+      <div class="band__track">
+        <span>LIQUID ≠ LOCKED · NUMBERS, NOT CLICHÉS ·&nbsp;</span><span>LIQUID ≠ LOCKED · NUMBERS, NOT CLICHÉS ·&nbsp;</span><span>LIQUID ≠ LOCKED · NUMBERS, NOT CLICHÉS ·&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ═══ A DAY · snap cards ═══ -->
+    <section class="day" id="day">
+      <div class="col col--wide">
+        <p class="tag">A day with it</p>
+        <h2>It runs whether<br>you look or not.</h2>
+      </div>
+      <div class="rail" tabindex="0" aria-label="Four moments in a day — scroll horizontally">
+        <article class="moment">
+          <span class="moment__t">07:10</span>
+          <h3>The digest arrives</h3>
+          <p>Overnight moves, positions, anything that needs attention — pushed to Telegram before the day starts.</p>
+        </article>
+        <article class="moment">
+          <span class="moment__t">MIDDAY</span>
+          <h3>Spending books itself</h3>
+          <p>Card and wallet activity lands in Cashflow on schedule. Transfers stay transfers; spending stays spending.</p>
+        </article>
+        <article class="moment">
+          <span class="moment__t">DESK</span>
+          <h3>Risk before the trade</h3>
+          <p>Two venues, one desk, the whole book beside it. Size the position against everything.</p>
+        </article>
+        <article class="moment">
+          <span class="moment__t">EVENING</span>
+          <h3>Ask, don’t assemble</h3>
+          <p>“How did we do this week?” — answered from the same book the dashboard reads. No spreadsheet archaeology.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ ARCHITECTURE · metro ═══ -->
+    <section class="metro" id="metro">
+      <div class="col">
+        <p class="tag">Architecture</p>
+        <h2>One line of truth.</h2>
+        <svg class="metro__map" viewBox="0 0 640 360" role="img" aria-labelledby="metro-t metro-d">
+          <title id="metro-t">Newfin architecture as a metro line</title>
+          <desc id="metro-d">Integrations flow into the server, then Supabase — the system of record — then out to the web app and the Telegram agent.</desc>
+          <path class="metro__rail" d="M60 60 H320 Q360 60 360 100 V150 Q360 190 400 190 H580" pathLength="100"/>
+          <path class="metro__rail metro__rail--branch" d="M360 150 Q360 300 60 300" pathLength="100"/>
+          <path class="metro__flow" d="M60 60 H320 Q360 60 360 100 V150 Q360 190 400 190 H580" pathLength="100"/>
+          <path class="metro__flow metro__flow--slow" d="M360 150 Q360 300 60 300" pathLength="100"/>
+          <g class="metro__stop" transform="translate(60 60)"><circle r="7"/><text x="0" y="-18" text-anchor="start">INTEGRATIONS</text><text class="metro__sub" x="0" y="26">wallets · banks · brokers</text></g>
+          <g class="metro__stop" transform="translate(250 60)"><circle r="7"/><text x="0" y="-18" text-anchor="middle">SERVER</text><text class="metro__sub" x="0" y="26">API · math · scoping</text></g>
+          <g class="metro__stop metro__stop--core" transform="translate(360 150)"><circle r="10"/><text x="20" y="-8" text-anchor="start">SUPABASE</text><text class="metro__sub" x="20" y="10">the system of record</text></g>
+          <g class="metro__stop" transform="translate(580 190)"><circle r="7"/><text x="0" y="-18" text-anchor="end">WEB APP</text><text class="metro__sub" x="0" y="26">portfolio · cashflow · desk</text></g>
+          <g class="metro__stop" transform="translate(60 300)"><circle r="7"/><text x="0" y="-18" text-anchor="start">PERSIK · TELEGRAM</text><text class="metro__sub" x="0" y="26">role-scoped answers</text></g>
+        </svg>
+        <p class="metro__note">The server owns the math. Every surface — web or Telegram — reads role-scoped views of the same record. Nothing keeps its own copy.</p>
+      </div>
+    </section>
+
+    <!-- ═══ STATE + CLOSE ═══ -->
+    <section class="fin">
+      <div class="col">
+        <ul class="fin__chips">
+          <li class="is-live"><i aria-hidden="true"></i>LIVE</li>
+          <li>DAILY USE</li>
+          <li>AGENT LOOP</li>
+          <li>READ-ONLY</li>
+        </ul>
+        <p class="fin__line">Money is messy.<br><b>The book shouldn’t be.</b></p>
+        <div class="fold__actions">
+          <a class="cta" href="https://newfin-evegelin.vercel.app/portfolio"><span>Open Newfin</span></a>
+          <a class="cta cta--line" href="https://github.com/sc-jackie/Newfin"><span>Read the code</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Ft8 · marquee footer -->
+  <footer class="foot">
+    <div class="band band--foot" aria-hidden="true">
+      <div class="band__track">
+        <span>NEWFIN · SELF-HOSTABLE HOUSEHOLD FINANCE · 2026 ·&nbsp;</span><span>NEWFIN · SELF-HOSTABLE HOUSEHOLD FINANCE · 2026 ·&nbsp;</span><span>NEWFIN · SELF-HOSTABLE HOUSEHOLD FINANCE · 2026 ·&nbsp;</span>
+      </div>
+    </div>
+    <div class="col foot__meta">
+      <span>Newfin</span>
+      <a href="https://github.com/sc-jackie/Newfin">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    "use strict";
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    /* ── reveals ── */
+    const revealables = document.querySelectorAll(".tag, .creed__line, .creed__note, h2, .meter, .split__note, .tile, .moment, .metro__map, .metro__note, .fin__chips, .fin__line, .fold__actions");
+    revealables.forEach(el => el.classList.add("rv"));
+    if (reduced) revealables.forEach(el => el.classList.add("in"));
+    else {
+      const io = new IntersectionObserver(es => {
+        for (const e of es) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      }, { threshold: 0.14 });
+      revealables.forEach(el => io.observe(el));
+    }
+
+    /* ── liquid/locked handle ── */
+    const meter = document.getElementById("meter");
+    const handle = document.getElementById("handle");
+    if (meter && handle) {
+      let pct = 50;
+      const apply = p => {
+        pct = Math.max(20, Math.min(80, p));
+        meter.style.setProperty("--split", pct + "%");
+        handle.setAttribute("aria-valuenow", Math.round(pct));
+      };
+      const fromEvent = e => {
+        const r = meter.getBoundingClientRect();
+        apply(((e.clientX - r.left) / r.width) * 100);
+      };
+      handle.addEventListener("pointerdown", e => {
+        handle.setPointerCapture(e.pointerId);
+        const move = ev => fromEvent(ev);
+        const up = () => { removeEventListener("pointermove", move); removeEventListener("pointerup", up); };
+        addEventListener("pointermove", move, { passive: true });
+        addEventListener("pointerup", up, { once: true });
+        e.preventDefault();
+      });
+      handle.addEventListener("keydown", e => {
+        if (e.key === "ArrowLeft") { apply(pct - 4); e.preventDefault(); }
+        if (e.key === "ArrowRight") { apply(pct + 4); e.preventDefault(); }
+      });
+      apply(50);
+    }
+
+    /* ── constellation sky ── */
+    const cv = document.getElementById("sky");
+    if (cv) {
+      const ctx = cv.getContext("2d");
+      let W = 0, H = 0, dpr = 1, stars = [], book = null, mx = -1e4, my = -1e4, raf = 0;
+      const LABELS = ["CRYPTO", "VESTING", "FUTURES", "PROPERTY · VN", "PROPERTY · UA", "DEALS", "CASH", "IBKR", "HL"];
+      const init = () => {
+        dpr = Math.min(2, devicePixelRatio || 1);
+        W = cv.clientWidth; H = cv.clientHeight;
+        cv.width = W * dpr; cv.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        book = { x: W / 2, y: H * 0.46 };
+        stars = [];
+        const n = W < 700 ? 40 : 70;
+        for (let i = 0; i < n; i++) {
+          stars.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.16, vy: (Math.random() - 0.5) * 0.16,
+            r: 0.6 + Math.random() * 1.4,
+            label: i < LABELS.length ? LABELS[i] : null
+          });
+        }
+        /* named stars ring the book node */
+        stars.forEach((s, i) => {
+          if (s.label) {
+            const a = (i / LABELS.length) * Math.PI * 2 - Math.PI / 2;
+            const rad = Math.min(W, H) * (0.3 + (i % 3) * 0.055);
+            s.x = book.x + Math.cos(a) * rad;
+            s.y = book.y + Math.sin(a) * rad * 0.72;
+            s.r = 2.2;
+          }
+        });
+      };
+      init();
+      addEventListener("resize", init, { passive: true });
+      if (fine) addEventListener("pointermove", e => {
+        const r = cv.getBoundingClientRect();
+        mx = e.clientX - r.left; my = e.clientY - r.top;
+      }, { passive: true });
+
+      const draw = t => {
+        ctx.clearRect(0, 0, W, H);
+        for (const s of stars) {
+          if (!reduced && !s.label) {
+            s.x += s.vx; s.y += s.vy;
+            if (s.x < 0 || s.x > W) s.vx *= -1;
+            if (s.y < 0 || s.y > H) s.vy *= -1;
+          }
+          /* mouse gravity on named stars */
+          if (s.label && fine) {
+            const dx = mx - s.x, dy = my - s.y, d2 = dx * dx + dy * dy;
+            if (d2 < 16000) { s.x += dx * 0.012; s.y += dy * 0.012; }
+          }
+        }
+        /* faint links between close stars */
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < stars.length; i++) for (let j = i + 1; j < stars.length; j++) {
+          const a = stars[i], b = stars[j];
+          const dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+          if (d2 < 8100) {
+            ctx.strokeStyle = `oklch(72% 0.12 272 / ${0.14 * (1 - d2 / 8100)})`;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        /* threads from named stars to the book */
+        for (const s of stars) if (s.label) {
+          const grad = ctx.createLinearGradient(s.x, s.y, book.x, book.y);
+          grad.addColorStop(0, "oklch(72% 0.12 272 / 0.34)");
+          grad.addColorStop(1, "oklch(72% 0.12 272 / 0.06)");
+          ctx.strokeStyle = grad; ctx.lineWidth = 0.8;
+          ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(book.x, book.y); ctx.stroke();
+        }
+        /* stars */
+        for (const s of stars) {
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = s.label ? "oklch(84% 0.14 272 / 0.95)" : "oklch(80% 0.06 272 / 0.5)";
+          ctx.fill();
+          if (s.label && W >= 700) {
+            ctx.font = "500 9px 'JetBrains Mono', monospace";
+            ctx.fillStyle = "oklch(60% 0.03 272 / 0.85)";
+            ctx.textAlign = "center";
+            ctx.fillText(s.label, s.x, s.y - 10);
+          }
+        }
+        /* book node pulse */
+        const pulse = reduced ? 0.5 : (Math.sin(t * 0.0016) + 1) / 2;
+        ctx.beginPath(); ctx.arc(book.x, book.y, 4 + pulse * 2, 0, Math.PI * 2);
+        ctx.fillStyle = "oklch(86% 0.15 272)"; ctx.fill();
+        ctx.beginPath(); ctx.arc(book.x, book.y, 14 + pulse * 10, 0, Math.PI * 2);
+        ctx.strokeStyle = `oklch(78% 0.14 272 / ${0.4 - pulse * 0.25})`; ctx.lineWidth = 1; ctx.stroke();
+      };
+
+      if (reduced) draw(0);
+      else {
+        const loop = t => { draw(t); raf = requestAnimationFrame(loop); };
+        raf = requestAnimationFrame(loop);
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) cancelAnimationFrame(raf);
+          else raf = requestAnimationFrame(loop);
+        });
+      }
+    }
+  })();
+  </script>
+</body>
+</html>
