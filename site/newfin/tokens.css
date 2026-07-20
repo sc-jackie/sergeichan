@@ -1,0 +1,77 @@
+/* Hallmark · macrostructure: Feature Stack · H9 Tier-B SVG: dominant, load-once
+ * nav: N10 scroll-morph · footer: Ft5 statement · F2: pinned-left, diagram, 4 states
+ * theme: custom · vibe: "dark kinetic dimensional indigo precise"
+ * paper: oklch(13% 0.018 276) · accent: oklch(70% 0.13 272)
+ * display: Spectral · body: Manrope · outlier: JetBrains Mono
+ * axes: dark / roman-serif / cool · gates: 58/58 pass · contrast: pass (40–41)
+ * honest: pass (46) · chrome: pass (47) · tokens: pass (48) · icons: pass (30)
+ * mobile: pass (34, 49, 50–57) · studied: no
+ */
+
+:root {
+  --color-paper: oklch(13% 0.018 276);
+  --color-paper-2: oklch(17% 0.022 276);
+  --color-paper-3: oklch(21% 0.026 276);
+  --color-paper-4: oklch(25% 0.03 276);
+  --color-ink: oklch(95% 0.01 276);
+  --color-ink-2: oklch(88% 0.016 276);
+  --color-muted: oklch(70% 0.022 276);
+  --color-neutral: oklch(58% 0.022 276);
+  --color-rule: oklch(31% 0.03 276);
+  --color-rule-2: oklch(25% 0.026 276);
+  --color-accent: oklch(70% 0.13 272);
+  --color-accent-ink: oklch(14% 0.025 276);
+  --color-focus: oklch(76% 0.18 272);
+  --color-shadow: oklch(5% 0.016 276 / 0.45);
+  --color-overlay: oklch(13% 0.018 276 / 0.86);
+
+  --font-display: "Spectral", "Source Serif 4", serif;
+  --font-body: "Manrope", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --text-xs: 0.72rem;
+  --text-sm: 0.82rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.56rem;
+  --text-xl: 1.95rem;
+  --text-2xl: 2.44rem;
+  --text-3xl: 3.05rem;
+  --text-display: clamp(3rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(2.4rem, 4vw + 0.8rem, 4.2rem);
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  --radius-sm: 0.35rem;
+  --radius-md: 0.7rem;
+  --radius-lg: 1.1rem;
+  --radius-pill: 999px;
+  --rule-hair: 1px;
+
+  --page-max: 76rem;
+  --page-gutter: clamp(1rem, 4vw, 2rem);
+  --banner-height: 4.25rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 100ms;
+  --dur-short: 180ms;
+  --dur-mid: 520ms;
+  --dur-long: 700ms;
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 200;
+  --z-sticky-nav: 300;
+  --z-modal: 400;
+}

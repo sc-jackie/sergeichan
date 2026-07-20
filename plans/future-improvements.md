@@ -14,7 +14,6 @@ Created 2026-07-11 at project onboarding.
 
 ## Core product
 
-- **🔵 Cinematic six-act scroll redesign** — spec'd 2026-07-13, rev 2 (07-14): **full Three.js migration**, approved + in build → [plan](2026-07-13-001-feat-cinematic-six-act-scroll-redesign-plan.md) (Linear EVE-87, In Progress). Absorbs the about/past/investments/writing/contact surfaces; supersedes EVE-77.
 - **Real screenshots in case-study frames** (EVE-78) — product photography for portfolio entries instead of placeholder blocks; feeds redesign acts 2–3
 - **First essay: "Growing up between two cultures"** (EVE-79) — personal narrative/reflection content; becomes redesign act 5 (Voice) content
 - **Custom domain** (EVE-80) — move from vercel.app to personal domain (DNS + Vercel configuration)
@@ -28,4 +27,4 @@ Created 2026-07-11 at project onboarding.
 ## Out of scope (v1)
 
 - Blog/CMS system — stay static HTML/Canvas
-- Animation frameworks — *superseded:* rev 2 of the six-act redesign (2026-07-14, owner call) approves vendored Three.js + GSAP ScrollTrigger + Lenis; the Canvas 2D engine retires with the redesign (git history keeps it as the behavioral reference)
+- Animation frameworks — no standing dependency; add one only when a future approved concept cannot be expressed with the platform.
