@@ -5,206 +5,259 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Newfin — the whole book, truthfully</title>
   <meta name="description" content="Newfin holds a genuinely mixed portfolio in one truthful book — net worth, cashflow, a trading desk, and an advisor that answers with numbers.">
+  <meta name="theme-color" content="#0a0b12">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Spectral:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Spectral:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/newfin-fable/style.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="top">
-    <div class="col top__row">
+  <!-- cursor glow -->
+  <div class="glow" id="glow" aria-hidden="true"></div>
+
+  <!-- scroll spine -->
+  <nav class="spine" id="spine" aria-label="Sections">
+    <div class="spine__track"><div class="spine__fill" id="spineFill"></div></div>
+    <a href="#what"   class="spine__node" data-spine="what"><span>01</span></a>
+    <a href="#why"    class="spine__node" data-spine="why"><span>02</span></a>
+    <a href="#solves" class="spine__node" data-spine="solves"><span>03</span></a>
+    <a href="#day"    class="spine__node" data-spine="day"><span>04</span></a>
+    <a href="#arch"   class="spine__node" data-spine="arch"><span>05</span></a>
+    <a href="#state"  class="spine__node" data-spine="state"><span>06</span></a>
+  </nav>
+
+  <header class="top" id="top">
+    <div class="top__row">
       <a class="brand" href="/newfin-fable">New<b>fin</b></a>
       <nav class="top__nav" aria-label="Page">
         <a href="#why">Why</a>
         <a href="#day">A day</a>
         <a href="#arch">Architecture</a>
-        <a class="top__open" href="https://newfin-evegelin.vercel.app/portfolio">Open app</a>
+        <a class="btn btn--sm" href="https://newfin-evegelin.vercel.app/portfolio">Open app</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <!-- Hero -->
+    <!-- ═══════════ HERO ═══════════ -->
     <section class="hero">
-      <div class="col">
-        <p class="kicker">II · Household finance · live since 2026</p>
-        <h1>The whole book,<br><span class="hl">truthfully.</span></h1>
-        <p class="lede">Net worth, cashflow and an advisor — for a portfolio no single app could hold.</p>
-        <div class="actions">
-          <a class="btn" href="https://newfin-evegelin.vercel.app/portfolio">Open Newfin</a>
-          <a class="btn btn--ghost" href="https://t.me/Persik_finbot">Message Persik</a>
+      <canvas class="hero__canvas" id="threads" aria-hidden="true"></canvas>
+      <div class="hero__inner">
+        <p class="kicker reveal">II · Household finance · live since 2026</p>
+        <h1 class="hero__title" aria-label="The whole book, truthfully.">
+          <span class="w"><i>The</i></span>
+          <span class="w"><i>whole</i></span>
+          <span class="w"><i>book,</i></span>
+          <br>
+          <span class="w w--hl"><i>truthfully.</i></span>
+        </h1>
+        <p class="lede reveal">Net worth, cashflow and an advisor — for a portfolio no single app could hold.</p>
+        <div class="actions reveal">
+          <a class="btn btn--magnet" href="https://newfin-evegelin.vercel.app/portfolio" data-magnet>Open Newfin</a>
+          <a class="btn btn--ghost btn--magnet" href="https://t.me/Persik_finbot" data-magnet>Message Persik</a>
         </div>
       </div>
-      <div class="hero__ticker" aria-hidden="true">
-        <div class="hero__track">
+      <div class="hero__stats reveal" aria-label="The book at a glance">
+        <div class="stat"><b class="stat__n" data-count="8">0</b><span>asset classes</span></div>
+        <div class="stat"><b class="stat__n" data-count="2">0</b><span>countries of property</span></div>
+        <div class="stat"><b class="stat__n" data-count="3">0</b><span>surfaces — web, desk, Telegram</span></div>
+        <div class="stat"><b class="stat__n" data-count="1">0</b><span>book. no lies in it</span></div>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
           <span>crypto · liquid</span><span>crypto · vesting</span><span>futures</span><span>real estate · VN</span><span>real estate · UA</span><span>private deals</span><span>receivables</span><span>cash</span><span>IBKR</span><span>Hyperliquid</span>
           <span>crypto · liquid</span><span>crypto · vesting</span><span>futures</span><span>real estate · VN</span><span>real estate · UA</span><span>private deals</span><span>receivables</span><span>cash</span><span>IBKR</span><span>Hyperliquid</span>
         </div>
       </div>
     </section>
 
-    <!-- What it is -->
+    <!-- ═══════════ 01 WHAT ═══════════ -->
     <section class="sec" id="what">
-      <div class="col sec__grid">
-        <div class="sec__mark" aria-hidden="true"><span>01</span></div>
-        <div class="sec__body">
-          <h2>What it is</h2>
-          <p>One system of record for a genuinely mixed book: liquid and vesting crypto, futures, real estate in two countries, private deals, receivables, cash.</p>
-          <p>Around that record: an API-first server, a web dashboard, a live trading desk, and a Telegram agent scoped to the household.</p>
-        </div>
+      <span class="sec__ghost" aria-hidden="true">01</span>
+      <div class="sec__inner">
+        <h2 class="reveal">What it is</h2>
+        <p class="sec__big reveal">One system of record for a genuinely mixed book — <em>liquid and vesting crypto, futures, real estate in two countries, private deals, receivables, cash.</em></p>
+        <p class="reveal">Around that record: an API-first server, a web dashboard, a live trading desk, and a Telegram agent scoped to the household.</p>
       </div>
     </section>
 
-    <!-- Why it exists -->
+    <!-- ═══════════ 02 WHY ═══════════ -->
     <section class="sec" id="why">
-      <div class="col sec__grid">
-        <div class="sec__mark" aria-hidden="true"><span>02</span></div>
-        <div class="sec__body">
-          <h2>Why it exists</h2>
-          <p>Every finance app tracks <em>a slice</em>. None could hold the whole book without lying somewhere — vesting counted as cash, a transfer counted as spending, property with no place at all.</p>
-          <p>And numbers without judgment are noise. The advisor had to read the actual state and answer in dollars and percent — not market clichés.</p>
-          <blockquote class="pull">
-            <p>“Balance isn’t liquidity. A transfer isn’t spending. A bot shouldn’t become a second ledger.”</p>
-          </blockquote>
+      <span class="sec__ghost" aria-hidden="true">02</span>
+      <div class="sec__inner">
+        <h2 class="reveal">Why it exists</h2>
+        <p class="reveal">Every finance app tracks <em>a slice</em>. None could hold the whole book without lying somewhere — vesting counted as cash, a transfer counted as spending, property with no place at all.</p>
+        <p class="reveal">And numbers without judgment are noise. The advisor had to read the actual state and answer in dollars and percent — not market clichés.</p>
+        <blockquote class="pull reveal">
+          <p><span class="pull__line">Balance isn’t liquidity.</span> <span class="pull__line">A transfer isn’t spending.</span> <span class="pull__line">A bot shouldn’t become a second ledger.</span></p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ═══════════ 03 SOLVES ═══════════ -->
+    <section class="sec sec--wide" id="solves">
+      <span class="sec__ghost" aria-hidden="true">03</span>
+      <div class="sec__inner">
+        <h2 class="reveal">What it solves</h2>
+        <div class="cards">
+          <article class="card reveal" data-tilt>
+            <div class="card__sheen" aria-hidden="true"></div>
+            <svg class="card__icon draw" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M8 11.5c6.2-2 11.5-.8 16 3.2v25c-4.5-4-9.8-5.2-16-3.2z"/>
+              <path d="M40 11.5c-6.2-2-11.5-.8-16 3.2v25c4.5-4 9.8-5.2 16-3.2z"/>
+              <path d="M24 14.7v25"/>
+            </svg>
+            <h3>One truthful net-worth line</h3>
+            <p>Every asset class, every currency — with liquid and locked kept apart, so the number you can move is never inflated.</p>
+          </article>
+          <article class="card reveal" data-tilt>
+            <div class="card__sheen" aria-hidden="true"></div>
+            <svg class="card__icon draw" viewBox="0 0 48 48" aria-hidden="true">
+              <circle cx="24" cy="24" r="16"/>
+              <path d="M24 14v10l7 5"/>
+              <path d="M24 4v4M44 24h-4M24 44v-4M4 24h4"/>
+            </svg>
+            <h3>An advisor bound to the real payload</h3>
+            <p>The model reasons over a scoped snapshot of the actual book. Recommendations arrive with numbers, never generic advice.</p>
+          </article>
+          <article class="card reveal" data-tilt>
+            <div class="card__sheen" aria-hidden="true"></div>
+            <svg class="card__icon draw" viewBox="0 0 48 48" aria-hidden="true">
+              <circle cx="18" cy="17" r="7"/>
+              <circle cx="34" cy="20" r="5"/>
+              <path d="M5 40c0-8 5-13 13-13s13 5 13 13"/>
+              <path d="M30 29c7 0 12 4 12 11"/>
+            </svg>
+            <h3>Household access, hard scoping</h3>
+            <p>The owner sees everything. Family members see only their view — enforced before the model ever runs.</p>
+          </article>
+          <article class="card reveal" data-tilt>
+            <div class="card__sheen" aria-hidden="true"></div>
+            <svg class="card__icon draw" viewBox="0 0 48 48" aria-hidden="true">
+              <rect x="10" y="20" width="28" height="20" rx="3"/>
+              <path d="M16 20v-6a8 8 0 0 1 16 0v6"/>
+              <path d="M24 28v6"/>
+            </svg>
+            <h3>Read-only by design</h3>
+            <p>It can describe a move. It can never execute one. No keys, no orders, no transfers.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- What it solves -->
-    <section class="sec" id="solves">
-      <div class="col sec__grid">
-        <div class="sec__mark" aria-hidden="true"><span>03</span></div>
-        <div class="sec__body">
-          <h2>What it solves</h2>
-          <ol class="solves">
-            <li>
-              <h3>One truthful net-worth line</h3>
-              <p>Every asset class, every currency — with liquid and locked kept apart, so the number you can move is never inflated.</p>
-            </li>
-            <li>
-              <h3>An advisor bound to the real payload</h3>
-              <p>The model reasons over a scoped snapshot of the actual book. Recommendations arrive with numbers, never generic advice.</p>
-            </li>
-            <li>
-              <h3>Household access with hard scoping</h3>
-              <p>The owner sees everything. Family members see only their view — enforced before the model ever runs.</p>
-            </li>
-            <li>
-              <h3>Read-only by design</h3>
-              <p>It can describe a move. It can never execute one. No keys, no orders, no transfers.</p>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- A day with it -->
+    <!-- ═══════════ 04 A DAY ═══════════ -->
     <section class="sec" id="day">
-      <div class="col sec__grid">
-        <div class="sec__mark" aria-hidden="true"><span>04</span></div>
-        <div class="sec__body">
-          <h2>A day with it</h2>
-          <ul class="day">
-            <li>
-              <span class="day__time">07:10</span>
-              <div>
-                <h3>The digest arrives</h3>
-                <p>Overnight moves, positions, and anything that needs attention — pushed to Telegram before the day starts.</p>
-              </div>
-            </li>
-            <li>
-              <span class="day__time">Midday</span>
-              <div>
-                <h3>Spending books itself</h3>
-                <p>Card and wallet activity lands in Cashflow on schedule. Transfers stay transfers; spending stays spending.</p>
-              </div>
-            </li>
-            <li>
-              <span class="day__time">Desk</span>
-              <div>
-                <h3>Risk before the trade</h3>
-                <p>IBKR and Hyperliquid on one desk, beside the whole book — so a new position is sized against everything, not one account.</p>
-              </div>
-            </li>
-            <li>
-              <span class="day__time">Evening</span>
-              <div>
-                <h3>Ask, don’t assemble</h3>
-                <p>“How did we do this week?” Persik answers from the same book the dashboard reads. No spreadsheet archaeology.</p>
-              </div>
-            </li>
-          </ul>
-        </div>
+      <span class="sec__ghost" aria-hidden="true">04</span>
+      <div class="sec__inner">
+        <h2 class="reveal">A day with it</h2>
+        <ul class="day">
+          <li class="day__item reveal">
+            <span class="day__dot" aria-hidden="true"></span>
+            <span class="day__time">07:10</span>
+            <div>
+              <h3>The digest arrives</h3>
+              <p>Overnight moves, positions, and anything that needs attention — pushed to Telegram before the day starts.</p>
+            </div>
+          </li>
+          <li class="day__item reveal">
+            <span class="day__dot" aria-hidden="true"></span>
+            <span class="day__time">Midday</span>
+            <div>
+              <h3>Spending books itself</h3>
+              <p>Card and wallet activity lands in Cashflow on schedule. Transfers stay transfers; spending stays spending.</p>
+            </div>
+          </li>
+          <li class="day__item reveal">
+            <span class="day__dot" aria-hidden="true"></span>
+            <span class="day__time">Desk</span>
+            <div>
+              <h3>Risk before the trade</h3>
+              <p>IBKR and Hyperliquid on one desk, beside the whole book — so a new position is sized against everything, not one account.</p>
+            </div>
+          </li>
+          <li class="day__item reveal">
+            <span class="day__dot" aria-hidden="true"></span>
+            <span class="day__time">Evening</span>
+            <div>
+              <h3>Ask, don’t assemble</h3>
+              <p>“How did we do this week?” Persik answers from the same book the dashboard reads. No spreadsheet archaeology.</p>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- Architecture -->
-    <section class="sec" id="arch">
-      <div class="col sec__grid">
-        <div class="sec__mark" aria-hidden="true"><span>05</span></div>
-        <div class="sec__body">
-          <h2>Architecture</h2>
-          <p>Five layers, one truth. Integrations feed the server; the server owns the math; every surface reads the same scoped state.</p>
-          <ol class="stack" aria-label="System layers, top to bottom">
-            <li>
-              <span class="stack__name">Integrations</span>
-              <span class="stack__what">exchanges · wallets · banks · brokers</span>
+    <!-- ═══════════ 05 ARCHITECTURE ═══════════ -->
+    <section class="sec sec--wide" id="arch">
+      <span class="sec__ghost" aria-hidden="true">05</span>
+      <div class="sec__inner">
+        <h2 class="reveal">Architecture</h2>
+        <p class="reveal">Five layers, one truth. Integrations feed the server; the server owns the math; every surface reads the same scoped state.</p>
+
+        <figure class="arch reveal" aria-label="System layers with data flowing through them">
+          <ol class="arch__stack">
+            <li class="arch__layer">
+              <span class="arch__name">Integrations</span>
+              <span class="arch__what">exchanges · wallets · banks · brokers</span>
             </li>
-            <li>
-              <span class="stack__name">Server</span>
-              <span class="stack__what">Express API · net-worth math · role scoping</span>
+            <li class="arch__pipe" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="arch__layer">
+              <span class="arch__name">Server</span>
+              <span class="arch__what">Express API · net-worth math · role scoping</span>
             </li>
-            <li class="stack__core">
-              <span class="stack__name">Supabase</span>
-              <span class="stack__what">Postgres · auth · the system of record</span>
+            <li class="arch__pipe" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="arch__layer arch__layer--core">
+              <span class="arch__name">Supabase</span>
+              <span class="arch__what">Postgres · auth · the system of record</span>
             </li>
-            <li>
-              <span class="stack__name">Web PWA</span>
-              <span class="stack__what">portfolio · cashflow · trading desk</span>
-            </li>
-            <li>
-              <span class="stack__name">Persik</span>
-              <span class="stack__what">Telegram agent · household-scoped answers</span>
+            <li class="arch__pipe arch__pipe--up" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="arch__split">
+              <div class="arch__layer">
+                <span class="arch__name">Web PWA</span>
+                <span class="arch__what">portfolio · cashflow · desk</span>
+              </div>
+              <div class="arch__layer">
+                <span class="arch__name">Persik</span>
+                <span class="arch__what">Telegram · scoped answers</span>
+              </div>
             </li>
           </ol>
-          <p class="arch__note">The shared workspace owns the net-worth math. The Telegram agent gets role-scoped views of the same truth — never its own copy.</p>
-        </div>
+          <figcaption>The server owns the net-worth math. The Telegram agent gets role-scoped views of the same truth — never its own copy.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- Current state -->
+    <!-- ═══════════ 06 STATE ═══════════ -->
     <section class="sec" id="state">
-      <div class="col sec__grid">
-        <div class="sec__mark" aria-hidden="true"><span>06</span></div>
-        <div class="sec__body">
-          <h2>Current state</h2>
-          <p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than it gets maintained.</p>
-          <ul class="chips">
-            <li class="chips__live">Live</li>
-            <li>Daily use</li>
-            <li>Agent loop</li>
-            <li>Read-only by design</li>
-          </ul>
-        </div>
+      <span class="sec__ghost" aria-hidden="true">06</span>
+      <div class="sec__inner">
+        <h2 class="reveal">Current state</h2>
+        <p class="reveal">Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than it gets maintained.</p>
+        <ul class="chips reveal">
+          <li class="chips__live"><i aria-hidden="true"></i>Live</li>
+          <li>Daily use</li>
+          <li>Agent loop</li>
+          <li>Read-only by design</li>
+        </ul>
       </div>
     </section>
 
-    <!-- Close -->
+    <!-- ═══════════ CLOSE ═══════════ -->
     <section class="close">
-      <div class="col">
-        <p class="close__line">One book. No lies in it.</p>
-        <div class="actions">
-          <a class="btn" href="https://newfin-evegelin.vercel.app/portfolio">Open Newfin</a>
-          <a class="btn btn--ghost" href="https://t.me/Persik_finbot">Message Persik</a>
+      <div class="close__inner">
+        <p class="close__line reveal">One book.<br><b>No lies in it.</b></p>
+        <div class="actions reveal">
+          <a class="btn btn--magnet" href="https://newfin-evegelin.vercel.app/portfolio" data-magnet>Open Newfin</a>
+          <a class="btn btn--ghost btn--magnet" href="https://t.me/Persik_finbot" data-magnet>Message Persik</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="foot">
-    <div class="col foot__row">
+    <div class="foot__row">
       <span>Newfin · a Sergei Chan project</span>
       <span class="foot__links">
         <a href="https://github.com/sc-jackie/Newfin">GitHub</a>
@@ -215,18 +268,177 @@
   </footer>
 
   <script>
-    (() => {
-      if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        document.querySelectorAll(".sec, .close").forEach(el => el.classList.add("in"));
-        return;
-      }
-      const io = new IntersectionObserver(entries => {
-        for (const e of entries) {
-          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  (() => {
+    "use strict";
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    /* ── reveals ── */
+    const reveals = document.querySelectorAll(".reveal, .card, .day__item");
+    if (reduced) {
+      reveals.forEach(el => el.classList.add("in"));
+    } else {
+      const io = new IntersectionObserver(es => {
+        for (const e of es) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      }, { threshold: 0.12 });
+      reveals.forEach(el => io.observe(el));
+    }
+
+    /* ── icon draw-on ── */
+    document.querySelectorAll(".draw path, .draw circle, .draw rect").forEach(p => {
+      const len = p.getTotalLength ? p.getTotalLength() : 120;
+      p.style.setProperty("--len", len.toFixed(1));
+    });
+
+    /* ── counters ── */
+    const counters = document.querySelectorAll("[data-count]");
+    const runCount = el => {
+      const target = +el.dataset.count;
+      if (reduced) { el.textContent = target; return; }
+      const t0 = performance.now(), dur = 1100;
+      const tick = t => {
+        const k = Math.min(1, (t - t0) / dur);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const cio = new IntersectionObserver(es => {
+      for (const e of es) if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); }
+    }, { threshold: 0.6 });
+    counters.forEach(el => cio.observe(el));
+
+    /* ── scroll spine ── */
+    const fill = document.getElementById("spineFill");
+    const nodes = [...document.querySelectorAll(".spine__node")];
+    const secs = nodes.map(n => document.getElementById(n.dataset.spine));
+    let ticking = false;
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      if (fill) fill.style.transform = `scaleY(${max > 0 ? scrollY / max : 0})`;
+      let active = -1;
+      secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top < innerHeight * 0.5) active = i; });
+      nodes.forEach((n, i) => n.classList.toggle("is-on", i <= active));
+    };
+    addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { onScroll(); ticking = false; });
+    }, { passive: true });
+    onScroll();
+
+    /* ── cursor glow ── */
+    const glow = document.getElementById("glow");
+    if (glow && fine && !reduced) {
+      let gx = innerWidth / 2, gy = innerHeight / 3, tx = gx, ty = gy;
+      addEventListener("pointermove", e => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+      (function loop() {
+        gx += (tx - gx) * 0.08; gy += (ty - gy) * 0.08;
+        glow.style.transform = `translate(${gx}px, ${gy}px)`;
+        requestAnimationFrame(loop);
+      })();
+    }
+
+    /* ── magnetic buttons ── */
+    if (fine && !reduced) {
+      document.querySelectorAll("[data-magnet]").forEach(btn => {
+        btn.addEventListener("pointermove", e => {
+          const r = btn.getBoundingClientRect();
+          const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+          btn.style.transform = `translate(${dx * 0.14}px, ${dy * 0.22}px)`;
+        });
+        btn.addEventListener("pointerleave", () => { btn.style.transform = ""; });
+      });
+    }
+
+    /* ── tilt cards ── */
+    if (fine && !reduced) {
+      document.querySelectorAll("[data-tilt]").forEach(card => {
+        const sheen = card.querySelector(".card__sheen");
+        card.addEventListener("pointermove", e => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+          card.style.transform = `perspective(52rem) rotateX(${(0.5 - py) * 7}deg) rotateY(${(px - 0.5) * 9}deg) translateY(-3px)`;
+          if (sheen) sheen.style.background =
+            `radial-gradient(24rem circle at ${px * 100}% ${py * 100}%, oklch(72% 0.12 272 / 0.14), transparent 60%)`;
+        });
+        card.addEventListener("pointerleave", () => {
+          card.style.transform = "";
+          if (sheen) sheen.style.background = "transparent";
+        });
+      });
+    }
+
+    /* ── hero threads canvas ── */
+    const cv = document.getElementById("threads");
+    if (cv) {
+      const ctx = cv.getContext("2d");
+      const N = 9;
+      let W = 0, H = 0, dpr = 1, mx = -1e4, my = -1e4, raf = 0;
+      const resize = () => {
+        dpr = Math.min(2, devicePixelRatio || 1);
+        W = cv.clientWidth; H = cv.clientHeight;
+        cv.width = W * dpr; cv.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+      resize();
+      addEventListener("resize", resize, { passive: true });
+      if (fine) addEventListener("pointermove", e => {
+        const r = cv.getBoundingClientRect();
+        mx = e.clientX - r.left; my = e.clientY - r.top;
+      }, { passive: true });
+
+      const draw = (t) => {
+        ctx.clearRect(0, 0, W, H);
+        const cx = W * 0.86, cy = H * 0.44;           // convergence point
+        for (let i = 0; i < N; i++) {
+          const off = (i - (N - 1) / 2);
+          const y0 = H * 0.5 + off * (H * 0.085);
+          const hue = 272 + off * 3;
+          const alpha = 0.5 - Math.abs(off) * 0.038;
+          ctx.beginPath();
+          const steps = 60;
+          for (let s = 0; s <= steps; s++) {
+            const k = s / steps;
+            const x = k * W;
+            const conv = Math.pow(Math.max(0, (x - W * 0.35) / (cx - W * 0.35)), 1.6);
+            let y = y0 + (cy - y0) * Math.min(1, conv)
+                  + Math.sin(k * 7 + t * 0.00045 + i * 1.3) * 14 * (1 - conv)
+                  + Math.sin(k * 17 - t * 0.0003 + i) * 5 * (1 - conv);
+            const dx = x - mx, dy = y - my, d2 = dx * dx + dy * dy;
+            if (d2 < 22500) y += (dy > 0 ? 1 : -1) * (1 - d2 / 22500) * 34 * (1 - conv);
+            s === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = `oklch(72% 0.12 ${hue} / ${alpha})`;
+          ctx.lineWidth = off === 0 ? 1.6 : 1;
+          ctx.stroke();
         }
-      }, { threshold: 0.15 });
-      document.querySelectorAll(".sec, .close").forEach(el => io.observe(el));
-    })();
+        /* the converged "book" line */
+        const grad = ctx.createLinearGradient(cx, 0, W, 0);
+        grad.addColorStop(0, "oklch(78% 0.15 272 / 0.9)");
+        grad.addColorStop(1, "oklch(78% 0.15 272 / 0)");
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(W, cy);
+        ctx.strokeStyle = grad; ctx.lineWidth = 2.2; ctx.stroke();
+        /* pulse at the convergence point */
+        const pulse = reduced ? 0.5 : (Math.sin(t * 0.002) + 1) / 2;
+        ctx.beginPath(); ctx.arc(cx, cy, 3 + pulse * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = "oklch(82% 0.15 272 / 0.95)"; ctx.fill();
+        ctx.beginPath(); ctx.arc(cx, cy, 10 + pulse * 8, 0, Math.PI * 2);
+        ctx.strokeStyle = `oklch(78% 0.15 272 / ${0.35 - pulse * 0.2})`; ctx.lineWidth = 1; ctx.stroke();
+      };
+
+      if (reduced) {
+        draw(0);
+      } else {
+        const loop = t => { draw(t); raf = requestAnimationFrame(loop); };
+        raf = requestAnimationFrame(loop);
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) cancelAnimationFrame(raf);
+          else raf = requestAnimationFrame(loop);
+        });
+      }
+    }
+  })();
   </script>
 </body>
 </html>
