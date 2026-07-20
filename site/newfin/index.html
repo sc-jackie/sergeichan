@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Newfin — The household ledger</title>
+<meta name="description" content="Newfin is a household finance dashboard: one book for portfolio, cashflow, trading desk, and Persik on Telegram.">
+<meta name="theme-color" content="#f7f3eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Spectral:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · route: custom (tuned) · structure: broadsheet masthead + asymmetric folio
+ * paper: #f7f3eb · accent: #6b82b8 · primary: #344a85 · display: Spectral · body: Inter · mono: JetBrains Mono
+ * locked: Newfin "The Ledger" tokens · gates: honest-copy, token-locked, no-italic-headers, mobile-floor
+ * pre-emit critique: P5 H5 E4 S5 R4 V4
+ */
+
+:root {
+  --color-bg: #f7f3eb;
+  --color-card: #fefcf6;
+  --color-sub: #efeadd;
+  --color-line: #dcd4c2;
+  --color-text: #1c1a14;
+  --color-muted: #6a6353;
+  --color-dim: #726b5a;
+  --color-accent: #6b82b8;
+  --color-accent-text: #54689c;
+  --color-primary: #344a85;
+  --color-primary-fg: #fdfbf5;
+  --color-green: #3a7a47;
+  --color-red: #b53d29;
+  --color-amber: #9c6f1f;
+  --font-display: "Spectral", "Source Serif 4", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --radius-control: 3px;
+  --max: 72rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; }
+
+.tnum { font-variant-numeric: tabular-nums; }
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+.skip:focus {
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: 50;
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+}
+
+/* —— Masthead (broadsheet) —— */
+.mast {
+  border-bottom: 1px solid var(--color-line);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-sub) 55%, transparent), transparent 72%),
+    var(--color-bg);
+}
+.mast-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-5) var(--space-6);
+}
+.mast-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin-bottom: var(--space-5);
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.mast-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+.mast-nav a {
+  text-decoration: none;
+  color: var(--color-dim);
+  border-bottom: 1px solid transparent;
+  transition: color 160ms var(--ease), border-color 160ms var(--ease);
+}
+.mast-nav a:hover { color: var(--color-text); border-color: var(--color-line); }
+.mast-nav a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-control);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(3.25rem, 12vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--color-text);
+}
+.wordmark .mark {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-accent-text);
+}
+
+.deck {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  align-items: end;
+}
+.deck-lead {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  max-width: 28ch;
+  margin: 0;
+  text-wrap: balance;
+}
+.deck-aside {
+  border-top: 1px solid var(--color-line);
+  padding-top: var(--space-4);
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  max-width: 36ch;
+}
+.deck-aside p { margin: 0 0 var(--space-4); }
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: transform 140ms var(--ease), background 160ms var(--ease), color 160ms var(--ease), border-color 160ms var(--ease);
+}
+.btn:active { transform: scale(0.97); }
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  border: 1px solid var(--color-primary);
+}
+.btn-primary:hover { background: color-mix(in srgb, var(--color-primary) 88%, #000); }
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-line);
+}
+.btn-ghost:hover {
+  border-color: var(--color-dim);
+  background: var(--color-card);
+}
+
+/* —— Folio sections —— */
+.folio {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5);
+}
+.section-head {
+  margin: 0 0 var(--space-6);
+  max-width: 40rem;
+}
+.section-head .eyebrow { display: block; margin-bottom: var(--space-3); }
+.section-head h2 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 var(--space-3);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  text-wrap: balance;
+}
+.section-head p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  max-width: 42ch;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--color-line);
+}
+.col {
+  padding: var(--space-5) var(--space-5) var(--space-5) 0;
+  border-right: 1px solid var(--color-line);
+  min-width: 0;
+}
+.col:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+.col:first-child { padding-left: 0; }
+.col h3 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-3);
+}
+.col p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+.col .tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+  margin-bottom: var(--space-3);
+}
+
+/* —— Ledger strip (product surface, not fake chrome) —— */
+.strip {
+  background: var(--color-card);
+  border-block: 1px solid var(--color-line);
+}
+.strip-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-5);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-7);
+  align-items: center;
+}
+.strip-copy h2 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0 0 var(--space-4);
+  text-wrap: balance;
+}
+.strip-copy p {
+  margin: 0 0 var(--space-5);
+  color: var(--color-muted);
+  max-width: 38ch;
+}
+.ledger-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  padding: var(--space-5);
+  box-shadow: 0 18px 40px color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+.ledger-card header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+.ledger-card header strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+.rows { display: grid; gap: var(--space-3); }
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: baseline;
+  font-size: 0.95rem;
+}
+.row span:first-child { color: var(--color-muted); }
+.row .val {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+.bar {
+  grid-column: 1 / -1;
+  height: 4px;
+  background: var(--color-sub);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar > i {
+  display: block;
+  height: 100%;
+  width: var(--w, 40%);
+  background: var(--color-accent);
+  border-radius: inherit;
+  transform-origin: left center;
+  animation: grow 900ms var(--ease) both;
+}
+@keyframes grow {
+  from { transform: scaleX(0.15); opacity: 0.4; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+/* —— How it works —— */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+.step {
+  padding: var(--space-5);
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-control);
+  min-width: 0;
+  transition: border-color 180ms var(--ease), transform 180ms var(--ease);
+}
+.step:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line));
+  transform: translateY(-2px);
+}
+.step .n {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--color-accent-text);
+  margin-bottom: var(--space-3);
+}
+.step h3 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0 0 var(--space-2);
+}
+.step p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+/* —— Closing CTA —— */
+.close {
+  border-top: 1px solid var(--color-line);
+  background:
+    radial-gradient(120% 80% at 10% 0%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 55%),
+    var(--color-bg);
+}
+.close-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5);
+  text-align: left;
+}
+.close h2 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 var(--space-4);
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.close p {
+  margin: 0 0 var(--space-5);
+  color: var(--color-muted);
+  max-width: 40ch;
+}
+
+footer {
+  border-top: 1px solid var(--color-line);
+  padding: var(--space-5);
+}
+.foot-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+.foot-inner a {
+  color: var(--color-dim);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.foot-inner a:hover { border-color: var(--color-line); color: var(--color-text); }
+.foot-inner a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 860px) {
+  .deck,
+  .strip-inner,
+  .columns,
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .col {
+    border-right: none;
+    border-bottom: 1px solid var(--color-line);
+    padding: var(--space-5) 0;
+  }
+  .col:last-child { border-bottom: none; }
+  .mast-inner { padding-inline: var(--space-4); }
+  .folio, .strip-inner, .close-inner { padding-inline: var(--space-4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="mast">
+  <div class="mast-inner">
+    <div class="mast-meta">
+      <span class="eyebrow">Sergei Chan · Project folio</span>
+      <nav class="mast-nav" aria-label="Page">
+        <a href="/">sergeichan</a>
+        <a href="#book">The book</a>
+        <a href="#desk">Desk</a>
+        <a href="https://newfin-evegelin.vercel.app/portfolio">Open app</a>
+      </nav>
+    </div>
+    <h1 class="wordmark">New<span class="mark">fin</span></h1>
+    <div class="deck">
+      <p class="deck-lead">One household ledger for the mixed book — cash, crypto, property, equities, and the trading desk — with Persik on Telegram.</p>
+      <aside class="deck-aside">
+        <p>Built as a private finance OS, not a marketing demo. Same cream canvas and Spectral figures you see inside the app.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://newfin-evegelin.vercel.app/portfolio">Open the ledger</a>
+          <a class="btn btn-ghost" href="https://t.me/Persik_finbot">Talk to Persik</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="folio" id="book" aria-labelledby="book-title">
+    <div class="section-head reveal">
+      <span class="eyebrow">What it holds</span>
+      <h2 id="book-title">The book, in three columns</h2>
+      <p>Newfin keeps one source of truth for net worth, spending, and live risk — wired to the venues the household actually uses.</p>
+    </div>
+    <div class="columns reveal">
+      <article class="col">
+        <div class="tag">Portfolio</div>
+        <h3>Positions &amp; net worth</h3>
+        <p>Buckets for crypto, cash, property, private equity, receivables, and trading accounts — liquid vs locked called out so OPM and vesting don’t fake the liquid number.</p>
+      </article>
+      <article class="col">
+        <div class="tag">Cashflow</div>
+        <h3>Spend &amp; income</h3>
+        <p>Category books, ether.fi cash reconcile, budgets, and retention jobs that run on the VPS schedule instead of fighting Vercel Hobby cron limits.</p>
+      </article>
+      <article class="col">
+        <div class="tag">Persik</div>
+        <h3>Telegram COO</h3>
+        <p>@Persik_finbot answers day/week money questions, syncs vault ops for the owner, and routes research through the same Newfin API the web app uses.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="strip" id="desk" aria-labelledby="desk-title">
+    <div class="strip-inner">
+      <div class="strip-copy reveal">
+        <span class="eyebrow">Live desk</span>
+        <h2 id="desk-title">IBKR and Hyperliquid on one board</h2>
+        <p>The trading desk consolidates venue accounts, open positions, and exposure — Flex pulls for equities, perps marks when the session is off-hours. Sync from the app or the four-hour VPS cron.</p>
+        <a class="btn btn-ghost" href="https://newfin-evegelin.vercel.app/trading">Open trading</a>
+      </div>
+      <figure class="ledger-card reveal" aria-label="Illustrative ledger composition — labels only, not live balances">
+        <header>
+          <strong>Composition</strong>
+          <span class="eyebrow">Labels only</span>
+        </header>
+        <div class="rows">
+          <div class="row">
+            <span>Crypto liquid</span>
+            <span class="val tnum">bucket</span>
+            <div class="bar" style="--w:72%"><i></i></div>
+          </div>
+          <div class="row">
+            <span>Trading (IBKR · HL)</span>
+            <span class="val tnum">bucket</span>
+            <div class="bar" style="--w:58%"><i style="background:var(--color-primary)"></i></div>
+          </div>
+          <div class="row">
+            <span>Cash</span>
+            <span class="val tnum">bucket</span>
+            <div class="bar" style="--w:34%"><i style="background:var(--color-amber)"></i></div>
+          </div>
+          <div class="row">
+            <span>Property · equity · other</span>
+            <span class="val tnum">locked</span>
+            <div class="bar" style="--w:46%"><i style="background:var(--color-dim)"></i></div>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="folio" aria-labelledby="flow-title">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it runs</span>
+      <h2 id="flow-title">App, bot, and VPS on the same book</h2>
+      <p>No invented growth claims — just the operating shape that already ships.</p>
+    </div>
+    <div class="steps reveal">
+      <article class="step">
+        <div class="n">01</div>
+        <h3>Web PWA</h3>
+        <p>“The Ledger” UI on Vercel — editorial tokens, tabular figures, mobile-first shell.</p>
+      </article>
+      <article class="step">
+        <div class="n">02</div>
+        <h3>Persik bot</h3>
+        <p>Household finance on Telegram; owner ops stay on the same Newfin backend.</p>
+      </article>
+      <article class="step">
+        <div class="n">03</div>
+        <h3>Hermes VPS</h3>
+        <p>Cron triggers, research worker, and IBKR/wallet sync cadence — the always-on spine.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-title">
+    <div class="close-inner reveal">
+      <span class="eyebrow">Open it</span>
+      <h2 id="close-title">Read the book where the numbers live.</h2>
+      <p>Auth is invite-only for the household. If you’re Sergei, the portfolio is one click away.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://newfin-evegelin.vercel.app/portfolio">Open Newfin</a>
+        <a class="btn btn-ghost" href="/">Back to sergeichan</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <span>Newfin · The Ledger · hosted on this site as a project page</span>
+    <span>
+      <a href="https://github.com/sc-jackie/Newfin">GitHub</a>
+      ·
+      <a href="https://t.me/Persik_finbot">Persik</a>
+      ·
+      <a href="/">sergeichan.vercel.app</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const nodes = document.querySelectorAll('.reveal');
+  if (!nodes.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    nodes.forEach((n) => n.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  nodes.forEach((n) => io.observe(n));
+})();
+</script>
+</body>
+</html>
