@@ -13,9 +13,24 @@ if (!existsSync(join(root, "site", deployedPath))) {
   throw new Error(`Stylesheet resolves to missing production asset: ${deployedPath}`);
 }
 
-for (const id of ["why", "use-cases", "for-whom", "architecture"]) {
+for (const id of ["why", "how", "surfaces", "use-cases", "for-whom", "architecture"]) {
   if (!html.includes(`id="${id}"`)) {
     throw new Error(`Newfin landing is missing #${id}`);
+  }
+}
+
+for (const asset of [
+  "assets/home.png",
+  "assets/home-hero.png",
+  "assets/portfolio.png",
+  "assets/cashflow.png",
+  "assets/trading.png",
+]) {
+  if (!html.includes(`/newfin/${asset}`)) {
+    throw new Error(`Newfin landing is missing screenshot reference: /newfin/${asset}`);
+  }
+  if (!existsSync(join(root, "site/newfin", asset))) {
+    throw new Error(`Newfin landing screenshot file missing: site/newfin/${asset}`);
   }
 }
 
