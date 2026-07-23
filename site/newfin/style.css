@@ -1217,6 +1217,18 @@ svg {
   gap: var(--space-md);
 }
 
+/* maker's mark — five threads, gold center (shared motif with the personal site) */
+.maker-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.maker-mark svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 @media (min-width: 40rem) {
   .nav__links {
     display: flex;

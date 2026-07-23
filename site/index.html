@@ -15,6 +15,7 @@
   :root{
     --space:#0C0E16; --pearl:#E5E7EF; --muted:#9AA0B0; --dim:#6A7080;
     --line:rgba(229,231,239,.12); --gold:#C9A45C;
+    --ink2:#C6CAD6; --inkem:#C6CBE8; --card:#0A0C13;
     color-scheme: dark;
   }
   html{scroll-behavior:smooth}
@@ -35,9 +36,10 @@
   #hero .nav button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
   #hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
   #hero .thesis{font-size:clamp(18px,2.5vw,25px);font-weight:250;max-width:20em;line-height:1.32}
-  #hero .thesis em{font-style:italic;color:#C6CBE8}
+  #hero .thesis em{font-style:italic;color:var(--inkem)}
   #hero .hint{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-align:right;line-height:1.9}
-  @media (max-width:640px){ #hero .hint{display:none} #hero .ov{padding:20px 18px} }
+  #hero .hint-touch{display:none;font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  @media (max-width:640px){ #hero .hint{display:none} #hero .hint-touch{display:block} #hero .ov{padding:20px 18px} }
 
   /* glimpse — small, quiet; the chord expansion is the real hover effect */
   #glimpse{position:absolute;width:196px;pointer-events:none;opacity:0;transform:translate(-50%,-50%);
@@ -110,16 +112,16 @@
   #case .metarow{display:flex;flex-wrap:wrap;gap:16px;margin:22px 0 0;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   #case .metarow b{color:var(--pearl);font-weight:500}
   #case h3{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:500;margin:52px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
-  #case p{color:#C6CAD6;font-size:15.5px;line-height:1.7;margin:0 0 14px;max-width:62ch}
+  #case p{color:var(--ink2);font-size:15.5px;line-height:1.7;margin:0 0 14px;max-width:62ch}
   #case p b{color:var(--pearl)}
-  #case ul.plain{margin:0;padding:0;list-style:none;color:#C6CAD6;font-size:15px}
+  #case ul.plain{margin:0;padding:0;list-style:none;color:var(--ink2);font-size:15px}
   #case ul.plain li{margin:6px 0;padding-left:16px;position:relative}
   #case ul.plain li::before{content:'—';position:absolute;left:0;color:var(--acc)}
   #case .statechips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
   #case .statechips span{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
   #case .statechips span.live{border-color:color-mix(in srgb, var(--acc) 55%, transparent);color:var(--acc)}
   #case .frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
-  #case .frame{border:1px solid var(--line);border-radius:10px;background:#0A0C13;overflow:hidden}
+  #case .frame{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
   #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   #case .frame .body{position:relative;height:190px}
   #case .frame figcaption{padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim)}
@@ -129,7 +131,7 @@
   #case .arch .arr{color:var(--dim);font-family:ui-monospace,Menlo,monospace}
   /* ============ optional case sections — jackie-os flagship (rendered only when data present) ============ */
   /* two ledgers: second brain / agent */
-  #case .vaultcard{margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0A0C13}
+  #case .vaultcard{margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
   #case .duo{display:grid;grid-template-columns:1fr 1fr}
   @media (max-width:680px){ #case .duo{grid-template-columns:1fr} }
   #case .duo > div{padding:22px 24px 26px}
@@ -149,6 +151,12 @@
   #case .memfig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
   #case .memfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:8px 0 18px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
   #case .memfig figcaption b{color:var(--acc);font-weight:500}
+  /* signature figure — one canvas per project (memfig pattern, standalone card) */
+  #case .sigfig{margin:6px 0 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+  #case .sigfig .body{position:relative;height:230px}
+  #case .sigfig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #case .sigfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:9px 14px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  #case .sigfig figcaption b{color:var(--acc);font-weight:500}
   /* the loop — six jobs (with icons) */
   #case .cjobs{margin-top:6px}
   #case .cjob{display:grid;grid-template-columns:26px 116px 1fr auto;gap:18px;align-items:baseline;padding:15px 2px 15px 10px;border-bottom:1px solid var(--line);border-left:2px solid transparent;transition:border-color .2s}
@@ -157,12 +165,12 @@
   #case .cjob:hover .ic{color:var(--acc);transform:translateY(-1px)}
   #case .cjob .jt{font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.02em;color:var(--pearl)}
   #case .cjob:hover .jt{color:var(--acc)}
-  #case .cjob .jd{color:#C6CAD6;font-size:14.5px;line-height:1.55}
+  #case .cjob .jd{color:var(--ink2);font-size:14.5px;line-height:1.55}
   #case .cjob .jm{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
   #case .cjob:last-child{border-bottom:none}
   @media (max-width:640px){ #case .cjob{grid-template-columns:20px 1fr auto;gap:6px 12px} #case .cjob .jd{grid-column:1/-1;padding-left:32px} }
   /* a day strip */
-  #case .cday{display:flex;margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:#0A0C13}
+  #case .cday{display:flex;margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:var(--card)}
   #case .cday .tick{flex:1 0 auto;min-width:132px;padding:16px 16px 18px;border-left:1px solid var(--line)}
   #case .cday .tick:first-child{border-left:none}
   #case .cday time{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--acc);display:block;margin-bottom:7px}
@@ -171,7 +179,7 @@
   /* the trick — before / after */
   #case .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
   @media (max-width:680px){ #case .ba{grid-template-columns:1fr} }
-  #case .ba .panel{position:relative;border:1px solid var(--line);border-radius:10px;padding:22px 24px 24px;background:#0A0C13}
+  #case .ba .panel{position:relative;border:1px solid var(--line);border-radius:10px;padding:22px 24px 24px;background:var(--card)}
   #case .ba .panel.good{border-color:color-mix(in srgb, var(--acc) 42%, transparent)}
   #case .ba .panel .who{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:14px}
   #case .ba .panel.bad .who{color:var(--dim)}
@@ -213,7 +221,7 @@
   .bezel .ovm{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:36px 18px 16px}
   .bezel .b1{font-weight:600;font-size:13px}
   .bezel .b2{font-size:16px;font-weight:250;line-height:1.35;max-width:16em}
-  .bezel .b2 em{font-style:italic;color:#C6CBE8}
+  .bezel .b2 em{font-style:italic;color:var(--inkem)}
   .bezel .b3{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:8px}
   .pnote{flex:1;min-width:260px;color:var(--muted);font-size:14px}
   .pnote b{color:var(--pearl)}
@@ -231,7 +239,7 @@
   .ovl .pback:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
   .ovl .pkick{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.2em;color:var(--gold)}
   .ovl h1{font-size:clamp(32px,5.6vw,50px);font-weight:250;letter-spacing:-.02em;margin:10px 0 22px;line-height:1.06}
-  .ovl p{color:#C6CAD6;font-size:15.5px;line-height:1.7;margin:0 0 16px;max-width:58ch}
+  .ovl p{color:var(--ink2);font-size:15.5px;line-height:1.7;margin:0 0 16px;max-width:58ch}
   .ovl .pcontact{margin-top:30px;font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.04em}
   .ovl .pcontact a{color:var(--gold);text-decoration:none}
   .ovl .pcontact a:hover{text-decoration:underline;text-underline-offset:.25em}
@@ -246,13 +254,14 @@
 <body>
 
 <!-- ================= HOME / HERO ================= -->
-<div id="hero" tabindex="0" aria-label="Interactive hero: five silk chords in depth, one per project. Arrow keys cycle, Enter dives.">
+<div id="hero" tabindex="0" role="application" aria-label="Interactive hero: five silk chords in depth, one per project. Arrow keys cycle, Enter dives.">
   <canvas id="cv"></canvas>
   <div class="ov">
     <div class="bar"><span class="brand">Sergei Tran</span><span class="nav"><button data-go="home">Work</button><button data-go="panelWriting">Writing</button><button data-go="panelAbout">About</button></span></div>
     <div class="foot">
       <div class="thesis">One thread, <em>many vibrations</em> — five systems in production, built with AI-native agents.</div>
       <div class="hint">hover a chord — the threads part around your cursor<br>click anywhere / enter = dive · ← → cycle</div>
+      <div class="hint-touch">tap a thread · tap again to dive</div>
     </div>
   </div>
   <div id="glimpse" role="status">
@@ -280,20 +289,27 @@
     <h3>What it is</h3><div id="cWhat"></div>
     <h3>Why it exists</h3><div id="cWhy"></div>
     <div class="opt" id="secDuo">
-      <h3>One vault, one agent</h3>
+      <h3 id="hDuo">One vault, one agent</h3>
       <div class="vaultcard">
         <div class="duo" id="cDuo"></div>
-        <figure class="memfig">
+        <figure class="memfig" id="memFig">
           <div class="body"><canvas id="memCv" aria-hidden="true"></canvas></div>
           <figcaption><span>the vault, over time</span><b id="memTag">linked memory</b></figcaption>
         </figure>
       </div>
     </div>
     <h3>What it solves</h3><div id="cSolve"></div>
-    <div class="opt" id="secLoop"><h3>The loop — six jobs</h3><div class="cjobs" id="cJobs"></div></div>
-    <div class="opt" id="secDay"><h3>A day with it</h3><div class="cday" id="cDay"></div></div>
-    <div class="opt" id="secTrick"><h3>No cold start</h3><div class="ba" id="cTrick"></div></div>
-    <div class="opt" id="secTruths"><h3>No lock-in</h3><div class="truths" id="cTruths"></div></div>
+    <div class="opt" id="secFig">
+      <h3 id="hFig"></h3>
+      <figure class="sigfig">
+        <div class="body"><canvas id="figCv" aria-hidden="true"></canvas></div>
+        <figcaption><span id="figCap"></span><b id="figTag"></b></figcaption>
+      </figure>
+    </div>
+    <div class="opt" id="secLoop"><h3 id="hLoop">The loop — six jobs</h3><div class="cjobs" id="cJobs"></div></div>
+    <div class="opt" id="secDay"><h3 id="hDay">A day with it</h3><div class="cday" id="cDay"></div></div>
+    <div class="opt" id="secTrick"><h3 id="hTrick">No cold start</h3><div class="ba" id="cTrick"></div></div>
+    <div class="opt" id="secTruths"><h3 id="hTruths">No lock-in</h3><div class="truths" id="cTruths"></div></div>
     <h3>Current state</h3><div id="cState"></div>
     <h3>How it looks</h3><div class="frames" id="cFrames"></div>
     <h3>Architecture</h3><div class="arch" id="cArch"></div><p id="cArchNote" style="margin-top:12px"></p>
@@ -307,7 +323,7 @@
 <canvas id="flyIcon" aria-hidden="true"></canvas>
 
 <!-- ================= PANELS: About / Writing ================= -->
-<div class="ovl" id="panelAbout" aria-label="About">
+<div class="ovl" id="panelAbout" role="dialog" aria-modal="true" aria-label="About">
   <div class="press" aria-hidden="true"></div>
   <div class="pinner">
     <button class="back pback">← Back</button>
@@ -319,7 +335,7 @@
     <p class="pcontact"><a href="mailto:sergei.tran@gmail.com">sergei.tran@gmail.com</a><span> · </span><a href="https://github.com/sc-jackie" rel="me">github.com/sc-jackie</a></p>
   </div>
 </div>
-<div class="ovl" id="panelWriting" aria-label="Writing">
+<div class="ovl" id="panelWriting" role="dialog" aria-modal="true" aria-label="Writing">
   <div class="press" aria-hidden="true"></div>
   <div class="pinner">
     <button class="back pback">← Back</button>
@@ -345,7 +361,38 @@
       what:'<p>A household finance platform for a portfolio that doesn\'t fit any app: liquid and vesting crypto, futures, real estate across two countries, private deals, receivables, cash. One system of record, an API-first server, a web dashboard, and a scoped Telegram agent for the household.</p>',
       why:'<p>Every tool I tried could track <b>a slice</b> — none could hold the whole book truthfully. And numbers without judgment are noise: I wanted an advisor that reads the actual state and answers with positions sized in dollars and percent, not market clichés.</p>',
       solve:'<ul class="plain"><li>One truthful net-worth line across every asset class and currency</li><li>An LLM advisor bound to the real payload — recommendations with numbers, never generic advice</li><li>Household access with hard scoping: the owner sees everything; family members see only their view</li><li>Read-only by design — it can describe a move, never execute one</li></ul>',
-      state:'<p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than I maintain it.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div>',
+      fig:{h:'The whole book, one line', cap:'net worth across every asset class (demo data)', tag:'one truthful line', kind:'newfin'},
+      jobsH:'The pipeline — from accounts to advice',
+      jobs:[
+        {t:'Sync', m:'scheduled', ic:'<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 3v4.5h-4.5"/>', d:'Exchanges, wallets, brokerages and banks feed the server; manual assets — property, deals, receivables — enter once and persist.'},
+        {t:'Normalize', m:'on ingest', ic:'<rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/>', d:'Every position lands in one schema and one base currency — from crypto dust to real estate.'},
+        {t:'Value', m:'continuous', ic:'<path d="M4 19l5-6 4 3 7-9"/><path d="M20 7v4h-4"/>', d:'Prices, FX and vesting schedules roll up into the single net-worth line the household trusts.'},
+        {t:'Advise', m:'on ask', ic:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/>', d:'The advisor reads the actual payload and answers with positions sized in dollars and percent — never market clichés.'},
+        {t:'Report', m:'daily', ic:'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9.5 12h6M9.5 16h6"/>', d:'Cashflow, allocation drift and runway, readable at breakfast in Telegram.'},
+        {t:'Guard', m:'always', ic:'<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12l2 2 3.5-4"/>', d:'Role-scoped household views; read-only by design — it can describe a move, never execute one.'}
+      ],
+      dayH:'A day with the book',
+      day:[
+        {time:'07:30', b:'Snapshot', s:'net worth + overnight moves, in Telegram'},
+        {time:'10:00', b:'Sync', s:'exchanges and banks reconciled'},
+        {time:'13:05', b:'Ask', s:'"can we afford the renovation?" — a sized answer'},
+        {time:'18:40', b:'Log', s:'a receivable lands; one line updates'},
+        {time:'22:00', b:'Drift check', s:'allocation vs bands — flags only'},
+        {time:'Sunday', b:'Review', s:'the week, in one book'}
+      ],
+      trickH:'Numbers with judgment',
+      trick:{
+        bad:{who:'generic finance app', q:'"Markets were mixed today. Consider diversifying your portfolio."', p:'It sees one slice — an exchange, a card — and pads the gap with clichés. The property, the vesting schedule and the receivables don\'t exist to it.'},
+        good:{who:'newfin advisor', q:'"Concentration is 6% above your band. Trimming ~8% restores the target and covers the June liability."', p:'Bound to the live book: every answer arrives <b>sized in dollars and percent</b>, computed from positions it can actually see.'}
+      },
+      truthsH:'Rules of the book',
+      truths:[
+        ['Read-only by design','It can describe a move, never execute one. No key with withdrawal rights ever enters the system.'],
+        ['One truthful line','Every asset class and currency folds into a single net-worth number — no slice left outside the book.'],
+        ['Hard scoping','The owner sees everything; each family member sees exactly their view and nothing more.'],
+        ['Private by default','The household\'s book stays the household\'s — row-level security underneath, the advisor reads a payload, not your accounts.']
+      ],
+      state:'<p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than I maintain it.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div><p class="doclink"><a href="/newfin/">Visit the product page →</a></p>',
       frames:[
         {h:'PORTFOLIO', cap:'the whole book, one line (demo data)', m: wf('<div class="fig">$ ---,---</div><div class="row" style="height:52px"><div class="bar" style="height:30%"></div><div class="bar" style="height:44%"></div><div class="bar" style="height:38%"></div><div class="bar g" style="height:62%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:70%"></div><div class="bar g" style="height:78%"></div></div><div class="ln" style="width:58%"></div>')},
         {h:'ADVISOR · TELEGRAM', cap:'judgment over the real payload', m: wf('<div class="bub me">should I trim anything?</div><div class="bub">Concentration flag: one position is above your band. Trimming ~8% restores the target and adds runway. Liabilities are clear.</div>')}
@@ -359,7 +406,38 @@
       what:'<p>A habit tracker built as a game economy for a 14-year-old in the family: daily quests earn XP and coins, coins cash out into real rewards, levels unlock equipment and themes — with a coach in the loop verifying that the habits actually happened.</p>',
       why:'<p>Telling a teenager to "build habits" doesn\'t work; game economies do. So the loop is honest game design instead of parental nagging — and it doubled as a testbed for something bigger: <b>autonomous agents shipping production code</b>, since two AI agents work its backlog end-to-end.</p>',
       solve:'<ul class="plain"><li>A motivation loop that survives week two: quests → XP/coins → real cashout</li><li>Anti-cheat: coach verification and timer-verified quests keep the economy honest</li><li>Progression that feels like a game: levels, equipment, streaks, themes</li><li>For me: a live experiment in agents dispatching, coding and shipping from a backlog</li></ul>',
-      state:'<p>Live on production with its pilot user active. The economy survived contact with a real teenager (v2 hardened after the first exploits — a good sign someone cares). Two autonomous agents keep working the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div>',
+      fig:{h:'Twelve weeks in', cap:'weekly XP and streak (demo data)', tag:'the economy, honest', kind:'bunit'},
+      jobsH:'The economy — one honest loop',
+      jobs:[
+        {t:'Quest', m:'daily', ic:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 12.5h5M8 16h6"/>', d:'The board deals today\'s run — reading, training, chores — each priced in XP and coins up front.'},
+        {t:'Submit', m:'on done', ic:'<path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v4h16v-4"/>', d:'Proof goes in from the phone; timer quests verify themselves while they run.'},
+        {t:'Verify', m:'coach', ic:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.4 3.8-5 7-5s5.8 1.6 7 5"/><path d="M9.8 8l1.6 1.6 2.8-3"/>', d:'A parent-coach confirms it actually happened — the anti-cheat that keeps the coins worth something.'},
+        {t:'Credit', m:'instant', ic:'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10.2c0-1.2 1.1-1.9 2.5-1.9s2.5.7 2.5 1.8c0 2.4-5 1.5-5 3.8 0 1.1 1.1 1.8 2.5 1.8s2.5-.7 2.5-1.9"/>', d:'XP and coins land the moment the tap lands; streaks compound the multiplier.'},
+        {t:'Cash out', m:'on request', ic:'<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 11h18M7 15.5h4"/>', d:'Coins convert into real rewards at rates the family priced together.'},
+        {t:'Level', m:'on XP', ic:'<path d="M4 20h4v-6H4zM10 20h4V9h-4zM16 20h4V4h-4z"/>', d:'Levels unlock equipment and themes — progression you can actually wear.'}
+      ],
+      dayH:'A teenager\'s day',
+      day:[
+        {time:'07:40', b:'Board', s:'three quests dealt before school'},
+        {time:'16:30', b:'Timer quest', s:'30 min reading, verified by the clock'},
+        {time:'18:00', b:'Submit', s:'training logged from the phone'},
+        {time:'18:05', b:'Verified', s:'coach taps ✓ — +40 coins'},
+        {time:'21:00', b:'Streak', s:'day 12 — the multiplier holds'},
+        {time:'Saturday', b:'Cashout', s:'coins become the real reward'}
+      ],
+      trickH:'Nagging vs. economy',
+      trick:{
+        bad:{who:'parental nagging', q:'"Have you done your reading? I\'m serious this time."', p:'Rules change daily, rewards are vague, enforcement depends on mood. By week two everyone has quietly quit.'},
+        good:{who:'b-unit economy', q:'"Quest complete. +40 coins credited. Streak: 12 days — bonus unlocks at 14."', p:'Fixed rules, visible prices, instant credit. It survives week two because <b>it\'s a game, not a lecture</b>.'}
+      },
+      truthsH:'House rules',
+      truths:[
+        ['Honest economy','Prices are public, payouts are instant, rule changes are versioned — no arbitrary parenting.'],
+        ['Anti-cheat built in','Coach verification and timers keep coins earned, never begged.'],
+        ['Real stakes','Coins buy real things the family priced together — the loop touches the world.'],
+        ['Agent-built','Two autonomous agents work its backlog to tested pull requests — the product builds itself.']
+      ],
+      state:'<p>Live on production with its pilot user active. The economy survived contact with a real teenager (v2 hardened after the first exploits — a good sign someone cares). Two autonomous agents keep working the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div><p class="doclink"><a href="https://bunit.vercel.app/parents" rel="noopener">Visit the parents page →</a></p>',
       frames:[
         {h:'QUEST BOARD', cap:'today\'s run', m: wf('<div class="chipline"><span class="chip">LVL 7</span><span class="chip">STREAK 12</span></div><div class="ln g" style="width:70%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:64%"></div><div class="ln" style="width:78%"></div><div class="chipline"><span class="chip">+120 XP</span><span class="chip">+40 COINS</span></div>')},
         {h:'COACH VERIFY · TELEGRAM', cap:'the human in the loop', m: wf('<div class="bub">Quest submitted: "30 min reading" — verify?</div><div class="bub me">✓ verified</div><div class="bub">+40 coins credited. Streak: 12 days.</div>')}
@@ -417,6 +495,32 @@
       what:'<p>A Telegram-first recipe keeper for a Vietnamese-Ukrainian family in Warsaw: send a YouTube link, a photo, or plain text, and it becomes a structured bilingual recipe — ingredients, nutrition, provenance and the story of whose dish it is — with weekly menus and grocery lists in a Mini App.</p>',
       why:'<p>Family recipes were dying in chat scrollback — half in Vietnamese memory, half in Ukrainian, links rotting on YouTube. The wording of a grandmother\'s instruction <b>is</b> the heirloom, so originals are immutable: translations are additive, never destructive.</p>',
       solve:'<ul class="plain"><li>Zero-friction capture: the bot acknowledges in under a second, AI does the slow work async</li><li>Bilingual by default (EN + UK), original wording preserved verbatim</li><li>Nutrition computed per recipe; menus and grocery lists generated from the week</li><li>Multi-tenant from day one — family now, product later — at ~$0/month</li></ul>',
+      duoH:'The original and the translation',
+      duo:{
+        left:{h:'The original', glyph:'<path d="M12 6c-2.5-2-5.5-2.4-8-1.5v14c2.5-.9 5.5-.5 8 1.5 2.5-2 5.5-2.4 8-1.5v-14c-2.5-.9-5.5-.5-8 1.5z"/><path d="M12 6v14"/>', who:'as grandmother said it', items:[['Бабусин борщ','Ukrainian, verbatim'],['Phở gà của bà','Vietnamese, verbatim'],['Every word kept','immutable, versioned']], foot:'The phrasing of a grandmother\'s instruction is the heirloom. Originals are never edited — full version history keeps every word as it was said.'},
+        right:{h:'The translation', glyph:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c-2.8 2.7-2.8 14.3 0 17M12 3.5c2.8 2.7 2.8 14.3 0 17"/>', who:'added, never replacing', items:[['English + Ukrainian','side by side'],['Nutrition computed','per recipe, USDA'],['Story + provenance','whose dish it is']], foot:'Translations, structure and nutrition are additive layers over the original — searchable, cookable, and safe to extend without touching the source.'}
+      },
+      jobsH:'The pipeline — link to library',
+      jobs:[
+        {t:'Capture', m:'< 1 s', ic:'<path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 15v5h16v-5"/>', d:'A YouTube link, a photo or plain text lands in Telegram; the bot acknowledges instantly and queues the slow work.'},
+        {t:'Extract', m:'async', ic:'<path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4"/><circle cx="11" cy="13" r="2.6"/><path d="M13 15l2.5 2.5"/>', d:'Gemini pulls ingredients, steps and the story out of video, image or prose — off-stage, retried, idempotent.'},
+        {t:'Validate', m:'zod', ic:'<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12l2 2 3.5-4"/>', d:'Structure is checked hard before anything is saved — no half-recipes enter the library.'},
+        {t:'Price', m:'USDA', ic:'<path d="M4 19l5-6 4 3 7-9"/><path d="M20 7v4h-4"/>', d:'Nutrition computed per recipe from real ingredient data.'},
+        {t:'Translate', m:'additive', ic:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c-2.8 2.7-2.8 14.3 0 17M12 3.5c2.8 2.7 2.8 14.3 0 17"/>', d:'EN and UK versions attach to the immutable original — never over it.'},
+        {t:'Serve', m:'mini app', ic:'<rect x="6" y="3" width="12" height="18" rx="2.5"/><path d="M10 18h4"/>', d:'Library, weekly menus and grocery lists, in the family\'s pocket.'}
+      ],
+      trickH:'Scrollback vs. library',
+      trick:{
+        bad:{who:'family group chat', q:'"scroll up… it was in March I think? before the voice notes"', p:'Recipes die in scrollback — half in Vietnamese memory, half in Ukrainian, links rotting on YouTube, provenance lost with every phone change.'},
+        good:{who:'rodyna', q:'"Бабусин борщ · 12 ingredients · saved to Library — with the story of whose dish it is."', p:'Send the link and forget it: structured, bilingual, <b>provenance kept</b>, menu-ready by the weekend.'}
+      },
+      truthsH:'Family rules',
+      truths:[
+        ['Originals immutable','A grandmother\'s wording is the heirloom. Nothing ever edits it; everything layers over it.'],
+        ['Bilingual by default','Every recipe carries EN and UK together — the family reads it in both directions.'],
+        ['~$0 a month','Deno edge functions and free tiers all the way down; the archive outlives any subscription.'],
+        ['Multi-tenant from day one','Family now, product later — row-level security already draws the walls.']
+      ],
       state:'<p>Live and used by the family group. The ingestion pipeline is the hardened part — idempotent jobs, retries, immutable originals with full version history.</p><div class="statechips"><span class="live">LIVE</span><span>FAMILY GROUP</span><span>EN + UK</span><span>~$0/MO</span></div>',
       frames:[
         {h:'RECIPE CARD', cap:'from a YouTube link', m: wf('<div class="ln g" style="width:55%"></div><div class="ln" style="width:40%"></div><div class="ln" style="width:72%"></div><div class="ln" style="width:66%"></div><div class="chipline"><span class="chip">EN</span><span class="chip">UK</span><span class="chip">NUTRI B</span></div>')},
@@ -431,6 +535,29 @@
       what:'<p>A community tennis platform: tournament registration with skill-level gating, generated draws (single elimination, round robin, Swiss), live scoring, standings, seasonal leagues, challenge matches and rankings — delivered as a Telegram Mini App, web app and native mobile on one backend.</p>',
       why:'<p>I play, and I\'ve watched organizers run 30-player tournaments through spreadsheets and pinned messages. The draw math, the scheduling, the endless "what\'s my next match?" — all of it is software pretending to be a volunteer\'s weekend.</p>',
       solve:'<ul class="plain"><li>Draw generation that respects seeding and skill gates, without spreadsheet surgery</li><li>One source of truth for scores, standings and rankings across a season</li><li>Players get their schedule; organizers get their weekend back</li></ul>',
+      fig:{h:'The bracket, resolving', cap:'eight players, three rounds (demo)', tag:'generated · seeded · live', kind:'draw'},
+      jobsH:'From sign-up to standings',
+      jobs:[
+        {t:'Register', m:'mini app', ic:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.4 3.8-5 7-5s5.8 1.6 7 5"/>', d:'Players join with skill-level gating — no sandbaggers in the A draw.'},
+        {t:'Seed', m:'auto', ic:'<path d="M4 5h6M4 12h6M4 19h6"/><path d="M10 5v3.5h6M10 19v-3.5h6M16 8.5v7h4"/>', d:'Single elimination, round robin or Swiss — generated, seeded and court-scheduled in seconds.'},
+        {t:'Play', m:'live', ic:'<circle cx="12" cy="12" r="8.5"/><path d="M6 5.5c3.5 3.5 3.5 9.5 0 13M18 5.5c-3.5 3.5-3.5 9.5 0 13"/>', d:'Scores go in courtside; the bracket updates while the balls are still warm.'},
+        {t:'Standings', m:'instant', ic:'<path d="M4 20h4v-6H4zM10 20h4V9h-4zM16 20h4V4h-4z"/>', d:'Tables, tie-breaks and "what\'s my next match?" answer themselves.'},
+        {t:'Rank', m:'seasonal', ic:'<path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v1a4 4 0 0 0 3 3.9M17 5h3v1a4 4 0 0 1-3 3.9M12 12v4M8.5 20h7M12 16c-1 0-2 .8-2 2v2h4v-2c0-1.2-1-2-2-2z"/>', d:'Leagues and challenge matches roll into community rankings that persist across seasons.'}
+      ],
+      dayH:'Tournament day',
+      day:[
+        {time:'09:00', b:'Check-in', s:'draw published, courts assigned'},
+        {time:'10:15', b:'Round 1', s:'scores in from the court'},
+        {time:'13:40', b:'Semis', s:'the bracket updates itself'},
+        {time:'16:00', b:'Final', s:'live scoring, no pinned messages'},
+        {time:'16:45', b:'Standings', s:'season table recalculated'},
+        {time:'Monday', b:'Rankings', s:'the ladder moves; next challenge queued'}
+      ],
+      trickH:'Spreadsheet vs. engine',
+      trick:{
+        bad:{who:'volunteer + spreadsheet', q:'"Bracket_v3_FINAL_real.xlsx — does anyone know if court 2 is free?"', p:'Draw math by hand, scheduling by pinned message, thirty players asking the same question. The organizer\'s whole weekend, gone.'},
+        good:{who:'draw', q:'"QF · Court 2 · 18:30 — your opponent has been notified."', p:'The draw engine does the math; <b>organizers get their weekend back</b> and players just show up.'}
+      },
       state:'<p>In active development, not yet in production — the platform is built, the community launch is the remaining work. The only thread here still being woven.</p><div class="statechips"><span>IN DEV</span><span>WEB + MOBILE</span><span>5 LANGUAGES</span></div>',
       frames:[
         {h:'BRACKET', cap:'generated, seeded, live', m: wf('<div class="row"><div class="ln" style="width:26%"></div><div class="ln" style="width:26%;opacity:.4"></div></div><div class="row"><div class="ln g" style="width:26%"></div><div class="ln" style="width:26%"></div></div><div class="row"><div class="ln" style="width:26%;opacity:.4"></div><div class="ln g" style="width:26%"></div></div><div class="chipline"><span class="chip">QF · COURT 2 · 18:30</span></div>')},
@@ -563,6 +690,10 @@
     api.resurface = function(){
       if (reduced){ mode = 'home'; dive.p = 0; return; }
       mode = 'resurfacing';
+    };
+    api.jumpTo = function(i){   // deep entry: arrive already settled, as if the dive finished
+      if (reduced) return;
+      mode = 'in-case'; dive = {p: 1, idx: i, prepped: true};
     };
     api.getFocus = function(){ return focus; };
     api.getFocusT = function(){ return focusT; };
@@ -774,10 +905,8 @@
     onCasePrep: function(i){ casePrep(i); },
     onDiveDone: function(i){
       if (!caseEl.classList.contains('open')){   // reduced-motion path: everything at once
-        populate(i); pinHero();
-        caseEl.classList.add('open','vis','settled');
-        caseEl.scrollTop = 0; startCaseAnim();
-        document.getElementById('backBtn').focus({preventScroll:true});
+        markOpen(i);
+        openDeep(i);
       }
     },
     onFrame: function(api){
@@ -858,6 +987,7 @@
   }
   function casePrep(i){
     // the hero pins fullscreen and stays — its threads ARE the page background
+    markOpen(i);
     populate(i);
     pinHero();
     caseEl.classList.add('open');
@@ -879,7 +1009,7 @@
         });
     }); });
   }
-  function resurface(){
+  function doResurface(){
     // reverse: content sinks, the icon flies home, the same silk re-gathers beneath
     var seatEl = document.getElementById('cIconCv');
     var seat = seatEl.getBoundingClientRect();
@@ -894,10 +1024,34 @@
         {x: heroR.left + heroR.width/2, y: heroR.top + heroR.height*0.5},
         function(){ seatEl.style.visibility = 'visible'; });
     }
-    setTimeout(function(){ caseEl.classList.remove('open'); stopCaseAnim(); }, reduced ? 0 : 500);
+    setTimeout(function(){ caseEl.classList.remove('open'); stopCaseAnim(); figViz.stop(); }, reduced ? 0 : 500);
     // un-pin the hero only after the silk has fully re-gathered (spacer makes it reflow-free)
     setTimeout(function(){ unpinHero(); }, reduced ? 0 : 1550);
   }
+  /* ---- deep links: #<project-id> opens its case; back resurfaces ---- */
+  var IDX = {}; P.forEach(function(p, i){ IDX[p.id] = i; });
+  function hashIdx(){ var h = location.hash.slice(1); return IDX.hasOwnProperty(h) ? IDX[h] : -1; }
+  function markOpen(i){ try{ history.pushState({c:1}, '', '#' + P[i].id); }catch(e){} }
+  function openDeep(i){
+    // direct entry — no dive: the page arrives settled over the living silk
+    mainApi.jumpTo(i);
+    populate(i); pinHero();
+    caseEl.classList.add('open','vis','settled');
+    caseEl.scrollTop = 0; startCaseAnim();
+    document.getElementById('backBtn').focus({preventScroll:true});
+  }
+  function resurface(){
+    if (history.state && history.state.c){ history.back(); return; }   // popstate does the work
+    if (hashIdx() >= 0){ try{ history.replaceState(null, '', location.pathname + location.search); }catch(e){} }
+    doResurface();
+  }
+  addEventListener('popstate', function(){
+    var i = hashIdx();
+    if (i >= 0){
+      if (caseEl.classList.contains('open')){ populate(i); caseEl.scrollTop = 0; }
+      else openDeep(i);
+    } else if (caseEl.classList.contains('open')) doResurface();
+  });
   document.getElementById('backBtn').addEventListener('click', resurface);
   document.getElementById('backBtn2').addEventListener('click', resurface);
   addEventListener('keydown', function(e){
@@ -929,6 +1083,17 @@
   document.querySelectorAll('.ovl .pback').forEach(function(b){
     b.addEventListener('click', closePanels);
   });
+  // dialog focus trap: Tab cycles within the open panel instead of escaping under it
+  document.querySelectorAll('.ovl').forEach(function(el){
+    el.addEventListener('keydown', function(e){
+      if (e.key !== 'Tab') return;
+      var f = el.querySelectorAll('button, a[href]');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if (e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+      else if (!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+    });
+  });
 
   function populate(i){
     var p = P[i];
@@ -946,6 +1111,9 @@
     var secDuo = document.getElementById('secDuo');
     if (p.duo){
       secDuo.style.display = '';
+      document.getElementById('hDuo').textContent = p.duoH || 'One vault, one agent';
+      // the linked-memory particle field belongs to the vault story only
+      document.getElementById('memFig').style.display = p.id === 'jackieos' ? '' : 'none';
       var ledger = function(side){
         return '<div><h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">' + side.glyph + '</svg>' + side.h + '</h4><span class="who">' + side.who + '</span><ul>' +
           side.items.map(function(it){ return '<li><b>' + it[0] + '</b><span>' + it[1] + '</span></li>'; }).join('') +
@@ -953,9 +1121,18 @@
       };
       document.getElementById('cDuo').innerHTML = ledger(p.duo.left) + ledger(p.duo.right);
     } else { secDuo.style.display = 'none'; }
+    var secFig = document.getElementById('secFig');
+    if (p.fig){
+      secFig.style.display = '';
+      document.getElementById('hFig').textContent = p.fig.h;
+      document.getElementById('figCap').textContent = p.fig.cap;
+      document.getElementById('figTag').textContent = p.fig.tag;
+      figViz.set(p);
+    } else { secFig.style.display = 'none'; figViz.stop(); }
     var secLoop = document.getElementById('secLoop');
     if (p.jobs){
       secLoop.style.display = '';
+      document.getElementById('hLoop').textContent = p.jobsH || 'The loop — six jobs';
       document.getElementById('cJobs').innerHTML = p.jobs.map(function(j){
         return '<div class="cjob"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">' + (j.ic||'') + '</svg><span class="jt">' + j.t + '</span><span class="jd">' + j.d + '</span><span class="jm">' + j.m + '</span></div>';
       }).join('');
@@ -963,6 +1140,7 @@
     var secDay = document.getElementById('secDay');
     if (p.day){
       secDay.style.display = '';
+      document.getElementById('hDay').textContent = p.dayH || 'A day with it';
       document.getElementById('cDay').innerHTML = p.day.map(function(d){
         return '<div class="tick"><time>' + d.time + '</time><b>' + d.b + '</b><span>' + d.s + '</span></div>';
       }).join('');
@@ -970,6 +1148,7 @@
     var secTrick = document.getElementById('secTrick');
     if (p.trick){
       secTrick.style.display = '';
+      document.getElementById('hTrick').textContent = p.trickH || 'No cold start';
       var panel = function(kind, d){
         return '<div class="panel ' + kind + '"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="who">' + d.who + '</span><p class="q">' + d.q + '</p><p>' + d.p + '</p></div>';
       };
@@ -978,6 +1157,7 @@
     var secTruths = document.getElementById('secTruths');
     if (p.truths){
       secTruths.style.display = '';
+      document.getElementById('hTruths').textContent = p.truthsH || 'No lock-in';
       document.getElementById('cTruths').innerHTML = p.truths.map(function(t){
         return '<div class="truth"><b>' + t[0] + '</b><span>' + t[1] + '</span></div>';
       }).join('');
@@ -992,12 +1172,15 @@
       return j < p.arch.length - 1 ? node + '<span class="arr">→</span>' : node;
     }).join('');
     document.getElementById('cArchNote').textContent = p.archNote;
-    document.getElementById('cArchNote').style.color = '#C6CAD6';
+    document.getElementById('cArchNote').style.color = 'var(--ink2)';
     var ni = (i+1) % P.length, next = P[ni];
     document.getElementById('nextMono').style.color = next.color;
     document.getElementById('nextName').textContent = 'Mode ' + next.roman + ' — ' + next.name;
     var nl = document.getElementById('nextLink');
-    nl.onclick = function(e){ e.preventDefault(); populate(ni); caseEl.scrollTop = 0; };
+    nl.onclick = function(e){
+      e.preventDefault(); populate(ni); caseEl.scrollTop = 0;
+      try{ history.replaceState(history.state, '', '#' + P[ni].id); }catch(err){}
+    };
   }
   caseEl.addEventListener('scroll', function(){
     var pr = caseEl.scrollTop / Math.max(1, caseEl.scrollHeight - caseEl.clientHeight);
@@ -1064,6 +1247,189 @@
         } else if (running){ running = false; cancelAnimationFrame(raf); }
       });
     }, {threshold:0.08}).observe(canvas);
+  })();
+
+  /* ---- signature figures: one canvas, one renderer per project (memfig pattern) ---- */
+  var figViz = (function(){
+    var canvas = document.getElementById('figCv');
+    var ctx = canvas.getContext('2d');
+    var W = 0, H = 0, t = 0, raf = 0, running = false, ready = false, cur = null;
+    var reducedF = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var PEARL = [229,231,239], GOLD = [201,164,92];
+    function rgba(c, a){ return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+    function prng(seed){ var s = seed; return function(){ return (s = (s*48271) % 2147483647) / 2147483647; }; }
+    function clamp01(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
+    function ease(v){ v = clamp01(v); return v*v*(3-2*v); }
+    function setup(){
+      var r = canvas.getBoundingClientRect();
+      W = r.width; H = r.height;
+      if (W < 4 || H < 4){ ready = false; return; }
+      var dpr = Math.min(2, devicePixelRatio || 1);
+      canvas.width = W*dpr; canvas.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      ready = true;
+    }
+    function series(seed, n, drift, vol){
+      var r = prng(seed), v = 1, o = [];
+      for (var i = 0; i < n; i++){ o.push(v); v = Math.max(0.15, v + drift + (r()-0.48)*vol); }
+      return o;
+    }
+    var R = {
+      /* newfin — stacked demo net worth, one gold total line on top */
+      newfin: function(){
+        var n = 28, pad = 16, bw = W - pad*2, bh = H - 30;
+        var layers = [series(11,n,0.010,0.03), series(23,n,0.022,0.05), series(37,n,0.030,0.10), series(53,n,0.045,0.16)];
+        var stack = [], tot = [];
+        for (var i = 0; i < n; i++){ var s = 0, col = []; for (var L = 0; L < 4; L++){ s += layers[L][i]; col.push(s); } stack.push(col); tot.push(s); }
+        var max = Math.max.apply(null, tot)*1.08;
+        var X = function(i){ return pad + bw*i/(n-1); };
+        var Y = function(v){ return 18 + bh*(1 - v/max); };
+        var q = ease(Math.min(1, t/1.8));
+        ctx.save(); ctx.beginPath(); ctx.rect(0, 0, pad + bw*q + 2, H); ctx.clip();
+        for (var g = 1; g <= 3; g++){ ctx.strokeStyle = rgba(PEARL, 0.06); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pad, 18 + bh*g/4); ctx.lineTo(W-pad, 18 + bh*g/4); ctx.stroke(); }
+        for (var L2 = 3; L2 >= 0; L2--){
+          ctx.beginPath(); ctx.moveTo(X(0), Y(0));
+          for (var j = 0; j < n; j++) ctx.lineTo(X(j), Y(stack[j][L2]));
+          ctx.lineTo(X(n-1), Y(0)); ctx.closePath();
+          ctx.fillStyle = rgba(cur.rgb, 0.07 + L2*0.055); ctx.fill();
+        }
+        ctx.strokeStyle = rgba(GOLD, 0.95); ctx.lineWidth = 1.6; ctx.beginPath();
+        for (var k = 0; k < n; k++) k ? ctx.lineTo(X(k), Y(tot[k])) : ctx.moveTo(X(k), Y(tot[k]));
+        ctx.stroke();
+        ctx.restore();
+        var tip = Math.min(n-1, Math.floor((n-1)*q));
+        var glow = ctx.createRadialGradient(X(tip), Y(tot[tip]), 0, X(tip), Y(tot[tip]), 14);
+        glow.addColorStop(0, rgba(GOLD, 0.5)); glow.addColorStop(1, rgba(GOLD, 0));
+        ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(X(tip), Y(tot[tip]), 14, 0, 7); ctx.fill();
+        ctx.fillStyle = rgba(GOLD, 1); ctx.beginPath(); ctx.arc(X(tip), Y(tot[tip]), 2.4, 0, 7); ctx.fill();
+      },
+      /* bunit — twelve weekly XP bars + gold streak line, latest week pulsing */
+      bunit: function(){
+        var n = 12, pad = 18, bw = W - pad*2, bh = H - 42;
+        var r = prng(77), xp = [], st = [];
+        for (var i = 0; i < n; i++){ xp.push(0.35 + i*0.045 + (r()-0.4)*0.22); st.push(0.25 + i*0.055 + (r()-0.5)*0.06); }
+        xp[7] *= 0.45;                                     // the week the economy got tested
+        var max = Math.max.apply(null, xp)*1.15;
+        var slot = bw/n, w = slot*0.52;
+        for (var j = 0; j < n; j++){
+          var hq = ease(t*1.5 - j*0.11);
+          if (hq <= 0) continue;
+          var h = bh*(xp[j]/max)*hq, x = pad + slot*j + (slot-w)/2, y = 24 + bh - h;
+          var last = j === n-1;
+          var pulse = last && !reducedF ? 0.18*Math.sin(t*3) : 0;
+          ctx.fillStyle = rgba(cur.rgb, (last ? 0.85 : 0.38 + j*0.02) + pulse);
+          ctx.fillRect(x, y, w, h);
+          if (last){
+            var g = ctx.createRadialGradient(x+w/2, y, 0, x+w/2, y, 22);
+            g.addColorStop(0, rgba(cur.rgb, 0.25 + pulse)); g.addColorStop(1, rgba(cur.rgb, 0));
+            ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x+w/2, y, 22, 0, 7); ctx.fill();
+          }
+        }
+        var lq = ease((t-0.5)/1.4);
+        if (lq > 0){
+          ctx.save(); ctx.beginPath(); ctx.rect(0, 0, pad + bw*lq, H); ctx.clip();
+          ctx.strokeStyle = rgba(GOLD, 0.9); ctx.lineWidth = 1.4; ctx.beginPath();
+          for (var k = 0; k < n; k++){
+            var lx = pad + slot*k + slot/2, ly = 24 + bh*(1 - st[k]/0.95) * 0.55;
+            k ? ctx.lineTo(lx, ly) : ctx.moveTo(lx, ly);
+          }
+          ctx.stroke(); ctx.restore();
+        }
+        ctx.fillStyle = rgba(PEARL, 0.35); ctx.font = '9px ui-monospace,Menlo,monospace';
+        ctx.fillText('W1', pad, H-8); ctx.fillText('W12', pad + slot*(n-1), H-8);
+        ctx.fillStyle = rgba(GOLD, 0.8); ctx.fillText('streak', W - pad - 34, 16);
+      },
+      /* draw — an eight-player bracket resolving itself, on a loop */
+      draw: function(){
+        var seeds = [1,8,4,5,3,6,2,7], T = 7;
+        var ph = reducedF ? 0.95 : (t % T)/T;
+        var res = [ease((ph-0.12)/0.12), ease((ph-0.42)/0.12), ease((ph-0.72)/0.12)];
+        var padL = 34, padR = 22, colW = (W - padL - padR)/3;
+        var rowY = function(round, k){ var m = Math.pow(2, round), n0 = 8/m; return 20 + (H-40)*(k + 0.5)/n0; };
+        var win = function(a, b){ return Math.min(a, b); }
+        ctx.font = '10px ui-monospace,Menlo,monospace';
+        var cols = [seeds], rn;
+        for (rn = 0; rn < 3; rn++){
+          var nxt = [];
+          for (var m2 = 0; m2 < cols[rn].length/2; m2++) nxt.push(win(cols[rn][m2*2], cols[rn][m2*2+1]));
+          cols.push(nxt);
+        }
+        for (var s2 = 0; s2 < 8; s2++){
+          ctx.fillStyle = rgba(PEARL, 0.55);
+          ctx.fillText(String(seeds[s2]), padL - 16, rowY(0, s2) + 3.5);
+        }
+        for (rn = 0; rn < 3; rn++){
+          var q2 = res[rn];
+          for (var mm = 0; mm < cols[rn].length/2; mm++){
+            var yA = rowY(rn, mm*2), yB = rowY(rn, mm*2+1), yM = rowY(rn+1, mm);
+            var x0 = padL + colW*rn, x1 = x0 + colW*0.55, x2 = x0 + colW;
+            ctx.strokeStyle = rgba(PEARL, 0.22); ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(x0, yA); ctx.lineTo(x1, yA); ctx.lineTo(x1, yB); ctx.lineTo(x0, yB);
+            ctx.moveTo(x1, yM); ctx.lineTo(x2, yM); ctx.stroke();
+            if (q2 > 0){
+              var wTop = win(cols[rn][mm*2], cols[rn][mm*2+1]) === cols[rn][mm*2];
+              var yW = wTop ? yA : yB;
+              ctx.strokeStyle = rgba(cur.rgb, 0.9); ctx.lineWidth = 1.6;
+              ctx.beginPath(); ctx.moveTo(x0, yW);
+              ctx.lineTo(x0 + (x1-x0)*Math.min(1, q2*2), yW);
+              if (q2*2 > 1){
+                ctx.lineTo(x1, yW + (yM-yW)*Math.min(1, q2*2-1));
+                if (q2 >= 1){ ctx.moveTo(x1, yM); ctx.lineTo(x2, yM); }
+              }
+              ctx.stroke();
+              if (q2 >= 1){
+                ctx.fillStyle = rgba(cur.rgb, 0.9);
+                ctx.font = '10px ui-monospace,Menlo,monospace';
+                ctx.fillText(String(cols[rn+1][mm]), x2 + 4, yM + 3.5);
+              }
+            }
+          }
+        }
+        if (res[2] >= 1){
+          var cy = rowY(3, 0), cxp = padL + colW*3;
+          var g2 = ctx.createRadialGradient(cxp, cy, 0, cxp, cy, 16);
+          g2.addColorStop(0, rgba(GOLD, 0.45)); g2.addColorStop(1, rgba(GOLD, 0));
+          ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(cxp, cy, 16, 0, 7); ctx.fill();
+          ctx.fillStyle = rgba(GOLD, 1); ctx.beginPath(); ctx.arc(cxp, cy, 3, 0, 7); ctx.fill();
+        }
+      }
+    };
+    function render(){
+      if (!ready || !cur || !cur.fig) return;
+      ctx.clearRect(0, 0, W, H);
+      (R[cur.fig.kind] || function(){})();
+    }
+    var t0 = 0;
+    function frame(ts){   // wall-clock, not frame-count: completes even when RAF is throttled
+      if (!t0) t0 = ts;
+      t = (ts - t0)/1000;
+      render();
+      if (running) raf = requestAnimationFrame(frame);
+    }
+    addEventListener('resize', function(){ if (cur){ setup(); if (reducedF) render(); } });
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting && cur){
+          setup();
+          if (reducedF){ t = 99; render(); return; }
+          if (!running){ running = true; raf = requestAnimationFrame(frame); }
+        } else if (running){ running = false; cancelAnimationFrame(raf); }
+      });
+    }, {threshold:0.08}).observe(canvas);
+    return {
+      set: function(p){ cur = p; t0 = 0; t = reducedF ? 99 : 0; if (ready) render(); },
+      stop: function(){ running = false; cancelAnimationFrame(raf); cur = null; }
+    };
+  })();
+
+  /* ---- deep entry: land directly on a case via /#<id> ---- */
+  (function(){
+    var i = hashIdx();
+    if (i < 0) return;
+    try{
+      history.replaceState(null, '', location.pathname + location.search);
+      history.pushState({c:1}, '', '#' + P[i].id);
+    }catch(e){}
+    openDeep(i);
   })();
 
 })();
