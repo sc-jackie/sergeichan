@@ -57,6 +57,16 @@ reused; the diff is mostly content.
 
 Copy is grounded in each repo's actual docs (same standard as the Jackie-OS case).
 
+**Reciprocal links (case → landing).** Each case view gets a `doclink`-style
+outbound link, completing the two-way loop with Part 1:
+
+- Newfin case → `/newfin` ("Visit the product →"). The Newfin landing lives in
+  THIS repo (`site/newfin/`), not the newfin code repo.
+- B-Unit case → `https://bunit.vercel.app/parents` (landing lives in the bunit
+  repo, `web/public/parents.html`).
+- Jackie-OS already has its docs link; Rodyna and Draw have no public landing —
+  nothing added.
+
 Section-heading labels adapt per project (e.g. Jackie-OS "The loop — six jobs" →
 Newfin "The pipeline"); headings become data-driven where currently hardcoded.
 
@@ -80,6 +90,8 @@ data block grows unwieldy during implementation, extracting it to
 
 - Both B-Unit parents pages and the Newfin landing show the mark; links land on the
   correct opened case view.
+- Newfin and B-Unit case views link out to their landings (`/newfin`,
+  `bunit.vercel.app/parents`).
 - `/#<id>` opens each of the five cases directly; back/resurface clears the hash.
 - Each of the four cases renders its new sections + figure; Jackie-OS unchanged.
 - `prefers-reduced-motion` honored by all new canvases (static final frame).
