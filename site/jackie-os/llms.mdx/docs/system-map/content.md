@@ -107,31 +107,43 @@ One read, top to bottom: you talk to the system, the system remembers and acts, 
     </h4>
 
     <p>
-      <strong>Autonomous builders on the product repos</strong>
+      <strong>Four Cyrus-instance agents on the Hermes VPS</strong>
     </p>
 
     <ul>
       <li>
-        <strong>Cyrus</strong>
+        <strong>Fablio</strong>
 
-         — Claude Code on the VPS — claims Linear issues, writes code, opens PRs.
+         — CEO/orchestrator (Fable 5) — Plan/Scope, delegates by lane.
       </li>
 
       <li>
-        <strong>Codex</strong>
+        <strong>Cursorio</strong>
 
-         — ChatGPT in GitHub CI — build + review lane on the same repos.
+         — fast implementer (Cursor) · 
+
+        <strong>Codexio</strong>
+
+         — design lead (GPT-5.6 Sol) · 
+
+        <strong>Cyrusio</strong>
+
+         — delivery engineer (Sonnet 5).
       </li>
 
       <li>
+        <strong>Legacy Codex</strong>
+
+         — ChatGPT in GitHub CI. 
+
         <strong>You + interactive agents</strong>
 
-         — Claude Code / Cursor on the Mac for hands-on work.
+         — Mac hands-on work.
       </li>
     </ul>
 
     <p>
-      <small>via merges land → merge-poll + project-sync write back</small>
+      <small>via PRs → human merge → merge-poll + project-sync write back</small>
     </p>
   </Step>
 

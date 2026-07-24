@@ -26,19 +26,20 @@
 
   /* ============ HERO — permanently fixed: it IS the site's ground ============ */
   #hero{position:fixed;inset:0;background:var(--space);overflow:hidden;cursor:pointer}
+  #hero:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
   #hero canvas{display:block;width:100%;height:100%}
   #hero .ov{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:26px 32px}
   #hero .bar{display:flex;justify-content:space-between;align-items:baseline}
   #hero .brand{font-weight:600;font-size:15px;letter-spacing:.02em}
   #hero .nav{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);pointer-events:auto}
-  #hero .nav button{all:unset;cursor:pointer;margin-left:22px;letter-spacing:inherit;color:inherit}
+  #hero .nav button{all:unset;cursor:pointer;margin-left:8px;padding:8px 8px;letter-spacing:inherit;color:inherit}
   #hero .nav button:hover{color:var(--pearl)}
   #hero .nav button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
   #hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
   #hero .thesis{font-size:clamp(18px,2.5vw,25px);font-weight:250;max-width:20em;line-height:1.32}
   #hero .thesis em{font-style:italic;color:var(--inkem)}
-  #hero .hint{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-align:right;line-height:1.9}
-  #hero .hint-touch{display:none;font-family:ui-monospace,Menlo,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  #hero .hint{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.9}
+  #hero .hint-touch{display:none;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   @media (max-width:640px){ #hero .hint{display:none} #hero .hint-touch{display:block} #hero .ov{padding:20px 18px} }
 
   /* glimpse — small, quiet; the chord expansion is the real hover effect */
@@ -48,10 +49,10 @@
     backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
     padding:11px 13px 10px;z-index:5;--acc:#C9A45C}
   #glimpse.on{opacity:1}
-  #glimpse .kick{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);opacity:.85}
+  #glimpse .kick{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);opacity:.85}
   #glimpse h4{margin:4px 0 0;font-size:16px;font-weight:350;letter-spacing:-.005em}
   #glimpse .one{font-size:11.5px;color:var(--muted);line-height:1.45;margin:5px 0 0}
-  #glimpse .enterhint{margin-top:8px;font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);opacity:.8}
+  #glimpse .enterhint{margin-top:8px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);opacity:.8}
   #glimpse .one,#glimpse .enterhint{opacity:0;transform:translateY(3px);transition:opacity .3s ease,transform .35s ease}
   #glimpse.s1 .one{opacity:1;transform:none}
   #glimpse.s2 .one{opacity:1;transform:none}
@@ -68,10 +69,10 @@
   .wf .fig{font-family:ui-monospace,Menlo,monospace;font-size:15px;color:var(--pearl)}
   .wf .bar{width:9px;border-radius:2px 2px 0 0;background:rgba(229,231,239,.22)}
   .wf .bar.g{background:var(--acc);opacity:.8}
-  .wf .bub{max-width:72%;padding:5px 8px;border-radius:8px;background:rgba(229,231,239,.1);font-size:9px;color:var(--muted);line-height:1.35}
+  .wf .bub{max-width:72%;padding:5px 8px;border-radius:8px;background:rgba(229,231,239,.1);font-size:10px;color:var(--muted);line-height:1.35}
   .wf .bub.me{align-self:flex-end;background:color-mix(in srgb, var(--acc) 20%, transparent);color:var(--pearl)}
   .wf .chipline{display:flex;gap:5px}
-  .wf .chip{height:12px;padding:0 7px;border-radius:6px;border:1px solid rgba(229,231,239,.25);font-size:8px;line-height:12px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+  .wf .chip{height:14px;padding:0 7px;border-radius:7px;border:1px solid rgba(229,231,239,.25);font-size:10px;line-height:14px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
 
   /* ============ CASE VIEW — transparent: the hero's own threads are the background ============ */
   #case{position:fixed;inset:0;background:transparent;z-index:50;display:none;overflow-y:auto;opacity:0;
@@ -104,6 +105,7 @@
   #case button.back{all:unset;cursor:pointer;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:8px 0}
   #case button.back:hover{color:var(--pearl)}
   #case button.back:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+  #case .caseIdx{font-size:10px;letter-spacing:.16em;color:var(--dim)}
   #case .roman{position:absolute;top:8px;right:12px;font-size:clamp(120px,22vw,220px);font-weight:100;
     color:color-mix(in srgb, var(--acc) 9%, transparent);line-height:1;user-select:none;pointer-events:none;font-family:Georgia,serif}
   #case .kick{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
@@ -111,7 +113,21 @@
   #case .one{font-size:17px;color:var(--muted);max-width:34em;margin:0}
   #case .metarow{display:flex;flex-wrap:wrap;gap:16px;margin:22px 0 0;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   #case .metarow b{color:var(--pearl);font-weight:500}
-  #case h3{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:500;margin:52px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
+  #case .visitrow{margin-top:20px}
+  #case .visit{display:inline-flex;align-items:center;gap:9px;padding:10px 20px;border:1px solid color-mix(in srgb, var(--acc) 65%, transparent);
+    border-radius:999px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--acc);text-decoration:none;transition:background .2s,color .2s}
+  #case .visit:hover{background:var(--acc);color:var(--space)}
+  #case .visit:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+  /* floating twin — appears once the inline CTA is scrolled past */
+  #case .visit--float{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:80;
+    background:rgba(12,14,22,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:0;transform:translateY(10px);pointer-events:none;
+    transition:opacity .3s ease,transform .35s cubic-bezier(.25,.1,.25,1)}
+  #case .visit--float.on{opacity:1;transform:none;pointer-events:auto}
+  #case .visit--float:hover{background:var(--acc)}
+  @media (prefers-reduced-motion: reduce){ #case .visit--float{transition:opacity .15s ease} }
+  #case h3{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:52px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
   #case p{color:var(--ink2);font-size:15.5px;line-height:1.7;margin:0 0 14px;max-width:62ch}
   #case p b{color:var(--pearl)}
   #case ul.plain{margin:0;padding:0;list-style:none;color:var(--ink2);font-size:15px}
@@ -122,7 +138,7 @@
   #case .statechips span.live{border-color:color-mix(in srgb, var(--acc) 55%, transparent);color:var(--acc)}
   #case .frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
   #case .frame{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
-  #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   #case .frame .body{position:relative;height:190px}
   #case .frame figcaption{padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim)}
   #case .arch{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
@@ -151,6 +167,41 @@
   #case .memfig canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
   #case .memfig figcaption{display:flex;justify-content:space-between;gap:12px;padding:8px 0 18px;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
   #case .memfig figcaption b{color:var(--acc);font-weight:500}
+  /* frame components — Newfin landing language (indigo paper, serif display, mono) */
+  /* brand palettes below are each product's own, deliberately outside this site's tokens */
+  .nw{position:absolute;inset:0;padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:#12131F;font-family:ui-monospace,Menlo,monospace}
+  .nw-kpi{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:2px}
+  .nw-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8B90AD}
+  .nw-fig{font-family:Georgia,serif;font-size:22px;color:#F0F1F7;letter-spacing:.02em}
+  .nw-delta{font-size:10px;color:#7C93E8}
+  .nw-row{display:flex;align-items:center;gap:8px;font-size:10px;color:#B9BDD4}
+  .nw-row .nw-chip{flex:0 0 68px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
+  .nw-row i{display:block;height:4px;border-radius:2px;background:color-mix(in srgb, #7C93E8 55%, transparent)}
+  .nw-row b{margin-left:auto;color:#D9DCEA;font-weight:400}
+  .nw-bub{max-width:82%;padding:7px 10px;border-radius:9px;background:rgba(240,241,247,.08);font-size:10px;line-height:1.45;color:#C9CDE0}
+  .nw-bub.me{align-self:flex-end;background:color-mix(in srgb, #7C93E8 26%, transparent);color:#F0F1F7}
+  .nw-note{margin-top:auto;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
+  /* frame components — B-Unit landing language (night sky, purple/cyan/gold) */
+  .bw{position:absolute;inset:0;padding:13px 15px;display:flex;flex-direction:column;gap:7px;font-family:ui-monospace,Menlo,monospace;
+    background:radial-gradient(1.2px 1.2px at 26px 30px, rgba(240,238,250,.9), transparent 100%),
+      radial-gradient(1px 1px at 120px 64px, rgba(168,85,247,.8), transparent 100%),
+      radial-gradient(1px 1px at 205px 26px, rgba(34,211,238,.7), transparent 100%),
+      radial-gradient(1.3px 1.3px at 170px 130px, rgba(240,238,250,.75), transparent 100%),
+      radial-gradient(90% 80% at 50% 115%, rgba(168,85,247,.16), transparent 60%), #0D0A18}
+  .bw-top{display:flex;justify-content:space-between;align-items:baseline}
+  .bw-word{font-family:Georgia,serif;font-size:11px;letter-spacing:.22em;color:#F0EEFA}
+  .bw-lvl{font-size:10px;letter-spacing:.14em;padding:2px 8px;border:1px solid rgba(168,85,247,.6);border-radius:999px;color:#C9A0F5}
+  .bw-quest{display:flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid rgba(168,85,247,.28);border-radius:8px;
+    background:rgba(30,22,50,.55);font-size:10px;color:#D9D3EC}
+  .bw-check{flex:none;width:14px;height:14px;border-radius:50%;border:1px solid rgba(168,85,247,.55);font-size:10px;line-height:14px;text-align:center;color:#22D3EE}
+  .bw-check.done{border-color:#22D3EE;background:rgba(34,211,238,.12)}
+  .bw-coin{margin-left:auto;flex:none;font-size:10px;letter-spacing:.08em;padding:1.5px 7px;border:1px solid rgba(242,201,76,.55);border-radius:999px;color:#F2C94C}
+  .bw-quest .bw-qt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bw-xp{height:5px;border-radius:3px;background:rgba(168,85,247,.18);margin-top:2px}
+  .bw-xp i{display:block;height:100%;border-radius:3px;background:#A855F7;box-shadow:0 0 8px rgba(168,85,247,.5)}
+  .bw-meta{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8F87AC}
+  .bw-bub{max-width:84%;padding:7px 10px;border-radius:9px;background:rgba(240,238,250,.08);font-size:10px;line-height:1.45;color:#D9D3EC;display:flex;align-items:center}
+  .bw-bub.me{align-self:flex-end;background:rgba(168,85,247,.26);color:#F0EEFA}
   /* signature figure — one canvas per project (memfig pattern, standalone card) */
   #case .sigfig{margin:6px 0 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
   #case .sigfig .body{position:relative;height:230px}
@@ -251,7 +302,7 @@
   .bezel .b1{font-weight:600;font-size:13px}
   .bezel .b2{font-size:16px;font-weight:250;line-height:1.35;max-width:16em}
   .bezel .b2 em{font-style:italic;color:var(--inkem)}
-  .bezel .b3{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+  .bezel .b3{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:8px}
   .pnote{flex:1;min-width:260px;color:var(--muted);font-size:14px}
   .pnote b{color:var(--pearl)}
   footer{max-width:1000px;margin:0 auto;padding:0 20px 90px;color:var(--muted);font-size:14px}
@@ -283,7 +334,7 @@
 <body>
 
 <!-- ================= HOME / HERO ================= -->
-<div id="hero" tabindex="0" role="application" aria-label="Interactive hero: five silk chords in depth, one per project. Arrow keys cycle, Enter dives.">
+<div id="hero" tabindex="0" role="group" aria-roledescription="interactive hero" aria-label="Interactive hero: five silk chords in depth, one per project. Arrow keys cycle, Enter dives.">
   <canvas id="cv"></canvas>
   <div class="ov">
     <div class="bar"><span class="brand">Sergei Tran</span><span class="nav"><button data-go="home">Work</button><button data-go="panelWriting">Writing</button><button data-go="panelAbout">About</button></span></div>
@@ -307,7 +358,7 @@
   <div class="inner">
     <div class="backbar">
       <button class="back" id="backBtn">← Resurface</button>
-      <span class="mono" style="font-size:10px;letter-spacing:.16em;color:var(--dim)" id="caseIdx"></span>
+      <span class="mono caseIdx" id="caseIdx"></span>
     </div>
     <div class="roman" id="cRoman"></div>
     <canvas id="cIconCv" aria-hidden="true"></canvas>
@@ -315,6 +366,8 @@
     <h1 id="cName"></h1>
     <p class="one" id="cOne"></p>
     <div class="metarow" id="cMeta"></div>
+    <div class="visitrow"><a class="visit" id="cVisit" href="#"><span id="cVisitTxt"></span><span aria-hidden="true">↗</span></a></div>
+    <a class="visit visit--float" id="cVisitFloat" href="#" tabindex="-1"><span id="cVisitFloatTxt"></span><span aria-hidden="true">↗</span></a>
     <h3>What it is</h3><div id="cWhat"></div>
     <h3>Why it exists</h3><div id="cWhy"></div>
     <div class="opt" id="secDuo">
@@ -388,10 +441,11 @@
     { id:'newfin', roman:'II', name:'Newfin', u:0.15, color:'#7C93E8', rgb:[124,147,232],
       one:'Net worth, cashflow and an LLM advisor for a genuinely mixed portfolio.',
       meta:'2026 · TS MONOREPO · SUPABASE + VERCEL · LIVE',
+      link:{href:'/newfin/', label:'Visit the Newfin landing'},
       what:'<p>A household finance platform for a portfolio that doesn\'t fit any app: liquid and vesting crypto, futures, real estate across two countries, private deals, receivables, cash. One system of record, an API-first server, a web dashboard, and a scoped Telegram agent for the household.</p>',
       why:'<p>Every tool I tried could track <b>a slice</b> — none could hold the whole book truthfully. And numbers without judgment are noise: I wanted an advisor that reads the actual state and answers with positions sized in dollars and percent, not market clichés.</p>',
       solve:'<ul class="plain"><li>One truthful net-worth line across every asset class and currency</li><li>An LLM advisor bound to the real payload — recommendations with numbers, never generic advice</li><li>Household access with hard scoping: the owner sees everything; family members see only their view</li><li>Read-only by design — it can describe a move, never execute one</li></ul>',
-      fig:{h:'The whole book, one line', cap:'net worth across every asset class (demo data)', tag:'one truthful line', kind:'newfin'},
+      fig:{h:'Every stream, one line', cap:'five asset streams fold into the book (demo)', tag:'one truthful line', kind:'newfin'},
       jobsH:'The pipeline — from accounts to advice',
       jobs:[
         {t:'Sync', m:'scheduled', ic:'<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 3v4.5h-4.5"/>', d:'Exchanges, wallets, brokerages and banks feed the server; manual assets — property, deals, receivables — enter once and persist.'},
@@ -422,21 +476,22 @@
         ['Hard scoping','The owner sees everything; each family member sees exactly their view and nothing more.'],
         ['Private by default','The household\'s book stays the household\'s — row-level security underneath, the advisor reads a payload, not your accounts.']
       ],
-      state:'<p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than I maintain it.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div><p class="doclink"><a href="/newfin/">Visit the product page →</a></p>',
+      state:'<p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than I maintain it.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div>',
       frames:[
-        {h:'PORTFOLIO', cap:'the whole book, one line (demo data)', m: wf('<div class="fig">$ ---,---</div><div class="row" style="height:52px"><div class="bar" style="height:30%"></div><div class="bar" style="height:44%"></div><div class="bar" style="height:38%"></div><div class="bar g" style="height:62%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:70%"></div><div class="bar g" style="height:78%"></div></div><div class="ln" style="width:58%"></div>')},
-        {h:'ADVISOR · TELEGRAM', cap:'judgment over the real payload', m: wf('<div class="bub me">should I trim anything?</div><div class="bub">Concentration flag: one position is above your band. Trimming ~8% restores the target and adds runway. Liabilities are clear.</div>')}
+        {h:'HOME · NET WORTH', cap:'the landing\'s Home surface, rebuilt (figures redacted)', m:'<div class="nw"><div class="nw-kpi"><span class="nw-label">Net worth</span><span class="nw-fig">$ ▮▮▮,▮▮▮</span><span class="nw-delta">+2.4% · 30d</span></div><div class="nw-row"><span class="nw-chip">Crypto</span><i style="width:76%"></i><b>▮▮▮,▮▮▮</b></div><div class="nw-row"><span class="nw-chip">Brokerage</span><i style="width:58%"></i><b>▮▮,▮▮▮</b></div><div class="nw-row"><span class="nw-chip">Property</span><i style="width:64%"></i><b>▮▮▮,▮▮▮</b></div><div class="nw-row"><span class="nw-chip">Cash</span><i style="width:30%"></i><b>▮▮,▮▮▮</b></div></div>'},
+        {h:'PERSIK · TELEGRAM', cap:'judgment over the real payload', m:'<div class="nw"><div class="nw-bub me">should I trim anything?</div><div class="nw-bub">Concentration is 6% above your band. Trimming ~8% restores the target and covers the June liability.</div><div class="nw-note">read-only — it can describe a move, never execute one</div></div>'}
       ],
       arch:['Integrations','Server (Express)','Supabase','Web PWA','Persik bot'], archG:4,
       archNote:'Shared workspace owns the net-worth math; exchange/wallet/bank integrations feed the server; the Telegram agent gets role-scoped views of the same truth.'
     },
-    { id:'bunit', roman:'III', name:'B-Unit', u:0.325, color:'#5FBF8E', rgb:[95,191,142],
+    { id:'bunit', roman:'III', name:'B-Unit', u:0.325, color:'#A855F7', rgb:[168,85,247],
       one:'A gamified habit economy for a teenager — real quests, real rewards, agent coaching.',
       meta:'2026 · SUPABASE + NEXT.JS + TELEGRAM · LIVE PILOT',
+      link:{href:'https://bunit.vercel.app/parents', label:'Visit the parents page'},
       what:'<p>A habit tracker built as a game economy for a 14-year-old in the family: daily quests earn XP and coins, coins cash out into real rewards, levels unlock equipment and themes — with a coach in the loop verifying that the habits actually happened.</p>',
       why:'<p>Telling a teenager to "build habits" doesn\'t work; game economies do. So the loop is honest game design instead of parental nagging — and it doubled as a testbed for something bigger: <b>autonomous agents shipping production code</b>, since two AI agents work its backlog end-to-end.</p>',
       solve:'<ul class="plain"><li>A motivation loop that survives week two: quests → XP/coins → real cashout</li><li>Anti-cheat: coach verification and timer-verified quests keep the economy honest</li><li>Progression that feels like a game: levels, equipment, streaks, themes</li><li>For me: a live experiment in agents dispatching, coding and shipping from a backlog</li></ul>',
-      fig:{h:'Twelve weeks in', cap:'weekly XP and streak (demo data)', tag:'the economy, honest', kind:'bunit'},
+      fig:{h:'One quest, run to level-up', cap:'the loop, played out (demo)', tag:'quest → verify → coins → level', kind:'bunit'},
       jobsH:'The economy — one honest loop',
       jobs:[
         {t:'Quest', m:'daily', ic:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 12.5h5M8 16h6"/>', d:'The board deals today\'s run — reading, training, chores — each priced in XP and coins up front.'},
@@ -467,10 +522,10 @@
         ['Real stakes','Coins buy real things the family priced together — the loop touches the world.'],
         ['Agent-built','Two autonomous agents work its backlog to tested pull requests — the product builds itself.']
       ],
-      state:'<p>Live on production with its pilot user active. The economy survived contact with a real teenager (v2 hardened after the first exploits — a good sign someone cares). Two autonomous agents keep working the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div><p class="doclink"><a href="https://bunit.vercel.app/parents" rel="noopener">Visit the parents page →</a></p>',
+      state:'<p>Live on production with its pilot user active. The economy survived contact with a real teenager (v2 hardened after the first exploits — a good sign someone cares). Two autonomous agents keep working the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div>',
       frames:[
-        {h:'QUEST BOARD', cap:'today\'s run', m: wf('<div class="chipline"><span class="chip">LVL 7</span><span class="chip">STREAK 12</span></div><div class="ln g" style="width:70%"></div><div class="ln" style="width:86%"></div><div class="ln" style="width:64%"></div><div class="ln" style="width:78%"></div><div class="chipline"><span class="chip">+120 XP</span><span class="chip">+40 COINS</span></div>')},
-        {h:'COACH VERIFY · TELEGRAM', cap:'the human in the loop', m: wf('<div class="bub">Quest submitted: "30 min reading" — verify?</div><div class="bub me">✓ verified</div><div class="bub">+40 coins credited. Streak: 12 days.</div>')}
+        {h:'QUEST BOARD', cap:'the landing\'s night sky + quest cards, rebuilt', m:'<div class="bw"><div class="bw-top"><span class="bw-word">B-UNIT</span><span class="bw-lvl">LVL 7</span></div><div class="bw-quest"><span class="bw-check done">✓</span><span class="bw-qt">Read 30 min</span><span class="bw-coin">+40</span></div><div class="bw-quest"><span class="bw-check"></span><span class="bw-qt">Train — push day</span><span class="bw-coin">+60</span></div><div class="bw-quest"><span class="bw-check"></span><span class="bw-qt">Dishes before 21:00</span><span class="bw-coin">+20</span></div><div class="bw-xp"><i style="width:64%"></i></div><div class="bw-meta"><span>streak 12</span><span>1 240 xp</span></div></div>'},
+        {h:'COACH VERIFY · TELEGRAM', cap:'the human in the loop', m:'<div class="bw"><div class="bw-bub">Quest submitted: “30 min reading” — verify?</div><div class="bw-bub me">✓ verified</div><div class="bw-bub"><span class="bw-coin">+40</span>&nbsp;credited · streak 12</div></div>'}
       ],
       arch:['Telegram bot','Next.js PWA','Supabase','Agent loop (Linear)'], archG:3,
       archNote:'Edge functions run the economy with append-only migrations and integrity tests; the agent loop dispatches issues to two coding agents whose PRs sync back to the board.'
@@ -478,6 +533,7 @@
     { id:'jackieos', roman:'I', name:'Jackie-OS', u:0.5, color:'#C9A45C', rgb:[201,164,92], core:true,
       one:'A personal AI operating system — memory, skills, and always-on agents running one life.',
       meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
+      link:{href:'/jackie-os/docs/', label:'Read the full docs'},
       what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
       why:'<p>I work across tools that don\'t share memory. Knowledge lives in an Obsidian vault, code in separate repos, and the assistant keeps changing — mostly Claude Code on the Mac, Codex or a different model when the task wants one. Every one of them starts cold, so I keep re-explaining the same projects and the same decisions.</p><p>So the memory lives outside all of them. The system is plain <b>markdown in git</b>, and the skills are instructions any harness can run, so I can switch model, provider or tool without losing context. A small agent on a VPS keeps the loop turning while the Mac is closed — the 07:30 brief, hourly journal capture from a Telegram message, project status written back on merge. The journaling is the part I underrated: each note gets linked to the projects and people it touches, and the daily pile slowly turns into something I can actually query.</p>',
       solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
@@ -527,7 +583,7 @@
         ['Runs without you','One small always-on agent keeps the loop turning while your laptop sleeps.'],
         ['Yours to fork','The quickstart template gives you the vault, the skills and the loop. Bring your own agent.']
       ],
-      state:'<p>Running in production on a VPS for months: four autonomous agents deliver around the clock, even with the laptop off; system jobs keep the daily rhythm moving, and the other four projects ride the same rails. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 AGENTS</span><span>LINEAR-FIRST</span><span>PR-ONLY DELIVERY</span></div><p class="doclink"><a href="/jackie-os/docs/">Read the full docs →</a></p>',
+      state:'<p>Running in production on a VPS for months: four autonomous agents deliver around the clock, even with the laptop off; system jobs keep the daily rhythm moving, and the other four projects ride the same rails. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 AGENTS</span><span>LINEAR-FIRST</span><span>PR-ONLY DELIVERY</span></div>',
       frames:[
         {h:'MORNING BRIEF · TELEGRAM', cap:'07:30, every day, from real state', m: wf('<div class="bub">Morning brief — Thu. 2 PRs merged overnight. Retention set awaits approval.</div><div class="bub">Calendar: tennis 18:00. Focus: EVE-29.</div><div class="bub me">approve EVE-29</div>')},
         {h:'AGENT QUEUE', cap:'backlog → autonomous PRs', m: wf('<div class="chipline"><span class="chip">EVE-29 · IN PROGRESS</span><span class="chip">AGENT A</span></div><div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div><div class="chipline"><span class="chip">EVE-31 · QUEUED</span><span class="chip">AGENT B</span></div><div class="ln" style="width:74%"></div><div class="ln g" style="width:38%"></div>')}
@@ -578,6 +634,7 @@
     { id:'draw', roman:'V', name:'Draw', u:0.85, color:'#56C4D6', rgb:[86,196,214],
       one:'Tournaments, leagues and rankings for tennis communities.',
       meta:'2026 · NEXT.JS + REACT NATIVE · IN DEVELOPMENT',
+      link:{href:'https://t.me/drawtennisbot', label:'Open @drawtennisbot'},
       what:'<p>A community tennis platform: tournament registration with skill-level gating, generated draws (single elimination, round robin, Swiss), live scoring, standings, seasonal leagues, challenge matches and rankings — delivered as a Telegram Mini App, web app and native mobile on one backend.</p>',
       why:'<p>I play, and I\'ve watched organizers run 30-player tournaments through spreadsheets and pinned messages. The draw math, the scheduling, the endless "what\'s my next match?" — all of it is software pretending to be a volunteer\'s weekend.</p>',
       solve:'<ul class="plain"><li>Draw generation that respects seeding and skill gates, without spreadsheet surgery</li><li>One source of truth for scores, standings and rankings across a season</li><li>Players get their schedule; organizers get their weekend back</li></ul>',
@@ -1057,6 +1114,7 @@
   }
   function doResurface(){
     // reverse: content sinks, the icon flies home, the same silk re-gathers beneath
+    document.getElementById('cVisitFloat').classList.remove('on');
     var seatEl = document.getElementById('cIconCv');
     var seat = seatEl.getBoundingClientRect();
     var heroR = hero.getBoundingClientRect();
@@ -1151,6 +1209,20 @@
     document.getElementById('cOne').textContent = p.one;
     document.getElementById('caseIdx').textContent = (i+1) + ' / ' + P.length;
     document.getElementById('cMeta').innerHTML = p.meta.split('·').map(function(m){ return '<b>' + m.trim() + '</b>'; }).join('<span>·</span>');
+    var visit = document.getElementById('cVisit');
+    var visitFloat = document.getElementById('cVisitFloat');
+    visitFloat.classList.remove('on');           // never carry a stale label between cases
+    if (p.link){
+      visit.parentNode.style.display = '';
+      visit.href = visitFloat.href = p.link.href;
+      document.getElementById('cVisitTxt').textContent = p.link.label;
+      document.getElementById('cVisitFloatTxt').textContent = p.link.label;
+      var ext = /^https?:/.test(p.link.href);
+      [visit, visitFloat].forEach(function(a){
+        if (ext){ a.target = '_blank'; a.rel = 'noopener'; }
+        else { a.removeAttribute('target'); a.removeAttribute('rel'); }
+      });
+    } else { visit.parentNode.style.display = 'none'; }
     document.getElementById('cWhat').innerHTML = p.what;
     document.getElementById('cWhy').innerHTML = p.why;
     document.getElementById('cSolve').innerHTML = p.solve;
@@ -1247,6 +1319,14 @@
     var pr = caseEl.scrollTop / Math.max(1, caseEl.scrollHeight - caseEl.clientHeight);
     caseEl.querySelector('.topline').style.setProperty('--read', Math.round(8 + pr*92) + '%');
   }, {passive:true});
+  // the product link follows the reader: float in once the inline CTA is scrolled past
+  new IntersectionObserver(function(es){
+    var e = es[0];
+    var past = !e.isIntersecting && e.boundingClientRect.top < 0;
+    var hasLink = document.getElementById('cVisit').parentNode.style.display !== 'none';
+    document.getElementById('cVisitFloat').classList.toggle('on',
+      past && hasLink && caseEl.classList.contains('open'));
+  }, {root: caseEl}).observe(document.getElementById('cVisit'));
 
   /* ---- linked-memory particle field (jackie-os figure): scattered thoughts → notes, filed → linked memory ---- */
   (function initMemViz(){
@@ -1329,75 +1409,155 @@
       canvas.width = W*dpr; canvas.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
       ready = true;
     }
-    function series(seed, n, drift, vol){
-      var r = prng(seed), v = 1, o = [];
-      for (var i = 0; i < n; i++){ o.push(v); v = Math.max(0.15, v + drift + (r()-0.48)*vol); }
-      return o;
+    function rrect(x, y, w, h, r){
+      ctx.beginPath();
+      if (ctx.roundRect){ ctx.roundRect(x, y, w, h, r); }
+      else ctx.rect(x, y, w, h);
     }
     var R = {
-      /* newfin — stacked demo net worth, one gold total line on top */
+      /* newfin — five asset streams fold into one gold line (the book) */
       newfin: function(){
-        var n = 28, pad = 16, bw = W - pad*2, bh = H - 30;
-        var layers = [series(11,n,0.010,0.03), series(23,n,0.022,0.05), series(37,n,0.030,0.10), series(53,n,0.045,0.16)];
-        var stack = [], tot = [];
-        for (var i = 0; i < n; i++){ var s = 0, col = []; for (var L = 0; L < 4; L++){ s += layers[L][i]; col.push(s); } stack.push(col); tot.push(s); }
-        var max = Math.max.apply(null, tot)*1.08;
-        var X = function(i){ return pad + bw*i/(n-1); };
-        var Y = function(v){ return 18 + bh*(1 - v/max); };
-        var q = ease(Math.min(1, t/1.8));
-        ctx.save(); ctx.beginPath(); ctx.rect(0, 0, pad + bw*q + 2, H); ctx.clip();
-        for (var g = 1; g <= 3; g++){ ctx.strokeStyle = rgba(PEARL, 0.06); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pad, 18 + bh*g/4); ctx.lineTo(W-pad, 18 + bh*g/4); ctx.stroke(); }
-        for (var L2 = 3; L2 >= 0; L2--){
-          ctx.beginPath(); ctx.moveTo(X(0), Y(0));
-          for (var j = 0; j < n; j++) ctx.lineTo(X(j), Y(stack[j][L2]));
-          ctx.lineTo(X(n-1), Y(0)); ctx.closePath();
-          ctx.fillStyle = rgba(cur.rgb, 0.07 + L2*0.055); ctx.fill();
+        var padL = 78, padR = 30, conv = padL + (W-padL-padR)*0.5, midY = H*0.52;
+        var streams = [
+          {l:'CRYPTO',    y:0.14, w:9,  a:0.30},
+          {l:'EQUITIES',  y:0.32, w:8,  a:0.24},
+          {l:'PROPERTY',  y:0.50, w:11, a:0.19},
+          {l:'CASH',      y:0.68, w:6,  a:0.27},
+          {l:'DEALS',     y:0.86, w:7,  a:0.17}
+        ];
+        var reveal = ease(t/1.4);
+        function pt(s, u){
+          var ys = H*s.y, cx2 = padL + (conv-padL)*0.62, mu = 1-u;
+          return [ mu*mu*padL + 2*mu*u*cx2 + u*u*conv,
+                   mu*mu*ys + 2*mu*u*(ys + (midY-ys)*0.25) + u*u*midY ];
         }
-        ctx.strokeStyle = rgba(GOLD, 0.95); ctx.lineWidth = 1.6; ctx.beginPath();
-        for (var k = 0; k < n; k++) k ? ctx.lineTo(X(k), Y(tot[k])) : ctx.moveTo(X(k), Y(tot[k]));
-        ctx.stroke();
-        ctx.restore();
-        var tip = Math.min(n-1, Math.floor((n-1)*q));
-        var glow = ctx.createRadialGradient(X(tip), Y(tot[tip]), 0, X(tip), Y(tot[tip]), 14);
-        glow.addColorStop(0, rgba(GOLD, 0.5)); glow.addColorStop(1, rgba(GOLD, 0));
-        ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(X(tip), Y(tot[tip]), 14, 0, 7); ctx.fill();
-        ctx.fillStyle = rgba(GOLD, 1); ctx.beginPath(); ctx.arc(X(tip), Y(tot[tip]), 2.4, 0, 7); ctx.fill();
-      },
-      /* bunit — twelve weekly XP bars + gold streak line, latest week pulsing */
-      bunit: function(){
-        var n = 12, pad = 18, bw = W - pad*2, bh = H - 42;
-        var r = prng(77), xp = [], st = [];
-        for (var i = 0; i < n; i++){ xp.push(0.35 + i*0.045 + (r()-0.4)*0.22); st.push(0.25 + i*0.055 + (r()-0.5)*0.06); }
-        xp[7] *= 0.45;                                     // the week the economy got tested
-        var max = Math.max.apply(null, xp)*1.15;
-        var slot = bw/n, w = slot*0.52;
-        for (var j = 0; j < n; j++){
-          var hq = ease(t*1.5 - j*0.11);
-          if (hq <= 0) continue;
-          var h = bh*(xp[j]/max)*hq, x = pad + slot*j + (slot-w)/2, y = 24 + bh - h;
-          var last = j === n-1;
-          var pulse = last && !reducedF ? 0.18*Math.sin(t*3) : 0;
-          ctx.fillStyle = rgba(cur.rgb, (last ? 0.85 : 0.38 + j*0.02) + pulse);
-          ctx.fillRect(x, y, w, h);
-          if (last){
-            var g = ctx.createRadialGradient(x+w/2, y, 0, x+w/2, y, 22);
-            g.addColorStop(0, rgba(cur.rgb, 0.25 + pulse)); g.addColorStop(1, rgba(cur.rgb, 0));
-            ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x+w/2, y, 22, 0, 7); ctx.fill();
-          }
-        }
-        var lq = ease((t-0.5)/1.4);
+        ctx.font = '8.5px ui-monospace,Menlo,monospace'; ctx.textAlign = 'right';
+        streams.forEach(function(s){
+          ctx.beginPath();
+          for (var k = 0; k <= 24; k++){ var q = pt(s, k/24*reveal); k ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }
+          ctx.strokeStyle = rgba(cur.rgb, s.a); ctx.lineWidth = s.w; ctx.lineCap = 'round'; ctx.stroke();
+          ctx.fillStyle = rgba(PEARL, 0.5);
+          ctx.fillText(s.l, padL - 9, H*s.y + 3);
+        });
+        ctx.textAlign = 'start';
+        var endX = W - padR, lq = ease((t-0.9)/1.2);
         if (lq > 0){
-          ctx.save(); ctx.beginPath(); ctx.rect(0, 0, pad + bw*lq, H); ctx.clip();
-          ctx.strokeStyle = rgba(GOLD, 0.9); ctx.lineWidth = 1.4; ctx.beginPath();
-          for (var k = 0; k < n; k++){
-            var lx = pad + slot*k + slot/2, ly = 24 + bh*(1 - st[k]/0.95) * 0.55;
-            k ? ctx.lineTo(lx, ly) : ctx.moveTo(lx, ly);
+          ctx.beginPath();
+          for (var k2 = 0; k2 <= 30; k2++){
+            var u2 = k2/30, x = conv + (endX-conv)*u2*lq;
+            var y = midY + Math.sin(u2*4 + t*1.2)*3*(1 - u2*0.5);
+            k2 ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
           }
-          ctx.stroke(); ctx.restore();
+          ctx.strokeStyle = rgba(GOLD, 0.95); ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.stroke();
+          var tipX = conv + (endX-conv)*lq, tipY = midY + Math.sin(4 + t*1.2)*1.5;
+          var glow = ctx.createRadialGradient(tipX, tipY, 0, tipX, tipY, 15);
+          glow.addColorStop(0, rgba(GOLD, 0.5)); glow.addColorStop(1, rgba(GOLD, 0));
+          ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(tipX, tipY, 15, 0, 7); ctx.fill();
+          ctx.fillStyle = rgba(GOLD, 1); ctx.beginPath(); ctx.arc(tipX, tipY, 2.6, 0, 7); ctx.fill();
+          if (lq >= 1){
+            ctx.fillStyle = rgba(PEARL, 0.92); ctx.font = '15px Georgia,serif'; ctx.textAlign = 'right';
+            ctx.fillText('$ ▮▮▮,▮▮▮', endX, midY - 16);
+            ctx.fillStyle = rgba(GOLD, 0.75); ctx.font = '8px ui-monospace,Menlo,monospace';
+            ctx.fillText('THE BOOK', endX, midY - 34);
+            ctx.textAlign = 'start';
+          }
         }
-        ctx.fillStyle = rgba(PEARL, 0.35); ctx.font = '9px ui-monospace,Menlo,monospace';
-        ctx.fillText('W1', pad, H-8); ctx.fillText('W12', pad + slot*(n-1), H-8);
-        ctx.fillStyle = rgba(GOLD, 0.8); ctx.fillText('streak', W - pad - 34, 16);
+        // particles ride the streams into the line — the sync, visible
+        streams.forEach(function(s, si){
+          for (var pi = 0; pi < 3; pi++){
+            var u = (t*0.22 + si*0.13 + pi*0.37) % 1;
+            if (u > reveal) continue;
+            var q3 = pt(s, u);
+            ctx.fillStyle = rgba(PEARL, 0.55*(0.4 + 0.6*u));
+            ctx.fillRect(q3[0]-1, q3[1]-1, 2, 2);
+          }
+        });
+        for (var gi = 0; gi < 4; gi++){
+          var gu = (t*0.3 + gi*0.26) % 1;
+          if (lq <= 0 || gu > lq) continue;
+          var gx = conv + (endX-conv)*gu, gy = midY + Math.sin(gu*4 + t*1.2)*3*(1 - gu*0.5);
+          ctx.fillStyle = rgba(GOLD, 0.8);
+          ctx.fillRect(gx-1.2, gy-1.2, 2.4, 2.4);
+        }
+      },
+      /* bunit — one quest played to level-up: night sky, character, card, coins, XP (brand palette) */
+      bunit: function(){
+        var AC = [168,85,247], CY = [34,211,238], GD = [242,201,76], NIGHT = [21,15,38];
+        var ph = reducedF ? 0.97 : (t % 6)/6;
+        var r = prng(5);
+        for (var i = 0; i < 26; i++){
+          var sx = r()*W, sy = r()*H*0.9;
+          ctx.fillStyle = rgba(i%4 === 0 ? AC : (i%4 === 1 ? CY : PEARL), 0.3 + 0.3*Math.sin(t*1.4 + i*1.7));
+          ctx.fillRect(sx, sy, 1.3, 1.3);
+        }
+        var neb = ctx.createRadialGradient(W*0.5, H*1.15, 0, W*0.5, H*1.15, H*0.95);
+        neb.addColorStop(0, rgba(AC, 0.15)); neb.addColorStop(1, rgba(AC, 0));
+        ctx.fillStyle = neb; ctx.fillRect(0, 0, W, H);
+        // the character — aura, silhouette, crown, motes (echoes the landing's vessels)
+        var chX = W*0.15, chY = H*0.58, sc = H/230;
+        var aura = ctx.createRadialGradient(chX, chY, 0, chX, chY, 54*sc);
+        aura.addColorStop(0, rgba(AC, 0.30 + 0.06*Math.sin(t*1.6))); aura.addColorStop(1, rgba(AC, 0));
+        ctx.fillStyle = aura; ctx.beginPath(); ctx.arc(chX, chY, 54*sc, 0, 7); ctx.fill();
+        ctx.fillStyle = '#150F26'; ctx.strokeStyle = rgba(AC, 0.85); ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.arc(chX, chY - 24*sc, 11*sc, 0, 7); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.arc(chX, chY + 16*sc, 24*sc, Math.PI, 0); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = rgba(GD, 0.9); ctx.lineWidth = 1.6; ctx.fillStyle = rgba(GD, 0.16);
+        ctx.beginPath();
+        ctx.moveTo(chX - 9*sc, chY - 38*sc); ctx.lineTo(chX - 6*sc, chY - 48*sc); ctx.lineTo(chX - 2.5*sc, chY - 40*sc);
+        ctx.lineTo(chX, chY - 52*sc); ctx.lineTo(chX + 2.5*sc, chY - 40*sc); ctx.lineTo(chX + 6*sc, chY - 48*sc);
+        ctx.lineTo(chX + 9*sc, chY - 38*sc); ctx.closePath(); ctx.fill(); ctx.stroke();
+        for (var m = 0; m < 3; m++){
+          var ma = t*0.8 + m*2.1, mr = 34*sc + 4*Math.sin(t + m);
+          ctx.fillStyle = rgba(m === 1 ? AC : CY, 0.8);
+          ctx.beginPath(); ctx.arc(chX + Math.cos(ma)*mr, chY + Math.sin(ma)*mr*0.8, 1.7, 0, 7); ctx.fill();
+        }
+        ctx.textAlign = 'center'; ctx.fillStyle = rgba(PEARL, 0.45); ctx.font = '8px ui-monospace,Menlo,monospace';
+        ctx.fillText('VESSEL · STAGE 10', chX, chY + 46*sc);
+        ctx.textAlign = 'start';
+        // HUD — level chip, coins, XP bar
+        var hudX = W - 26, lvlUp = ph > 0.88, coins = ph > 0.52 ? 160 : 120;
+        ctx.textAlign = 'right'; ctx.font = '10px ui-monospace,Menlo,monospace';
+        ctx.fillStyle = rgba(GD, 0.95); ctx.fillText('◉ ' + coins, hudX, 26);
+        var lvlTxt = lvlUp ? 'LVL 8' : 'LVL 7';
+        ctx.fillStyle = rgba(AC, 1); ctx.fillText(lvlTxt, hudX, 46);
+        if (lvlUp && !reducedF){
+          var ringQ = (ph - 0.88)/0.12;
+          ctx.strokeStyle = rgba(AC, 0.6*(1 - ringQ)); ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.arc(hudX - 18, 42, 12 + ringQ*22, 0, 7); ctx.stroke();
+        }
+        ctx.textAlign = 'start';
+        var barW = 108, barX = hudX - barW, xpQ = lvlUp ? 0.12 : 0.55 + 0.45*ease((ph - 0.55)/0.3);
+        ctx.fillStyle = rgba(AC, 0.2); rrect(barX, 54, barW, 5, 3); ctx.fill();
+        ctx.fillStyle = rgba(AC, 0.95); rrect(barX, 54, barW*xpQ, 5, 3); ctx.fill();
+        ctx.fillStyle = rgba(PEARL, 0.4); ctx.font = '8px ui-monospace,Menlo,monospace';
+        ctx.fillText('XP', barX - 16, 60);
+        // the quest card
+        var cardW = Math.min(210, W*0.4), cardH = 62;
+        var slideQ = ease(ph/0.16), cx0 = W*0.36, cy0 = H*0.5 - cardH/2 + (1 - slideQ)*16;
+        ctx.globalAlpha = slideQ;
+        ctx.fillStyle = 'rgba(30,22,50,0.82)'; ctx.strokeStyle = rgba(AC, 0.4); ctx.lineWidth = 1;
+        rrect(cx0, cy0, cardW, cardH, 9); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = rgba(PEARL, 0.92); ctx.font = '11px ui-monospace,Menlo,monospace';
+        ctx.fillText('READ 30 MIN', cx0 + 14, cy0 + 25);
+        ctx.fillStyle = rgba(PEARL, 0.4); ctx.font = '8px ui-monospace,Menlo,monospace';
+        ctx.fillText('QUEST · TODAY · TIMER-VERIFIED', cx0 + 14, cy0 + 44);
+        var ckX = cx0 + cardW - 22, ckY = cy0 + cardH/2, done = ph > 0.3;
+        ctx.strokeStyle = rgba(done ? CY : AC, done ? 0.95 : 0.5); ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.arc(ckX, ckY, 9, 0, 7); ctx.stroke();
+        if (done){
+          ctx.strokeStyle = rgba(CY, 1); ctx.lineWidth = 1.8;
+          ctx.beginPath(); ctx.moveTo(ckX - 4, ckY); ctx.lineTo(ckX - 1, ckY + 3.5); ctx.lineTo(ckX + 4.5, ckY - 3.5); ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+        // the coin flies from the card to the counter
+        if (ph > 0.34 && ph < 0.54){
+          var fq = ease((ph - 0.34)/0.2), mu = 1 - fq;
+          var fx0 = ckX, fy0 = ckY, fx1 = hudX - 20, fy1 = 22, cxm = (fx0+fx1)/2, cym = Math.min(fy0, fy1) - 26;
+          var fx = mu*mu*fx0 + 2*mu*fq*cxm + fq*fq*fx1, fy = mu*mu*fy0 + 2*mu*fq*cym + fq*fq*fy1;
+          ctx.fillStyle = rgba(GD, 1); ctx.beginPath(); ctx.arc(fx, fy, 3.4, 0, 7); ctx.fill();
+          ctx.fillStyle = rgba(GD, 0.9); ctx.font = '9px ui-monospace,Menlo,monospace';
+          ctx.fillText('+40', fx + 7, fy + 3);
+        }
       },
       /* draw — an eight-player bracket resolving itself, on a loop */
       draw: function(){
