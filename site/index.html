@@ -119,12 +119,13 @@
     color:var(--acc);text-decoration:none;transition:background .2s,color .2s}
   #case .visit:hover{background:var(--acc);color:var(--space)}
   #case .visit:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
-  /* floating twin — appears once the inline CTA is scrolled past */
-  #case .visit--float{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:80;
+  /* floating twin — appears once the inline CTA is scrolled past; centered over the column */
+  #case .visit--float{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:80;
+    max-width:calc(100vw - 32px);white-space:nowrap;
     background:rgba(12,14,22,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    opacity:0;transform:translateY(10px);pointer-events:none;
+    opacity:0;transform:translate(-50%,10px);pointer-events:none;
     transition:opacity .3s ease,transform .35s cubic-bezier(.25,.1,.25,1)}
-  #case .visit--float.on{opacity:1;transform:none;pointer-events:auto}
+  #case .visit--float.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
   #case .visit--float:hover{background:var(--acc)}
   @media (prefers-reduced-motion: reduce){ #case .visit--float{transition:opacity .15s ease} }
   #case h3{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:52px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
@@ -1150,6 +1151,7 @@
     doResurface();
   }
   addEventListener('popstate', function(){
+    if (document.querySelector('.ovl.open')){ closePanels(); return; }   // back closes an open panel first
     var i = hashIdx();
     if (i >= 0){
       if (caseEl.classList.contains('open')){ populate(i); caseEl.scrollTop = 0; }
@@ -1160,12 +1162,16 @@
   document.getElementById('backBtn2').addEventListener('click', resurface);
   addEventListener('keydown', function(e){
     if (e.key !== 'Escape') return;
-    if (caseEl.classList.contains('open')){ resurface(); return; }
-    closePanels();
+    if (document.querySelector('.ovl.open')){ closePanelsUI(); return; }
+    if (caseEl.classList.contains('open')) resurface();
   });
   /* ---- About / Writing panels over the living threads ---- */
   function openPanel(id){
     closePanels();
+    // a panel is a place: give it a history entry so browser-back closes it, not the site
+    if (!(history.state && history.state.p)){
+      try{ history.pushState({p:1}, '', location.pathname + location.search + location.hash); }catch(e){}
+    }
     var el = document.getElementById(id);
     el.classList.add('open');
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('vis'); }); });
@@ -1177,15 +1183,19 @@
       setTimeout(function(){ el.classList.remove('open'); }, 380);
     });
   }
+  function closePanelsUI(){
+    if (history.state && history.state.p){ history.back(); return; }   // popstate does the work
+    closePanels();
+  }
   document.querySelectorAll('#hero .nav button').forEach(function(b){
     b.addEventListener('click', function(e){
       e.stopPropagation();
       var go = b.getAttribute('data-go');
-      if (go === 'home') closePanels(); else openPanel(go);
+      if (go === 'home') closePanelsUI(); else openPanel(go);
     });
   });
   document.querySelectorAll('.ovl .pback').forEach(function(b){
-    b.addEventListener('click', closePanels);
+    b.addEventListener('click', closePanelsUI);
   });
   // dialog focus trap: Tab cycles within the open panel instead of escaping under it
   document.querySelectorAll('.ovl').forEach(function(el){
@@ -1646,11 +1656,17 @@
   (function(){
     var i = hashIdx();
     if (i < 0) return;
-    try{
-      history.replaceState(null, '', location.pathname + location.search);
-      history.pushState({c:1}, '', '#' + P[i].id);
-    }catch(e){}
     openDeep(i);
+    // synthesize the home entry underneath so browser-back resurfaces instead of
+    // leaving the site — deferred past load: Safari drops load-time pushState
+    function fixHistory(){
+      try{
+        history.replaceState(null, '', location.pathname + location.search);
+        history.pushState({c:1}, '', '#' + P[i].id);
+      }catch(e){}
+    }
+    if (document.readyState === 'complete') setTimeout(fixHistory, 0);
+    else addEventListener('load', function(){ setTimeout(fixHistory, 0); }, {once:true});
   })();
 
 })();
