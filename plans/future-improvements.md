@@ -14,7 +14,7 @@ Created 2026-07-11 at project onboarding.
 
 ## Core product
 
-- **Real screenshots in case-study frames** (EVE-78) — product photography for portfolio entries instead of placeholder blocks; feeds redesign acts 2–3
+- 🔵 **Real screenshots in case-study frames** (EVE-78) — *mostly addressed* (`1ceceaf`): case "How it looks" frames now render faithful live-coded product screens grounded in each repo (Newfin/B-Unit/Draw), not placeholders. Remaining gap only if literal PNG screenshots of the running apps are wanted on top of the live-coded versions.
 - **First essay: "Growing up between two cultures"** (EVE-79) — personal narrative/reflection content; becomes redesign act 5 (Voice) content
 - **Custom domain** (EVE-80) — move from vercel.app to personal domain (DNS + Vercel configuration)
 

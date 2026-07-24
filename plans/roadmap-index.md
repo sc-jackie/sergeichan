@@ -6,7 +6,7 @@
 > fix the doc. **After every ship:** agents prune [future-improvements](future-improvements.md) and
 > refresh this index in the same commit ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
-_Last audited against `main` on 2026-07-24 (branch HEAD `5996882`; prior main `8ca67df`)._
+_Last audited against `main` on 2026-07-24 (HEAD `1ceceaf`; prior stamp `5996882`)._
 
 ## Plan-doc status
 
@@ -16,12 +16,13 @@ _Last audited against `main` on 2026-07-24 (branch HEAD `5996882`; prior main `8
 | 2026-07-23 maker-mark + case expansion | ✅ shipped `8ca67df` (body deleted per delete-on-ship policy) | — |
 | [future-improvements](future-improvements.md) | 📋 catalog | owner-prioritized backlog (task queue itself lives in Linear — Personal Website project) |
 
-**Genuinely-remaining engineering surface (2026-07-21):** three catalog items: real screenshots for main-site case frames (EVE-78), first essay (EVE-79), custom domain (EVE-80). Newfin product marketing at `/newfin` is live (not EVE-78).
+**Genuinely-remaining engineering surface (2026-07-24):** two catalog items: first essay (EVE-79), custom domain (EVE-80). **EVE-78** (real product visuals in main-site case frames) is now effectively addressed — every case "How it looks" renders faithful live-coded product screens grounded in each repo (see Shipped `1ceceaf`), not placeholders; owner to decide whether literal PNG screenshots are still wanted on top. Newfin product marketing at `/newfin` is live.
 
 ## Shipped
 
 | Area | Shipped in | Notes |
 | ---- | ---------- | ----- |
+| Case "How it looks" → real-app screens | `302a097` + `1ceceaf` | Every project case renders faithful live-coded product screens instead of wireframes: **Newfin** (web Home surface + Persik chat), **B-Unit** (The System daily board + Coach Dashboard, rebuilt from the parents landing), **Draw** (round-robin standings + wallet/crypto, from the real repo). **Newfin landing hero** (`site/newfin/`) became an animated desktop Home dashboard; its "Surfaces" phone mockups scale via container queries with demo figures. **Draw case corrected to fact**: live in production / run for months / Sergei = contributor (player balances, crypto NOWPayments, design polish) — was wrongly "in dev". Floating visit-CTA (bottom-center) + browser-back fixes (About/Writing panels in history; Safari deferred deep-entry pushState). Rams gate all green (0 critical; 79–93/100). Companion agent PRs `6dfe6c7`/`b31f495` (Fablio/Codexio): mobile-CTA + Draw-case faithful match-card figure + jump-free hero→case motion. |
 | Case-view expansion + maker's mark | `8ca67df` | Four case views (Newfin/B-Unit/Rodyna/Draw) to Jackie-OS flagship depth: data-driven loop/day/before-after/truths sections + signature canvases (net-worth stack, XP/streak, self-resolving bracket; Rodyna bilingual duo card). Deep links `/#<id>` with history/back support. Maker's-mark footer: Newfin landing → `/#newfin`; bunit parents pages (bunit repo `684cc36`) → `/#bunit`. Rams 87/100, 0 critical; a11y fixes applied (hero role, dialog roles + focus trap, mobile touch hint, tokenized grays). |
 | Newfin marketing landing | `ecfd302` (+ variants) | Keeper `/newfin`: Opus household-book copy, How-it-works ×5, redacted live UI screenshots (Home/Portfolio/Cashflow/Trading), scroll Feature Stack. Also live: `/newfin-fable` (`625957c`), `/newfin-fable-2` (`bf186d6`). |
 | Jackie-OS case study | `685a45d` (#1) | Fuller rework: linked-memory particle field, two-ledger vault card, six-job loop w/ icons, before/after, ownership grid, grounded copy. The standalone landing (jackieos.vercel.app) was retired into this; that Vercel project is deleted. |
