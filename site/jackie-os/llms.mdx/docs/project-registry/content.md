@@ -21,7 +21,7 @@ Single source of truth for **project-sync**, **morning-brief**, and **wrap-up**.
 
 **Tracker switch (`tracker: linear | bases`)** — the per-project flag that project-sync and morning-brief branch on. Default is `bases` for **every** row (task state from `git`/`status-file` + the Obsidian Ops Bases, exactly as before — no change). A row flips to `linear` once its Linear board exists: its task/plan state is then read from Linear via `System/scripts/linear-fetch.py` (`--project &#60;Linear project name>`) **instead of** the Ops Bases, closing the "Linear-only work invisible until /wrap-up" gap (esp. `content`/`research` issues with no PR). Migrate one row at a time; flip back to `bases` to revert.
 
-* **`tracker: linear`** → `jackie-os` → Jackie OS project; `b-unit`, `bunit` → B-Unit; `rodyna` → Rodyna; `newfin` → Newfin; `sergeichan` → Personal Website; `draw` → Draw (Cyrus-enabled; routing label `Draw`).
+* **`tracker: linear`** → `jackie-os` → Jackie OS project; `b-unit`, `bunit` → B-Unit; `rodyna` → Rodyna; `newfin` → Newfin; `sergeichan` → Personal Website; `draw` → Draw (agent-team enabled; routing label `Draw`).
 * **`tracker: bases`** → every other active row (default; unchanged behavior).
 
 **Source types**
@@ -37,7 +37,7 @@ Single source of truth for **project-sync**, **morning-brief**, and **wrap-up**.
 A `git` row whose **GitHub** cell carries 🤝 (or whose Source shows `⚠️ shared`) is a repo Sergei **does not own** — e.g. `AleannLab/draw`, co-owned with a collaborator. For these repos:
 
 * **Default is READ-ONLY.** project-sync may diff `origin/&#60;branch>` → update the vault `## Status` and `STATUS.md` mirror. It must not push, commit, branch, or open a PR on a shared repo unless Sergei explicitly authorizes that repository.
-* **Draw exception (authorized 2026-07-12):** `AleannLab/draw` is an active Linear/Cyrus code project. Cyrus may implement a delegated issue in an isolated worktree and open a normal reviewable PR; do not push directly to `main`. This exception applies only to Draw, not other shared rows.
+* **Draw exception (authorized 2026-07-12):** `AleannLab/draw` is an active Linear agent-team code project. A delegated agent may implement an issue in an isolated worktree and open a normal reviewable PR; do not push directly to `main`. This exception applies only to Draw, not other shared rows.
 * **No Jackie-OS scaffolding.** Never add `docs/JACKIE-OS.md`, `docs/solutions/`, an Agent-Learnings `## Jackie-OS sync` paragraph in the repo's `CLAUDE.md`/`AGENTS.md`, or any other Jackie-OS bookkeeping file. Bridge/learnings/compound write-ups stay on the Jackie-OS side only (vault note + `Vault/Agent-Learnings/{Title} learnings.md`). Skipped because: any PR there lands in the collaborator's repo.
 * **Merge-poll:** owned repos are covered by the central Action in jackie-os (registry-driven). No per-repo sync tokens or Cursor automations.
 * Only **actual app changes** Sergei makes himself belong in a shared repo — never agent housekeeping.

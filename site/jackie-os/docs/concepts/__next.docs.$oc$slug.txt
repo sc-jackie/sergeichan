@@ -2,4 +2,4 @@
 2:I[39756,["/jackie-os/_next/static/chunks/36hy9-sosc-47.js","/jackie-os/_next/static/chunks/1b4xfjehtclem.js","/jackie-os/_next/static/chunks/2a35y8vvamogv.js","/jackie-os/_next/static/chunks/030ztf-82-5_o.js","/jackie-os/_next/static/chunks/2y5bxy6lfzx89.js","/jackie-os/_next/static/chunks/3hbvuq1abpg09.js"],"default"]
 3:I[37457,["/jackie-os/_next/static/chunks/36hy9-sosc-47.js","/jackie-os/_next/static/chunks/1b4xfjehtclem.js","/jackie-os/_next/static/chunks/2a35y8vvamogv.js","/jackie-os/_next/static/chunks/030ztf-82-5_o.js","/jackie-os/_next/static/chunks/2y5bxy6lfzx89.js","/jackie-os/_next/static/chunks/3hbvuq1abpg09.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"AN9BStY00xDt2nALiiNQ_"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"hK4xwCSIr093rQ7i7pvLV"}

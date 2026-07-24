@@ -31,7 +31,7 @@ A second brain plus an always-on AI agent, wired together. The vault (Obsidian) 
     </h4>
 
     <p>
-      workers (Cyrus, Codex) take Linear issues → PRs
+      agent team (Fablio · Cursorio · Codexio · Cyrusio) takes Linear issues → PRs
     </p>
   </Step>
 

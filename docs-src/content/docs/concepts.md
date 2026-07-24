@@ -13,7 +13,7 @@ description: Shared domain vocabulary — entities, named processes, and status 
 - **skill** — A repeatable workflow playbook (markdown + optional code) living in `System/skills/`; an AI reads it and executes the defined steps. Global owned skills carry the `jos-` prefix (see Skills Registry).
 - **Hermes** — The always-on VPS agent that runs the scheduled tasks and sync loop while your Mac is off.
 - **Persik** — Two Telegram bots: `@Persik_finbot` (the Newfin-hosted product bot) and `@persik_hermes_bot` (the full Hermes VPS channel).
-- **workers** — Autonomous agents building from Linear: **Cyrus** (Claude Code on the VPS) and **Codex** (ChatGPT in GitHub CI). See Linear integration below.
+- **workers** — Autonomous agents building from Linear, all on the Hermes VPS as separate Cyrus instances (2026-07-23): **Fablio** (CEO/orchestrator, Fable 5 — `Plan`/`Scope` labels trigger PM modes, decomposes + delegates), **Cursorio** (fast implementer, Cursor), **Codexio** (design lead, Codex GPT-5.6 Sol + design skill pack), **Cyrusio** (delivery engineer, Sonnet 5; ex "Cyrus Builder"). Route work by repo label + optional mode label + assignee. Team-member rails (2026-07-23): per-agent persistent memory + shared team log in `System/agents/` (synced by the `agent-memory-sync` cron), per-agent git author identity, Telegram rail to Sergei for all four. Legacy **Codex** (ChatGPT in GitHub CI) still exists. See Linear integration below.
 - **registry** — The `System/project-registry.md` file that maps each project to its code repo and/or STATUS file, serving as the single source of truth for sync.
 
 ## Occasional
@@ -91,7 +91,7 @@ All AI calls from Newfin bot, Jackie-OS skills, and Hermes agent tasks route thr
 
 **Project tracking:** B-Unit is the first product tracked in **Linear** (workspace `evegelin`, project `B-Unit`). Task state syncs on ship per the contract, and reads back into project-sync/morning-brief via the registry **`tracker: linear`** flag; all other projects stay `tracker: bases`, markdown-only (`roadmap-index.md` + `future-improvements.md`) until Linear rolls out. New repos onboard via `linear-project-rollout` skill.
 
-**Autonomous agents:** Two agents dispatch and auto-work on B-Unit backlog → PR → merged → Linear sync. **(1) Cyrus (Claude Code)** runs on Hermes VPS; **(2) Codex** runs in GitHub CI. Both read PRs from backlog, write and push commits, auto-sync task status to Linear on merge.
+**Autonomous agents:** Four Cyrus-instance agents on the Hermes VPS dispatch from Linear → isolated worktree → tested PR with `Fixes &#60;ISSUE-ID>` → In Review → human merges (agents never merge or push default branches). **Fablio** (Claude Fable 5 — CEO/CPO/CTO orchestrator; `Plan`/`Scope` PM modes), **Cursorio** (Cursor — fast implementer; `Build`/`Bug` modes), **Codexio** (Codex GPT-5.6 Sol — design lead), **Cyrusio** (Claude Sonnet 5 — delivery engineer). Hermes stays the general-purpose VPS agent (not a Linear worker). Legacy ChatGPT Codex in CI still exists. Route by repo label + optional mode label + assignee/delegate.
 
 ### How Newfin uses Hermes
 

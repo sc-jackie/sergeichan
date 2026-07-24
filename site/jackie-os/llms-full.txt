@@ -49,7 +49,7 @@ Then run the matching path. Both end with a single `git commit` in jackie-os.
 7. **Commit in the code repo** — bridge + solutions + &#x2A;*plans/** + design doc + AGENTS/CLAUDE blurbs in one PR or push.
 8. **Poller — nothing to do.** The merge-poll is **registry-driven** (`.github/scripts/merge_poll.py` reads `project-registry.md`), so adding the row in **A1** already puts the repo under the intraday poll (owned `sc-jackie/*`, Active, not shared).
 9. **Project-sync** — run project-sync; prepend the vault `## Status` stub; refresh `hot.md` if Active.
-10. **Linear + agents** (optional, owned repos) — to put the repo on the Linear board with Cyrus/Codex delegation, run linear-project-rollout next. The 3 label groups (`Pipeline`/`Stage`/`Type`) are workspace-shared, so there's nothing to create — just a project + IDs swap.
+10. **Linear + agents** (optional, owned repos) — to put the repo on the Linear board with agent-team delegation (Fablio / Cursorio / Codexio / Cyrusio), run linear-project-rollout next. The 3 label groups (`Pipeline`/`Stage`/`Type`) are workspace-shared, so there's nothing to create — just a project + IDs swap.
 
 ## Path B — non-code project (lives inside jackie-os) [#path-b--non-code-project-lives-inside-jackie-os]
 
@@ -264,7 +264,7 @@ Shared dev environment for the Draw platform: tournaments (registration, NTRP ga
 Product in active development: economy model (quests, rewards, real-money cashout, habit tracking), coached XP progression, Telegram entry point. Pilot vanguard user (Bim) on live prod.
 
 * **Stack:** Supabase (Postgres, edge functions), Next.js, Telegram bot, coaching loop, pgTAP tests.
-* **Tracking:** First project on **Linear** (`evegelin` workspace, `B-Unit` project + `B-Unit — Content` for TikTok episode production). Task state syncs on ship per the sync contract, and back into project-sync/morning-brief via the registry `tracker: linear` flag. **Two autonomous agents live** (Claude Code / Cyrus on Hermes + ChatGPT Codex in CI) — agents dispatch from backlog → PR flow auto-synced to Linear.
+* **Tracking:** First project on **Linear** (`evegelin` workspace, `B-Unit` project + `B-Unit — Content` for TikTok episode production). Task state syncs on ship per the sync contract, and back into project-sync/morning-brief via the registry `tracker: linear` flag. **Four-agent team live** on the Hermes VPS (Fablio · Cursorio · Codexio · Cyrusio — separate Cyrus instances) plus legacy ChatGPT Codex in CI — agents dispatch from backlog → PR → In Review; humans merge; flow auto-synced to Linear.
 * **Deployment:** One-click migration + deploy button; `migrations/00NN.sql` + E2E verification script before prod apply.
 * **Key recent (2026-07-07):** economy-integrity fixes (`0024`–`0025`), timer verification flow change, equipment equip/unequip, theme picker; all migrations applied to prod + verified live.
 
@@ -272,16 +272,16 @@ Product in active development: economy model (quests, rewards, real-money cashou
 
 ## 5. Shared rails — same infra, different products [#5-shared-rails--same-infra-different-products]
 
-| Layer            | Jackie-OS                                             | Newfin                                                | Rodyna                                                | Draw                                           | B-Unit                                                   |
-| ---------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------------- |
-| **Front door**   | `@persik_hermes_bot` + Cursor/Claude Code             | `@Persik_finbot` + React web app                      | Telegram bot + React Mini App                         | `@persik_hermes_bot` (read-only poll, no push) | Telegram bot + web shell                                 |
-| **Runtime**      | Claude Agent SDK on VPS + bash/python                 | Node 20 + Express (TS)                                | Supabase Edge Functions (Deno)                        | Next.js App Router + React Native              | Supabase Edge Functions + Next.js + Telegram             |
-| **Data store**   | Obsidian vault (markdown + git)                       | Supabase Postgres + RLS                               | Supabase Postgres + RLS + Storage                     | Supabase Postgres + RLS                        | Supabase Postgres + RLS                                  |
-| **Hosting**      | VPS (`hermes` user)                                   | Vercel / VPS                                          | Vercel (Mini App) + Supabase Cloud                    | Vercel (web) + local dev (mobile)              | Vercel + Supabase Cloud                                  |
-| **Intelligence** | One Hermes gateway · Claude → Gemini                  | Claude → Gemini, 24h cache                            | Gemini flash / flash-lite                             | Claude / Gemini (planned)                      | Claude (advisor) / Gemini (AI extraction)                |
-| **Validation**   | Skill frontmatter + review                            | Zod at trust boundaries                               | Zod at trust boundaries                               | Zod at trust boundaries                        | Zod at trust boundaries · pgTAP migrations               |
-| **Writes**       | Git commits (human + agent)                           | Vercel deploys                                        | Supabase deploys                                      | Vercel deploys; vault is read-only watcher     | Supabase Edge Fn + migrations; Cyrus/Codex auto-dispatch |
-| **Tracking**     | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (read-only)                              | **Linear** (`B-Unit` project, workspace `EVE`)           |
+| Layer            | Jackie-OS                                             | Newfin                                                | Rodyna                                                | Draw                                           | B-Unit                                                  |
+| ---------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------- |
+| **Front door**   | `@persik_hermes_bot` + Cursor/Claude Code             | `@Persik_finbot` + React web app                      | Telegram bot + React Mini App                         | `@persik_hermes_bot` (read-only poll, no push) | Telegram bot + web shell                                |
+| **Runtime**      | Claude Agent SDK on VPS + bash/python                 | Node 20 + Express (TS)                                | Supabase Edge Functions (Deno)                        | Next.js App Router + React Native              | Supabase Edge Functions + Next.js + Telegram            |
+| **Data store**   | Obsidian vault (markdown + git)                       | Supabase Postgres + RLS                               | Supabase Postgres + RLS + Storage                     | Supabase Postgres + RLS                        | Supabase Postgres + RLS                                 |
+| **Hosting**      | VPS (`hermes` user)                                   | Vercel / VPS                                          | Vercel (Mini App) + Supabase Cloud                    | Vercel (web) + local dev (mobile)              | Vercel + Supabase Cloud                                 |
+| **Intelligence** | One Hermes gateway · Claude → Gemini                  | Claude → Gemini, 24h cache                            | Gemini flash / flash-lite                             | Claude / Gemini (planned)                      | Claude (advisor) / Gemini (AI extraction)               |
+| **Validation**   | Skill frontmatter + review                            | Zod at trust boundaries                               | Zod at trust boundaries                               | Zod at trust boundaries                        | Zod at trust boundaries · pgTAP migrations              |
+| **Writes**       | Git commits (human + agent)                           | Vercel deploys                                        | Supabase deploys                                      | Vercel deploys; vault is read-only watcher     | Supabase Edge Fn + migrations; agent-team auto-dispatch |
+| **Tracking**     | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (read-only)                              | **Linear** (`B-Unit` project, workspace `EVE`)          |
 
 **The spine is Hermes.** Newfin and Rodyna are fully independent repos with their own Supabase projects and deploys — they'd run without Jackie-OS. What ties the ecosystem together: Hermes owns the morning/journal cron, is the **single LLM gateway** (Claude → Gemini failover), and SSH-bridges Newfin's owner advisor turns. The vault never holds code — only *knowledge about* the repos; each repo's `docs/solutions/` holds the technical learnings, indexed back into `Vault/Agent-Learnings/`.
 
@@ -294,7 +294,7 @@ Product in active development: economy model (quests, rewards, real-money cashou
 * **Cron inventory + Mac↔VPS parity:** [Vault Rhythm](/jackie-os/docs/vault-rhythm).
 * **Operator cheat-sheet:** [Cheat Sheet](/jackie-os/docs/cheat-sheet).
 * **Per-project architecture:** each project has `ARCHITECTURE.md` (Jackie-OS root, `~/dev/{newfin,rodyna,bunit,draw}/`) — read before working in that project.
-* **B-Unit linear workflow & autonomous agents:** B-Unit repo `docs/linear-workflow.md` (Cyrus/Codex dispatch)
+* **B-Unit linear workflow & autonomous agents:** B-Unit repo `docs/linear-workflow.md` (agent-team dispatch)
 * **Draw:** Draw repo `ARCHITECTURE.md`
 * **Visual version (human-facing):** docs site "The system map" page.
 
@@ -501,7 +501,7 @@ Agents should run **wrap up / post-implementation sync** themselves after shippi
 * **skill** — A repeatable workflow playbook (markdown + optional code) living in `System/skills/`; an AI reads it and executes the defined steps. Global owned skills carry the `jos-` prefix (see Skills Registry).
 * **Hermes** — The always-on VPS agent that runs the scheduled tasks and sync loop while your Mac is off.
 * **Persik** — Two Telegram bots: `@Persik_finbot` (the Newfin-hosted product bot) and `@persik_hermes_bot` (the full Hermes VPS channel).
-* **workers** — Autonomous agents building from Linear: **Cyrus** (Claude Code on the VPS) and **Codex** (ChatGPT in GitHub CI). See Linear integration below.
+* **workers** — Autonomous agents building from Linear, all on the Hermes VPS as separate Cyrus instances (2026-07-23): **Fablio** (CEO/orchestrator, Fable 5 — `Plan`/`Scope` labels trigger PM modes, decomposes + delegates), **Cursorio** (fast implementer, Cursor), **Codexio** (design lead, Codex GPT-5.6 Sol + design skill pack), **Cyrusio** (delivery engineer, Sonnet 5; ex "Cyrus Builder"). Route work by repo label + optional mode label + assignee. Team-member rails (2026-07-23): per-agent persistent memory + shared team log in `System/agents/` (synced by the `agent-memory-sync` cron), per-agent git author identity, Telegram rail to Sergei for all four. Legacy **Codex** (ChatGPT in GitHub CI) still exists. See Linear integration below.
 * **registry** — The `System/project-registry.md` file that maps each project to its code repo and/or STATUS file, serving as the single source of truth for sync.
 
 ## Occasional [#occasional]
@@ -579,7 +579,7 @@ All AI calls from Newfin bot, Jackie-OS skills, and Hermes agent tasks route thr
 
 **Project tracking:** B-Unit is the first product tracked in **Linear** (workspace `evegelin`, project `B-Unit&#x60;). Task state syncs on ship per the contract, and reads back into project-sync/morning-brief via the registry &#x2A;*`tracker: linear`** flag; all other projects stay `tracker: bases`, markdown-only (`roadmap-index.md` + `future-improvements.md`) until Linear rolls out. New repos onboard via `linear-project-rollout` skill.
 
-**Autonomous agents:*&#x2A; Two agents dispatch and auto-work on B-Unit backlog → PR → merged → Linear sync. &#x2A;*(1) Cyrus (Claude Code)*&#x2A; runs on Hermes VPS; **(2) Codex** runs in GitHub CI. Both read PRs from backlog, write and push commits, auto-sync task status to Linear on merge.
+**Autonomous agents:** Four Cyrus-instance agents on the Hermes VPS dispatch from Linear → isolated worktree → tested PR with `Fixes &#60;ISSUE-ID>` → In Review → human merges (agents never merge or push default branches). **Fablio** (Claude Fable 5 — CEO/CPO/CTO orchestrator; `Plan`/`Scope` PM modes), **Cursorio** (Cursor — fast implementer; `Build`/`Bug` modes), **Codexio** (Codex GPT-5.6 Sol — design lead), **Cyrusio** (Claude Sonnet 5 — delivery engineer). Hermes stays the general-purpose VPS agent (not a Linear worker). Legacy ChatGPT Codex in CI still exists. Route by repo label + optional mode label + assignee/delegate.
 
 ### How Newfin uses Hermes [#how-newfin-uses-hermes]
 
@@ -901,7 +901,7 @@ A second brain plus an always-on AI agent, wired together. The vault (Obsidian) 
     </h4>
 
     <p>
-      workers (Cyrus, Codex) take Linear issues → PRs
+      agent team (Fablio · Cursorio · Codexio · Cyrusio) takes Linear issues → PRs
     </p>
   </Step>
 
@@ -1098,16 +1098,19 @@ Once the core system is running, add your code repos and projects via [Add a Pro
 
 ## Workers — autonomous agents [#workers--autonomous-agents]
 
-| Worker                                                  | Runs on    | Scope                                                                                                                                             | Dispatch                                              |
-| ------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| **Hermes** (Claude Agent SDK)                           | VPS        | General-purpose agent: morning stack, journal, sync, ops, research; can launch supervised Claude Code sessions. **Not** the Linear coding worker. | 3-layer cron + Telegram/CLI ask                       |
-| **Cyrus** (Claude Code)                                 | Hermes VPS | The Linear → Claude Code worker: eligible issues → isolated worktree → PR → progress on the issue (B-Unit, Newfin, Rodyna)                        | Linear agent-session events (assign/comment on issue) |
-| **Codex** (ChatGPT)                                     | GitHub CI  | same repos, PR review + build lane                                                                                                                | Linear labels / CI                                    |
-| **Interactive agents** (Claude Code, Cursor, Codex CLI) | Mac        | anything, per CLAUDE.md roles (COO default, CTO in `~/dev/*`)                                                                                     | Sergei, per session                                   |
+| Worker                                                  | Runs on    | Scope                                                                                                                               | Dispatch                             |
+| ------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| **Hermes** (Claude Agent SDK)                           | VPS        | General-purpose agent: morning stack, journal, sync, ops, research. **Not** a Linear coding worker; hosts the four Cyrus instances. | 3-layer cron + Telegram/CLI ask      |
+| **Fablio** (Claude Fable 5)                             | Hermes VPS | CEO/CPO/CTO orchestrator — plans, reviews, decomposes + delegates (`Plan`/`Scope`)                                                  | Linear assign/delegate + mode labels |
+| **Cursorio** (Cursor)                                   | Hermes VPS | Fast implementer — specs, refactors, quick fixes (`Build`/`Bug`)                                                                    | Linear assign/delegate + mode labels |
+| **Codexio** (Codex GPT-5.6 Sol)                         | Hermes VPS | Design lead — UI/UX, design systems, visual polish                                                                                  | Linear assign/delegate               |
+| **Cyrusio** (Claude Sonnet 5)                           | Hermes VPS | Delivery engineer — well-scoped issues → tested PR (ex "Cyrus Builder")                                                             | Linear assign/delegate               |
+| **Codex** (ChatGPT, legacy)                             | GitHub CI  | PR review + build lane                                                                                                              | Linear labels / CI                   |
+| **Interactive agents** (Claude Code, Cursor, Codex CLI) | Mac        | anything, per CLAUDE.md roles (COO default, CTO in `~/dev/*`)                                                                       | Sergei, per session                  |
 
-Per-repo routing table: `~/dev/&#60;repo>/AGENTS.md` § Choose the right worker (added 2026-07-10).
+Per-repo routing table: `~/dev/&#60;repo>/AGENTS.md` § Choose the right worker. Canonical roster: Jackie-OS `Vault/Agent-Team.md`.
 
-Sergei is PO/PM: refines + approves in Linear (`needs-refinement` → `needs-approval` gates), orchestrates workers; merge-poll auto-posts Linear project status on batched merges.
+Sergei is CEO: routes by repo label + optional mode label + assignee; agents open PRs with `Fixes &#60;ISSUE-ID>` and move issues to In Review — humans merge (agents never merge or push default branches). Merge-poll auto-posts Linear project status on batched merges.
 
 ## Connectors — external surfaces [#connectors--external-surfaces]
 
@@ -1115,7 +1118,7 @@ Sergei is PO/PM: refines + approves in Linear (`needs-refinement` → `needs-app
 | ----------------------------------- | ------------------------- | ------------------------------------------------- | ---------------------------------------- |
 | Telegram `@persik_hermes_bot`       | bot (full Hermes channel) | briefs, journal, ops, COO/CTO                     | VPS + `.secrets/telegram.env`            |
 | Telegram `@Persik_finbot`           | bot (Newfin product)      | money COO, advisor, owner ops                     | Vercel env (never on VPS)                |
-| **Linear**                          | MCP + API                 | tracking (B-Unit, Newfin, Rodyna), Cyrus dispatch | claude.ai connector                      |
+| **Linear**                          | MCP + API                 | tracking + agent-team dispatch (repo/mode labels) | claude.ai connector                      |
 | **Supabase**                        | MCP + CLI                 | Newfin/Rodyna/B-Unit DBs                          | claude.ai connector                      |
 | **Gmail / Google Calendar / Drive** | MCP + OAuth scripts       | morning brief, COO                                | claude.ai connectors · `.secrets/` OAuth |
 | **Vercel**                          | MCP + auto-deploy         | Newfin/Rodyna/B-Unit hosting                      | claude.ai connector                      |
@@ -1151,7 +1154,7 @@ Single source of truth for **project-sync**, **morning-brief**, and **wrap-up**.
 
 **Tracker switch (`tracker: linear | bases`)** — the per-project flag that project-sync and morning-brief branch on. Default is `bases` for **every** row (task state from `git`/`status-file` + the Obsidian Ops Bases, exactly as before — no change). A row flips to `linear` once its Linear board exists: its task/plan state is then read from Linear via `System/scripts/linear-fetch.py` (`--project &#60;Linear project name>`) **instead of** the Ops Bases, closing the "Linear-only work invisible until /wrap-up" gap (esp. `content`/`research` issues with no PR). Migrate one row at a time; flip back to `bases` to revert.
 
-* **`tracker: linear`** → `jackie-os` → Jackie OS project; `b-unit`, `bunit` → B-Unit; `rodyna` → Rodyna; `newfin` → Newfin; `sergeichan` → Personal Website; `draw` → Draw (Cyrus-enabled; routing label `Draw`).
+* **`tracker: linear`** → `jackie-os` → Jackie OS project; `b-unit`, `bunit` → B-Unit; `rodyna` → Rodyna; `newfin` → Newfin; `sergeichan` → Personal Website; `draw` → Draw (agent-team enabled; routing label `Draw`).
 * **`tracker: bases`** → every other active row (default; unchanged behavior).
 
 **Source types**
@@ -1167,7 +1170,7 @@ Single source of truth for **project-sync**, **morning-brief**, and **wrap-up**.
 A `git` row whose **GitHub** cell carries 🤝 (or whose Source shows `⚠️ shared`) is a repo Sergei **does not own** — e.g. `AleannLab/draw`, co-owned with a collaborator. For these repos:
 
 * **Default is READ-ONLY.** project-sync may diff `origin/&#60;branch>` → update the vault `## Status` and `STATUS.md` mirror. It must not push, commit, branch, or open a PR on a shared repo unless Sergei explicitly authorizes that repository.
-* **Draw exception (authorized 2026-07-12):** `AleannLab/draw` is an active Linear/Cyrus code project. Cyrus may implement a delegated issue in an isolated worktree and open a normal reviewable PR; do not push directly to `main`. This exception applies only to Draw, not other shared rows.
+* **Draw exception (authorized 2026-07-12):** `AleannLab/draw` is an active Linear agent-team code project. A delegated agent may implement an issue in an isolated worktree and open a normal reviewable PR; do not push directly to `main`. This exception applies only to Draw, not other shared rows.
 * **No Jackie-OS scaffolding.** Never add `docs/JACKIE-OS.md`, `docs/solutions/`, an Agent-Learnings `## Jackie-OS sync` paragraph in the repo's `CLAUDE.md`/`AGENTS.md`, or any other Jackie-OS bookkeeping file. Bridge/learnings/compound write-ups stay on the Jackie-OS side only (vault note + `Vault/Agent-Learnings/{Title} learnings.md`). Skipped because: any PR there lands in the collaborator's repo.
 * **Merge-poll:** owned repos are covered by the central Action in jackie-os (registry-driven). No per-repo sync tokens or Cursor automations.
 * Only **actual app changes** Sergei makes himself belong in a shared repo — never agent housekeeping.
@@ -1448,31 +1451,43 @@ One read, top to bottom: you talk to the system, the system remembers and acts, 
     </h4>
 
     <p>
-      <strong>Autonomous builders on the product repos</strong>
+      <strong>Four Cyrus-instance agents on the Hermes VPS</strong>
     </p>
 
     <ul>
       <li>
-        <strong>Cyrus</strong>
+        <strong>Fablio</strong>
 
-         — Claude Code on the VPS — claims Linear issues, writes code, opens PRs.
+         — CEO/orchestrator (Fable 5) — Plan/Scope, delegates by lane.
       </li>
 
       <li>
-        <strong>Codex</strong>
+        <strong>Cursorio</strong>
 
-         — ChatGPT in GitHub CI — build + review lane on the same repos.
+         — fast implementer (Cursor) · 
+
+        <strong>Codexio</strong>
+
+         — design lead (GPT-5.6 Sol) · 
+
+        <strong>Cyrusio</strong>
+
+         — delivery engineer (Sonnet 5).
       </li>
 
       <li>
+        <strong>Legacy Codex</strong>
+
+         — ChatGPT in GitHub CI. 
+
         <strong>You + interactive agents</strong>
 
-         — Claude Code / Cursor on the Mac for hands-on work.
+         — Mac hands-on work.
       </li>
     </ul>
 
     <p>
-      <small>via merges land → merge-poll + project-sync write back</small>
+      <small>via PRs → human merge → merge-poll + project-sync write back</small>
     </p>
   </Step>
 
@@ -1884,123 +1899,149 @@ None of these need to be understood to use the system — but here's what each o
 
 
 
-Sergei is PO/PM. **Cyrus** is the Linear coding worker, **Codex** is the CI review/build lane, **Hermes** is the general-purpose VPS agent (not a Linear worker), and interactive agents cover hands-on work. Per-repo routing: each repo's `AGENTS.md` § Choose the right worker.
+Sergei is CEO. **Four Cyrus-instance agents on the Hermes VPS** are the Linear workers: **Fablio**, **Cursorio**, **Codexio**, and **Cyrusio**. **Hermes** is the general-purpose VPS agent (not a Linear worker). Legacy **Codex** (ChatGPT in GitHub CI) still exists. Interactive sessions on the Mac cover hands-on work. Per-repo routing: each repo's `AGENTS.md` § Choose the right worker.
 
 ## The dispatch pipeline [#the-dispatch-pipeline]
 
 <Steps>
   <Step>
     <h4>
-      Idea
+      Issue
     </h4>
 
     <p>
-      bug or feature
+      bug, feature, or goal in Linear
     </p>
   </Step>
 
   <Step>
     <h4>
-      Backlog
+      Repo label
     </h4>
 
     <p>
-      needs-refinement label
+      Newfin · Rodyna · Draw · Jackie-OS · Website · AI-OS (bunit: curriculum/bim)
     </p>
   </Step>
 
   <Step>
     <h4>
-      Refined
+      Mode label
     </h4>
 
     <p>
-      Cyrus Loop A writes the spec
+      optional: Plan · Scope · Bug · Debug · Build · Feature
     </p>
   </Step>
 
   <Step>
     <h4>
-      Approval
+      Delegate
     </h4>
 
     <p>
-      Sergei reviews
+      assign to the agent whose lane it is
     </p>
   </Step>
 
   <Step>
     <h4>
-      Todo
+      Webhook
     </h4>
 
     <p>
-      ready to build
+      session starts in under 1s
     </p>
   </Step>
 
   <Step>
     <h4>
-      In Progress
+      Worktree
     </h4>
 
     <p>
-      Cyrus/Codex claim & work
+      isolated clone / worktree on the VPS
     </p>
   </Step>
 
   <Step>
     <h4>
-      In Review
+      PR
     </h4>
 
     <p>
-      Codex + CI review the PR
+      tested PR with 
+
+      <code>Fixes <ISSUE-ID></code>
+
+       → In Review
     </p>
   </Step>
 
   <Step>
     <h4>
-      Done
+      Merge
     </h4>
 
     <p>
-      merged, status synced
+      human merges — agents never merge or push default branches
     </p>
   </Step>
 </Steps>
 
 **merge → merge-poll posts Linear status → project-sync updates vault Status + hot.md**
 
+Giving Fablio a goal issue with `Plan` = full orchestration: he splits it, delegates by lane, reviews results against acceptance criteria, iterates.
+
 ## Who's who [#whos-who]
 
 <Cards>
-  <Card title="Hermes" description="The general-purpose always-on agent: briefs, journal, sync, ops, research — and it can launch a supervised Claude Code session on request. Not the automatic Linear coding worker; it hosts Cyrus and the merge-poll automation." />
+  <Card title="Fablio (Claude Fable 5)" description="CEO/CPO/CTO orchestrator. Plans, decides, reviews, delegates. Plan/Scope labels trigger PM modes: decomposes goals into sub-issues with acceptance criteria and routes them to the team." />
 
-  <Card title="Cyrus (Claude Code)" description="The always-on Linear → Claude Code worker on the VPS. Takes eligible issues, works in an isolated worktree, opens PRs, reports progress back to the issue. Steer it via Linear agent-session events (assign/comment on the issue) — plain chat isn't enough." />
+  <Card title="Cursorio (Cursor)" description="Fast implementer — clear specs, refactors, quick fixes. Build/Feature and Bug/Debug modes." />
 
-  <Card title="Codex (ChatGPT)" description="Runs in GitHub CI. Reviews PRs, runs the build lane, and can be delegated issues alongside Cyrus for parallel work on different areas." />
+  <Card title="Codexio (Codex GPT-5.6 Sol)" description="Design lead — UI/UX, design systems, visual polish; greenfield vs product-design modes; design skill pack." />
 
-  <Card title="You + Claude Code" description="Interactive sessions (Claude Code on the Mac, Cursor). Refine specs, approve work in Linear, merge PRs, make calls about missing pieces — orchestrates the agents." />
+  <Card title="Cyrusio (Claude Sonnet 5)" description="Delivery engineer — well-scoped issues end-to-end to a tested PR. Honest reporting. Formerly “Cyrus Builder”." />
+
+  <Card title="Hermes" description="The general-purpose always-on agent: briefs, journal, sync, ops, research. Not a Linear worker — it hosts the four Cyrus instances and the merge-poll automation." />
+
+  <Card title="Codex (ChatGPT, legacy CI)" description="Still runs in GitHub CI for PR review / build lane. Separate from Codexio, the design-lead Linear worker." />
+
+  <Card title="You + interactive agents" description="Hands-on sessions (Claude Code / Cursor / Codex on the Mac). Approve work in Linear, merge PRs, make calls about missing pieces." />
 </Cards>
+
+## Team-member rails [#team-member-rails]
+
+Shipped 2026-07-23 (Buzz-inspired — agents as first-class teammates):
+
+* **Persistent memory** — each agent owns `System/agents/&#60;agent>/MEMORY.md` (cross-repo knowledge: gotchas, preferences, mistakes); `System/agents/team.md` is the shared team log (conventions, incidents, decisions — append-only, signed). Agents read both at session start and append learnings during work; a VPS cron (`agent-memory-sync`, every 2h) commits them to the repo authored as the agent, so they're human-readable and editable in git. Repo-specific fixes still go to each repo's `docs/solutions/`.
+* **Per-agent git identity** — commits are authored `Fablio` / `Cursorio` / `Codexio` / `Cyrusio` via systemd env drop-ins. PRs still open via the shared `sc-jackie` account; Linear identity is already per-agent.
+* **Telegram rail** — all four agents can ping Sergei for blocking decisions via `hermes send`, stating a recommendation and proceeding with reversible parts.
+* **Mid-run steering** — commenting on a Linear issue while an agent works injects a course correction into the live session; an @mention can spawn a fresh session.
+* **Merge record** — Fablio writes the *why* of every review/merge decision as an issue comment; the issue is the permanent record of why the code exists.
 
 ## Where they work [#where-they-work]
 
-Three code repositories share the Linear workflow contract (documented in each repo's `docs/linear-workflow.md`):
+Linear-tracked product repos share the workflow contract (documented in each repo's `docs/linear-workflow.md` where present):
 
 ### Linear-tracked repos [#linear-tracked-repos]
 
-* **B-Unit**
+* **B-Unit** (routing labels: `curriculum` / `bim`)
 * **Newfin**
 * **Rodyna**
+* **Draw**
+* **Jackie-OS**
+* **Personal Website** (`Website`)
+* **AI-OS**
 
-Each carries a `docs/linear-workflow.md` sync contract — the label taxonomy, status machine, and agent dispatch rules (shared workspace-wide).
-
-**Jackie-OS itself** stays on markdown plans deliberately — no Linear board, no agent dispatch. Sergei tracks it in the vault via `System/plans/`.
+Each carries the shared workspace label taxonomy and agent dispatch rules.
 
 ***
 
 **Sync contract:** `~/dev/bunit/docs/linear-workflow.md` (rollout template for new repos)
+
+**Canonical roster:** Jackie-OS `Vault/Agent-Team.md` + Linear doc *Agent team — roster, routing, and workflow*
 
 **Roadmap:** [Roadmap](/jackie-os/docs/roadmap)
 
