@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sergei Tran — one thread, many vibrations</title>
+<title>Sergei Tran — AI-native systems and products</title>
 <meta name="description" content="Designer by training, builder of AI-native systems. Five products in production, run day-to-day by always-on agents — Jackie-OS, Newfin, B-Unit, Rodyna, Draw.">
-<meta property="og:title" content="Sergei Tran — one thread, many vibrations">
-<meta property="og:description" content="Five systems in production, built with AI-native agents.">
+<meta property="og:title" content="Sergei Tran — AI-native systems and products">
+<meta property="og:description" content="Five products in production, designed and built with always-on AI agents.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sergeichan.vercel.app">
 <meta name="theme-color" content="#0C0E16">
@@ -427,20 +427,20 @@
 <body>
 
 <!-- ================= HOME / HERO ================= -->
-<div id="hero" tabindex="0" role="group" aria-roledescription="interactive hero" aria-label="Interactive hero: five silk chords in depth, one per project. Arrow keys cycle, Enter dives.">
+<div id="hero" tabindex="0" role="group" aria-roledescription="interactive hero" aria-label="Explore five projects. Use the arrow keys to switch projects and Enter to open one.">
   <canvas id="cv"></canvas>
   <div class="ov">
     <div class="bar"><span class="brand">Sergei Tran</span><span class="nav"><button data-go="home">Work</button><button data-go="panelWriting">Writing</button><button data-go="panelAbout">About</button></span></div>
     <div class="foot">
-      <div class="thesis">One thread, <em>many vibrations</em> — five systems in production, built with AI-native agents.</div>
-      <div class="hint">hover a chord — the threads part around your cursor<br>click anywhere / enter = dive · ← → cycle</div>
-      <div class="hint-touch">tap a thread · tap again to dive</div>
+      <div class="thesis">I build <em>AI-native systems</em> — five products in production, run by always-on agents.</div>
+      <div class="hint">hover over a thread to explore<br>click or press enter to open · ← → switch</div>
+      <div class="hint-touch">tap to explore · tap again to open</div>
     </div>
   </div>
   <div id="glimpse" role="status">
     <div class="kick" id="gKick"></div>
     <p class="one" id="gOne"></p>
-    <div class="enterhint">click to dive ↵</div>
+    <div class="enterhint">open project ↵</div>
   </div>
 </div>
 
@@ -450,7 +450,7 @@
   <div class="press" aria-hidden="true"></div>
   <div class="inner">
     <div class="backbar">
-      <button class="back" id="backBtn">← Resurface</button>
+      <button class="back" id="backBtn">← Back to work</button>
       <span class="mono caseIdx" id="caseIdx"></span>
     </div>
     <div class="roman" id="cRoman"></div>
@@ -489,8 +489,8 @@
     <h3>How it looks</h3><div class="frames" id="cFrames"></div>
     <h3>Architecture</h3><div class="arch" id="cArch"></div><p id="cArchNote" style="margin-top:12px"></p>
     <div class="nextrow">
-      <button class="back" id="backBtn2">← Resurface</button>
-      <a class="next" href="#" id="nextLink"><span class="mono" id="nextMono">Next thread</span><span id="nextName"></span></a>
+      <button class="back" id="backBtn2">← Back to work</button>
+      <a class="next" href="#" id="nextLink"><span class="mono" id="nextMono">Next project</span><span id="nextName"></span></a>
     </div>
   </div>
   <!-- fixed-position twin of #cVisit — outside .inner so the settled rise (.inner > *) never overrides its hidden state -->
@@ -506,9 +506,9 @@
     <button class="back pback">← Back</button>
     <div class="pkick">ABOUT</div>
     <h1>Sergei Tran</h1>
-    <p>Designer by training — 2014–2018 in UI/UX, from startups to Lexus, Suzuki and Toyota dealer sites in Singapore. Then blockchain research and community. Then a long run as a full-time investor.</p>
-    <p>Now I build AI-native systems in Warsaw: five products in production, run day to day by always-on agents — an operating system for one life, and the tools that ride on its rails.</p>
-    <p>Vietnamese-Ukrainian, born in Odesa, raised between two languages. That is the thread the writing here will follow.</p>
+    <p>I trained as a designer and worked in UI/UX from 2014 to 2018, from startups to Lexus, Suzuki and Toyota dealer sites in Singapore. I then moved into blockchain research and community work, followed by a long run as a full-time investor.</p>
+    <p>Now I build AI-native systems in Warsaw: five products in production, run day to day with always-on agents. One is an operating system for my life; the others run on its rails.</p>
+    <p>I am Vietnamese-Ukrainian, born in Odesa and raised between two languages. My writing follows that thread.</p>
     <p class="pcontact"><a href="mailto:sergei.tran@gmail.com">sergei.tran@gmail.com</a><span> · </span><a href="https://github.com/sc-jackie" rel="me">github.com/sc-jackie</a></p>
   </div>
 </div>
@@ -517,8 +517,8 @@
   <div class="pinner">
     <button class="back pback">← Back</button>
     <div class="pkick">WRITING</div>
-    <h1>Coming soon.</h1>
-    <p>The first essay is about growing up between two cultures — one thread, many vibrations. Until it is ready, the work speaks.</p>
+    <h1>Writing is coming.</h1>
+    <p>The first essay is about growing up between two cultures. Until it is ready, explore the work.</p>
   </div>
 </div>
 
@@ -542,11 +542,11 @@
   function wf(html){ return '<div class="wf">' + html + '</div>'; }
   var P = [
     { id:'newfin', roman:'II', name:'Newfin', u:0.15, color:'#7C93E8', rgb:[124,147,232],
-      one:'Net worth, cashflow and an LLM advisor for a genuinely mixed portfolio.',
+      one:'One view of net worth and cash flow, with an LLM advisor for a mixed portfolio.',
       meta:'2026 · TS MONOREPO · SUPABASE + VERCEL · LIVE',
-      link:{href:'/newfin/', label:'Visit the Newfin landing'},
-      what:'<p>A household finance platform for a portfolio that doesn\'t fit any app: liquid and vesting crypto, futures, real estate across two countries, private deals, receivables, cash. One system of record, an API-first server, a web dashboard, and a scoped Telegram agent for the household.</p>',
-      why:'<p>Every tool I tried could track <b>a slice</b> — none could hold the whole book truthfully. And numbers without judgment are noise: I wanted an advisor that reads the actual state and answers with positions sized in dollars and percent, not market clichés.</p>',
+      link:{href:'/newfin/', label:'Explore Newfin'},
+      what:'<p>A household finance platform for a portfolio that doesn\'t fit in one app: liquid and vesting crypto, futures, real estate across two countries, private deals, receivables, and cash. It combines one system of record, an API-first server, a web dashboard, and a household Telegram agent with scoped access.</p>',
+      why:'<p>Every tool I tried could track <b>one slice</b>, but none could show the whole portfolio accurately. Numbers without judgment are noise, so I wanted an advisor that reads the real state and sizes positions in dollars and percentages instead of repeating market clichés.</p>',
       solve:'<ul class="plain"><li>One truthful net-worth line across every asset class and currency</li><li>An LLM advisor bound to the real payload — recommendations with numbers, never generic advice</li><li>Household access with hard scoping: the owner sees everything; family members see only their view</li><li>Read-only by design — it can describe a move, never execute one</li></ul>',
       fig:{h:'Every stream, one line', cap:'five asset streams fold into the book (demo)', tag:'one truthful line', kind:'newfin'},
       jobsH:'The pipeline — from accounts to advice',
@@ -579,7 +579,7 @@
         ['Hard scoping','The owner sees everything; each family member sees exactly their view and nothing more.'],
         ['Private by default','The household\'s book stays the household\'s — row-level security underneath, the advisor reads a payload, not your accounts.']
       ],
-      state:'<p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than I maintain it.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div>',
+      state:'<p>Live in production and used daily by the household. Feature development is paused while an agent loop works through the backlog, so the system now needs less hands-on maintenance from me.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div>',
       frames:[
         {h:'HOME · WEB APP', tall:true, cap:'the whole book, one screen (demo figures)', m:'<div class="nw"><div class="nw-top"><span class="nw-brand">Newfin</span><span class="nw-label">Tue, Jul 21</span></div><span class="nw-label">Net worth</span><div class="nw-heroline"><span class="nw-big">$1.28m</span><span class="nw-delta neg">−0.4% today</span></div><div class="nw-triple"><div><span>Liquid</span><b class="pos">$214.8k</b></div><div><span>Runway</span><b>40 mo</b></div><div><span>Today</span><b class="neg">−$4.1k</b></div></div><span class="nw-label">Allocation</span><div class="nw-alloc"><i style="flex-basis:46%;background:var(--nwc-property)"></i><i style="flex-basis:7%;background:var(--nwc-crypto)"></i><i style="flex-basis:8%;background:var(--nwc-cash)"></i><i style="flex-basis:17%;background:var(--nwc-equity)"></i><i style="flex-basis:12%;background:var(--nwc-trading)"></i><i style="flex-basis:6%;background:var(--nwc-receivables)"></i></div><div class="nw-legend"><span><i style="background:var(--nwc-property)"></i>Property 46%</span><span><i style="background:var(--nwc-equity)"></i>Equity 17%</span><span><i style="background:var(--nwc-trading)"></i>Trading 12%</span><span><i style="background:var(--nwc-cash)"></i>Cash 8%</span><span><i style="background:var(--nwc-crypto)"></i>Crypto 7%</span><span><i style="background:var(--nwc-receivables)"></i>Receiv. 6%</span></div><span class="nw-label">Inside crypto</span><div class="nw-asset"><span>BEAM</span><i style="width:58%"></i><b>38%</b></div><div class="nw-asset"><span>ETHFI</span><i style="width:36%"></i><b>21%</b></div><div class="nw-asset"><span>SOPH</span><i style="width:24%"></i><b>12%</b></div></div>'},
         {h:'PERSIK · TELEGRAM', tall:true, cap:'the same book, over Telegram', m:'<div class="nw nw--chat"><div class="nw-top"><span class="nw-ava">P</span><span class="nw-brand nw-brand--sans">Persik</span><span class="nw-label">bot</span></div><div class="nw-bub me">what’s liquid right now?</div><div class="nw-bub">Liquid <b>$214.8k</b> net of OPM. Runway <b>40&nbsp;mo</b>. Today <em class="neg">−$4.1k</em>.</div><div class="nw-bub">Concentration is 6% above your band — trimming ~8% restores it and covers the June liability.</div><div class="nw-bub me">and the desk?</div><div class="nw-bub">BTC L 20× · uPnL <em class="pos">+$3.1k (+14%)</em>. Read-only — I can describe a move, never make one.</div></div>'}
@@ -588,11 +588,11 @@
       archNote:'Shared workspace owns the net-worth math; exchange/wallet/bank integrations feed the server; the Telegram agent gets role-scoped views of the same truth.'
     },
     { id:'bunit', roman:'III', name:'B-Unit', u:0.325, color:'#A855F7', rgb:[168,85,247],
-      one:'A gamified habit economy for a teenager — real quests, real rewards, agent coaching.',
+      one:'A game-based habit economy for a teenager, with real quests, rewards, and coach verification.',
       meta:'2026 · SUPABASE + NEXT.JS + TELEGRAM · LIVE PILOT',
-      link:{href:'https://bunit.vercel.app/parents', label:'Visit the parents page'},
-      what:'<p>A habit tracker built as a game economy for a 14-year-old in the family: daily quests earn XP and coins, coins cash out into real rewards, levels unlock equipment and themes — with a coach in the loop verifying that the habits actually happened.</p>',
-      why:'<p>Telling a teenager to "build habits" doesn\'t work; game economies do. So the loop is honest game design instead of parental nagging — and it doubled as a testbed for something bigger: <b>autonomous agents shipping production code</b>, since two AI agents work its backlog end-to-end.</p>',
+      link:{href:'https://bunit.vercel.app/parents', label:'Explore the parent experience'},
+      what:'<p>A habit tracker built as a game economy for a 14-year-old in the family. Daily quests earn XP and coins, coins convert into real rewards, and levels unlock equipment and themes. A coach verifies that each habit actually happened.</p>',
+      why:'<p>Telling a teenager to "build habits" was not working, but game economies were. I designed the loop as a clear game instead of parental nagging. It also became a testbed for <b>autonomous agents shipping production code</b>, with two AI agents working through the backlog end to end.</p>',
       solve:'<ul class="plain"><li>A motivation loop that survives week two: quests → XP/coins → real cashout</li><li>Anti-cheat: coach verification and timer-verified quests keep the economy honest</li><li>Progression that feels like a game: levels, equipment, streaks, themes</li><li>For me: a live experiment in agents dispatching, coding and shipping from a backlog</li></ul>',
       fig:{h:'One quest, run to level-up', cap:'the loop, played out (demo)', tag:'quest → verify → coins → level', kind:'bunit'},
       jobsH:'The economy — one honest loop',
@@ -625,7 +625,7 @@
         ['Real stakes','Coins buy real things the family priced together — the loop touches the world.'],
         ['Agent-built','Two autonomous agents work its backlog to tested pull requests — the product builds itself.']
       ],
-      state:'<p>Live on production with its pilot user active. The economy survived contact with a real teenager (v2 hardened after the first exploits — a good sign someone cares). Two autonomous agents keep working the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div>',
+      state:'<p>Live in production with its pilot user active. Version 2 closed the first exploits uncovered in real use. Two autonomous agents continue to work through the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div>',
       frames:[
         {h:'THE SYSTEM · DAILY BOARD', tall:true, cap:'the teen\'s board, rebuilt from the app', m:'<div class="bw bw--board"><div class="bw-ttl">The System</div><div class="bw-lvlrow"><span class="bw-lvl">✦ Level 5</span><span class="bw-xpsub">34 / 230 XP</span></div><div class="bw-xp"><i style="width:82%"></i></div><span class="bw-streak">🔥 3-day streak (best 7)</span><div class="bw-tabs"><span class="on">Quests</span><span>Skills</span><span>Achievements</span><span>Perks</span></div><div class="bw-timers"><span>Focus · 25:00</span><span>Read · 20:00</span></div><div class="bw-qcard"><div class="bw-qhead"><b>Morning movement</b><span class="bw-coin">+15 XP</span></div><div class="bw-cta">Mark Complete</div></div><div class="bw-qcard cyan"><div class="bw-qhead"><b>Deep-work session</b><span class="bw-coin">+60 · 🪙30</span></div><div class="bw-steps"><span><i class="done"></i>Set up the desk</span><span><i class="done"></i>25 focused minutes</span><span><i></i>Show the result</span></div></div></div>'},
         {h:'COACH DASHBOARD', tall:true, cap:'the coach\'s control room, rebuilt', m:'<div class="bw bw--coach"><div class="bw-ttl">Coach Dashboard</div><span class="bw-seclabel">Pending approvals</span><div class="bw-crow"><div class="bw-crhead"><b>Morning movement</b><span class="gold">+15 XP</span></div><div class="bw-cract"><span class="bw-btn green">Approve</span><span class="bw-btn red">Reject</span></div></div><span class="bw-seclabel">Reward request</span><div class="bw-crow"><div class="bw-crhead"><b>“Extra episode tonight”</b></div><div class="bw-price"><span class="bw-inp">🪙 80</span><span class="bw-btn violet">Set price</span></div></div><span class="bw-seclabel">Cash-out</span><div class="bw-crow"><div class="bw-crhead"><b>🪙 200 → pocket money</b></div><div class="bw-cract"><span class="bw-btn green">Mark paid</span><span class="bw-btn ghost">Decline</span></div></div><div class="bw-grade"><span class="bw-inp">Math · A · term 2</span><span class="bw-btn violet">Save</span></div></div>'}
@@ -634,11 +634,11 @@
       archNote:'Edge functions run the economy with append-only migrations and integrity tests; the agent loop dispatches issues to two coding agents whose PRs sync back to the board.'
     },
     { id:'jackieos', roman:'I', name:'Jackie-OS', u:0.5, color:'#C9A45C', rgb:[201,164,92], core:true,
-      one:'A personal AI operating system — memory, skills, and always-on agents running one life.',
+      one:'A personal AI operating system that connects memory, reusable skills, and always-on agents.',
       meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
-      link:{href:'/jackie-os/docs/', label:'Read the full docs'},
-      what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
-      why:'<p>I work across tools that don\'t share memory. Knowledge lives in an Obsidian vault, code in separate repos, and the assistant keeps changing — mostly Claude Code on the Mac, Codex or a different model when the task wants one. Every one of them starts cold, so I keep re-explaining the same projects and the same decisions.</p><p>So the memory lives outside all of them. The system is plain <b>markdown in git</b>, and the skills are instructions any harness can run, so I can switch model, provider or tool without losing context. A small agent on a VPS keeps the loop turning while the Mac is closed — the 07:30 brief, hourly journal capture from a Telegram message, project status written back on merge. The journaling is the part I underrated: each note gets linked to the projects and people it touches, and the daily pile slowly turns into something I can actually query.</p>',
+      link:{href:'/jackie-os/docs/', label:'Read the Jackie-OS docs'},
+      what:'<p>An operating system for a person, not a computer. An Obsidian vault provides long-term memory, markdown "skills" give every AI agent the same instructions, and a 24/7 VPS agent runs the daily rhythm: a 07:30 morning brief, hourly journal capture, project sync, and a queue of real work for autonomous coding agents.</p>',
+      why:'<p>I work across tools that do not share memory. Knowledge lives in an Obsidian vault, code lives in separate repositories, and the best assistant changes with the task. Each one starts cold, so I was repeatedly explaining the same projects and decisions.</p><p>Jackie-OS keeps that memory outside any model or tool. Plain <b>markdown in git</b> lets the same instructions work across Claude Code, Cursor, Codex, or another agent. A small VPS agent keeps the loop moving while the Mac is closed: it sends the 07:30 brief, captures journal notes from Telegram each hour, and updates project status after a merge. Each note links to the projects and people it touches, turning the daily pile into memory I can query.</p>',
       solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
       jobs:[
         {t:'Capture', m:'hourly', ic:'<path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 15v5h16v-5"/>', d:'A DM — a thought, a link, "met Sarah" — is filed to your journal, your clippings, or the person it mentions, and linked.'},
@@ -695,9 +695,9 @@
       archNote:'The vault is memory, skills are the contract, the VPS agent is the always-on instance; product repos orbit as satellites with their own agent loops.'
     },
     { id:'rodyna', roman:'IV', name:'Rodyna', u:0.675, color:'#E08D66', rgb:[224,141,102],
-      one:'Family recipes with their stories — captured from YouTube, photos or text, in two languages.',
+      one:'Family recipes and their stories, captured from YouTube, photos, or text in two languages.',
       meta:'2026 · DENO EDGE + GEMINI · LIVE · ~$0/MO',
-      what:'<p>A Telegram-first recipe keeper for a Vietnamese-Ukrainian family in Warsaw: send a YouTube link, a photo, or plain text, and it becomes a structured bilingual recipe — ingredients, nutrition, provenance and the story of whose dish it is — with weekly menus and grocery lists in a Mini App.</p>',
+      what:'<p>A Telegram-first recipe keeper for a Vietnamese-Ukrainian family in Warsaw. Send a YouTube link, photo, or plain text to create a structured bilingual recipe with ingredients, nutrition, provenance, and the story behind the dish. A Mini App turns the collection into weekly menus and grocery lists.</p>',
       why:'<p>Family recipes were dying in chat scrollback — half in Vietnamese memory, half in Ukrainian, links rotting on YouTube. The wording of a grandmother\'s instruction <b>is</b> the heirloom, so originals are immutable: translations are additive, never destructive.</p>',
       solve:'<ul class="plain"><li>Zero-friction capture: the bot acknowledges in under a second, AI does the slow work async</li><li>Bilingual by default (EN + UK), original wording preserved verbatim</li><li>Nutrition computed per recipe; menus and grocery lists generated from the week</li><li>Multi-tenant from day one — family now, product later — at ~$0/month</li></ul>',
       duoH:'The original and the translation',
@@ -735,11 +735,11 @@
       archNote:'The webhook only acknowledges and enqueues; an async worker extracts with Gemini, validates with zod, prices nutrition via USDA, and persists behind row-level security.'
     },
     { id:'draw', roman:'V', name:'Draw', u:0.85, color:'#56C4D6', rgb:[86,196,214],
-      one:'Tournaments, leagues and rankings for tennis communities — where I play, organize, and contribute code.',
+      one:'Tournaments, leagues, and rankings for the tennis communities where I play, organize, and contribute code.',
       meta:'2026 · NEXT.JS + REACT NATIVE + TELEGRAM · LIVE · CONTRIBUTOR',
       link:{href:'https://t.me/drawtennisbot', label:'Open @drawtennisbot'},
-      what:'<p>A community tennis platform: registration with NTRP skill gating, generated draws (single elimination, round robin, Swiss, groups→finals, leagues), live set-by-set scoring, standings, seasonal leagues, challenge matches and rankings — plus player balances and crypto top-ups — delivered as a Telegram Mini App, web app and native mobile on one Supabase backend.</p>',
-      why:'<p>I\'m a contributor here, not the creator — but this is the project I\'m closest to as a user: I play in these tournaments and help run them, on court and online. So I work on the parts I feel as a player and organizer: I added <b>player balances and crypto (NOWPayments) top-ups</b>, and refined the design across the app. The draw math, the scheduling, the endless "what\'s my next match?" — it should be software, not a volunteer\'s weekend.</p>',
+      what:'<p>A community tennis platform for registration, NTRP skill gating, generated draws, live set-by-set scoring, standings, seasonal leagues, challenge matches, and rankings. It also handles player balances and crypto top-ups across a Telegram Mini App, web app, and native mobile app on one Supabase backend.</p>',
+      why:'<p>I am a contributor, not the creator, but this is the project I know most closely as a user. I play in these tournaments and help run them on court and online. I added <b>player balances and crypto top-ups through NOWPayments</b> and refined the design across the app. Draw calculations, scheduling, and repeated questions about the next match should be handled by software, not consume a volunteer\'s weekend.</p>',
       solve:'<ul class="plain"><li>Draw generation that respects seeding and NTRP gates, without spreadsheet surgery</li><li>One source of truth for scores, standings and rankings across a season</li><li>Player balances settled cleanly — including crypto top-ups via NOWPayments</li><li>Players get their schedule; organizers get their weekend back</li></ul>',
       fig:{h:'The draw, resolving', cap:'match cards through three rounds — all demo data', tag:'generated · seeded · live', kind:'draw'},
       jobsH:'From sign-up to standings',
