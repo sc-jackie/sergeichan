@@ -110,7 +110,7 @@
   #case button.back{all:unset;cursor:pointer;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:8px 0}
   #case button.back:hover{color:var(--pearl)}
   #case button.back:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
-  #case .caseIdx{font-size:10px;letter-spacing:.16em;color:var(--dim)}
+  #case .caseIdx{font-size:10px;letter-spacing:.16em;color:var(--muted)}
   #case .roman{position:absolute;top:8px;right:12px;font-size:clamp(120px,22vw,220px);font-weight:100;
     color:color-mix(in srgb, var(--acc) 9%, transparent);line-height:1;user-select:none;pointer-events:none;font-family:Georgia,serif}
   #case .kick{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
@@ -144,14 +144,14 @@
   #case .statechips span.live{border-color:color-mix(in srgb, var(--acc) 55%, transparent);color:var(--acc)}
   #case .frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
   #case .frame{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
-  #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
   #case .frame .body{position:relative;height:190px}
-  #case .frame--tall .body{height:312px}
-  #case .frame figcaption{padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim)}
+  #case .frame--tall .body{height:330px}
+  #case .frame figcaption{padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--muted)}
   #case .arch{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
   #case .arch .node{border:1px solid rgba(229,231,239,.25);border-radius:8px;padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--pearl);background:rgba(229,231,239,.03)}
   #case .arch .node.g{border-color:color-mix(in srgb, var(--acc) 60%, transparent);color:var(--acc)}
-  #case .arch .arr{color:var(--dim);font-family:ui-monospace,Menlo,monospace}
+  #case .arch .arr{color:var(--muted);font-family:ui-monospace,Menlo,monospace}
   /* ============ optional case sections — jackie-os flagship (rendered only when data present) ============ */
   /* two ledgers: second brain / agent */
   #case .vaultcard{margin-top:6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
@@ -230,6 +230,71 @@
   .bw-meta{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8F87AC}
   .bw-bub{max-width:84%;padding:7px 10px;border-radius:9px;background:rgba(240,238,250,.08);font-size:10px;line-height:1.45;color:#D9D3EC;display:flex;align-items:center}
   .bw-bub.me{align-self:flex-end;background:rgba(168,85,247,.26);color:#F0EEFA}
+  /* B-Unit landing screens, rebuilt (The System board · Coach Dashboard) */
+  .bw--board,.bw--coach{gap:5px;padding:11px 14px}
+  .bw-ttl{font-family:Georgia,serif;font-size:15px;color:#F2C94C;text-align:center;letter-spacing:.02em}
+  .bw-lvlrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .bw-xpsub{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#8F87AC}
+  .bw-streak{font-size:9.5px;color:#F2C94C}
+  .bw-tabs{display:flex;gap:5px;flex-wrap:wrap}
+  .bw-tabs span{font-size:9px;letter-spacing:.05em;padding:2px 8px;border:1px solid rgba(168,85,247,.28);border-radius:999px;color:#B7ADCF}
+  .bw-tabs span.on{background:#A855F7;border-color:#A855F7;color:#160E24}
+  .bw-timers{display:flex;gap:6px}
+  .bw-timers span{flex:1;text-align:center;font-size:9.5px;padding:4px;border:1px solid rgba(34,211,238,.45);border-radius:7px;color:#22D3EE}
+  .bw-qcard{border:1px solid rgba(168,85,247,.28);border-left-width:2px;border-radius:8px;background:rgba(30,22,50,.5);padding:6px 9px;display:flex;flex-direction:column;gap:4px}
+  .bw-qcard.cyan{border-left-color:#22D3EE}
+  .bw-qcard.gold{border-left-color:#F2C94C}
+  .bw-qhead{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;color:#EDE7F7}
+  .bw-qhead b{font-weight:600}
+  .bw-cta{font-size:9.5px;text-align:center;padding:4px;border-radius:6px;background:#A855F7;color:#160E24;font-weight:600}
+  .bw-steps{display:flex;flex-direction:column;gap:2px;font-size:9.5px;color:#B7ADCF}
+  .bw-steps span{display:flex;align-items:center;gap:6px}
+  .bw-steps i{flex:none;width:10px;height:10px;border-radius:3px;border:1px solid rgba(168,85,247,.5)}
+  .bw-steps i.done{background:#A855F7;border-color:#A855F7}
+  .bw-habit{height:5px;border-radius:3px;background:rgba(34,211,238,.18)}
+  .bw-habit i{display:block;height:100%;width:60%;border-radius:3px;background:#22D3EE}
+  .bw-seclabel{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8F87AC}
+  .bw-crow{border:1px solid rgba(168,85,247,.22);border-radius:8px;background:rgba(30,22,50,.4);padding:6px 9px;display:flex;flex-direction:column;gap:5px}
+  .bw-crhead{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;color:#EDE7F7}
+  .bw-crhead b{font-weight:600}
+  .bw-crhead .gold{color:#F2C94C}
+  .bw-cract{display:flex;gap:6px}
+  .bw-btn{font-size:9.5px;padding:3px 10px;border-radius:6px;font-weight:600}
+  .bw-btn.green{background:#1E6B3E;color:#CFEBD9}
+  .bw-btn.red{background:#7A2E2E;color:#F0D3D3}
+  .bw-btn.violet{background:#A855F7;color:#160E24}
+  .bw-btn.ghost{border:1px solid rgba(237,231,247,.2);color:#B7ADCF}
+  .bw-price,.bw-grade{display:flex;gap:6px;align-items:center}
+  .bw-inp{flex:1;font-size:9.5px;padding:3px 8px;border:1px solid rgba(237,231,247,.14);border-radius:6px;color:#B7ADCF;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* Draw app screens, rebuilt (round-robin standings · wallet + crypto) */
+  .dw{position:absolute;inset:0;padding:12px 14px;display:flex;flex-direction:column;gap:6px;background:#0B1417;font-family:ui-monospace,Menlo,monospace;
+    --dwc:#56C4D6;--dwc-w:#5FBF8E;--dwc-l:#E0776A;--dwc-gold:#E3B55E}
+  .dw-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px solid rgba(200,235,240,.1)}
+  .dw-ttl{font-family:Georgia,serif;font-size:14px;color:#EAF6F8}
+  .dw-sub{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#7FA3A9}
+  .dw-thead,.dw-trow{display:grid;grid-template-columns:16px 1fr 20px 20px 20px 28px;gap:6px;align-items:center}
+  .dw-thead{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:#7FA3A9;padding-bottom:2px}
+  .dw-trow{font-size:11px;color:#CBE4E8;padding:4px 0;border-top:1px solid rgba(200,235,240,.06)}
+  .dw-trow.lead>span:first-child,.dw-trow.lead .pts{color:var(--dwc-gold)}
+  .dw-trow .w{color:var(--dwc-w)}
+  .dw-trow .l{color:var(--dwc-l)}
+  .dw-trow .pts{font-weight:600;color:#EAF6F8}
+  .dw-cut{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dwc);padding:2px 0;border-top:1px dashed rgba(86,196,214,.4)}
+  .dw-foot{margin-top:auto;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#7FA3A9}
+  .dw-bal{font-family:Georgia,serif;font-size:17px}
+  .dw .pos{color:var(--dwc-w)}
+  .dw .neg{color:var(--dwc-l)}
+  .dw-sub2{font-size:10px;color:#9FBEC3}
+  .dw-txn{display:grid;grid-template-columns:42px 1fr auto;gap:8px;font-size:10px;color:#CBE4E8;padding:4px 0;border-top:1px solid rgba(200,235,240,.06)}
+  .dw-txn>span:first-child{color:#7FA3A9}
+  .dw-seclabel{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7FA3A9;margin-top:2px}
+  .dw-presets{display:flex;gap:6px}
+  .dw-presets span{flex:1;text-align:center;font-size:10px;padding:4px;border:1px solid rgba(86,196,214,.4);border-radius:7px;color:var(--dwc)}
+  .dw-presets span.on{background:var(--dwc);border-color:var(--dwc);color:#08171B}
+  .dw-rate{font-size:9.5px;color:#7FA3A9}
+  .dw-pay{display:flex;align-items:center;gap:7px;font-size:10px;color:#CBE4E8;padding:6px 9px;border:1px solid rgba(86,196,214,.28);border-radius:8px;background:rgba(86,196,214,.06)}
+  .dw-pay b{color:var(--dwc);margin-left:auto}
+  .dw-paydot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--dwc-gold)}
   /* signature figure — one canvas per project (memfig pattern, standalone card) */
   #case .sigfig{margin:6px 0 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
   #case .sigfig .body{position:relative;height:230px}
@@ -553,8 +618,8 @@
       ],
       state:'<p>Live on production with its pilot user active. The economy survived contact with a real teenager (v2 hardened after the first exploits — a good sign someone cares). Two autonomous agents keep working the roadmap.</p><div class="statechips"><span class="live">LIVE PILOT</span><span>ECONOMY V2</span><span>2 AUTONOMOUS AGENTS</span></div>',
       frames:[
-        {h:'QUEST BOARD', cap:'the landing\'s night sky + quest cards, rebuilt', m:'<div class="bw"><div class="bw-top"><span class="bw-word">B-UNIT</span><span class="bw-lvl">LVL 7</span></div><div class="bw-quest"><span class="bw-check done">✓</span><span class="bw-qt">Read 30 min</span><span class="bw-coin">+40</span></div><div class="bw-quest"><span class="bw-check"></span><span class="bw-qt">Train — push day</span><span class="bw-coin">+60</span></div><div class="bw-quest"><span class="bw-check"></span><span class="bw-qt">Dishes before 21:00</span><span class="bw-coin">+20</span></div><div class="bw-xp"><i style="width:64%"></i></div><div class="bw-meta"><span>streak 12</span><span>1 240 xp</span></div></div>'},
-        {h:'COACH VERIFY · TELEGRAM', cap:'the human in the loop', m:'<div class="bw"><div class="bw-bub">Quest submitted: “30 min reading” — verify?</div><div class="bw-bub me">✓ verified</div><div class="bw-bub"><span class="bw-coin">+40</span>&nbsp;credited · streak 12</div></div>'}
+        {h:'THE SYSTEM · DAILY BOARD', tall:true, cap:'the teen\'s board, rebuilt from the app', m:'<div class="bw bw--board"><div class="bw-ttl">The System</div><div class="bw-lvlrow"><span class="bw-lvl">✦ Level 5</span><span class="bw-xpsub">34 / 230 XP</span></div><div class="bw-xp"><i style="width:82%"></i></div><span class="bw-streak">🔥 3-day streak (best 7)</span><div class="bw-tabs"><span class="on">Quests</span><span>Skills</span><span>Achievements</span><span>Perks</span></div><div class="bw-timers"><span>Focus · 25:00</span><span>Read · 20:00</span></div><div class="bw-qcard"><div class="bw-qhead"><b>Morning movement</b><span class="bw-coin">+15 XP</span></div><div class="bw-cta">Mark Complete</div></div><div class="bw-qcard cyan"><div class="bw-qhead"><b>Deep-work session</b><span class="bw-coin">+60 · 🪙30</span></div><div class="bw-steps"><span><i class="done"></i>Set up the desk</span><span><i class="done"></i>25 focused minutes</span><span><i></i>Show the result</span></div></div></div>'},
+        {h:'COACH DASHBOARD', tall:true, cap:'the coach\'s control room, rebuilt', m:'<div class="bw bw--coach"><div class="bw-ttl">Coach Dashboard</div><span class="bw-seclabel">Pending approvals</span><div class="bw-crow"><div class="bw-crhead"><b>Morning movement</b><span class="gold">+15 XP</span></div><div class="bw-cract"><span class="bw-btn green">Approve</span><span class="bw-btn red">Reject</span></div></div><span class="bw-seclabel">Reward request</span><div class="bw-crow"><div class="bw-crhead"><b>“Extra episode tonight”</b></div><div class="bw-price"><span class="bw-inp">🪙 80</span><span class="bw-btn violet">Set price</span></div></div><span class="bw-seclabel">Cash-out</span><div class="bw-crow"><div class="bw-crhead"><b>🪙 200 → pocket money</b></div><div class="bw-cract"><span class="bw-btn green">Mark paid</span><span class="bw-btn ghost">Decline</span></div></div><div class="bw-grade"><span class="bw-inp">Math · A · term 2</span><span class="bw-btn violet">Save</span></div></div>'}
       ],
       arch:['Telegram bot','Next.js PWA','Supabase','Agent loop (Linear)'], archG:3,
       archNote:'Edge functions run the economy with append-only migrations and integrity tests; the agent loop dispatches issues to two coding agents whose PRs sync back to the board.'
@@ -661,12 +726,12 @@
       archNote:'The webhook only acknowledges and enqueues; an async worker extracts with Gemini, validates with zod, prices nutrition via USDA, and persists behind row-level security.'
     },
     { id:'draw', roman:'V', name:'Draw', u:0.85, color:'#56C4D6', rgb:[86,196,214],
-      one:'Tournaments, leagues and rankings for tennis communities.',
-      meta:'2026 · NEXT.JS + REACT NATIVE · IN DEVELOPMENT',
+      one:'Tournaments, leagues and rankings for tennis communities — where I play, organize, and contribute code.',
+      meta:'2026 · NEXT.JS + REACT NATIVE + TELEGRAM · LIVE · CONTRIBUTOR',
       link:{href:'https://t.me/drawtennisbot', label:'Open @drawtennisbot'},
-      what:'<p>A community tennis platform: tournament registration with skill-level gating, generated draws (single elimination, round robin, Swiss), live scoring, standings, seasonal leagues, challenge matches and rankings — delivered as a Telegram Mini App, web app and native mobile on one backend.</p>',
-      why:'<p>I play, and I\'ve watched organizers run 30-player tournaments through spreadsheets and pinned messages. The draw math, the scheduling, the endless "what\'s my next match?" — all of it is software pretending to be a volunteer\'s weekend.</p>',
-      solve:'<ul class="plain"><li>Draw generation that respects seeding and skill gates, without spreadsheet surgery</li><li>One source of truth for scores, standings and rankings across a season</li><li>Players get their schedule; organizers get their weekend back</li></ul>',
+      what:'<p>A community tennis platform: registration with NTRP skill gating, generated draws (single elimination, round robin, Swiss, groups→finals, leagues), live set-by-set scoring, standings, seasonal leagues, challenge matches and rankings — plus player balances and crypto top-ups — delivered as a Telegram Mini App, web app and native mobile on one Supabase backend.</p>',
+      why:'<p>I\'m a contributor here, not the creator — but this is the project I\'m closest to as a user: I play in these tournaments and help run them, on court and online. So I work on the parts I feel as a player and organizer: I added <b>player balances and crypto (NOWPayments) top-ups</b>, and refined the design across the app. The draw math, the scheduling, the endless "what\'s my next match?" — it should be software, not a volunteer\'s weekend.</p>',
+      solve:'<ul class="plain"><li>Draw generation that respects seeding and NTRP gates, without spreadsheet surgery</li><li>One source of truth for scores, standings and rankings across a season</li><li>Player balances settled cleanly — including crypto top-ups via NOWPayments</li><li>Players get their schedule; organizers get their weekend back</li></ul>',
       fig:{h:'The draw, resolving', cap:'match cards through three rounds — all demo data', tag:'generated · seeded · live', kind:'draw'},
       jobsH:'From sign-up to standings',
       jobs:[
@@ -674,7 +739,8 @@
         {t:'Seed', m:'auto', ic:'<path d="M4 5h6M4 12h6M4 19h6"/><path d="M10 5v3.5h6M10 19v-3.5h6M16 8.5v7h4"/>', d:'Single elimination, round robin or Swiss — generated, seeded and court-scheduled in seconds.'},
         {t:'Play', m:'live', ic:'<circle cx="12" cy="12" r="8.5"/><path d="M6 5.5c3.5 3.5 3.5 9.5 0 13M18 5.5c-3.5 3.5-3.5 9.5 0 13"/>', d:'Scores go in courtside; the bracket updates while the balls are still warm.'},
         {t:'Standings', m:'instant', ic:'<path d="M4 20h4v-6H4zM10 20h4V9h-4zM16 20h4V4h-4z"/>', d:'Tables, tie-breaks and "what\'s my next match?" answer themselves.'},
-        {t:'Rank', m:'seasonal', ic:'<path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v1a4 4 0 0 0 3 3.9M17 5h3v1a4 4 0 0 1-3 3.9M12 12v4M8.5 20h7M12 16c-1 0-2 .8-2 2v2h4v-2c0-1.2-1-2-2-2z"/>', d:'Leagues and challenge matches roll into community rankings that persist across seasons.'}
+        {t:'Rank', m:'seasonal', ic:'<path d="M7 4h10v3a5 5 0 0 1-10 0z"/><path d="M7 5H4v1a4 4 0 0 0 3 3.9M17 5h3v1a4 4 0 0 1-3 3.9M12 12v4M8.5 20h7M12 16c-1 0-2 .8-2 2v2h4v-2c0-1.2-1-2-2-2z"/>', d:'Leagues and challenge matches roll into community rankings that persist across seasons.'},
+        {t:'Settle', m:'balances + crypto', ic:'<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h4"/>', d:'Entry fees, refunds and payouts land in a player balance — topped up in cash or crypto (NOWPayments). The part I built.'}
       ],
       dayH:'Tournament day',
       day:[
@@ -690,13 +756,13 @@
         bad:{who:'volunteer + spreadsheet', q:'"Bracket_v3_FINAL_real.xlsx — does anyone know if court 2 is free?"', p:'Draw math by hand, scheduling by pinned message, thirty players asking the same question. The organizer\'s whole weekend, gone.'},
         good:{who:'draw', q:'"QF · Court 2 · 18:30 — your opponent has been notified."', p:'The draw engine does the math; <b>organizers get their weekend back</b> and players just show up.'}
       },
-      state:'<p>In active development, not yet in production — the platform is built, the community launch is the remaining work. The only thread here still being woven.</p><div class="statechips"><span>IN DEV</span><span>WEB + MOBILE</span><span>5 LANGUAGES</span></div>',
+      state:'<p>Live in production and run for months across real tournaments — the ones I play in and help organize, on court and online. It ships constantly; my lane is player balances, crypto payments and design polish. 129 migrations deep, five languages, three surfaces.</p><div class="statechips"><span class="live">LIVE</span><span>RUN FOR MONTHS</span><span>CONTRIBUTOR</span><span>WEB + MOBILE + TG</span><span>5 LANGUAGES</span></div>',
       frames:[
-        {h:'BRACKET', cap:'generated, seeded, live', m: wf('<div class="row"><div class="ln" style="width:26%"></div><div class="ln" style="width:26%;opacity:.4"></div></div><div class="row"><div class="ln g" style="width:26%"></div><div class="ln" style="width:26%"></div></div><div class="row"><div class="ln" style="width:26%;opacity:.4"></div><div class="ln g" style="width:26%"></div></div><div class="chipline"><span class="chip">QF · COURT 2 · 18:30</span></div>')},
-        {h:'STANDINGS', cap:'season table', m: wf('<div class="ln g" style="width:76%"></div><div class="ln" style="width:70%"></div><div class="ln" style="width:64%"></div><div class="ln" style="width:58%"></div><div class="ln" style="width:52%"></div>')}
+        {h:'STANDINGS · ROUND ROBIN', tall:true, cap:'group table — real columns (demo players)', m:'<div class="dw"><div class="dw-top"><span class="dw-ttl">Group A</span><span class="dw-sub">NTRP 3.5–4.0 · top 2 advance</span></div><div class="dw-thead"><span>#</span><span>Player</span><span>P</span><span>W</span><span>L</span><span>Pts</span></div><div class="dw-trow lead"><span>1</span><span>Jane Smith</span><span>5</span><span class="w">4</span><span class="l">1</span><span class="pts">8</span></div><div class="dw-trow"><span>2</span><span>John D.</span><span>5</span><span class="w">3</span><span class="l">2</span><span class="pts">6</span></div><div class="dw-cut">— qualification —</div><div class="dw-trow"><span>3</span><span>M. Kowalski</span><span>5</span><span class="w">3</span><span class="l">2</span><span class="pts">6</span></div><div class="dw-trow"><span>4</span><span>A. Petrenko</span><span>5</span><span class="w">2</span><span class="l">3</span><span class="pts">4</span></div><div class="dw-trow"><span>5</span><span>D. Novak</span><span>5</span><span class="w">1</span><span class="l">4</span><span class="pts">2</span></div><div class="dw-foot">Game % breaks ties · H2H on level points</div></div>'},
+        {h:'WALLET · CRYPTO TOP-UP', tall:true, cap:'balances + NOWPayments — my contribution', m:'<div class="dw"><div class="dw-top"><span class="dw-ttl">Wallet</span><span class="dw-bal pos">+120.00 PLN</span></div><div class="dw-sub2">You’re owed 120.00 PLN</div><div class="dw-txn"><span>23 Jul</span><span>Tournament fee refund</span><span class="pos">+50.00</span></div><div class="dw-txn"><span>21 Jul</span><span>Entry · Summer Cup</span><span class="neg">−70.00</span></div><span class="dw-seclabel">Top up · crypto</span><div class="dw-presets"><span class="on">50</span><span>100</span><span>200 PLN</span></div><div class="dw-rate">≈ 46.9 USDC · rates approximate</div><div class="dw-pay"><span class="dw-paydot"></span>Waiting for payment… <b>NOWPayments</b></div></div>'}
       ],
-      arch:['Next.js web','React Native','Supabase','Draw engine (shared)'], archG:3,
-      archNote:'Domain logic — draw algorithms, rankings, i18n — lives in a shared package consumed by web and mobile; one Postgres with row-level security underneath.'
+      arch:['Next.js web','React Native','Supabase','Draw engine','NOWPayments'], archG:4,
+      archNote:'Domain logic — draw algorithms, rankings, i18n — lives in a shared package consumed by web and mobile; one Postgres with row-level security, and a NOWPayments flow settling crypto top-ups into player balances.'
     }
   ];
 
