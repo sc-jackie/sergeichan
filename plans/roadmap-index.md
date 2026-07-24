@@ -6,7 +6,7 @@
 > fix the doc. **After every ship:** agents prune [future-improvements](future-improvements.md) and
 > refresh this index in the same commit ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
-_Last audited against `main` on 2026-07-24 (docs agent-team update pending merge; prior HEAD `8ca67df`)._
+_Last audited against `main` on 2026-07-24 (branch HEAD `5996882`; prior main `8ca67df`)._
 
 ## Plan-doc status
 
@@ -26,7 +26,7 @@ _Last audited against `main` on 2026-07-24 (docs agent-team update pending merge
 | Newfin marketing landing | `ecfd302` (+ variants) | Keeper `/newfin`: Opus household-book copy, How-it-works ×5, redacted live UI screenshots (Home/Portfolio/Cashflow/Trading), scroll Feature Stack. Also live: `/newfin-fable` (`625957c`), `/newfin-fable-2` (`bf186d6`). |
 | Jackie-OS case study | `685a45d` (#1) | Fuller rework: linked-memory particle field, two-ledger vault card, six-job loop w/ icons, before/after, ownership grid, grounded copy. The standalone landing (jackieos.vercel.app) was retired into this; that Vercel project is deleted. |
 | Docs → Fumadocs | `ba7915e` | Replaced MkDocs Material with a Fumadocs (Next.js static-export) site at `/jackie-os/docs` (shadcn-neutral + gold accent, ⌘K search). Source app in `docs-src/`; built export in `site/jackie-os/`. |
-| Docs → 4-agent team | EVE-112 | Public Jackie-OS docs (`workers` / `concepts` / `architecture` + related) updated from single-Cyrus era to Fablio·Cursorio·Codexio·Cyrusio roster + team-member rails; static export regenerated. |
+| Docs → 4-agent team | `5996882` | Public Jackie-OS docs (`workers` / `concepts` / `architecture` + related) updated from single-Cyrus era to Fablio·Cursorio·Codexio·Cyrusio roster + team-member rails; static export regenerated (EVE-112). |
 
 ## Conventions
 
