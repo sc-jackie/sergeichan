@@ -227,6 +227,35 @@
   #case .cday time{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--acc);display:block;margin-bottom:7px}
   #case .cday b{font-size:14px;color:var(--pearl);font-weight:500;display:block;margin-bottom:3px}
   #case .cday span{font-size:12.5px;color:var(--muted);line-height:1.4;display:block}
+  /* agent company — Linear-first orchestration, roster, and operating rails */
+  #case .company{margin-top:6px;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+  #case .companyflow{display:flex;align-items:center;gap:10px;padding:18px 20px;border-bottom:1px solid var(--line);overflow-x:auto}
+  #case .companyflow .step{flex:1 0 116px}
+  #case .companyflow .step b{display:block;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.05em;color:var(--pearl);font-weight:500}
+  #case .companyflow .step span{display:block;margin-top:3px;font-size:12px;line-height:1.4;color:var(--muted)}
+  #case .companyflow .arr{color:var(--acc);font-family:ui-monospace,Menlo,monospace}
+  #case .roster{display:grid;grid-template-columns:1fr 1fr}
+  #case .agent{padding:20px 22px;border-bottom:1px solid var(--line)}
+  #case .agent:nth-child(odd){border-right:1px solid var(--line)}
+  #case .agent:nth-last-child(-n+2){border-bottom:none}
+  #case .agenthead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:9px}
+  #case .agenthead b{font-size:15px;color:var(--pearl);font-weight:500}
+  #case .agenthead span{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
+  #case .agent p{font-size:13.5px;line-height:1.55;color:var(--muted);margin:0;max-width:none}
+  #case .rails{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line)}
+  #case .rail{padding:16px 14px 18px;border-left:1px solid var(--line)}
+  #case .rail:first-child{border-left:none}
+  #case .rail b{display:block;font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.04em;color:var(--pearl);font-weight:500;margin-bottom:6px}
+  #case .rail span{display:block;font-size:12px;line-height:1.45;color:var(--muted)}
+  @media (max-width:680px){
+    #case .roster{grid-template-columns:1fr}
+    #case .agent,#case .agent:nth-child(odd),#case .agent:nth-last-child(-n+2){border-right:none;border-bottom:1px solid var(--line)}
+    #case .agent:last-child{border-bottom:none}
+    #case .rails{grid-template-columns:1fr 1fr}
+    #case .rail{border-left:none;border-bottom:1px solid var(--line)}
+    #case .rail:nth-child(even){border-left:1px solid var(--line)}
+    #case .rail:last-child{grid-column:1/-1;border-bottom:none;border-left:none}
+  }
   /* the trick — before / after */
   #case .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
   @media (max-width:680px){ #case .ba{grid-template-columns:1fr} }
@@ -360,6 +389,7 @@
       </figure>
     </div>
     <div class="opt" id="secLoop"><h3 id="hLoop">The loop — six jobs</h3><div class="cjobs" id="cJobs"></div></div>
+    <div class="opt" id="secCompany"><h3 id="hCompany">The agent company</h3><div class="company" id="cCompany"></div></div>
     <div class="opt" id="secDay"><h3 id="hDay">A day with it</h3><div class="cday" id="cDay"></div></div>
     <div class="opt" id="secTrick"><h3 id="hTrick">No cold start</h3><div class="ba" id="cTrick"></div></div>
     <div class="opt" id="secTruths"><h3 id="hTruths">No lock-in</h3><div class="truths" id="cTruths"></div></div>
@@ -515,6 +545,22 @@
         {t:'Link', m:'daily', ic:'<circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M8 11l8-4.5M8 13l8 4.5"/>', d:'After each brief the agent proposes connections between journal, projects and people. The pile becomes a web.'},
         {t:'Compound', m:'weekly +', ic:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13.5l9 5 9-5"/>', d:'Weekly, monthly and yearly reviews; fixes documented and indexed. Next month, the agent is smarter than today.'}
       ],
+      company:{
+        intro:[['Sergei','intent → issues'],['Linear','source of truth'],['Route','repo + mode + delegate'],['Dispatch','webhook · <1 sec'],['Delivery','reviewed PRs']],
+        agents:[
+          {n:'Fablio', model:'Claude Fable 5', d:'CEO / CPO / CTO orchestrator. Turns goals into sub-issues with acceptance criteria, delegates and reviews — then records the why of every merge decision on the issue.'},
+          {n:'Cursorio', model:'Cursor', d:'Fast implementer. Takes tightly scoped build work from the Linear queue to a pull request.'},
+          {n:'Codexio', model:'Codex GPT-5.6 Sol', d:'Design lead, carrying a 23-skill design pack and a mandatory visual self-review before delivery.'},
+          {n:'Cyrusio', model:'Claude Sonnet 5', d:'Delivery engineer. Moves delegated work through implementation, verification and pull-request handoff.'}
+        ],
+        rails:[
+          ['Persistent memory','MEMORY.md per agent + a shared append-only, git-synced team log the human can read and edit.'],
+          ['Git identity','Every commit is authored as the agent that made it.'],
+          ['Telegram rail','Agents ping Sergei when a blocking decision needs a human.'],
+          ['Mid-run steering','Issue comments redirect work while an agent is running.'],
+          ['PR only','Absolute no-self-merge rule. Every delivery stops at a pull request.']
+        ]
+      },
       day:[
         {time:'07:00', b:'Sweep', s:'links you sent overnight, filed'},
         {time:'07:30', b:'Brief', s:'what changed, top 3, calendar — on your phone'},
@@ -537,7 +583,7 @@
         ['Runs without you','One small always-on agent keeps the loop turning while your laptop sleeps.'],
         ['Yours to fork','The quickstart template gives you the vault, the skills and the loop. Bring your own agent.']
       ],
-      state:'<p>Running in production on a VPS for months: 4 agent crons + system jobs, the other four projects riding its rails daily. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 CRONS</span><span>PUBLIC TEMPLATE</span><span>MULTI-AGENT</span></div>',
+      state:'<p>Running in production on a VPS for months: four autonomous agents deliver around the clock, even with the laptop off; system jobs keep the daily rhythm moving, and the other four projects ride the same rails. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 AGENTS</span><span>LINEAR-FIRST</span><span>PR-ONLY DELIVERY</span></div>',
       frames:[
         {h:'MORNING BRIEF · TELEGRAM', cap:'07:30, every day, from real state', m: wf('<div class="bub">Morning brief — Thu. 2 PRs merged overnight. Retention set awaits approval.</div><div class="bub">Calendar: tennis 18:00. Focus: EVE-29.</div><div class="bub me">approve EVE-29</div>')},
         {h:'AGENT QUEUE', cap:'backlog → autonomous PRs', m: wf('<div class="chipline"><span class="chip">EVE-29 · IN PROGRESS</span><span class="chip">AGENT A</span></div><div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div><div class="chipline"><span class="chip">EVE-31 · QUEUED</span><span class="chip">AGENT B</span></div><div class="ln" style="width:74%"></div><div class="ln g" style="width:38%"></div>')}
@@ -1209,6 +1255,21 @@
         return '<div class="cjob"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">' + (j.ic||'') + '</svg><span class="jt">' + j.t + '</span><span class="jd">' + j.d + '</span><span class="jm">' + j.m + '</span></div>';
       }).join('');
     } else { secLoop.style.display = 'none'; }
+    var secCompany = document.getElementById('secCompany');
+    if (p.company){
+      secCompany.style.display = '';
+      document.getElementById('hCompany').textContent = p.companyH || 'The agent company';
+      var flow = '<div class="companyflow">' + p.company.intro.map(function(s, j){
+        return '<div class="step"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>' + (j < p.company.intro.length - 1 ? '<span class="arr">→</span>' : '');
+      }).join('') + '</div>';
+      var roster = '<div class="roster">' + p.company.agents.map(function(a){
+        return '<div class="agent"><div class="agenthead"><b>' + a.n + '</b><span>' + a.model + '</span></div><p>' + a.d + '</p></div>';
+      }).join('') + '</div>';
+      var rails = '<div class="rails">' + p.company.rails.map(function(r){
+        return '<div class="rail"><b>' + r[0] + '</b><span>' + r[1] + '</span></div>';
+      }).join('') + '</div>';
+      document.getElementById('cCompany').innerHTML = flow + roster + rails;
+    } else { secCompany.style.display = 'none'; }
     var secDay = document.getElementById('secDay');
     if (p.day){
       secDay.style.display = '';
