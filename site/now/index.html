@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Now — Sergei Tran</title>
+  <meta name="description" content="An evolving field note about what Sergei Tran is building, learning, and paying attention to right now.">
+  <meta name="theme-color" content="#f0efe9">
+  <style>
+    /* Hallmark · pre-emit critique: P5 H5 E4 S5 R4 V5 */
+    :root {
+      --color-paper: #f0efe9;
+      --color-ink: #171714;
+      --color-muted: #65645f;
+      --color-line: #b8b6ad;
+      --color-signal: #e84a26;
+      --color-signal-dark: #a7270d;
+      --color-night: #171714;
+      --color-night-text: #f0efe9;
+      --font-display: Arial, Helvetica, sans-serif;
+      --font-body: Arial, Helvetica, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --page-x: clamp(1.25rem, 4vw, 4rem);
+      --line: 1px solid var(--color-line);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      margin: 0;
+      overflow-x: clip;
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid var(--color-signal); outline-offset: 5px; }
+    ::selection { background: var(--color-signal); color: var(--color-paper); }
+
+    .skip-link {
+      position: fixed; z-index: 100; top: .75rem; left: .75rem;
+      translate: 0 -200%; background: var(--color-ink); color: var(--color-paper);
+      padding: .7rem 1rem; font: 700 .75rem/1 var(--font-mono); text-decoration: none;
+    }
+    .skip-link:focus { translate: 0; }
+
+    .masthead {
+      position: absolute; z-index: 5; inset: 0 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.35rem var(--page-x); border-bottom: var(--line);
+      font: 700 .72rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase;
+    }
+    .masthead a { text-decoration: none; }
+    .masthead a:hover { color: var(--color-signal-dark); }
+    .issue { display: flex; align-items: center; gap: .65rem; color: var(--color-muted); }
+    .pulse { width: .55rem; height: .55rem; border-radius: 50%; background: var(--color-signal); box-shadow: 0 0 0 .25rem color-mix(in srgb, var(--color-signal) 18%, transparent); }
+
+    .hero {
+      min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(16rem, .65fr);
+      padding-top: 4rem; border-bottom: var(--line);
+    }
+    .hero-main { min-width: 0; padding: clamp(5rem, 11vh, 8rem) var(--page-x) 2.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+    .kicker { margin: 0; font: 700 .72rem/1.2 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--color-signal-dark); }
+    .hero h1 {
+      margin: 1.5rem 0 1rem; max-width: 11ch; min-width: 0; overflow-wrap: anywhere;
+      font: 900 clamp(4.25rem, 10.5vw, 10rem)/.78 var(--font-display); letter-spacing: -.095em; text-transform: uppercase;
+    }
+    .hero h1 span { display: block; color: var(--color-signal); margin-left: clamp(1.25rem, 10vw, 9rem); }
+    .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+    .lede { margin: 0; max-width: 34ch; font-size: clamp(1.1rem, 1.8vw, 1.45rem); line-height: 1.28; letter-spacing: -.025em; }
+    .scroll-cue { flex: none; font: 700 .68rem/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--color-muted); writing-mode: vertical-rl; }
+    .hero-aside { border-left: var(--line); display: grid; grid-template-rows: 1fr auto; min-width: 0; }
+    .hero-mark { position: relative; overflow: hidden; min-height: 20rem; }
+    .hero-mark::before {
+      content: "NOW"; position: absolute; left: 50%; top: 50%; translate: -50% -50%; rotate: 90deg;
+      color: transparent; -webkit-text-stroke: 1px var(--color-line); font: 900 clamp(8rem, 19vw, 18rem)/1 var(--font-display); letter-spacing: -.12em;
+    }
+    .hero-mark::after { content: ""; position: absolute; width: 1rem; inset: 0 auto 0 50%; translate: -50% 0; background: var(--color-signal); }
+    .stamp { padding: 1.25rem; border-top: var(--line); font: 700 .72rem/1.55 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+
+    .signal-rail { position: fixed; z-index: 20; left: 0; top: 0; width: 4px; height: 100dvh; background: color-mix(in srgb, var(--color-signal) 22%, transparent); pointer-events: none; }
+    .signal-rail span { display: block; width: 100%; height: 100%; transform-origin: top; transform: scaleY(0); background: var(--color-signal); }
+
+    @supports (animation-timeline: scroll()) {
+      .signal-rail span { animation: rail-progress linear both; animation-timeline: scroll(root block); }
+      .ticker-track { animation: ticker-drift linear both; animation-timeline: scroll(root block); }
+    }
+
+    @keyframes rail-progress { to { transform: scaleY(1); } }
+    @keyframes ticker-drift { to { transform: translate3d(-24vw, 0, 0); } }
+
+    .chapter { position: relative; min-height: 140vh; border-bottom: var(--line); }
+    .chapter-grid { display: grid; grid-template-columns: minmax(12rem, .55fr) minmax(0, 1.45fr); }
+    .chapter-side {
+      position: sticky; top: 0; height: 100dvh; padding: 5rem var(--page-x) 2rem;
+      border-right: var(--line); display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .chapter-no { font: 900 clamp(5rem, 11vw, 11rem)/.8 var(--font-display); letter-spacing: -.09em; color: var(--color-signal); }
+    .chapter-side h2 { margin: 1rem 0; font: 900 clamp(2rem, 4vw, 4.75rem)/.9 var(--font-display); letter-spacing: -.06em; text-transform: uppercase; }
+    .chapter-side p { margin: 0; max-width: 26ch; color: var(--color-muted); font-size: .92rem; line-height: 1.5; }
+    .chapter-body { min-width: 0; padding: 24vh var(--page-x) 20vh; }
+    .entry { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); padding: 2.25rem 0 4rem; border-top: var(--line); }
+    .entry-meta { font: 700 .68rem/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--color-signal-dark); }
+    .entry h3 { margin: -.1em 0 .85rem; font: 800 clamp(1.8rem, 4vw, 4.6rem)/.93 var(--font-display); letter-spacing: -.055em; }
+    .entry p { margin: 0; max-width: 52ch; color: var(--color-muted); font-size: clamp(1rem, 1.35vw, 1.2rem); line-height: 1.5; }
+    .entry ul { margin: 1.4rem 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; }
+    .entry li { border: 1px solid currentColor; padding: .45rem .65rem; font: 700 .65rem/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+
+    .ticker { overflow: hidden; border-bottom: var(--line); background: var(--color-signal); color: var(--color-ink); }
+    .ticker-track { display: flex; width: max-content; padding: .75rem 0; font: 900 clamp(1.4rem, 3vw, 3rem)/1 var(--font-display); letter-spacing: -.04em; text-transform: uppercase; will-change: transform; }
+    .ticker-track span { padding-right: 1.25rem; }
+
+    .inputs { padding: clamp(5rem, 11vw, 10rem) var(--page-x); border-bottom: var(--line); }
+    .inputs h2 { margin: 0 0 clamp(3rem, 8vw, 7rem); max-width: 8ch; font: 900 clamp(3.2rem, 8vw, 8rem)/.82 var(--font-display); letter-spacing: -.085em; text-transform: uppercase; }
+    .input-list { border-top: var(--line); }
+    .input-row { display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(10rem, .55fr); gap: 2rem; align-items: baseline; padding: 1.35rem 0; border-bottom: var(--line); }
+    .input-row b { font: 800 clamp(1.2rem, 2.3vw, 2.2rem)/1 var(--font-display); letter-spacing: -.035em; }
+    .input-row span, .input-row small { font: 700 .68rem/1.45 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+    .input-row span { color: var(--color-signal-dark); }
+    .input-row small { color: var(--color-muted); }
+
+    .boundary { background: var(--color-night); color: var(--color-night-text); padding: clamp(5rem, 12vw, 11rem) var(--page-x); }
+    .boundary-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(15rem, .8fr); gap: clamp(3rem, 9vw, 9rem); }
+    .boundary h2 { margin: 0; max-width: 8ch; font: 900 clamp(3.6rem, 9vw, 9rem)/.8 var(--font-display); letter-spacing: -.09em; text-transform: uppercase; }
+    .boundary h2 span { color: var(--color-signal); }
+    .boundary-copy { padding-top: .5rem; }
+    .boundary-copy p { margin: 0 0 2rem; max-width: 38ch; color: #c7c5bd; font-size: 1.15rem; line-height: 1.45; }
+    .boundary-copy ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid #4c4b47; }
+    .boundary-copy li { padding: 1rem 0; border-bottom: 1px solid #4c4b47; font: 700 .75rem/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+
+    footer { display: flex; justify-content: space-between; gap: 2rem; align-items: flex-end; padding: 2rem var(--page-x); background: var(--color-night); color: var(--color-night-text); border-top: 1px solid #4c4b47; }
+    footer p { margin: 0; font: 700 .68rem/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: #aaa89f; }
+    footer a { color: var(--color-signal); font: 900 clamp(1.5rem, 3vw, 3rem)/1 var(--font-display); letter-spacing: -.05em; text-decoration-thickness: .08em; text-underline-offset: .15em; }
+    footer a:hover { color: var(--color-night-text); }
+
+    @media (max-width: 760px) {
+      .masthead { padding-block: 1rem; }
+      .issue span:last-child { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: 100dvh; }
+      .hero-main { min-height: 78dvh; padding-top: 6.5rem; }
+      .hero h1 { font-size: clamp(4rem, 24vw, 6.2rem); line-height: .8; }
+      .hero h1 span { margin-left: 0; }
+      .hero-bottom { align-items: flex-end; }
+      .scroll-cue { font-size: .6rem; }
+      .hero-aside { min-height: 22dvh; grid-template-columns: 1fr auto; grid-template-rows: 1fr; border-left: 0; border-top: var(--line); }
+      .hero-mark { min-height: 10rem; }
+      .hero-mark::before { rotate: 0deg; font-size: 8rem; }
+      .hero-mark::after { width: .6rem; }
+      .stamp { border-top: 0; border-left: var(--line); display: flex; align-items: flex-end; }
+      .chapter { min-height: auto; }
+      .chapter-grid { grid-template-columns: 1fr; }
+      .chapter-side { position: relative; height: auto; min-height: 50vh; border-right: 0; border-bottom: var(--line); padding-top: 5rem; }
+      .chapter-no { font-size: 6rem; }
+      .chapter-side h2 { font-size: 3rem; }
+      .chapter-body { padding-block: 5rem; }
+      .entry { grid-template-columns: 1fr; gap: 1rem; padding-bottom: 3rem; }
+      .entry h3 { font-size: 2.35rem; }
+      .input-row { grid-template-columns: 2rem minmax(0, 1fr); gap: 1rem; }
+      .input-row small { grid-column: 2; }
+      .boundary-grid { grid-template-columns: 1fr; }
+      footer { align-items: flex-start; flex-direction: column-reverse; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .ticker-track { transform: none !important; }
+      .signal-rail { display: none; }
+    }
+  </style>
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to now</a>
+  <div class="signal-rail" aria-hidden="true"><span></span></div>
+
+  <header class="masthead">
+    <a href="/" aria-label="Sergei Tran, home">Sergei Tran</a>
+    <div class="issue"><i class="pulse" aria-hidden="true"></i><span>Live wire index</span><time datetime="2026-07-24">24.07.26</time></div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-main">
+        <div>
+          <p class="kicker">An evolving field note</p>
+          <h1 id="hero-title">Right <span>now.</span></h1>
+        </div>
+        <div class="hero-bottom">
+          <p class="lede">Building small systems that compound—and learning how much life can stay human while the machinery gets smarter.</p>
+          <span class="scroll-cue" aria-hidden="true">Follow the signal ↓</span>
+        </div>
+      </div>
+      <aside class="hero-aside" aria-label="Page status">
+        <div class="hero-mark" aria-hidden="true"></div>
+        <div class="stamp">Warsaw<br>Summer 2026<br>Updated irregularly</div>
+      </aside>
+    </section>
+
+    <section class="chapter" aria-labelledby="building-title">
+      <div class="chapter-grid">
+        <header class="chapter-side">
+          <div><div class="chapter-no" aria-hidden="true">01</div><h2 id="building-title">On the bench</h2></div>
+          <p>The things receiving real calendar time, not just browser-tab optimism.</p>
+        </header>
+        <div class="chapter-body">
+          <article class="entry reveal">
+            <div class="entry-meta">Primary<br>system</div>
+            <div><h3>Jackie-OS</h3><p>A personal operating system where notes, decisions, projects, and agents share one durable memory. The current question: how should a small agent team earn trust over months, not demos?</p><ul><li>Agent company</li><li>Memory</li><li>Daily rhythm</li></ul></div>
+          </article>
+          <article class="entry reveal">
+            <div class="entry-meta">Product<br>work</div>
+            <div><h3>Useful software for actual households</h3><p>Making finance, family coordination, and learning tools calmer than the systems they replace. Less dashboard theatre; more quiet leverage.</p><ul><li>Newfin</li><li>Rodyna</li><li>B-Unit</li></ul></div>
+          </article>
+          <article class="entry reveal">
+            <div class="entry-meta">Practice<br>loop</div>
+            <div><h3>Designing with agents, not around them</h3><p>Working out the rituals, review rails, and shared artifacts that let human taste survive machine speed.</p><ul><li>Interfaces</li><li>Operations</li><li>Writing</li></ul></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>MAKE THE SYSTEM LEGIBLE · KEEP THE HUMAN IN THE LOOP · </span><span>MAKE THE SYSTEM LEGIBLE · KEEP THE HUMAN IN THE LOOP · </span></div></div>
+
+    <section class="chapter" aria-labelledby="obsessions-title">
+      <div class="chapter-grid">
+        <header class="chapter-side">
+          <div><div class="chapter-no" aria-hidden="true">02</div><h2 id="obsessions-title">Current voltage</h2></div>
+          <p>Ideas with more charge than their practical importance strictly justifies.</p>
+        </header>
+        <div class="chapter-body">
+          <article class="entry reveal">
+            <div class="entry-meta">Question<br>01</div>
+            <div><h3>Software with a memory of you</h3><p>Not personalization as targeting—continuity as a material. What changes when a tool remembers why a decision was made?</p></div>
+          </article>
+          <article class="entry reveal">
+            <div class="entry-meta">Question<br>02</div>
+            <div><h3>Interfaces that reveal their machinery</h3><p>Status, provenance, handoffs, failure: showing enough of the system that confidence can be calibrated instead of merely requested.</p></div>
+          </article>
+          <article class="entry reveal">
+            <div class="entry-meta">Question<br>03</div>
+            <div><h3>Compounding craft</h3><p>How a design decision becomes a token, a note, a review heuristic, and eventually an instinct shared by a whole team.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="inputs" aria-labelledby="inputs-title">
+      <h2 id="inputs-title">Feeding the signal</h2>
+      <div class="input-list">
+        <div class="input-row reveal"><span>01</span><b>Long walks without audio</b><small>Attention / reset</small></div>
+        <div class="input-row reveal"><span>02</span><b>Well-made tools with visible seams</b><small>Design / reference</small></div>
+        <div class="input-row reveal"><span>03</span><b>People who build in public honestly</b><small>Practice / courage</small></div>
+        <div class="input-row reveal"><span>04</span><b>Interfaces that feel inevitable</b><small>Craft / study</small></div>
+        <div class="input-row reveal"><span>05</span><b>Silence after shipping</b><small>Recovery / perspective</small></div>
+      </div>
+    </section>
+
+    <section class="boundary" aria-labelledby="boundary-title">
+      <div class="boundary-grid">
+        <h2 id="boundary-title">Not <span>now.</span></h2>
+        <div class="boundary-copy">
+          <p>A now page is also a boundary. These are good ideas that are not getting the steering wheel this season.</p>
+          <ul><li>Scaling before the loop feels right</li><li>Adding tools to avoid making decisions</li><li>Performing busyness as progress</li><li>Polishing things nobody has used</li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>This page is a snapshot, not a promise.<br>Last revised July 2026.</p>
+    <a href="/">Return to the loom</a>
+  </footer>
+
+  <script>
+    (() => {
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+      const reveals = [...document.querySelectorAll('.reveal')];
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.animate(
+            [{ opacity: 0, transform: 'translateY(3rem)' }, { opacity: 1, transform: 'translateY(0)' }],
+            { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' }
+          );
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: .15 });
+
+      const enableMotion = () => {
+        reveals.forEach((node) => revealObserver.observe(node));
+      };
+
+      if (reduceMotion.matches) {
+        reveals.forEach((node) => { node.style.opacity = '1'; node.style.transform = 'none'; });
+      } else {
+        enableMotion();
+      }
+    })();
+  </script>
+</body>
+</html>

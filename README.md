@@ -18,7 +18,7 @@ docs/                 design plan + full iteration log
 vercel.json           static deploy (outputDirectory: site)
 ```
 
-**Routes:** `/` · `/newfin` · `/newfin-fable` · `/newfin-fable-2` · `/jackie-os`
+**Routes:** `/` · `/now` · `/newfin` · `/newfin-fable` · `/newfin-fable-2` · `/jackie-os`
 
 ## Deploy
 
