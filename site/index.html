@@ -528,6 +528,15 @@
   var DPR = Math.min(devicePixelRatio || 1, 2);
   function rgba(rgb, a){ return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a + ')'; }
   function smooth(p){ return p*p*(3-2*p); }
+  var PEARL_RGB = [229,231,239];
+  // ease a chord's hue between pearl-grey (unfocused) and its own color (focused),
+  // so the auto-cycle handoff crossfades instead of snapping at a threshold
+  function mixPearl(rgb, amt){
+    var e = smooth(Math.max(0, Math.min(1, amt/0.32)));
+    return [Math.round(PEARL_RGB[0] + (rgb[0]-PEARL_RGB[0])*e),
+            Math.round(PEARL_RGB[1] + (rgb[1]-PEARL_RGB[1])*e),
+            Math.round(PEARL_RGB[2] + (rgb[2]-PEARL_RGB[2])*e)];
+  }
 
   /* ---------- data (order on screen; jackie center) ---------- */
   function wf(html){ return '<div class="wf">' + html + '</div>'; }
@@ -1026,11 +1035,7 @@
           var edgeFade = 1 - Math.abs(fan)*0.4;
           // the spread threads recede INTO the background and stay — with their color kept
           var alphaMod = 1 - settleBg*0.62;
-          if (a > 0.04 || isDiveTarget){
-            cx.strokeStyle = rgba(p.rgb, baseAlpha*sheen*extraA*edgeFade*alphaMod);
-          } else {
-            cx.strokeStyle = 'rgba(229,231,239,' + baseAlpha*0.85*sheen + ')';
-          }
+          cx.strokeStyle = rgba(isDiveTarget ? p.rgb : mixPearl(p.rgb, a), baseAlpha*sheen*extraA*edgeFade*alphaMod);
           cx.lineWidth = lw*(core3 && f === 1 ? 1 : 0.7);
           cx.stroke();
         }
@@ -1043,7 +1048,7 @@
           ? (dive.p < handT ? 0.95 : Math.max(0, 0.95*(1 - (dive.p - handT)/0.08)))
           : 0.45 + a*0.5;
         drawCoreSphereG(cx, p.id, x0, coreY, coreR, t,
-                       (a > 0.04 || isDiveTarget) ? p.rgb : [229,231,239],
+                       isDiveTarget ? p.rgb : mixPearl(p.rgb, a),
                        sphereA, iconA);
         // ---- name: hidden until engagement, revealed under the core ----
         if (a > 0.15 && !isDiveTarget && bloom < 0.3){
