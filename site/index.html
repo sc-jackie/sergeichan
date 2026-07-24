@@ -26,6 +26,7 @@
 
   /* ============ HERO — permanently fixed: it IS the site's ground ============ */
   #hero{position:fixed;inset:0;background:var(--space);overflow:hidden;cursor:pointer}
+  #hero:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
   #hero canvas{display:block;width:100%;height:100%}
   #hero .ov{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:26px 32px}
   #hero .bar{display:flex;justify-content:space-between;align-items:baseline}
@@ -37,7 +38,7 @@
   #hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
   #hero .thesis{font-size:clamp(18px,2.5vw,25px);font-weight:250;max-width:20em;line-height:1.32}
   #hero .thesis em{font-style:italic;color:var(--inkem)}
-  #hero .hint{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);text-align:right;line-height:1.9}
+  #hero .hint{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.9}
   #hero .hint-touch{display:none;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   @media (max-width:640px){ #hero .hint{display:none} #hero .hint-touch{display:block} #hero .ov{padding:20px 18px} }
 
@@ -68,10 +69,10 @@
   .wf .fig{font-family:ui-monospace,Menlo,monospace;font-size:15px;color:var(--pearl)}
   .wf .bar{width:9px;border-radius:2px 2px 0 0;background:rgba(229,231,239,.22)}
   .wf .bar.g{background:var(--acc);opacity:.8}
-  .wf .bub{max-width:72%;padding:5px 8px;border-radius:8px;background:rgba(229,231,239,.1);font-size:9px;color:var(--muted);line-height:1.35}
+  .wf .bub{max-width:72%;padding:5px 8px;border-radius:8px;background:rgba(229,231,239,.1);font-size:10px;color:var(--muted);line-height:1.35}
   .wf .bub.me{align-self:flex-end;background:color-mix(in srgb, var(--acc) 20%, transparent);color:var(--pearl)}
   .wf .chipline{display:flex;gap:5px}
-  .wf .chip{height:12px;padding:0 7px;border-radius:6px;border:1px solid rgba(229,231,239,.25);font-size:8px;line-height:12px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+  .wf .chip{height:14px;padding:0 7px;border-radius:7px;border:1px solid rgba(229,231,239,.25);font-size:10px;line-height:14px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
 
   /* ============ CASE VIEW — transparent: the hero's own threads are the background ============ */
   #case{position:fixed;inset:0;background:transparent;z-index:50;display:none;overflow-y:auto;opacity:0;
@@ -104,6 +105,7 @@
   #case button.back{all:unset;cursor:pointer;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:8px 0}
   #case button.back:hover{color:var(--pearl)}
   #case button.back:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+  #case .caseIdx{font-size:10px;letter-spacing:.16em;color:var(--dim)}
   #case .roman{position:absolute;top:8px;right:12px;font-size:clamp(120px,22vw,220px);font-weight:100;
     color:color-mix(in srgb, var(--acc) 9%, transparent);line-height:1;user-select:none;pointer-events:none;font-family:Georgia,serif}
   #case .kick{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
@@ -117,6 +119,14 @@
     color:var(--acc);text-decoration:none;transition:background .2s,color .2s}
   #case .visit:hover{background:var(--acc);color:var(--space)}
   #case .visit:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+  /* floating twin — appears once the inline CTA is scrolled past */
+  #case .visit--float{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:80;
+    background:rgba(12,14,22,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:0;transform:translateY(10px);pointer-events:none;
+    transition:opacity .3s ease,transform .35s cubic-bezier(.25,.1,.25,1)}
+  #case .visit--float.on{opacity:1;transform:none;pointer-events:auto}
+  #case .visit--float:hover{background:var(--acc)}
+  @media (prefers-reduced-motion: reduce){ #case .visit--float{transition:opacity .15s ease} }
   #case h3{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:52px 0 12px;padding-top:22px;border-top:1px solid var(--line)}
   #case p{color:var(--ink2);font-size:15.5px;line-height:1.7;margin:0 0 14px;max-width:62ch}
   #case p b{color:var(--pearl)}
@@ -128,7 +138,7 @@
   #case .statechips span.live{border-color:color-mix(in srgb, var(--acc) 55%, transparent);color:var(--acc)}
   #case .frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
   #case .frame{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
-  #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   #case .frame .body{position:relative;height:190px}
   #case .frame figcaption{padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim)}
   #case .arch{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
@@ -161,16 +171,16 @@
   /* brand palettes below are each product's own, deliberately outside this site's tokens */
   .nw{position:absolute;inset:0;padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:#12131F;font-family:ui-monospace,Menlo,monospace}
   .nw-kpi{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:2px}
-  .nw-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#8B90AD}
+  .nw-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8B90AD}
   .nw-fig{font-family:Georgia,serif;font-size:22px;color:#F0F1F7;letter-spacing:.02em}
-  .nw-delta{font-size:9.5px;color:#7C93E8}
-  .nw-row{display:flex;align-items:center;gap:8px;font-size:9.5px;color:#B9BDD4}
-  .nw-row .nw-chip{flex:0 0 64px;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
+  .nw-delta{font-size:10px;color:#7C93E8}
+  .nw-row{display:flex;align-items:center;gap:8px;font-size:10px;color:#B9BDD4}
+  .nw-row .nw-chip{flex:0 0 68px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
   .nw-row i{display:block;height:4px;border-radius:2px;background:color-mix(in srgb, #7C93E8 55%, transparent)}
   .nw-row b{margin-left:auto;color:#D9DCEA;font-weight:400}
   .nw-bub{max-width:82%;padding:7px 10px;border-radius:9px;background:rgba(240,241,247,.08);font-size:10px;line-height:1.45;color:#C9CDE0}
   .nw-bub.me{align-self:flex-end;background:color-mix(in srgb, #7C93E8 26%, transparent);color:#F0F1F7}
-  .nw-note{margin-top:auto;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
+  .nw-note{margin-top:auto;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
   /* frame components — B-Unit landing language (night sky, purple/cyan/gold) */
   .bw{position:absolute;inset:0;padding:13px 15px;display:flex;flex-direction:column;gap:7px;font-family:ui-monospace,Menlo,monospace;
     background:radial-gradient(1.2px 1.2px at 26px 30px, rgba(240,238,250,.9), transparent 100%),
@@ -180,16 +190,16 @@
       radial-gradient(90% 80% at 50% 115%, rgba(168,85,247,.16), transparent 60%), #0D0A18}
   .bw-top{display:flex;justify-content:space-between;align-items:baseline}
   .bw-word{font-family:Georgia,serif;font-size:11px;letter-spacing:.22em;color:#F0EEFA}
-  .bw-lvl{font-size:8.5px;letter-spacing:.14em;padding:2px 8px;border:1px solid rgba(168,85,247,.6);border-radius:999px;color:#C9A0F5}
+  .bw-lvl{font-size:10px;letter-spacing:.14em;padding:2px 8px;border:1px solid rgba(168,85,247,.6);border-radius:999px;color:#C9A0F5}
   .bw-quest{display:flex;align-items:center;gap:8px;padding:6px 9px;border:1px solid rgba(168,85,247,.28);border-radius:8px;
     background:rgba(30,22,50,.55);font-size:10px;color:#D9D3EC}
-  .bw-check{flex:none;width:13px;height:13px;border-radius:50%;border:1px solid rgba(168,85,247,.55);font-size:9px;line-height:13px;text-align:center;color:#22D3EE}
+  .bw-check{flex:none;width:14px;height:14px;border-radius:50%;border:1px solid rgba(168,85,247,.55);font-size:10px;line-height:14px;text-align:center;color:#22D3EE}
   .bw-check.done{border-color:#22D3EE;background:rgba(34,211,238,.12)}
-  .bw-coin{margin-left:auto;flex:none;font-size:8.5px;letter-spacing:.08em;padding:1.5px 7px;border:1px solid rgba(242,201,76,.55);border-radius:999px;color:#F2C94C}
+  .bw-coin{margin-left:auto;flex:none;font-size:10px;letter-spacing:.08em;padding:1.5px 7px;border:1px solid rgba(242,201,76,.55);border-radius:999px;color:#F2C94C}
   .bw-quest .bw-qt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .bw-xp{height:5px;border-radius:3px;background:rgba(168,85,247,.18);margin-top:2px}
   .bw-xp i{display:block;height:100%;border-radius:3px;background:#A855F7;box-shadow:0 0 8px rgba(168,85,247,.5)}
-  .bw-meta{display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:#8F87AC}
+  .bw-meta{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8F87AC}
   .bw-bub{max-width:84%;padding:7px 10px;border-radius:9px;background:rgba(240,238,250,.08);font-size:10px;line-height:1.45;color:#D9D3EC;display:flex;align-items:center}
   .bw-bub.me{align-self:flex-end;background:rgba(168,85,247,.26);color:#F0EEFA}
   /* signature figure — one canvas per project (memfig pattern, standalone card) */
@@ -263,7 +273,7 @@
   .bezel .b1{font-weight:600;font-size:13px}
   .bezel .b2{font-size:16px;font-weight:250;line-height:1.35;max-width:16em}
   .bezel .b2 em{font-style:italic;color:var(--inkem)}
-  .bezel .b3{font-family:ui-monospace,Menlo,monospace;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+  .bezel .b3{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:8px}
   .pnote{flex:1;min-width:260px;color:var(--muted);font-size:14px}
   .pnote b{color:var(--pearl)}
   footer{max-width:1000px;margin:0 auto;padding:0 20px 90px;color:var(--muted);font-size:14px}
@@ -319,7 +329,7 @@
   <div class="inner">
     <div class="backbar">
       <button class="back" id="backBtn">← Resurface</button>
-      <span class="mono" style="font-size:10px;letter-spacing:.16em;color:var(--dim)" id="caseIdx"></span>
+      <span class="mono caseIdx" id="caseIdx"></span>
     </div>
     <div class="roman" id="cRoman"></div>
     <canvas id="cIconCv" aria-hidden="true"></canvas>
@@ -328,6 +338,7 @@
     <p class="one" id="cOne"></p>
     <div class="metarow" id="cMeta"></div>
     <div class="visitrow"><a class="visit" id="cVisit" href="#"><span id="cVisitTxt"></span><span aria-hidden="true">↗</span></a></div>
+    <a class="visit visit--float" id="cVisitFloat" href="#" tabindex="-1"><span id="cVisitFloatTxt"></span><span aria-hidden="true">↗</span></a>
     <h3>What it is</h3><div id="cWhat"></div>
     <h3>Why it exists</h3><div id="cWhy"></div>
     <div class="opt" id="secDuo">
@@ -1057,6 +1068,7 @@
   }
   function doResurface(){
     // reverse: content sinks, the icon flies home, the same silk re-gathers beneath
+    document.getElementById('cVisitFloat').classList.remove('on');
     var seatEl = document.getElementById('cIconCv');
     var seat = seatEl.getBoundingClientRect();
     var heroR = hero.getBoundingClientRect();
@@ -1152,13 +1164,18 @@
     document.getElementById('caseIdx').textContent = (i+1) + ' / ' + P.length;
     document.getElementById('cMeta').innerHTML = p.meta.split('·').map(function(m){ return '<b>' + m.trim() + '</b>'; }).join('<span>·</span>');
     var visit = document.getElementById('cVisit');
+    var visitFloat = document.getElementById('cVisitFloat');
+    visitFloat.classList.remove('on');           // never carry a stale label between cases
     if (p.link){
       visit.parentNode.style.display = '';
-      visit.href = p.link.href;
+      visit.href = visitFloat.href = p.link.href;
       document.getElementById('cVisitTxt').textContent = p.link.label;
+      document.getElementById('cVisitFloatTxt').textContent = p.link.label;
       var ext = /^https?:/.test(p.link.href);
-      if (ext){ visit.target = '_blank'; visit.rel = 'noopener'; }
-      else { visit.removeAttribute('target'); visit.removeAttribute('rel'); }
+      [visit, visitFloat].forEach(function(a){
+        if (ext){ a.target = '_blank'; a.rel = 'noopener'; }
+        else { a.removeAttribute('target'); a.removeAttribute('rel'); }
+      });
     } else { visit.parentNode.style.display = 'none'; }
     document.getElementById('cWhat').innerHTML = p.what;
     document.getElementById('cWhy').innerHTML = p.why;
@@ -1241,6 +1258,14 @@
     var pr = caseEl.scrollTop / Math.max(1, caseEl.scrollHeight - caseEl.clientHeight);
     caseEl.querySelector('.topline').style.setProperty('--read', Math.round(8 + pr*92) + '%');
   }, {passive:true});
+  // the product link follows the reader: float in once the inline CTA is scrolled past
+  new IntersectionObserver(function(es){
+    var e = es[0];
+    var past = !e.isIntersecting && e.boundingClientRect.top < 0;
+    var hasLink = document.getElementById('cVisit').parentNode.style.display !== 'none';
+    document.getElementById('cVisitFloat').classList.toggle('on',
+      past && hasLink && caseEl.classList.contains('open'));
+  }, {root: caseEl}).observe(document.getElementById('cVisit'));
 
   /* ---- linked-memory particle field (jackie-os figure): scattered thoughts → notes, filed → linked memory ---- */
   (function initMemViz(){
