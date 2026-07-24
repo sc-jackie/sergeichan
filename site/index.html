@@ -78,7 +78,9 @@
   #case{position:fixed;inset:0;background:transparent;z-index:50;display:none;overflow-y:auto;opacity:0;
     transition:opacity .45s ease;--acc:#C9A45C}
   /* while a case is open, the hero pins fullscreen underneath and keeps living */
-  #hero.bgmode{position:fixed;inset:0;height:100vh;min-height:0;z-index:49;cursor:default}
+  /* no height override: the base fixed inset:0 already fits the visual viewport —
+     forcing 100vh resized the canvas mid-dive on iOS Safari (URL bar ≠ 100vh) */
+  #hero.bgmode{z-index:49;cursor:default}
   #hero.bgmode .ov, #hero.bgmode #glimpse{display:none}
   #case.open{display:block}
   #case.vis{opacity:1}
@@ -99,6 +101,9 @@
   #case.settled .inner > *:nth-child(6){transition-delay:.21s}
   #case.settled .inner > *:nth-child(7){transition-delay:.25s}
   #case.settled .inner > *:nth-child(n+8){transition-delay:.42s}
+  /* the icon seat is the flying icon's landing pad — it must not fade or rise,
+     or the handoff pops: JS toggles its visibility around the flight instead */
+  #case .inner > #cIconCv{opacity:1;transform:none;transition:none}
   /* the traveling icon — flies from the hero's center to its seat on the page */
   #flyIcon{position:fixed;width:64px;height:64px;z-index:70;pointer-events:none;display:none}
   #case .backbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:44px}
@@ -640,7 +645,7 @@
       what:'<p>A community tennis platform: tournament registration with skill-level gating, generated draws (single elimination, round robin, Swiss), live scoring, standings, seasonal leagues, challenge matches and rankings — delivered as a Telegram Mini App, web app and native mobile on one backend.</p>',
       why:'<p>I play, and I\'ve watched organizers run 30-player tournaments through spreadsheets and pinned messages. The draw math, the scheduling, the endless "what\'s my next match?" — all of it is software pretending to be a volunteer\'s weekend.</p>',
       solve:'<ul class="plain"><li>Draw generation that respects seeding and skill gates, without spreadsheet surgery</li><li>One source of truth for scores, standings and rankings across a season</li><li>Players get their schedule; organizers get their weekend back</li></ul>',
-      fig:{h:'The bracket, resolving', cap:'eight players, three rounds (demo)', tag:'generated · seeded · live', kind:'draw'},
+      fig:{h:'The draw, resolving', cap:'match cards through three rounds — all demo data', tag:'generated · seeded · live', kind:'draw'},
       jobsH:'From sign-up to standings',
       jobs:[
         {t:'Register', m:'mini app', ic:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.4 3.8-5 7-5s5.8 1.6 7 5"/>', d:'Players join with skill-level gating — no sandbaggers in the A draw.'},
@@ -814,14 +819,22 @@
       return S.w/2 + (u - camU)*S.w*zoom;
     }
 
-    function draw(){
-      t += 1/60;
+    var lastTs = 0;
+    function draw(ts){
+      // wall-clock, not frame-count: the dive keeps its designed pace on 120Hz
+      // ProMotion and throttled 30Hz Safari alike, in step with the CSS fades
+      var dt = 1/60;
+      if (ts !== undefined){
+        if (lastTs) dt = Math.min(Math.max((ts - lastTs)/1000, 0.001), 1/20);
+        lastTs = ts;
+      }
+      t += dt;
       // focus lifecycle
       if (mode === 'home'){
         if (t >= manualUntil && Math.floor(t/3.6) % 5 !== focus && !(opts && opts.holdAuto)){
           setFocus(Math.floor(t/3.6) % 5, false);
         }
-        focusT += 1/60;
+        focusT += dt;
       }
       for (var i = 0; i < 5; i++){
         focusAmt[i] += ((i === focus ? 1 : 0) - focusAmt[i]) * 0.06;
@@ -829,7 +842,7 @@
       // dive progress — three acts over ~2.1s: bloom → warp → arrival
       var zoom = 1, camU = 0.5, bloom = 0, warp = 0, arrive = 0;
       if (mode === 'diving' || mode === 'resurfacing'){
-        dive.p += (mode === 'diving' ? 1/158 : -1/86);   // ~2.6s out, ~1.4s back — unhurried both ways
+        dive.p += dt * (mode === 'diving' ? 1/2.63 : -1/1.43);   // ~2.6s out, ~1.4s back — unhurried both ways
         if (mode === 'diving' && dive.p >= 0.8 && !dive.prepped && opts.onCasePrep){
           dive.prepped = true; opts.onCasePrep(dive.idx);   // the page begins over the settled silk
         }
@@ -979,10 +992,10 @@
       draw();
     } else {
       var running = false, raf = 0;
-      function loop(){ draw(); raf = requestAnimationFrame(loop); }
+      function loop(ts){ draw(ts); raf = requestAnimationFrame(loop); }
       new IntersectionObserver(function(es){
         es.forEach(function(e){
-          if (e.isIntersecting && !running){ running = true; raf = requestAnimationFrame(loop); }
+          if (e.isIntersecting && !running){ running = true; lastTs = 0; raf = requestAnimationFrame(loop); }
           else if (!e.isIntersecting && running){ running = false; cancelAnimationFrame(raf); }
         });
       }, {threshold:.05}).observe(host);
@@ -1056,24 +1069,34 @@
   var flyCv = document.getElementById('flyIcon'), flyCtx = flyCv.getContext('2d');
   flyCv.width = 64*DPR; flyCv.height = 64*DPR;
   var flight = null;
+  function cancelFlight(){
+    if (!flight) return;
+    cancelAnimationFrame(flight.raf);
+    flight = null;
+    flyCv.style.display = 'none';
+  }
   function startFlight(idx, from, to, onLand){
-    flight = {t: 0, dur: 0.7};
+    cancelFlight();   // a new flight supersedes any in-air one — its onLand never fires
+    var fl = {t: 0, dur: 0.7, raf: 0, last: 0, x: from.x, y: from.y};
+    flight = fl;
     flyCv.style.display = 'block';
     // a gentle arc: the icon rises slightly as it travels, like being carried
     var cpx = (from.x + to.x)/2, cpy = Math.min(from.y, to.y) - 70;
-    (function step(){
-      if (!flight) return;
-      flight.t += 1/60;
-      var q = smooth(smooth(Math.min(flight.t/flight.dur, 1)));   // double-eased: velvet ends
+    function step(ts){
+      if (flight !== fl) return;
+      if (fl.last) fl.t += Math.min((ts - fl.last)/1000, 1/24);   // wall-clock: same speed on 60/120Hz
+      fl.last = ts;
+      var q = smooth(smooth(Math.min(fl.t/fl.dur, 1)));   // double-eased: velvet ends
       var mq = 1 - q;
-      var x = mq*mq*from.x + 2*mq*q*cpx + q*q*to.x;
-      var y = mq*mq*from.y + 2*mq*q*cpy + q*q*to.y;
-      flyCv.style.left = (x - 32) + 'px'; flyCv.style.top = (y - 32) + 'px';
+      fl.x = mq*mq*from.x + 2*mq*q*cpx + q*q*to.x;
+      fl.y = mq*mq*from.y + 2*mq*q*cpy + q*q*to.y;
+      flyCv.style.left = (fl.x - 32) + 'px'; flyCv.style.top = (fl.y - 32) + 'px';
       flyCtx.clearRect(0, 0, flyCv.width, flyCv.height);
       drawCoreSphereG(flyCtx, P[idx].id, 32*DPR, 32*DPR, 14*DPR, performance.now()/1000, P[idx].rgb, 0.85, 0.95);
-      if (flight.t < flight.dur){ requestAnimationFrame(step); }
+      if (fl.t < fl.dur){ fl.raf = requestAnimationFrame(step); }
       else { flight = null; flyCv.style.display = 'none'; if (onLand) onLand(); }
-    })();
+    }
+    fl.raf = requestAnimationFrame(step);
   }
   function pinHero(){
     if (!document.getElementById('heroSpacer')){
@@ -1090,7 +1113,10 @@
     if (sp) sp.remove();
     mainApi.refit();
   }
+  var closeT1 = 0, closeT2 = 0;
   function casePrep(i){
+    // reopening mid-close must not let the pending teardown tear the case down
+    clearTimeout(closeT1); clearTimeout(closeT2);
     // the hero pins fullscreen and stays — its threads ARE the page background
     markOpen(i);
     populate(i);
@@ -1120,19 +1146,24 @@
     var seatEl = document.getElementById('cIconCv');
     var seat = seatEl.getBoundingClientRect();
     var heroR = hero.getBoundingClientRect();
+    // closed mid-flight: the return leg starts from wherever the icon is in the air
+    var inAir = flight ? {x: flight.x, y: flight.y} : null;
     caseEl.classList.remove('settled');
     caseEl.classList.remove('vis');
     mainApi.resurface();
-    if (!reduced && seat.width){
+    if (!reduced && (inAir || seat.width)){
       seatEl.style.visibility = 'hidden';
       startFlight(caseAnim.idx,
-        {x: seat.left + seat.width/2, y: seat.top + seat.height/2},
+        inAir || {x: seat.left + seat.width/2, y: seat.top + seat.height/2},
         {x: heroR.left + heroR.width/2, y: heroR.top + heroR.height*0.5},
         function(){ seatEl.style.visibility = 'visible'; });
+    } else {
+      cancelFlight();
+      seatEl.style.visibility = 'visible';
     }
-    setTimeout(function(){ caseEl.classList.remove('open'); stopCaseAnim(); figViz.stop(); }, reduced ? 0 : 500);
+    closeT1 = setTimeout(function(){ caseEl.classList.remove('open'); stopCaseAnim(); figViz.stop(); }, reduced ? 0 : 500);
     // un-pin the hero only after the silk has fully re-gathered (spacer makes it reflow-free)
-    setTimeout(function(){ unpinHero(); }, reduced ? 0 : 1550);
+    closeT2 = setTimeout(function(){ unpinHero(); }, reduced ? 0 : 1550);
   }
   /* ---- deep links: #<project-id> opens its case; back resurfaces ---- */
   var IDX = {}; P.forEach(function(p, i){ IDX[p.id] = i; });
@@ -1140,6 +1171,9 @@
   function markOpen(i){ try{ history.pushState({c:1}, '', '#' + P[i].id); }catch(e){} }
   function openDeep(i){
     // direct entry — no dive: the page arrives settled over the living silk
+    clearTimeout(closeT1); clearTimeout(closeT2);
+    cancelFlight();
+    document.getElementById('cIconCv').style.visibility = 'visible';
     mainApi.jumpTo(i);
     populate(i); pinHero();
     caseEl.classList.add('open','vis','settled');
@@ -1570,59 +1604,143 @@
           ctx.fillText('+40', fx + 7, fy + 3);
         }
       },
-      /* draw — an eight-player bracket resolving itself, on a loop */
+      /* draw — the product's real shape (AleannLab/draw: BracketView + MatchBox
+         inside a max-w-lg mini-app shell): three round-columns of two-slot match
+         cards with monospace set scores, the winning slot highlighted, winners
+         advancing card to card, a gold champion band when the final resolves.
+         Demo data only — seed numbers and name bars, no names. The loop exhales
+         back to the freshly generated draw, so the seam never jumps. */
       draw: function(){
-        var seeds = [1,8,4,5,3,6,2,7], T = 7;
-        var ph = reducedF ? 0.95 : (t % T)/T;
-        var res = [ease((ph-0.12)/0.12), ease((ph-0.42)/0.12), ease((ph-0.72)/0.12)];
-        var padL = 34, padR = 22, colW = (W - padL - padR)/3;
-        var rowY = function(round, k){ var m = Math.pow(2, round), n0 = 8/m; return 20 + (H-40)*(k + 0.5)/n0; };
-        var win = function(a, b){ return Math.min(a, b); }
-        ctx.font = '10px ui-monospace,Menlo,monospace';
-        var cols = [seeds], rn;
+        var T = 9, ph = reducedF ? 0.86 : (t % T)/T;
+        var intro = ease(t/1.1);                       // plays once per open, not per cycle
+        var dyn = 1 - ease((ph - 0.90)/0.09);          // overlays exhale before the seam
+        var seeds = [1,8,4,5,3,6,2,7];                 // SEED_POSITIONS, packages/shared/bracket.ts
+        var cols = [seeds], rn, k, s;
         for (rn = 0; rn < 3; rn++){
           var nxt = [];
-          for (var m2 = 0; m2 < cols[rn].length/2; m2++) nxt.push(win(cols[rn][m2*2], cols[rn][m2*2+1]));
+          for (k = 0; k < cols[rn].length/2; k++) nxt.push(Math.min(cols[rn][k*2], cols[rn][k*2+1]));
           cols.push(nxt);
         }
-        for (var s2 = 0; s2 < 8; s2++){
-          ctx.fillStyle = rgba(PEARL, 0.55);
-          ctx.fillText(String(seeds[s2]), padL - 16, rowY(0, s2) + 3.5);
+        var LOSE = [[4,3],[2,4],[3,3],[5,2],[4,4],[3,5],[6,4]];   // demo losing set scores
+        var starts = [[0.10,0.165,0.23,0.295],[0.46,0.545],[0.70]];
+        var durOf = function(r){ return r === 2 ? 0.10 : 0.09; };
+        var barH = 20, padX = 10, gap = 8;
+        var colW = (W - padX*2 - gap*2)/3;
+        var top = barH + 9, areaH = H - top - 8;
+        var cardH = Math.min(46, areaH/4 - 5);
+        var cardX = function(r){ return padX + (colW + gap)*r; };
+        var cardY = function(r, kk){ var span = areaH/(4 >> r); return top + span*kk + (span - cardH)/2; };
+        var rowY = function(y, ss){ return y + cardH*(ss ? 0.78 : 0.47); };
+        var r0 = prng(11), barWs = [];
+        for (var b = 0; b < 8; b++) barWs.push(0.45 + r0()*0.4);
+        ctx.globalAlpha = intro;
+        // ---- mini-app top bar: the product lives inside a Telegram mini app ----
+        ctx.font = '7.5px ui-monospace,Menlo,monospace';
+        ctx.fillStyle = rgba(PEARL, 0.5);
+        ctx.fillText('‹  DRAW · CLUB OPEN — DEMO', padX, 13);
+        ctx.strokeStyle = rgba(PEARL, 0.12); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(0, barH); ctx.lineTo(W, barH); ctx.stroke();
+        // tournament lifecycle chip, crossfading like the product's status
+        var states = [[0.00,'DRAW GENERATED'],[0.12,'LIVE · ROUND 1'],[0.46,'SEMIFINALS'],[0.70,'FINAL'],[0.80,'COMPLETED']];
+        ctx.textAlign = 'right';
+        for (var si = 0; si < states.length; si++){
+          var sNext = si + 1 < states.length ? states[si+1][0] : 1.0;
+          var sa = ease((ph - states[si][0])/0.025) - ease((ph - (sNext - 0.025))/0.025);
+          if (sa <= 0.01) continue;
+          ctx.fillStyle = rgba(si === 4 ? GOLD : cur.rgb, 0.8*sa);
+          ctx.fillText(states[si][1], W - padX, 13);
         }
+        ctx.textAlign = 'start';
+        // ---- the bracket: three columns of match cards ----
+        ctx.font = '7px ui-monospace,Menlo,monospace';
         for (rn = 0; rn < 3; rn++){
-          var q2 = res[rn];
-          for (var mm = 0; mm < cols[rn].length/2; mm++){
-            var yA = rowY(rn, mm*2), yB = rowY(rn, mm*2+1), yM = rowY(rn+1, mm);
-            var x0 = padL + colW*rn, x1 = x0 + colW*0.55, x2 = x0 + colW;
-            ctx.strokeStyle = rgba(PEARL, 0.22); ctx.lineWidth = 1;
-            ctx.beginPath(); ctx.moveTo(x0, yA); ctx.lineTo(x1, yA); ctx.lineTo(x1, yB); ctx.lineTo(x0, yB);
-            ctx.moveTo(x1, yM); ctx.lineTo(x2, yM); ctx.stroke();
-            if (q2 > 0){
-              var wTop = win(cols[rn][mm*2], cols[rn][mm*2+1]) === cols[rn][mm*2];
-              var yW = wTop ? yA : yB;
-              ctx.strokeStyle = rgba(cur.rgb, 0.9); ctx.lineWidth = 1.6;
-              ctx.beginPath(); ctx.moveTo(x0, yW);
-              ctx.lineTo(x0 + (x1-x0)*Math.min(1, q2*2), yW);
-              if (q2*2 > 1){
-                ctx.lineTo(x1, yW + (yM-yW)*Math.min(1, q2*2-1));
-                if (q2 >= 1){ ctx.moveTo(x1, yM); ctx.lineTo(x2, yM); }
+          var n = 4 >> rn;
+          for (k = 0; k < n; k++){
+            var x = cardX(rn), y = cardY(rn, k);
+            var q = ease((ph - starts[rn][k])/durOf(rn));
+            var mi = rn === 0 ? k : rn === 1 ? 4 + k : 6;
+            var wTop = Math.min(cols[rn][k*2], cols[rn][k*2+1]) === cols[rn][k*2];
+            // skeleton card — persists through the seam
+            ctx.fillStyle = 'rgba(229,231,239,0.03)';
+            ctx.strokeStyle = rgba(PEARL, 0.15); ctx.lineWidth = 1;
+            rrect(x, y, colW, cardH, 5); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = rgba(PEARL, 0.35);
+            ctx.fillText(rn === 0 ? 'U' + (k+1) : rn === 1 ? 'S' + (k+1) : 'F1', x + 7, y + 10);
+            ctx.textAlign = 'right';
+            ctx.fillStyle = rgba(PEARL, 0.28);
+            ctx.fillText(['QF','SF','FINAL'][rn], x + colW - 7, y + 10);
+            ctx.textAlign = 'start';
+            ctx.strokeStyle = rgba(PEARL, 0.08);
+            ctx.beginPath(); ctx.moveTo(x + 6, y + cardH*0.625); ctx.lineTo(x + colW - 6, y + cardH*0.625); ctx.stroke();
+            for (s = 0; s < 2; s++){
+              var seed = cols[rn][k*2 + s];
+              var ry = rowY(y, s);
+              var isW = (s === 0) === wTop;
+              // QF slots come with the generated draw; later slots fill as winners arrive
+              var baseA = rn === 0 ? 1 : ease((ph - (starts[rn-1][k*2+s] + durOf(rn-1) + 0.03))/0.05) * dyn;
+              if (rn > 0){   // empty-slot placeholder (part of the skeleton)
+                ctx.fillStyle = rgba(PEARL, 0.10);
+                rrect(x + 16, ry - 2.5, 18, 3, 1.5); ctx.fill();
               }
-              ctx.stroke();
-              if (q2 >= 1){
+              if (baseA <= 0.01) continue;
+              var u = q*dyn;   // resolve amount, exhaled at the seam
+              if (isW && u > 0.01){   // winner-slot wash (MatchBox highlights the winning row)
+                ctx.fillStyle = rgba(rn === 2 ? GOLD : cur.rgb, 0.10*u*baseA);
+                rrect(x + 3, ry - 8, colW - 6, 14, 3); ctx.fill();
+              }
+              var aRow = baseA*(0.7 + (isW ? 0.25 : -0.35)*u);
+              ctx.fillStyle = rgba(PEARL, 0.8*aRow);
+              ctx.fillText(String(seed), x + 7, ry + 2.5);
+              var bw = Math.max(10, (colW - 58)*barWs[seed-1]);
+              ctx.fillStyle = rgba(PEARL, 0.30*aRow);
+              rrect(x + 16, ry - 3, bw, 3.5, 2); ctx.fill();
+              if (isW && u > 0.01){
+                ctx.fillStyle = rgba(cur.rgb, 0.75*u*baseA);
+                rrect(x + 16, ry - 3, bw, 3.5, 2); ctx.fill();
+              }
+              // set scores, right-aligned monospace like the product
+              var sv = isW ? (rn === 2 ? [7,6] : [6,6]) : LOSE[mi];
+              var a1 = ease((q - 0.30)/0.25)*dyn*baseA, a2 = ease((q - 0.65)/0.25)*dyn*baseA;
+              ctx.textAlign = 'right';
+              ctx.fillStyle = rgba(PEARL, (isW ? 0.9 : 0.4)*a1); ctx.fillText(String(sv[0]), x + colW - 16, ry + 2.5);
+              ctx.fillStyle = rgba(PEARL, (isW ? 0.9 : 0.4)*a2); ctx.fillText(String(sv[1]), x + colW - 7, ry + 2.5);
+              ctx.textAlign = 'start';
+            }
+            // the winner advances: a spark travels to its slot in the next card
+            if (rn < 2){
+              var pu = (ph - (starts[rn][k] + durOf(rn) + 0.005))/0.045;
+              if (pu > 0 && pu < 1 && dyn > 0.5){
+                var pq = ease(pu), muq = 1 - pq;
+                var fx0 = x + colW - 7, fy0 = rowY(y, wTop ? 0 : 1);
+                var dk = rn === 0 ? (k >> 1) : 0, ds = rn === 0 ? k % 2 : k;
+                var tx = cardX(rn+1) + 16, ty = rowY(cardY(rn+1, dk), ds);
+                var mx = (fx0 + tx)/2, my = Math.min(fy0, ty) - 8;
+                var px2 = muq*muq*fx0 + 2*muq*pq*mx + pq*pq*tx;
+                var py2 = muq*muq*fy0 + 2*muq*pq*my + pq*pq*ty;
                 ctx.fillStyle = rgba(cur.rgb, 0.9);
-                ctx.font = '10px ui-monospace,Menlo,monospace';
-                ctx.fillText(String(cols[rn+1][mm]), x2 + 4, yM + 3.5);
+                ctx.beginPath(); ctx.arc(px2, py2, 1.8, 0, 7); ctx.fill();
               }
             }
           }
         }
-        if (res[2] >= 1){
-          var cy = rowY(3, 0), cxp = padL + colW*3;
-          var g2 = ctx.createRadialGradient(cxp, cy, 0, cxp, cy, 16);
-          g2.addColorStop(0, rgba(GOLD, 0.45)); g2.addColorStop(1, rgba(GOLD, 0));
-          ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(cxp, cy, 16, 0, 7); ctx.fill();
-          ctx.fillStyle = rgba(GOLD, 1); ctx.beginPath(); ctx.arc(cxp, cy, 3, 0, 7); ctx.fill();
+        // ---- champion: gold glow on the final's winning slot + a completed band ----
+        var chQ = ease((ph - 0.805)/0.05) * dyn;
+        if (chQ > 0.01){
+          var fx = cardX(2), fy = cardY(2, 0);
+          var gy = rowY(fy, 0), gx = fx + colW*0.5;
+          var glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, 30);
+          glow.addColorStop(0, rgba(GOLD, 0.28*chQ*(0.8 + 0.2*Math.sin(t*2))));
+          glow.addColorStop(1, rgba(GOLD, 0));
+          ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(gx, gy, 30, 0, 7); ctx.fill();
+          var chW = Math.min(96, colW - 8), chX2 = fx + (colW - chW)/2, chY2 = fy + cardH + 10;
+          ctx.strokeStyle = rgba(GOLD, 0.8*chQ); ctx.lineWidth = 1;
+          ctx.fillStyle = rgba(GOLD, 0.08*chQ);
+          rrect(chX2, chY2, chW, 15, 7.5); ctx.fill(); ctx.stroke();
+          ctx.fillStyle = rgba(GOLD, chQ); ctx.textAlign = 'center';
+          ctx.fillText('CHAMPION · SEED 1', chX2 + chW/2, chY2 + 10);
+          ctx.textAlign = 'start';
         }
+        ctx.globalAlpha = 1;
       }
     };
     function render(){
