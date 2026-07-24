@@ -1,0 +1,101 @@
+{
+  "results": [
+    {
+      "check": "1",
+      "name": "hidden on home masthead",
+      "pass": true,
+      "detail": "opacity=0 pointer-events=none on=false"
+    },
+    {
+      "check": "1",
+      "name": "hidden after case open, inline CTA on/below screen",
+      "pass": true,
+      "detail": "opacity=0 pe=none on=false inlineTop=419.5"
+    },
+    {
+      "check": "2",
+      "name": "reveals after inline CTA scrolls past top",
+      "pass": true,
+      "detail": "on=true opacity=1 pe=auto label=\"Open @drawtennisbot\""
+    },
+    {
+      "check": "3",
+      "name": "centered ±2px, fully inside viewport, no page overflow",
+      "pass": false,
+      "detail": "center=304.3 (target 195) rect=[x=195.0, w=218.7, right=413.7] scrollWidth=390"
+    },
+    {
+      "check": "4",
+      "name": "bottom resolves to 18px with env(safe-area-inset-bottom)=0",
+      "pass": true,
+      "detail": "computed bottom=18px, rect.bottom=826.0 (viewport 844)"
+    },
+    {
+      "check": "4",
+      "name": "simulated 34px inset: CTA fully above indicator",
+      "pass": true,
+      "detail": "cta rect.bottom=792.0 vs indicator top=810"
+    },
+    {
+      "check": "5",
+      "name": "hides again after scrolling back up",
+      "pass": false,
+      "detail": ".on not removed"
+    },
+    {
+      "check": "6",
+      "name": "page.goBack() lands on site home, case closed, float hidden",
+      "pass": true,
+      "detail": "url=http://localhost:8000/ caseOpen=false floatOpacity=0"
+    },
+    {
+      "check": "7",
+      "name": "reduced-motion transition is opacity-only",
+      "pass": false,
+      "detail": "transition=\"none\""
+    },
+    {
+      "check": "7",
+      "name": "CTA still reveals under reduced motion",
+      "pass": true,
+      "detail": "on=true opacity=1"
+    },
+    {
+      "check": "8",
+      "name": "jackieos: hidden first, reveals with correct label",
+      "pass": false,
+      "detail": "label=\"Read the full docs\" (want \"Read the full docs\") hiddenFirst=false center=300.1"
+    },
+    {
+      "check": "8",
+      "name": "newfin: hidden first, reveals with correct label",
+      "pass": false,
+      "detail": "label=\"Visit the Newfin landing\" (want \"Visit the Newfin landing\") hiddenFirst=false center=325.3"
+    },
+    {
+      "check": "8",
+      "name": "bunit: hidden first, reveals with correct label",
+      "pass": false,
+      "detail": "label=\"Visit the parents page\" (want \"Visit the parents page\") hiddenFirst=false center=316.9"
+    },
+    {
+      "check": "8",
+      "name": "rodyna (no product link): float never appears even at page bottom",
+      "pass": false,
+      "detail": "visitRowHidden=true on=false opacity=1"
+    },
+    {
+      "check": "8",
+      "name": "case switch (draw→newfin): .on cleared, label swapped, no stale label",
+      "pass": true,
+      "detail": "before=\"Open @drawtennisbot\" after on=false label=\"Visit the Newfin landing\""
+    },
+    {
+      "check": "9",
+      "name": "zero console errors across all flows",
+      "pass": true,
+      "detail": "0 errors, 0 total warnings/errors captured"
+    }
+  ],
+  "consoleLog": []
+}

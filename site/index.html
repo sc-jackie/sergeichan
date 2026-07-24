@@ -368,7 +368,6 @@
     <p class="one" id="cOne"></p>
     <div class="metarow" id="cMeta"></div>
     <div class="visitrow"><a class="visit" id="cVisit" href="#"><span id="cVisitTxt"></span><span aria-hidden="true">↗</span></a></div>
-    <a class="visit visit--float" id="cVisitFloat" href="#" tabindex="-1"><span id="cVisitFloatTxt"></span><span aria-hidden="true">↗</span></a>
     <h3>What it is</h3><div id="cWhat"></div>
     <h3>Why it exists</h3><div id="cWhy"></div>
     <div class="opt" id="secDuo">
@@ -402,6 +401,8 @@
       <a class="next" href="#" id="nextLink"><span class="mono" id="nextMono">Next thread</span><span id="nextName"></span></a>
     </div>
   </div>
+  <!-- fixed-position twin of #cVisit — outside .inner so the settled rise (.inner > *) never overrides its hidden state -->
+  <a class="visit visit--float" id="cVisitFloat" href="#" tabindex="-1"><span id="cVisitFloatTxt"></span><span aria-hidden="true">↗</span></a>
 </div>
 
 <canvas id="flyIcon" aria-hidden="true"></canvas>
