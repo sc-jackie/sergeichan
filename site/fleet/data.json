@@ -1,0 +1,422 @@
+{
+  "capturedAt": "2026-07-24",
+  "generatedBy": "scripts/build-fleet-snapshot.mjs",
+  "agents": [
+    {
+      "id": "fablio",
+      "name": "Fablio",
+      "role": "CEO / CPO / CTO orchestrator",
+      "lane": "orchestration",
+      "model": "Claude Fable 5",
+      "blurb": "Turns intent into a sequenced plan, routes work by specialty, and holds the review bar before anything ships.",
+      "accent": "#A62B61",
+      "accentRgb": [
+        166,
+        43,
+        97
+      ],
+      "portrait": "assets/fablio.png",
+      "portraitOriginal": "assets/originals/fablio.png",
+      "stats": {
+        "sessions": 9,
+        "activity": 11
+      }
+    },
+    {
+      "id": "cursorio",
+      "name": "Cursorio",
+      "role": "Fast, spec-driven implementer",
+      "lane": "implementation",
+      "model": "Cursor Auto",
+      "blurb": "Handles crisp, mechanical builds and refactors quickly, keeping scoped work moving through the queue.",
+      "accent": "#056782",
+      "accentRgb": [
+        5,
+        103,
+        130
+      ],
+      "portrait": "assets/cursorio.png",
+      "portraitOriginal": "assets/originals/cursorio.png",
+      "stats": {
+        "sessions": 4,
+        "activity": 6
+      }
+    },
+    {
+      "id": "codexio",
+      "name": "Codexio",
+      "role": "Design lead and design engineer",
+      "lane": "design",
+      "model": "Codex GPT-5.6 Sol",
+      "blurb": "Shapes interfaces, interaction, and visual systems, then builds and verifies the experience in the browser.",
+      "accent": "#2030D8",
+      "accentRgb": [
+        32,
+        48,
+        216
+      ],
+      "portrait": "assets/codexio.png",
+      "portraitOriginal": "assets/originals/codexio.png",
+      "stats": {
+        "sessions": 24,
+        "activity": 15
+      }
+    },
+    {
+      "id": "cyrusio",
+      "name": "Cyrusio",
+      "role": "Delivery engineer, scoped issue to tested PR",
+      "lane": "delivery",
+      "model": "Claude Sonnet 5",
+      "blurb": "Carries well-defined issues from implementation through tests and a review-ready pull request.",
+      "accent": "#B84816",
+      "accentRgb": [
+        184,
+        72,
+        22
+      ],
+      "portrait": "assets/cyrusio.png",
+      "portraitOriginal": "assets/originals/cyrusio.png",
+      "stats": {
+        "sessions": 2,
+        "activity": 2
+      }
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "role": "Always-on operations relay",
+      "lane": "operations",
+      "model": "Hermes Agent",
+      "blurb": "Keeps scheduled rhythms, briefs, handoffs, and production operations moving between coding sessions.",
+      "accent": "#0000E5",
+      "accentRgb": [
+        0,
+        0,
+        229
+      ],
+      "portrait": "assets/hermes.png",
+      "portraitOriginal": "assets/originals/hermes.png",
+      "stats": {
+        "sessions": 0,
+        "activity": 0
+      }
+    }
+  ],
+  "loops": {
+    "delegation": [
+      {
+        "id": "intent",
+        "label": "Sergei · intent",
+        "detail": "A goal becomes a scoped Linear issue.",
+        "agent": "fablio"
+      },
+      {
+        "id": "route",
+        "label": "Fablio · route",
+        "detail": "The work is decomposed and delegated by specialist lane.",
+        "agent": "fablio"
+      },
+      {
+        "id": "build",
+        "label": "Specialist · build",
+        "detail": "A focused worktree carries implementation and verification.",
+        "agent": "codexio"
+      },
+      {
+        "id": "review",
+        "label": "Team · review",
+        "detail": "A reviewed pull request is handed to Sergei to merge.",
+        "agent": "cyrusio"
+      },
+      {
+        "id": "deploy",
+        "label": "Hermes · relay",
+        "detail": "Production operations and the next handoff keep moving.",
+        "agent": "hermes"
+      }
+    ],
+    "compound": [
+      {
+        "id": "work",
+        "label": "Work",
+        "detail": "A concrete issue produces an observable result."
+      },
+      {
+        "id": "learning",
+        "label": "Learning",
+        "detail": "The useful lesson is separated from session noise."
+      },
+      {
+        "id": "memory",
+        "label": "Memory",
+        "detail": "Durable context is recorded for the next agent session."
+      },
+      {
+        "id": "solution",
+        "label": "Solution",
+        "detail": "Reusable fixes become repository documentation."
+      }
+    ]
+  },
+  "issues": [
+    {
+      "identifier": "EVE-83",
+      "title": "Centralize VPS IP (_vps_config.sh env default)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cursorio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-53",
+      "title": "Post-trade thesis prompt — Persik asks \"why did you open this?\" after a fill syncs",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cursorio",
+      "repo": "newfin",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-45",
+      "title": "Migration drift alarm — prod version vs `main` in deploy summary",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cyrusio",
+      "repo": "rodyna-recipe-app",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-129",
+      "title": "[Foundation] Fleet Atlas — portraits, scrubbed snapshot + generator (shared by all 3 concepts)",
+      "state": "In Progress",
+      "stateType": "started",
+      "agent": "codexio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-128",
+      "title": "Publish Fleet Atlas publicly — 3 sci-fi interactive concepts (sergeichan)",
+      "state": "In Progress",
+      "stateType": "started",
+      "agent": "fablio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-127",
+      "title": "Greenfield: playful visual fleet view — agent portraits, work + loops",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "codexio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-126",
+      "title": "Headroom attribution smoke test — Cyrusio (no code)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cyrusio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-125",
+      "title": "Opus 5 smoke test — Fablio (no code)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "fablio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-124",
+      "title": "Self-check: Cyrusio — report your understanding (no code)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cyrusio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-123",
+      "title": "Self-check: Codexio — report your understanding (no code)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "codexio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-122",
+      "title": "Self-check: Cursorio — report your understanding (no code)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cursorio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-121",
+      "title": "Self-check: Fablio — report your understanding (no code)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "fablio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-120",
+      "title": "[Copy] Better-writing pass — bunit landing / parents pages (EN + VI)",
+      "state": "In Review",
+      "stateType": "started",
+      "agent": "codexio",
+      "repo": "bunit",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-119",
+      "title": "[Copy] Better-writing pass — newfin landing (site/newfin/, EN)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "codexio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-118",
+      "title": "[Copy] Better-writing pass — sergeichan personal site (site/index.html, EN)",
+      "state": "In Review",
+      "stateType": "started",
+      "agent": "codexio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-117",
+      "title": "Better-writing pass — sergeichan + newfin + bunit landing copy (all languages)",
+      "state": "In Progress",
+      "stateType": "started",
+      "agent": "fablio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-115",
+      "title": "[Verification] Mobile floating CTA audit at 390px — full-flow evidence, no code churn unless it fails",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "fablio",
+      "repo": "newfin",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-112",
+      "title": "Jackie-OS docs site — update workers/concepts/architecture to the 4-agent team",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cursorio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-111",
+      "title": "Jackie-OS case study on / — add the agent-team orchestration story",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "codexio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-109",
+      "title": "Greenfield: design a /now page for sergeichan.com — go wild, scroll-driven",
+      "state": "Canceled",
+      "stateType": "canceled",
+      "agent": "codexio",
+      "repo": "sergeichan",
+      "updatedAt": "2026-07-24"
+    },
+    {
+      "identifier": "EVE-85",
+      "title": "Vault wikilink audit tool — validation reporter",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cyrusio",
+      "repo": "jackie-os",
+      "updatedAt": "2026-07-23"
+    },
+    {
+      "identifier": "EVE-49",
+      "title": "Bot error i18n — localize raw English `Error:` in webhook paths",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cyrusio",
+      "repo": "rodyna-recipe-app",
+      "updatedAt": "2026-07-23"
+    },
+    {
+      "identifier": "EVE-46",
+      "title": "Recipe dedup by source job — unique `source_job_id`",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "cyrusio",
+      "repo": "rodyna-recipe-app",
+      "updatedAt": "2026-07-23"
+    },
+    {
+      "identifier": "EVE-43",
+      "title": "Remote Mode — post-visit continuity (habit loops + Telegram weekly verify)",
+      "state": "Todo",
+      "stateType": "unstarted",
+      "agent": "cyrusio",
+      "repo": "bunit",
+      "updatedAt": "2026-07-23"
+    },
+    {
+      "identifier": "EVE-104",
+      "title": "Adopt @ui package tokens inside Mini App components (21 components hand-build ~48 values)",
+      "state": "Done",
+      "stateType": "completed",
+      "agent": "fablio",
+      "repo": "rodyna-recipe-app",
+      "updatedAt": "2026-07-23"
+    }
+  ],
+  "repos": [
+    {
+      "key": "sergeichan",
+      "label": "Personal Website"
+    },
+    {
+      "key": "jackie-os",
+      "label": "Jackie OS"
+    },
+    {
+      "key": "newfin",
+      "label": "Newfin"
+    },
+    {
+      "key": "bunit",
+      "label": "B-Unit"
+    },
+    {
+      "key": "rodyna-recipe-app",
+      "label": "Rodyna"
+    }
+  ],
+  "totals": {
+    "agents": 5,
+    "sessions": 39,
+    "issues": 25,
+    "byState": {
+      "completed": 18,
+      "started": 5,
+      "canceled": 1,
+      "unstarted": 1
+    }
+  }
+}
