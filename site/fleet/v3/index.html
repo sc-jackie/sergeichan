@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d8d2c4">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23171a1d'/%3E%3Cpath d='M8 7h16M8 16h16M8 25h16' stroke='%23d8d2c4' stroke-width='2'/%3E%3Cpath d='M16 5v22' stroke='%232030d8' stroke-width='3'/%3E%3C/svg%3E">
+  <title>Fleet Atlas III — Personnel Archive</title>
+  <meta name="description" content="Query the Fleet Atlas personnel archive: five agents, their work, and the loops that keep the team moving.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#record">Skip to active record</a>
+
+  <header class="masthead">
+    <div class="plate-mark" aria-hidden="true"><span>FA</span><i></i><span>03</span></div>
+    <div>
+      <p class="eyebrow">Fleet Atlas · Public extract</p>
+      <h1>Personnel archive</h1>
+    </div>
+    <div class="snapshot-block">
+      <span>Archive snapshot</span>
+      <strong id="captured-at">Loading…</strong>
+    </div>
+    <nav class="variant-switcher" aria-label="Fleet Atlas concepts">
+      <a href="../" aria-label="Concept I">I</a>
+      <a href="../v2/" aria-label="Concept II">II</a>
+      <a href="./" aria-current="page" aria-label="Concept III (current)">III</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="query-panel" aria-labelledby="query-label">
+      <div class="query-heading">
+        <p id="query-label">Archive query</p>
+        <button id="help-button" type="button" aria-haspopup="dialog" aria-expanded="false">Command index <kbd>?</kbd></button>
+      </div>
+      <form id="query-form" role="search" autocomplete="off">
+        <label for="query">Enter a name, record, or command</label>
+        <div class="command-line">
+          <span aria-hidden="true">QUERY://</span>
+          <input id="query" name="archive-query" type="text" spellcheck="false" autocapitalize="none" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions" aria-describedby="query-hint" placeholder="Try “codexio” or “delegation”">
+          <button type="submit">Resolve <span aria-hidden="true">↵</span></button>
+        </div>
+        <p id="query-hint">Use ↑ ↓ to select a suggestion, then Enter to resolve.</p>
+        <ul id="suggestions" class="suggestions" role="listbox" aria-label="Query suggestions" hidden></ul>
+      </form>
+      <p class="query-status"><span class="status-lamp" aria-hidden="true"></span><span id="system-status">Reading committed archive…</span></p>
+    </section>
+
+    <div class="archive-layout">
+      <aside class="index-panel" aria-labelledby="index-title">
+        <div class="section-head">
+          <div>
+            <p>Record register</p>
+            <h2 id="index-title">Visible index</h2>
+          </div>
+          <span id="index-count">00 records</span>
+        </div>
+        <nav id="record-index" class="record-index" aria-label="Archive records"></nav>
+        <div class="index-shortcuts" aria-label="Keyboard shortcuts">
+          <span><kbd>J</kbd><kbd>K</kbd> browse</span>
+          <span><kbd>/</kbd> query</span>
+          <span><kbd>?</kbd> commands</span>
+        </div>
+      </aside>
+
+      <article id="record" class="record-sheet" tabindex="-1" aria-labelledby="record-title">
+        <div class="loading-record">
+          <p class="eyebrow">Resolving archive</p>
+          <h2 id="record-title">Stand by</h2>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <p>Static public extract · no live systems connected</p>
+    <p>Fleet Atlas / Registry plate III</p>
+  </footer>
+
+  <div id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-head">
+      <div>
+        <p class="eyebrow">Operator reference</p>
+        <h2 id="help-title">Command index</h2>
+      </div>
+      <button id="close-help" type="button" aria-label="Close command index">×</button>
+    </div>
+    <div class="command-grid">
+      <div><code>name</code><span>Open an agent dossier</span></div>
+      <div><code>delegation</code><span>Trace how work moves</span></div>
+      <div><code>compound</code><span>Trace how learning persists</span></div>
+      <div><code>issues</code><span>Open the assignment ledger</span></div>
+      <div><code>EVE-###</code><span>Open a specific issue record</span></div>
+      <div><code>next / prev</code><span>Page through the register</span></div>
+      <div><code>random</code><span>Resolve any record</span></div>
+      <div><code>index</code><span>Return to archive overview</span></div>
+      <div><code>archive</code><span>Open the sealed note</span></div>
+      <div><code>help</code><span>Show this reference</span></div>
+    </div>
+    <p class="dialog-note"><kbd>↑</kbd><kbd>↓</kbd> or <kbd>J</kbd><kbd>K</kbd> browse · <kbd>Home</kbd><kbd>End</kbd> jump · <kbd>/</kbd> focus query · <kbd>Esc</kbd> dismiss</p>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
