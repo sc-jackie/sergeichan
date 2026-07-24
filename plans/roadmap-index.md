@@ -6,7 +6,7 @@
 > fix the doc. **After every ship:** agents prune [future-improvements](future-improvements.md) and
 > refresh this index in the same commit ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
-_Last audited against `main` on 2026-07-24 (HEAD `1ceceaf`; prior stamp `5996882`)._
+_Last audited against `main` on 2026-07-24 (HEAD `5f7d4be`; prior stamp `1ceceaf`)._
 
 ## Plan-doc status
 
@@ -16,7 +16,7 @@ _Last audited against `main` on 2026-07-24 (HEAD `1ceceaf`; prior stamp `5996882
 | 2026-07-23 maker-mark + case expansion | ✅ shipped `8ca67df` (body deleted per delete-on-ship policy) | — |
 | [future-improvements](future-improvements.md) | 📋 catalog | owner-prioritized backlog (task queue itself lives in Linear — Personal Website project) |
 
-**Genuinely-remaining engineering surface (2026-07-24):** two catalog items: first essay (EVE-79), custom domain (EVE-80). **EVE-78** (real product visuals in main-site case frames) is now effectively addressed — every case "How it looks" renders faithful live-coded product screens grounded in each repo (see Shipped `1ceceaf`), not placeholders; owner to decide whether literal PNG screenshots are still wanted on top. Newfin product marketing at `/newfin` is live.
+**Genuinely-remaining catalog surface (2026-07-24):** two items: first essay (EVE-79) and custom domain (EVE-80). EVE-78 is shipped in the faithful live-coded case frames (`1ceceaf`) and has been removed from the active catalog. Newfin product marketing at `/newfin` is live.
 
 ## Shipped
 

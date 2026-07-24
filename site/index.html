@@ -118,11 +118,11 @@
   #case .one{font-size:17px;color:var(--muted);max-width:34em;margin:0}
   #case .metarow{display:flex;flex-wrap:wrap;gap:16px;margin:22px 0 0;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   #case .metarow b{color:var(--pearl);font-weight:500}
-  #case .visitrow{margin-top:20px}
+  #case .visitrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
   #case .visit{display:inline-flex;align-items:center;gap:9px;padding:10px 20px;border:1px solid color-mix(in srgb, var(--acc) 65%, transparent);
     border-radius:999px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
     color:var(--acc);text-decoration:none;transition:background .2s,color .2s}
-  #case .visit:hover{background:var(--acc);color:var(--space)}
+  #case .visit:hover,#case .visit:focus-visible{background:var(--acc);color:var(--space)}
   #case .visit:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
   /* floating twin — appears once the inline CTA is scrolled past; centered over the column */
   #case .visit--float{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:80;
@@ -636,7 +636,10 @@
     { id:'jackieos', roman:'I', name:'Jackie-OS', u:0.5, color:'#C9A45C', rgb:[201,164,92], core:true,
       one:'A personal AI operating system — memory, skills, and always-on agents running one life.',
       meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
-      link:{href:'/jackie-os/docs/', label:'Read the full docs'},
+      links:[
+        {href:'/jackie-os/docs/', label:'Read the full docs'},
+        {href:'/fleet', label:'Explore the Fleet Atlas'}
+      ],
       what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
       why:'<p>I work across tools that don\'t share memory. Knowledge lives in an Obsidian vault, code in separate repos, and the assistant keeps changing — mostly Claude Code on the Mac, Codex or a different model when the task wants one. Every one of them starts cold, so I keep re-explaining the same projects and the same decisions.</p><p>So the memory lives outside all of them. The system is plain <b>markdown in git</b>, and the skills are instructions any harness can run, so I can switch model, provider or tool without losing context. A small agent on a VPS keeps the loop turning while the Mac is closed — the 07:30 brief, hourly journal capture from a Telegram message, project status written back on merge. The journaling is the part I underrated: each note gets linked to the projects and people it touches, and the daily pile slowly turns into something I can actually query.</p>',
       solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
@@ -1350,15 +1353,27 @@
     var visit = document.getElementById('cVisit');
     var visitFloat = document.getElementById('cVisitFloat');
     visitFloat.classList.remove('on'); visitFloat.tabIndex = -1;   // never carry a stale label between cases
-    if (p.link){
+    var links = p.links || (p.link ? [p.link] : []);
+    visit.parentNode.querySelectorAll('.visit--secondary').forEach(function(a){ a.remove(); });
+    if (links.length){
+      var primaryLink = links[0];
       visit.parentNode.style.display = '';
-      visit.href = visitFloat.href = p.link.href;
-      document.getElementById('cVisitTxt').textContent = p.link.label;
-      document.getElementById('cVisitFloatTxt').textContent = p.link.label;
-      var ext = /^https?:/.test(p.link.href);
+      visit.href = visitFloat.href = primaryLink.href;
+      document.getElementById('cVisitTxt').textContent = primaryLink.label;
+      document.getElementById('cVisitFloatTxt').textContent = primaryLink.label;
+      var ext = /^https?:/.test(primaryLink.href);
       [visit, visitFloat].forEach(function(a){
         if (ext){ a.target = '_blank'; a.rel = 'noopener'; }
         else { a.removeAttribute('target'); a.removeAttribute('rel'); }
+      });
+      links.slice(1).forEach(function(link){
+        var secondary = document.createElement('a');
+        secondary.className = 'visit visit--secondary';
+        secondary.href = link.href;
+        secondary.innerHTML = '<span></span><span aria-hidden="true">↗</span>';
+        secondary.firstElementChild.textContent = link.label;
+        if (/^https?:/.test(link.href)){ secondary.target = '_blank'; secondary.rel = 'noopener'; }
+        visit.parentNode.appendChild(secondary);
       });
     } else { visit.parentNode.style.display = 'none'; }
     document.getElementById('cWhat').innerHTML = p.what;
