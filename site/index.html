@@ -32,7 +32,7 @@
   #hero .bar{display:flex;justify-content:space-between;align-items:baseline}
   #hero .brand{font-weight:600;font-size:15px;letter-spacing:.02em}
   #hero .nav{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);pointer-events:auto}
-  #hero .nav button{all:unset;cursor:pointer;margin-left:8px;padding:8px 8px;letter-spacing:inherit;color:inherit}
+  #hero .nav button{all:unset;cursor:pointer;margin-left:8px;padding:12px 8px;letter-spacing:inherit;color:inherit}
   #hero .nav button:hover{color:var(--pearl)}
   #hero .nav button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px}
   #hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
@@ -146,6 +146,7 @@
   #case .frame{border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
   #case .frame .head{padding:7px 12px;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
   #case .frame .body{position:relative;height:190px}
+  #case .frame--tall .body{height:312px}
   #case .frame figcaption{padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--dim)}
   #case .arch{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
   #case .arch .node{border:1px solid rgba(229,231,239,.25);border-radius:8px;padding:8px 12px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--pearl);background:rgba(229,231,239,.03)}
@@ -175,16 +176,37 @@
   #case .memfig figcaption b{color:var(--acc);font-weight:500}
   /* frame components — Newfin landing language (indigo paper, serif display, mono) */
   /* brand palettes below are each product's own, deliberately outside this site's tokens */
-  .nw{position:absolute;inset:0;padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:#12131F;font-family:ui-monospace,Menlo,monospace}
-  .nw-kpi{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:2px}
+  .nw{position:absolute;inset:0;padding:13px 15px;display:flex;flex-direction:column;gap:6px;background:#12131F;font-family:ui-monospace,Menlo,monospace;
+    --nwc-property:#E3B55E;--nwc-crypto:#86C98B;--nwc-cash:#DF9B62;--nwc-equity:#93A7EA;--nwc-trading:#62C9C4;--nwc-receivables:#D9A0CB;--nwc-pos:#86C98B;--nwc-neg:#DFA35C}
+  .nw-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding-bottom:6px;border-bottom:1px solid rgba(240,241,247,.08)}
+  .nw-brand{font-family:Georgia,serif;font-style:italic;font-size:15px;color:#F0F1F7}
+  .nw-brand--sans{font-family:ui-monospace,Menlo,monospace;font-style:normal;font-size:12px;margin-right:auto}
+  .nw-ava{flex:none;width:17px;height:17px;border-radius:50%;background:#7C93E8;color:#0C0E16;font-weight:700;font-size:10px;line-height:17px;text-align:center}
   .nw-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8B90AD}
-  .nw-fig{font-family:Georgia,serif;font-size:22px;color:#F0F1F7;letter-spacing:.02em}
+  .nw-heroline{display:flex;align-items:baseline;gap:9px}
+  .nw-big{font-family:Georgia,serif;font-size:24px;color:#F0F1F7;letter-spacing:.01em;line-height:1}
   .nw-delta{font-size:10px;color:#7C93E8}
+  .nw .pos{color:var(--nwc-pos)}
+  .nw .neg{color:var(--nwc-neg)}
+  .nw-triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:2px 0}
+  .nw-triple>div{display:grid;gap:3px;min-width:0}
+  .nw-triple span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#8B90AD}
+  .nw-triple b{font-weight:500;font-size:12px;color:#E7E9F2}
+  .nw-alloc{display:flex;flex:none;gap:2px;height:11px;border-radius:4px;overflow:hidden}
+  .nw-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 6px;font-size:9.5px;color:#B9BDD4}
+  .nw-legend span{display:flex;align-items:center;gap:5px}
+  .nw-legend i{flex:none;width:6px;height:6px;border-radius:50%}
+  .nw-asset{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#B9BDD4}
+  .nw-asset>span{flex:0 0 46px}
+  .nw-asset i{height:4px;border-radius:2px;background:color-mix(in srgb,#7C93E8 60%,transparent)}
+  .nw-asset b{margin-left:auto;color:#E7E9F2;font-weight:500}
   .nw-row{display:flex;align-items:center;gap:8px;font-size:10px;color:#B9BDD4}
   .nw-row .nw-chip{flex:0 0 68px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
   .nw-row i{display:block;height:4px;border-radius:2px;background:color-mix(in srgb, #7C93E8 55%, transparent)}
   .nw-row b{margin-left:auto;color:#D9DCEA;font-weight:400}
-  .nw-bub{max-width:82%;padding:7px 10px;border-radius:9px;background:rgba(240,241,247,.08);font-size:10px;line-height:1.45;color:#C9CDE0}
+  .nw--chat{gap:6px}
+  .nw-bub{max-width:84%;padding:7px 10px;border-radius:9px;background:rgba(240,241,247,.08);font-size:10.5px;line-height:1.45;color:#C9CDE0}
+  .nw-bub b{letter-spacing:.04em;color:#F0F1F7}
   .nw-bub.me{align-self:flex-end;background:color-mix(in srgb, #7C93E8 26%, transparent);color:#F0F1F7}
   .nw-note{margin-top:auto;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8B90AD}
   /* frame components — B-Unit landing language (night sky, purple/cyan/gold) */
@@ -485,8 +507,8 @@
       ],
       state:'<p>Live in production, used daily by the household. Feature development is parked while an agent loop works the backlog — the system maintains itself more than I maintain it.</p><div class="statechips"><span class="live">LIVE</span><span>DAILY USE</span><span>AGENT LOOP</span><span>READ-ONLY BY DESIGN</span></div>',
       frames:[
-        {h:'HOME · NET WORTH', cap:'the landing\'s Home surface, rebuilt (figures redacted)', m:'<div class="nw"><div class="nw-kpi"><span class="nw-label">Net worth</span><span class="nw-fig">$ ▮▮▮,▮▮▮</span><span class="nw-delta">+2.4% · 30d</span></div><div class="nw-row"><span class="nw-chip">Crypto</span><i style="width:76%"></i><b>▮▮▮,▮▮▮</b></div><div class="nw-row"><span class="nw-chip">Brokerage</span><i style="width:58%"></i><b>▮▮,▮▮▮</b></div><div class="nw-row"><span class="nw-chip">Property</span><i style="width:64%"></i><b>▮▮▮,▮▮▮</b></div><div class="nw-row"><span class="nw-chip">Cash</span><i style="width:30%"></i><b>▮▮,▮▮▮</b></div></div>'},
-        {h:'PERSIK · TELEGRAM', cap:'judgment over the real payload', m:'<div class="nw"><div class="nw-bub me">should I trim anything?</div><div class="nw-bub">Concentration is 6% above your band. Trimming ~8% restores the target and covers the June liability.</div><div class="nw-note">read-only — it can describe a move, never execute one</div></div>'}
+        {h:'HOME · WEB APP', tall:true, cap:'the whole book, one screen (demo figures)', m:'<div class="nw"><div class="nw-top"><span class="nw-brand">Newfin</span><span class="nw-label">Tue, Jul 21</span></div><span class="nw-label">Net worth</span><div class="nw-heroline"><span class="nw-big">$1.28m</span><span class="nw-delta neg">−0.4% today</span></div><div class="nw-triple"><div><span>Liquid</span><b class="pos">$214.8k</b></div><div><span>Runway</span><b>40 mo</b></div><div><span>Today</span><b class="neg">−$4.1k</b></div></div><span class="nw-label">Allocation</span><div class="nw-alloc"><i style="flex-basis:46%;background:var(--nwc-property)"></i><i style="flex-basis:7%;background:var(--nwc-crypto)"></i><i style="flex-basis:8%;background:var(--nwc-cash)"></i><i style="flex-basis:17%;background:var(--nwc-equity)"></i><i style="flex-basis:12%;background:var(--nwc-trading)"></i><i style="flex-basis:6%;background:var(--nwc-receivables)"></i></div><div class="nw-legend"><span><i style="background:var(--nwc-property)"></i>Property 46%</span><span><i style="background:var(--nwc-equity)"></i>Equity 17%</span><span><i style="background:var(--nwc-trading)"></i>Trading 12%</span><span><i style="background:var(--nwc-cash)"></i>Cash 8%</span><span><i style="background:var(--nwc-crypto)"></i>Crypto 7%</span><span><i style="background:var(--nwc-receivables)"></i>Receiv. 6%</span></div><span class="nw-label">Inside crypto</span><div class="nw-asset"><span>BEAM</span><i style="width:58%"></i><b>38%</b></div><div class="nw-asset"><span>ETHFI</span><i style="width:36%"></i><b>21%</b></div><div class="nw-asset"><span>SOPH</span><i style="width:24%"></i><b>12%</b></div></div>'},
+        {h:'PERSIK · TELEGRAM', tall:true, cap:'the same book, over Telegram', m:'<div class="nw nw--chat"><div class="nw-top"><span class="nw-ava">P</span><span class="nw-brand nw-brand--sans">Persik</span><span class="nw-label">bot</span></div><div class="nw-bub me">what’s liquid right now?</div><div class="nw-bub">Liquid <b>$214.8k</b> net of OPM. Runway <b>40&nbsp;mo</b>. Today <em class="neg">−$4.1k</em>.</div><div class="nw-bub">Concentration is 6% above your band — trimming ~8% restores it and covers the June liability.</div><div class="nw-bub me">and the desk?</div><div class="nw-bub">BTC L 20× · uPnL <em class="pos">+$3.1k (+14%)</em>. Read-only — I can describe a move, never make one.</div></div>'}
       ],
       arch:['Integrations','Server (Express)','Supabase','Web PWA','Persik bot'], archG:4,
       archNote:'Shared workspace owns the net-worth math; exchange/wallet/bank integrations feed the server; the Telegram agent gets role-scoped views of the same truth.'
@@ -1142,7 +1164,7 @@
   }
   function doResurface(){
     // reverse: content sinks, the icon flies home, the same silk re-gathers beneath
-    document.getElementById('cVisitFloat').classList.remove('on');
+    var fl0 = document.getElementById('cVisitFloat'); fl0.classList.remove('on'); fl0.tabIndex = -1;
     var seatEl = document.getElementById('cIconCv');
     var seat = seatEl.getBoundingClientRect();
     var heroR = hero.getBoundingClientRect();
@@ -1256,7 +1278,7 @@
     document.getElementById('cMeta').innerHTML = p.meta.split('·').map(function(m){ return '<b>' + m.trim() + '</b>'; }).join('<span>·</span>');
     var visit = document.getElementById('cVisit');
     var visitFloat = document.getElementById('cVisitFloat');
-    visitFloat.classList.remove('on');           // never carry a stale label between cases
+    visitFloat.classList.remove('on'); visitFloat.tabIndex = -1;   // never carry a stale label between cases
     if (p.link){
       visit.parentNode.style.display = '';
       visit.href = visitFloat.href = p.link.href;
@@ -1342,7 +1364,7 @@
     } else { secTruths.style.display = 'none'; }
     document.getElementById('cState').innerHTML = p.state;
     document.getElementById('cFrames').innerHTML = p.frames.map(function(f){
-      return '<figure class="frame" style="margin:0"><div class="head">' + f.h + '</div><div class="body">' + f.m + '</div><figcaption>' + f.cap + '</figcaption></figure>';
+      return '<figure class="frame' + (f.tall ? ' frame--tall' : '') + '" style="margin:0"><div class="head">' + f.h + '</div><div class="body">' + f.m + '</div><figcaption>' + f.cap + '</figcaption></figure>';
     }).join('');
     document.getElementById('cFrames').querySelectorAll('.wf').forEach(function(el){ el.style.setProperty('--acc', p.color); });
     document.getElementById('cArch').innerHTML = p.arch.map(function(n, j){
@@ -1369,8 +1391,10 @@
     var e = es[0];
     var past = !e.isIntersecting && e.boundingClientRect.top < 0;
     var hasLink = document.getElementById('cVisit').parentNode.style.display !== 'none';
-    document.getElementById('cVisitFloat').classList.toggle('on',
-      past && hasLink && caseEl.classList.contains('open'));
+    var show = past && hasLink && caseEl.classList.contains('open');
+    var fl = document.getElementById('cVisitFloat');
+    fl.classList.toggle('on', show);
+    fl.tabIndex = show ? 0 : -1;   // keyboard-reachable only while it's the visible CTA
   }, {root: caseEl}).observe(document.getElementById('cVisit'));
 
   /* ---- linked-memory particle field (jackie-os figure): scattered thoughts → notes, filed → linked memory ---- */
