@@ -58,7 +58,10 @@
   #glimpse.s2 .one{opacity:1;transform:none}
   #glimpse.s2 .enterhint{opacity:.8;transform:none}
   @media (max-width:640px){
-    #glimpse{left:50% !important;top:auto !important;bottom:14px;width:auto;min-width:200px;max-width:calc(100% - 28px)}
+    #hero .foot{flex-direction:column;align-items:stretch;gap:10px}
+    #hero .thesis{max-width:none;order:2}
+    #hero .hint-touch{order:3;align-self:flex-end;text-align:right;max-width:100%}
+    #glimpse{position:relative !important;left:auto !important;top:auto !important;bottom:auto !important;transform:none !important;width:100%;max-width:100%;min-width:0;order:1;margin:0;box-sizing:border-box}
   }
 
   /* wireframe mock bits */
@@ -432,15 +435,15 @@
   <div class="ov">
     <div class="bar"><span class="brand">Sergei Tran</span><span class="nav"><button data-go="home">Work</button><button data-go="panelWriting">Writing</button><button data-go="panelAbout">About</button></span></div>
     <div class="foot">
+      <div id="glimpse" role="status">
+        <div class="kick" id="gKick"></div>
+        <p class="one" id="gOne"></p>
+        <div class="enterhint">click to dive ↵</div>
+      </div>
       <div class="thesis">One thread, <em>many vibrations</em> — five systems in production, built with AI-native agents.</div>
       <div class="hint">hover a chord — the threads part around your cursor<br>click anywhere / enter = dive · ← → cycle</div>
       <div class="hint-touch">tap a thread · tap again to dive</div>
     </div>
-  </div>
-  <div id="glimpse" role="status">
-    <div class="kick" id="gKick"></div>
-    <p class="one" id="gOne"></p>
-    <div class="enterhint">click to dive ↵</div>
   </div>
 </div>
 
