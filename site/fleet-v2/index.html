@@ -75,7 +75,10 @@
       .plate:before{background:radial-gradient(circle at 50% 48%,rgba(215,210,195,.075),transparent 35%)}
       .focus-readout{top:auto;bottom:7.2rem}.body .label{background:linear-gradient(90deg,rgba(13,14,13,.9),transparent)}
       .record-scrim{backdrop-filter:none}.record{width:100%;border-left:0}.portrait-wrap{margin-top:1.5rem}.record-head{padding-right:3.2rem}
-      .section-title + .facts .fact b{font-size:1.05rem}
+      .section-title + .facts{grid-template-columns:1fr}
+      .section-title + .facts .fact{grid-column:auto!important}
+      .section-title + .facts .fact+.fact{border-left:0;border-top:1px solid #8d8d80}
+      .section-title + .facts .fact b{font-size:1.05rem;overflow-wrap:normal}
       .tour{min-width:11.8rem}.loops{bottom:4.85rem}.map-window:after{opacity:.12}
     }
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition-duration:.01ms!important}.universe{will-change:auto}.record-scrim{backdrop-filter:none}}
