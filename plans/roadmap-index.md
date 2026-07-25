@@ -6,7 +6,7 @@
 > fix the doc. **After every ship:** agents prune [future-improvements](future-improvements.md) and
 > refresh this index in the same commit ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
-_Last audited against `main` on 2026-07-24 (HEAD `5f7d4be`; prior stamp `1ceceaf`)._
+_Last audited against `main` on 2026-07-25 (HEAD `5e3900c`; prior stamp `5f7d4be`)._
 
 ## Plan-doc status
 
@@ -22,6 +22,7 @@ _Last audited against `main` on 2026-07-24 (HEAD `5f7d4be`; prior stamp `1ceceaf
 
 | Area | Shipped in | Notes |
 | ---- | ---------- | ----- |
+| Public Fleet Atlas concepts | `5e3900c` (#12; foundations #11, concepts #13/#14) | Three scrubbed static concepts are live and cross-linked: Mission Control at `/fleet-v1`, canonical Orbital Plate II at `/fleet`, and Personnel Archive at `/fleet-v3`; `/fleet-v2` redirects to the canonical route. Desktop/mobile UX checks passed with no overflow or console errors; public portrait payload reduced from ~2.1 MB to ~0.9 MB. |
 | Case "How it looks" → real-app screens | `302a097` + `1ceceaf` | Every project case renders faithful live-coded product screens instead of wireframes: **Newfin** (web Home surface + Persik chat), **B-Unit** (The System daily board + Coach Dashboard, rebuilt from the parents landing), **Draw** (round-robin standings + wallet/crypto, from the real repo). **Newfin landing hero** (`site/newfin/`) became an animated desktop Home dashboard; its "Surfaces" phone mockups scale via container queries with demo figures. **Draw case corrected to fact**: live in production / run for months / Sergei = contributor (player balances, crypto NOWPayments, design polish) — was wrongly "in dev". Floating visit-CTA (bottom-center) + browser-back fixes (About/Writing panels in history; Safari deferred deep-entry pushState). Rams gate all green (0 critical; 79–93/100). Companion agent PRs `6dfe6c7`/`b31f495` (Fablio/Codexio): mobile-CTA + Draw-case faithful match-card figure + jump-free hero→case motion. |
 | Case-view expansion + maker's mark | `8ca67df` | Four case views (Newfin/B-Unit/Rodyna/Draw) to Jackie-OS flagship depth: data-driven loop/day/before-after/truths sections + signature canvases (net-worth stack, XP/streak, self-resolving bracket; Rodyna bilingual duo card). Deep links `/#<id>` with history/back support. Maker's-mark footer: Newfin landing → `/#newfin`; bunit parents pages (bunit repo `684cc36`) → `/#bunit`. Rams 87/100, 0 critical; a11y fixes applied (hero role, dialog roles + focus trap, mobile touch hint, tokenized grays). |
 | Newfin marketing landing | `ecfd302` (+ variants) | Keeper `/newfin`: Opus household-book copy, How-it-works ×5, redacted live UI screenshots (Home/Portfolio/Cashflow/Trading), scroll Feature Stack. Also live: `/newfin-fable` (`625957c`), `/newfin-fable-2` (`bf186d6`). |
