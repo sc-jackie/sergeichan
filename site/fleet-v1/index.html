@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" class="is-booting">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fleet Atlas — a frozen operational snapshot of a five-agent software team.">
+  <title>Fleet Atlas · Mission Control</title>
+  <link rel="stylesheet" href="/fleet-v1/fleet.css">
+  <script src="/fleet-v1/fleet.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#console">Skip to mission control</a>
+  <div class="boot" aria-hidden="true" style="pointer-events: none">
+    <p>FLEET ATLAS <span>/</span> SURVEYOR ARRAY</p>
+    <div class="boot__track"><i></i></div>
+    <small>CALIBRATING FIVE CHANNELS</small>
+  </div>
+
+  <header class="topbar">
+    <div class="wordmark">
+      <span class="eyebrow">PUBLIC ARCHIVE · CONCEPT I</span>
+      <h1>FLEET / MISSION CONTROL</h1>
+    </div>
+    <div class="topbar__status">
+      <span class="status-lamp" aria-hidden="true"></span>
+      <span>FROZEN SNAPSHOT</span>
+      <time id="captured-at">—</time>
+    </div>
+    <nav class="variants" aria-label="Fleet Atlas concepts">
+      <a href="/fleet-v1" aria-current="page"><b>I</b><span>Control</span></a>
+      <a href="/fleet"><b>II</b><span>Orbit</span></a>
+      <a href="/fleet-v3"><b>III</b><span>Record</span></a>
+    </nav>
+  </header>
+
+  <main id="console" class="console" tabindex="-1">
+    <section class="panel roster-panel" aria-labelledby="roster-title">
+      <header class="panel__head">
+        <div><span>01 / ARRAY</span><h2 id="roster-title">Fleet channels</h2></div>
+        <p><kbd>Tab</kbd> to interrogate</p>
+      </header>
+      <div id="agent-roster" class="agent-roster" aria-label="Five agent channels"></div>
+    </section>
+
+    <section class="panel radar-panel" aria-labelledby="radar-title">
+      <header class="panel__head">
+        <div><span>02 / SURVEY</span><h2 id="radar-title">Operational field</h2></div>
+        <p id="radar-readout">ALL CHANNELS</p>
+      </header>
+      <div class="radar-layout">
+        <div class="radar" aria-hidden="true">
+          <div class="radar__sweep"></div>
+          <i class="ping ping--1"></i><i class="ping ping--2"></i><i class="ping ping--3"></i><i class="ping ping--4"></i><i class="ping ping--5"></i>
+          <span class="radar__axis radar__axis--x"></span><span class="radar__axis radar__axis--y"></span>
+        </div>
+        <dl class="counters" id="counters">
+          <div><dt>Agents</dt><dd data-counter="agents">00</dd></div>
+          <div><dt>Sessions</dt><dd data-counter="sessions">00</dd></div>
+          <div><dt>Issues</dt><dd data-counter="issues">00</dd></div>
+          <div><dt>Completed</dt><dd data-counter="completed">00</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="panel detail-panel" aria-labelledby="detail-name" aria-live="polite">
+      <header class="panel__head">
+        <div><span>03 / IDENT</span><h2>Channel detail</h2></div>
+        <p id="detail-index">01 / 05</p>
+      </header>
+      <div class="detail" id="agent-detail">
+        <div class="detail__portrait"><img id="detail-image" src="/fleet/assets/fablio.png" alt=""><span id="detail-lane">—</span></div>
+        <div class="detail__copy">
+          <p class="detail__model" id="detail-model">—</p>
+          <h3 id="detail-name">Loading fleet…</h3>
+          <p class="detail__role" id="detail-role">—</p>
+          <p class="detail__blurb" id="detail-blurb">Reading the committed public snapshot.</p>
+          <dl class="detail__stats"><div><dt>Sessions</dt><dd id="detail-sessions">—</dd></div><div><dt>Activity</dt><dd id="detail-activity">—</dd></div></dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel loop-panel" aria-labelledby="loop-title">
+      <header class="panel__head">
+        <div><span>04 / ROUTING</span><h2 id="loop-title">Delegation loop</h2></div>
+        <p>INTENT → RELAY</p>
+      </header>
+      <ol class="process" id="delegation-loop"></ol>
+    </section>
+
+    <section class="panel compound-panel" aria-labelledby="compound-title">
+      <header class="panel__head">
+        <div><span>05 / MEMORY</span><h2 id="compound-title">Compound loop</h2></div>
+        <p>WORK BECOMES SYSTEM</p>
+      </header>
+      <ol class="compound" id="compound-loop"></ol>
+    </section>
+
+    <section class="panel ledger-panel" aria-labelledby="ledger-title">
+      <header class="panel__head ledger-head">
+        <div><span>06 / OUTPUT</span><h2 id="ledger-title">Issue ledger</h2></div>
+        <button type="button" id="clear-filter" hidden>Clear channel filter</button>
+      </header>
+      <div class="state-rail" id="state-rail" aria-label="Issue state totals"></div>
+      <div class="ledger" id="issue-ledger"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>STATIC PUBLIC RECORD · NO LIVE CONTROL PLANE</span>
+    <span id="record-count">— RECORDS</span>
+  </footer>
+  <p id="load-status" class="sr-only" role="status"></p>
+</body>
+</html>
