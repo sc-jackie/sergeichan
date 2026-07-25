@@ -68,7 +68,7 @@
     return `<div class="record-register"><span>Personnel record / ${String(record.index + 1).padStart(2, '0')}</span><span>Plate ${escapeHtml(agent.id.toUpperCase())}-${state.data.capturedAt.replaceAll('-', '')}</span></div>
       <div class="identity-grid">
         <figure class="portrait-plate">
-          <div class="portrait-wrap"><img src="../${escapeHtml(agent.portrait)}" alt="Portrait of ${escapeHtml(agent.name)}" width="512" height="512"></div>
+          <div class="portrait-wrap"><img src="/fleet/${escapeHtml(agent.portrait)}" alt="Portrait of ${escapeHtml(agent.name)}" width="512" height="512"></div>
           <figcaption><span>Classified photograph</span><span>Public extract</span></figcaption>
         </figure>
         <div class="identity-copy">
@@ -319,7 +319,7 @@
 
   async function init() {
     try {
-      const response = await fetch('../data.json');
+      const response = await fetch('/fleet/data.json');
       if (!response.ok) throw new Error(`Archive returned ${response.status}`);
       state.data = await response.json();
       state.records = buildRecords(state.data);

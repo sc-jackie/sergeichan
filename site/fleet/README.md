@@ -1,7 +1,7 @@
 # Fleet Atlas data contract
 
 `data.json` is the frozen, public-safe snapshot shared by the three Fleet Atlas
-concepts at `/fleet`, `/fleet/v2`, and `/fleet/v3`. Public pages must read this
+concepts at `/fleet-v1`, `/fleet`, and `/fleet-v3`. Public pages must read this
 relative static file only. They must not call the private Jackie-OS dashboard or
 any `/api/*` route.
 

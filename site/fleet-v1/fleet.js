@@ -12,7 +12,7 @@ function renderRoster() {
     <button class="agent-card${agent.id === state.activeAgent ? ' is-active' : ''}" type="button"
       data-agent="${agent.id}" aria-pressed="${agent.id === state.activeAgent}" style="${channelStyle(agent)}"
       aria-label="Inspect ${agent.name}, ${agent.role}">
-      <img src="${agent.portrait}" alt="" loading="eager">
+      <img src="/fleet/${agent.portrait}" alt="" loading="eager">
       <span class="agent-card__meta"><b>${agent.name}</b><small>${agent.lane}</small></span>
       <i class="agent-card__bar" aria-hidden="true"></i>
     </button>`).join('');
@@ -29,7 +29,7 @@ function previewAgent(id) {
   const index = state.data.agents.indexOf(agent);
   const detail = $('#agent-detail');
   detail.style.setProperty('--channel', agent.accent);
-  $('#detail-image').src = agent.portrait;
+  $('#detail-image').src = `/fleet/${agent.portrait}`;
   $('#detail-image').alt = `${agent.name}, ${agent.role}`;
   $('#detail-lane').textContent = agent.lane;
   $('#detail-model').textContent = agent.model;
@@ -86,7 +86,7 @@ function renderTotals() {
 
 async function init() {
   try {
-    const response = await fetch('data.json', { cache: 'no-store' });
+    const response = await fetch('/fleet/data.json', { cache: 'no-store' });
     if (!response.ok) throw new Error(`Snapshot returned ${response.status}`);
     state.data = await response.json();
     $('#captured-at').dateTime = state.data.capturedAt;
