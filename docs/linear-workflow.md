@@ -6,6 +6,9 @@ sessions. This is the short, repo-specific version; the **canonical full manual*
 deploy) lives in `~/dev/bunit/docs/linear-workflow.md` — read it for anything not
 covered here.
 
+
+**Fleet cadence (2026-07-26):** one Linear recurring issue — **Fablio PM pass** every **3 days** — runs Loop A (refine inbox) **and** light project status updates in the same session. No separate weekly status template. Hermes Linear PM/PO cron (if enabled) stays reconciliation-only.
+
 ## IDs
 
 | Thing | Value |
