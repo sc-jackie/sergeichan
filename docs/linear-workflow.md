@@ -56,3 +56,17 @@ To let **Cyrus** / **Codex** build delegated issues: `ssh hermes` →
 `cyrus self-add-repo https://github.com/sc-jackie/sergeichan evegelin` →
 `systemctl --user restart cyrus.service`; put a `Personal Website` routing label
 on any delegated issue. Full playbook: canonical manual § Agents + Rollout.
+
+## Fleet PR standard (Draw #88 style — mandatory)
+
+**One work unit = one PR.** Related fixes/bugs → one PR; one feature → one PR. No docs-only PRs — fold audits/notes into the implementing PR. **Parent opens the draft PR**; workers push into that branch (no sibling PRs). Combine sibling micro-fix PRs and close them as superseded.
+
+**PR body for maintainers (not agents):**
+1. `## Big UX changes (review these first)` + jump-link TOC whenever user/admin UX changes
+2. Each big change: **Who** · **Where** · Before → After in plain sentences
+3. Embed **real annotated screenshots** next to that item (public CDN URLs)
+4. Then `## Smaller / chrome`, `## How to check`, `## Tickets` (last)
+
+**Linear mirrors the PR:** one parent = the PR; each Big UX/ticket = sub-issue. **Lifecycle:** parent opens draft → workers push in → **Fablio** reviews each kid → kid **Done** only after review → when **all** kids Done, **Fablio** publishes → parent **In Review** until merge → parent **Done**.
+
+Non-UI PRs: plain before/after + checklist + tickets. Canonical: Jackie-OS `System/agents/_shared/team-rules.md` §6–8. Example: AleannLab/draw#88 · EVE-160.
