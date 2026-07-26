@@ -5,6 +5,8 @@ problem_type: workflow-issues
 date: 2026-07-24
 ---
 
+> **Retired 2026-07-26.** Rams MCP was fully removed (Codexio sergeichan attach + CLAUDE.md gate). Keep this note only as historical how-to if the tool is ever reconsidered.
+
 # Running the Rams review when the MCP isn't attached to the session
 
 The CLAUDE.md gate requires a Rams review before UI commits, but a session may
