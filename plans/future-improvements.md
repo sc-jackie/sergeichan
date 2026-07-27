@@ -2,7 +2,8 @@
 
 > **Idea backlog, not committed scope.** Candidate features and polish to pull from
 > later. The owner prioritizes; nothing here is committed until it becomes a dated
-> plan. Shipped work — [roadmap index](roadmap-index.md) and [`plans/archive/`](archive/).
+> plan or Linear issue. Shipped work — [roadmap index](roadmap-index.md)
+> (plan bodies deleted on ship; git history recovers them).
 >
 > **Maintenance:** after any ship covering a line here, agents remove or **🔵**-refine it and bump
 > [roadmap-index.md](roadmap-index.md) in the same commit
