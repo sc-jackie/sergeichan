@@ -8,6 +8,8 @@
 > [roadmap-index.md](roadmap-index.md) in the same commit
 > ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
+_Last audited against `main` on 2026-07-27 (Fleet Atlas Marketio/Scriptio portraits)._
+
 Created 2026-07-11 at project onboarding.
 
 ---

@@ -6,7 +6,7 @@
 > fix the doc. **After every ship:** agents prune [future-improvements](future-improvements.md) and
 > refresh this index in the same commit ([wrap-up § Catalog cleanup](~/Jackie-OS/System/skills/wrap-up/SKILL.md#catalog-cleanup)).
 
-_Last audited against `main` on 2026-07-25 (HEAD `5e3900c`; prior stamp `5f7d4be`)._
+_Last audited against `main` on 2026-07-27 (HEAD `44a3471` — Fleet Atlas Marketio/Scriptio portraits #15/#16)._
 
 ## Plan-doc status
 
@@ -16,7 +16,7 @@ _Last audited against `main` on 2026-07-25 (HEAD `5e3900c`; prior stamp `5f7d4be
 | 2026-07-23 maker-mark + case expansion | ✅ shipped `8ca67df` (body deleted per delete-on-ship policy) | — |
 | [future-improvements](future-improvements.md) | 📋 catalog | owner-prioritized backlog (task queue itself lives in Linear — Personal Website project) |
 
-**Genuinely-remaining catalog surface (2026-07-24):** two items: first essay (EVE-79) and custom domain (EVE-80). EVE-78 is shipped in the faithful live-coded case frames (`1ceceaf`) and has been removed from the active catalog. Newfin product marketing at `/newfin` is live.
+**Genuinely-remaining catalog surface (2026-07-27):** two items: first essay (EVE-79) and custom domain (EVE-80). Fleet Atlas portraits for Marketio + Scriptio shipped (`44a3471`). Newfin product marketing at `/newfin` is live.
 
 ## Shipped
 
