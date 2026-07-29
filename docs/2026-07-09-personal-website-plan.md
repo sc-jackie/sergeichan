@@ -3,7 +3,7 @@
 **Date:** 2026-07-09 · **Status:** plan, awaiting Sergei's go + open decisions below
 **Brief:** minimal site focused on work and content; subtle Three.js; exceptional attention to detail; perfect typography, information architecture, and hierarchy.
 
-> **Amended same day (v2), per Sergei:** (1) no flagship framing around `ai-os-quickstart` —
+> **Amended same day (v2), per Sergei:** (1) no single flagship —
 > **equal-weight case studies for every project** (Jackie-OS, Newfin, B-Unit, Rodyna, Draw), each
 > showcased with its own Three.js-style scene; (2) §6's Ledger anchoring is **dropped** — the
 > visual language will be slick-minimal with a bolder Three.js presence, chosen from
@@ -28,7 +28,7 @@ Not a portfolio in the 2015 sense (grid of thumbnails), and not a blog platform.
 - "I build systems where humans and AI agents work as one team."
 
 **What makes the body of work distinctive** (this is the pitch, and it's true):
-Sergei doesn't just ship apps — he ships **an operating system for his life and businesses** where autonomous agents do real work daily (morning briefs, code dispatch from a Linear backlog, deploys, journal capture). Jackie-OS + the public `ai-os-quickstart` template is the flagship; Newfin, Rodyna, B-Unit, Draw are the products riding its rails. Very few individuals can show a working multi-agent operation of this depth. Lead with it.
+Sergei doesn't just ship apps — he ships **an operating system for his life and businesses** where autonomous agents do real work daily (morning briefs, code dispatch from a Linear backlog, deploys, journal capture). Jackie-OS is the system; Newfin, Rodyna, B-Unit, Draw are the products riding its rails. Very few individuals can show a working multi-agent operation of this depth. Lead with it.
 
 **Goals (ranked):**
 1. A credible, current answer to "who is this person and what can he do" — for collaborators, clients, employers, and the Warsaw/EU tech scene.
@@ -54,7 +54,7 @@ Sergei doesn't just ship apps — he ships **an operating system for his life an
 
 ### 3.1 Public work (case-study candidates, in recommended order)
 
-1. **Jackie-OS / ai-os-quickstart** — flagship. Personal AI operating system: Obsidian vault as memory, markdown skills as contracts, a 24/7 VPS agent (Hermes) running cron briefs, journal capture, autonomous code agents dispatching from Linear. Public artifact already exists: [github.com/sc-jackie/ai-os-quickstart](https://github.com/sc-jackie/ai-os-quickstart). Strongest story; entirely defensible to publish (architecture, not contents).
+1. **Jackie-OS** — flagship. Personal AI operating system: Obsidian vault as memory, markdown skills as contracts, a 24/7 VPS agent (Hermes) running cron briefs, journal capture, autonomous code agents dispatching from Linear. Strongest story; entirely defensible to publish (architecture, not contents).
 2. **Newfin** — open-source personal-finance platform: net worth across crypto/real-estate/private deals, LLM advisor, household Telegram bot, "The Ledger" editorial design system. **Present with demo/seed data only — never real figures.**
 3. **Rodyna** — Telegram-first bilingual (EN/UK) family recipe app; AI ingestion from YouTube/photos; multi-tenant, ~$0/mo. Warm human story (Vietnamese-Ukrainian family in Warsaw) — the case study where the two-cultures identity shows through product.
 4. **B-Unit** — gamified habit/quest economy for a teenager; two autonomous coding agents working the backlog. Good "agents shipping production code" story.
