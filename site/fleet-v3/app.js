@@ -78,6 +78,8 @@
           <div class="fact-grid">
             <div class="fact"><span>Assigned lane</span><strong>${escapeHtml(agent.lane)}</strong></div>
             <div class="fact"><span>Service model</span><strong>${escapeHtml(agent.model)}</strong></div>
+            <div class="fact"><span>Subscription</span><strong>${escapeHtml(agent.subscription || '—')}</strong></div>
+            <div class="fact"><span>Est. spend</span><strong>${agent.stats.costUsd == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(agent.stats.costUsd)}</strong></div>
             <div class="fact"><span>Sessions</span><strong>${agent.stats.sessions}</strong></div>
             <div class="fact"><span>Activity</span><strong>${agent.stats.activity} ${activityLabel}</strong></div>
           </div>
@@ -110,6 +112,7 @@
         <div class="overview-stat"><strong>${totals.agents}</strong><span>agents</span></div>
         <div class="overview-stat"><strong>${totals.sessions}</strong><span>sessions</span></div>
         <div class="overview-stat"><strong>${totals.issues}</strong><span>issues</span></div>
+        <div class="overview-stat"><strong>${totals.estimatedCostUsd7d == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(totals.estimatedCostUsd7d)}</strong><span>7d est.</span></div>
       </div>
       <section class="record-section" aria-labelledby="roster-title"><h3 id="roster-title">Personnel roster</h3>
         <ul class="issue-list">${state.data.agents.map(agent => `<li class="issue-row"><button type="button" data-record="${escapeHtml(agent.id)}">${escapeHtml(agent.name)}</button><p>${escapeHtml(agent.role)}</p><span class="state">${escapeHtml(agent.lane)}</span></li>`).join('')}</ul>

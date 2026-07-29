@@ -15,10 +15,10 @@ const FORBIDDEN_TEXT = [
   /127\.0\.0\.1/i,
   /localhost/i,
   /:8\d{0,4}\b/,
-  /\bspend\b/i,
-  /\bcost\b/i,
   /\baleann(?:lab)?\b/i,
   /\bdraw\b/i,
+  /192\.168\./,
+  /167\.233\./,
 ];
 
 const AGENTS = [
@@ -27,7 +27,8 @@ const AGENTS = [
     name: "Fablio",
     role: "CEO / CPO / CTO orchestrator",
     lane: "orchestration",
-    model: "Claude Fable 5",
+    model: "Claude Opus 5",
+    subscription: "Claude Code",
     blurb: "Turns intent into a sequenced plan, routes work by specialty, and holds the review bar before anything ships.",
   },
   {
@@ -36,6 +37,7 @@ const AGENTS = [
     role: "Fast, spec-driven implementer",
     lane: "implementation",
     model: "Cursor Auto",
+    subscription: "Cursor",
     blurb: "Handles crisp, mechanical builds and refactors quickly, keeping scoped work moving through the queue.",
   },
   {
@@ -43,7 +45,8 @@ const AGENTS = [
     name: "Codexio",
     role: "Design lead and design engineer",
     lane: "design",
-    model: "Codex GPT-5.6 Sol",
+    model: "Claude Opus 5",
+    subscription: "Claude Code",
     blurb: "Shapes interfaces, interaction, and visual systems, then builds and verifies the experience in the browser.",
   },
   {
@@ -51,17 +54,50 @@ const AGENTS = [
     name: "Cyrusio",
     role: "Delivery engineer, scoped issue to tested PR",
     lane: "delivery",
-    model: "Claude Sonnet 5",
+    model: "Cursor Auto",
+    subscription: "Cursor",
     blurb: "Carries well-defined issues from implementation through tests and a review-ready pull request.",
+  },
+  {
+    id: "marketio",
+    name: "Marketio",
+    role: "CMO — strategy, SEO, GTM briefs",
+    lane: "marketing",
+    model: "Cursor Auto",
+    subscription: "Cursor",
+    blurb: "Owns positioning, messaging, and SEO strategy; briefs the producer and reviews drafts before they reach the owner.",
+  },
+  {
+    id: "scriptio",
+    name: "Scriptio",
+    role: "Content producer from briefs",
+    lane: "content",
+    model: "Cursor Auto",
+    subscription: "Cursor",
+    blurb: "Turns approved briefs into posts, scripts, page copy, and video drafts without inventing strategy.",
   },
   {
     id: "hermes",
     name: "Hermes",
     role: "Always-on operations relay",
     lane: "operations",
-    model: "Hermes Agent",
+    model: "Cursor Agent",
+    subscription: "Cursor",
     blurb: "Keeps scheduled rhythms, briefs, handoffs, and production operations moving between coding sessions.",
   },
+];
+
+const HOSTS = [
+  { id: "macbook", label: "MacBook", role: "Operator client" },
+  { id: "home-pc", label: "Home PC", role: "Local workstation · opportunistic agents" },
+  { id: "hermes-vps", label: "Hetzner VPS", role: "Always-on hive · Hermes + Cyrus" },
+];
+
+const SUBSCRIPTIONS = [
+  { id: "cursor", label: "Cursor", primary: true },
+  { id: "claude-code", label: "Claude Code", primary: true },
+  { id: "openai-plus", label: "OpenAI Plus", primary: false },
+  { id: "gemini-free", label: "Gemini free", primary: false },
 ];
 
 const REPOS = [
@@ -221,11 +257,17 @@ async function main() {
   let capturedAt = process.env.FLEET_CAPTURED_AT || new Date().toISOString().slice(0, 10);
   let sourceAgents;
   let sourceIssues;
+  let sourceSpend = { agents: {}, fleet: {}, bySubscriptionAgent: {} };
 
   if (refresh) {
-    const [fleet, linear] = await Promise.all([getJson("/api/fleet"), getJson("/api/linear")]);
+    const [fleet, linear, spend] = await Promise.all([
+      getJson("/api/fleet"),
+      getJson("/api/linear"),
+      getJson("/api/spend").catch(() => ({ agents: {}, fleet: {} })),
+    ]);
     sourceAgents = Array.isArray(fleet.agents) ? fleet.agents : [];
     sourceIssues = Array.isArray(linear.issues) ? linear.issues : [];
+    sourceSpend = spend && typeof spend === "object" ? spend : { agents: {}, fleet: {} };
   } else {
     const frozen = JSON.parse(await readFile(OUTPUT, "utf8"));
     capturedAt = process.env.FLEET_CAPTURED_AT || frozen.capturedAt;
@@ -247,19 +289,32 @@ async function main() {
       project: REPOS.find((repo) => repo.key === issue.repo)?.projects[0],
       updatedAt: issue.updatedAt,
     }));
+    sourceSpend = {
+      agents: Object.fromEntries(
+        (frozen.agents || []).map((agent) => [agent.id, { costUsd: agent.stats?.costUsd ?? null }]),
+      ),
+      fleet: {
+        costUsd: frozen.totals?.estimatedCostUsd ?? null,
+        costUsd7d: frozen.totals?.estimatedCostUsd7d ?? null,
+      },
+      bySubscriptionAgent: frozen.totals?.bySubscription || {},
+    };
   }
 
   const agents = await Promise.all(AGENTS.map(async (agent) => {
     const portrait = `assets/${agent.id}.png`;
     const portraitOriginal = `assets/originals/${agent.id}.png`;
     const source = sourceAgents.find((candidate) => candidate.name === agent.id);
+    const spend = sourceSpend.agents?.[agent.id] || {};
     const accent = sampleAccent(await readFile(resolve(ROOT, "site/fleet", portrait)));
+    const cost = spend.costUsd;
     return {
       id: agent.id,
       name: agent.name,
       role: agent.role,
       lane: agent.lane,
       model: agent.model,
+      subscription: agent.subscription,
       blurb: agent.blurb,
       accent: accent.hex,
       accentRgb: accent.rgb,
@@ -268,6 +323,7 @@ async function main() {
       stats: {
         sessions: Number(source?.sessions?.started || 0),
         activity: Number(source?.sessions?.ok || 0) + Number(source?.sessions?.err || 0),
+        costUsd: Number.isFinite(Number(cost)) ? Number(Number(cost).toFixed(2)) : null,
       },
     };
   }));
@@ -294,10 +350,13 @@ async function main() {
   const byState = {};
   for (const issue of issues) byState[issue.stateType] = (byState[issue.stateType] || 0) + 1;
 
+  const bySub = sourceSpend.bySubscriptionAgent || {};
   const snapshot = {
     capturedAt,
     generatedBy: "scripts/build-fleet-snapshot.mjs",
     agents,
+    hosts: HOSTS,
+    subscriptions: SUBSCRIPTIONS,
     loops: LOOPS,
     issues,
     repos: REPOS.map(({ key, label }) => ({ key, label })),
@@ -306,6 +365,19 @@ async function main() {
       sessions: agents.reduce((sum, agent) => sum + agent.stats.sessions, 0),
       issues: issues.length,
       byState,
+      estimatedCostUsd: Number.isFinite(Number(sourceSpend.fleet?.costUsd))
+        ? Number(Number(sourceSpend.fleet.costUsd).toFixed(2))
+        : null,
+      estimatedCostUsd7d: Number.isFinite(Number(sourceSpend.fleet?.costUsd7d))
+        ? Number(Number(sourceSpend.fleet.costUsd7d).toFixed(2))
+        : null,
+      bySubscription: {
+        claude: Number(bySub.claude?.costUsd || 0),
+        cursor: Number(bySub.cursor?.costUsd || 0),
+        codex: Number(bySub.codex?.costUsd || 0),
+        hermes: Number(bySub.hermes?.costUsd || 0),
+      },
+      costNote: "Estimated list-price token cost from AgentsView — not the subscription invoice.",
     },
   };
 

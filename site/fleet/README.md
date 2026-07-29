@@ -11,15 +11,18 @@ The top-level keys are fixed:
 
 - `capturedAt` — ISO `YYYY-MM-DD` date shown by every concept.
 - `generatedBy` — generator path.
-- `agents` — the five public agent records. Every record contains `id`, `name`,
-  `role`, one-word `lane`, `model`, public-safe `blurb`, sampled `accent`,
-  `accentRgb`, relative portrait paths, and integer `stats.sessions` /
-  `stats.activity`.
+- `agents` — public agent records. Every record contains `id`, `name`,
+  `role`, one-word `lane`, `model`, `subscription`, public-safe `blurb`, sampled
+  `accent`, `accentRgb`, relative portrait paths, and `stats.sessions` /
+  `stats.activity` / optional `stats.costUsd` (AgentsView list-price estimate).
+- `hosts` — public-safe host roles (MacBook, Home PC, Hetzner VPS) with no IPs.
+- `subscriptions` — Cursor, Claude Code, OpenAI Plus, Gemini free.
 - `loops.delegation` and `loops.compound` — ordered public-safe process steps.
 - `issues` — scrubbed Linear identifiers, titles, states, state types, agent,
   repository key, and date-only update timestamps.
 - `repos` — repository keys and public labels referenced by issues.
-- `totals` — agent, session, and issue counts plus issue counts by state type.
+- `totals` — agent/session/issue counts, optional `estimatedCostUsd` /
+  `estimatedCostUsd7d`, `bySubscription`, and `costNote`.
 
 Do not rename fields or add a concept-specific shape. Derive view state inside
 each concept.
@@ -40,11 +43,12 @@ dashboard must be running locally:
 node scripts/build-fleet-snapshot.mjs --refresh
 ```
 
-The script uses Node built-ins only. Refresh mode reads `/api/fleet` and
-`/api/linear` at build time, whitelists the public fields, maps approved projects
-to repository keys, removes third-party client work by project and title, and
-rejects known secret/path/network terms before writing. Plain mode rebuilds from
-the committed frozen values, making repeat concept builds byte-identical.
+The script uses Node built-ins only. Refresh mode reads `/api/fleet`,
+`/api/linear`, and `/api/spend` at build time, whitelists the public fields,
+maps approved projects to repository keys, removes third-party client work by
+project and title, and rejects known secret/path/network terms before writing.
+Plain mode rebuilds from the committed frozen values, making repeat concept
+builds byte-identical.
 
 Override the local dashboard origin or capture date during a refresh when
 needed:
@@ -55,8 +59,9 @@ FLEET_CAPTURED_AT=2026-07-24 \
 node scripts/build-fleet-snapshot.mjs --refresh
 ```
 
-Review the diff by hand after every refresh. Never add spend/cost data, private
-persona or memory text, prompts, rules, host details, or absolute paths.
+Review the diff by hand after every refresh. Never add private persona or
+memory text, prompts, rules, LAN/public IPs, absolute paths, or invoice
+secrets. Estimated AgentsView list-price costs are allowed.
 
 ## Accent sampling
 
@@ -69,7 +74,7 @@ deterministic.
 
 ## Portrait sources
 
-The five display portraits and their high-resolution originals come from
+The display portraits and their high-resolution originals come from
 Jackie-OS `System/agents/dashboard/assets/`. Original filenames are normalized
 to the agent ID. Hermes' JPEG reference is losslessly decoded and re-encoded as
 PNG so all concept consumers share the same path and file type.

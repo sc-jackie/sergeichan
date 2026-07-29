@@ -1,13 +1,13 @@
 {
-  "capturedAt": "2026-07-26",
-  "generatedBy": "scripts/build-fleet-snapshot.mjs",
+  "capturedAt": "2026-07-29",
+  "generatedBy": "scripts/build-fleet-snapshot.mjs + agentsview patch 2026-07-29",
   "agents": [
     {
       "id": "fablio",
       "name": "Fablio",
       "role": "CEO / CPO / CTO orchestrator",
       "lane": "orchestration",
-      "model": "Claude Fable 5",
+      "model": "Claude Opus 5",
       "blurb": "Turns intent into a sequenced plan, routes work by specialty, and holds the review bar before anything ships.",
       "accent": "#A62B61",
       "accentRgb": [
@@ -19,8 +19,10 @@
       "portraitOriginal": "assets/originals/fablio.png",
       "stats": {
         "sessions": 9,
-        "activity": 11
-      }
+        "activity": 11,
+        "costUsd": 0.8
+      },
+      "subscription": "Claude Code"
     },
     {
       "id": "cursorio",
@@ -39,15 +41,17 @@
       "portraitOriginal": "assets/originals/cursorio.png",
       "stats": {
         "sessions": 4,
-        "activity": 6
-      }
+        "activity": 6,
+        "costUsd": 0.0
+      },
+      "subscription": "Cursor"
     },
     {
       "id": "codexio",
       "name": "Codexio",
       "role": "Design lead and design engineer",
       "lane": "design",
-      "model": "Codex GPT-5.6 Sol",
+      "model": "Claude Opus 5",
       "blurb": "Shapes interfaces, interaction, and visual systems, then builds and verifies the experience in the browser.",
       "accent": "#2030D8",
       "accentRgb": [
@@ -59,15 +63,17 @@
       "portraitOriginal": "assets/originals/codexio.png",
       "stats": {
         "sessions": 24,
-        "activity": 15
-      }
+        "activity": 15,
+        "costUsd": 0.8
+      },
+      "subscription": "Claude Code"
     },
     {
       "id": "cyrusio",
       "name": "Cyrusio",
       "role": "Delivery engineer, scoped issue to tested PR",
       "lane": "delivery",
-      "model": "Claude Sonnet 5",
+      "model": "Cursor Auto",
       "blurb": "Carries well-defined issues from implementation through tests and a review-ready pull request.",
       "accent": "#B84816",
       "accentRgb": [
@@ -79,15 +85,17 @@
       "portraitOriginal": "assets/originals/cyrusio.png",
       "stats": {
         "sessions": 2,
-        "activity": 2
-      }
+        "activity": 2,
+        "costUsd": 0.0
+      },
+      "subscription": "Cursor"
     },
     {
       "id": "marketio",
       "name": "Marketio",
-      "role": "CMO \u2014 strategy, SEO, GTM briefs",
+      "role": "CMO — strategy, SEO, GTM briefs",
       "lane": "marketing",
-      "model": "Claude Opus 5",
+      "model": "Cursor Auto",
       "blurb": "Owns positioning, messaging, and SEO strategy; briefs the producer and reviews drafts before they reach the owner.",
       "accent": "#2A9D6E",
       "accentRgb": [
@@ -99,15 +107,17 @@
       "portraitOriginal": "assets/originals/marketio.png",
       "stats": {
         "sessions": 0,
-        "activity": 0
-      }
+        "activity": 0,
+        "costUsd": 0.0
+      },
+      "subscription": "Cursor"
     },
     {
       "id": "scriptio",
       "name": "Scriptio",
       "role": "Content producer from briefs",
       "lane": "content",
-      "model": "Claude Sonnet 5",
+      "model": "Cursor Auto",
       "blurb": "Turns approved briefs into posts, scripts, page copy, and video drafts without inventing strategy.",
       "accent": "#C9A227",
       "accentRgb": [
@@ -119,15 +129,17 @@
       "portraitOriginal": "assets/originals/scriptio.png",
       "stats": {
         "sessions": 0,
-        "activity": 0
-      }
+        "activity": 0,
+        "costUsd": 0.0
+      },
+      "subscription": "Cursor"
     },
     {
       "id": "hermes",
       "name": "Hermes",
       "role": "Always-on operations relay",
       "lane": "operations",
-      "model": "Hermes Agent",
+      "model": "Cursor Agent",
       "blurb": "Keeps scheduled rhythms, briefs, handoffs, and production operations moving between coding sessions.",
       "accent": "#0000E5",
       "accentRgb": [
@@ -139,39 +151,41 @@
       "portraitOriginal": "assets/originals/hermes.png",
       "stats": {
         "sessions": 0,
-        "activity": 0
-      }
+        "activity": 0,
+        "costUsd": 0.0
+      },
+      "subscription": "Cursor"
     }
   ],
   "loops": {
     "delegation": [
       {
         "id": "intent",
-        "label": "Sergei \u00b7 intent",
+        "label": "Sergei · intent",
         "detail": "A goal becomes a scoped Linear issue.",
         "agent": "fablio"
       },
       {
         "id": "route",
-        "label": "Fablio \u00b7 route",
+        "label": "Fablio · route",
         "detail": "The work is decomposed and delegated by specialist lane.",
         "agent": "fablio"
       },
       {
         "id": "build",
-        "label": "Specialist \u00b7 build",
+        "label": "Specialist · build",
         "detail": "A focused worktree carries implementation and verification.",
         "agent": "codexio"
       },
       {
         "id": "review",
-        "label": "Team \u00b7 review",
+        "label": "Team · review",
         "detail": "A reviewed pull request is handed to Sergei to merge.",
         "agent": "cyrusio"
       },
       {
         "id": "deploy",
-        "label": "Hermes \u00b7 relay",
+        "label": "Hermes · relay",
         "detail": "Production operations and the next handoff keep moving.",
         "agent": "hermes"
       }
@@ -211,7 +225,7 @@
     },
     {
       "identifier": "EVE-53",
-      "title": "Post-trade thesis prompt \u2014 Persik asks \"why did you open this?\" after a fill syncs",
+      "title": "Post-trade thesis prompt — Persik asks \"why did you open this?\" after a fill syncs",
       "state": "Done",
       "stateType": "completed",
       "agent": "cursorio",
@@ -220,7 +234,7 @@
     },
     {
       "identifier": "EVE-45",
-      "title": "Migration drift alarm \u2014 prod version vs `main` in deploy summary",
+      "title": "Migration drift alarm — prod version vs `main` in deploy summary",
       "state": "Done",
       "stateType": "completed",
       "agent": "cyrusio",
@@ -229,7 +243,7 @@
     },
     {
       "identifier": "EVE-129",
-      "title": "[Foundation] Fleet Atlas \u2014 portraits, scrubbed snapshot + generator (shared by all 3 concepts)",
+      "title": "[Foundation] Fleet Atlas — portraits, scrubbed snapshot + generator (shared by all 3 concepts)",
       "state": "In Progress",
       "stateType": "started",
       "agent": "codexio",
@@ -238,7 +252,7 @@
     },
     {
       "identifier": "EVE-128",
-      "title": "Publish Fleet Atlas publicly \u2014 3 sci-fi interactive concepts (sergeichan)",
+      "title": "Publish Fleet Atlas publicly — 3 sci-fi interactive concepts (sergeichan)",
       "state": "In Progress",
       "stateType": "started",
       "agent": "fablio",
@@ -247,7 +261,7 @@
     },
     {
       "identifier": "EVE-127",
-      "title": "Greenfield: playful visual fleet view \u2014 agent portraits, work + loops",
+      "title": "Greenfield: playful visual fleet view — agent portraits, work + loops",
       "state": "Done",
       "stateType": "completed",
       "agent": "codexio",
@@ -256,7 +270,7 @@
     },
     {
       "identifier": "EVE-126",
-      "title": "Headroom attribution smoke test \u2014 Cyrusio (no code)",
+      "title": "Headroom attribution smoke test — Cyrusio (no code)",
       "state": "Done",
       "stateType": "completed",
       "agent": "cyrusio",
@@ -265,7 +279,7 @@
     },
     {
       "identifier": "EVE-125",
-      "title": "Opus 5 smoke test \u2014 Fablio (no code)",
+      "title": "Opus 5 smoke test — Fablio (no code)",
       "state": "Done",
       "stateType": "completed",
       "agent": "fablio",
@@ -274,7 +288,7 @@
     },
     {
       "identifier": "EVE-124",
-      "title": "Self-check: Cyrusio \u2014 report your understanding (no code)",
+      "title": "Self-check: Cyrusio — report your understanding (no code)",
       "state": "Done",
       "stateType": "completed",
       "agent": "cyrusio",
@@ -283,7 +297,7 @@
     },
     {
       "identifier": "EVE-123",
-      "title": "Self-check: Codexio \u2014 report your understanding (no code)",
+      "title": "Self-check: Codexio — report your understanding (no code)",
       "state": "Done",
       "stateType": "completed",
       "agent": "codexio",
@@ -292,7 +306,7 @@
     },
     {
       "identifier": "EVE-122",
-      "title": "Self-check: Cursorio \u2014 report your understanding (no code)",
+      "title": "Self-check: Cursorio — report your understanding (no code)",
       "state": "Done",
       "stateType": "completed",
       "agent": "cursorio",
@@ -301,7 +315,7 @@
     },
     {
       "identifier": "EVE-121",
-      "title": "Self-check: Fablio \u2014 report your understanding (no code)",
+      "title": "Self-check: Fablio — report your understanding (no code)",
       "state": "Done",
       "stateType": "completed",
       "agent": "fablio",
@@ -310,7 +324,7 @@
     },
     {
       "identifier": "EVE-120",
-      "title": "[Copy] Better-writing pass \u2014 bunit landing / parents pages (EN + VI)",
+      "title": "[Copy] Better-writing pass — bunit landing / parents pages (EN + VI)",
       "state": "In Review",
       "stateType": "started",
       "agent": "codexio",
@@ -319,7 +333,7 @@
     },
     {
       "identifier": "EVE-119",
-      "title": "[Copy] Better-writing pass \u2014 newfin landing (site/newfin/, EN)",
+      "title": "[Copy] Better-writing pass — newfin landing (site/newfin/, EN)",
       "state": "Done",
       "stateType": "completed",
       "agent": "codexio",
@@ -328,7 +342,7 @@
     },
     {
       "identifier": "EVE-118",
-      "title": "[Copy] Better-writing pass \u2014 sergeichan personal site (site/index.html, EN)",
+      "title": "[Copy] Better-writing pass — sergeichan personal site (site/index.html, EN)",
       "state": "In Review",
       "stateType": "started",
       "agent": "codexio",
@@ -337,7 +351,7 @@
     },
     {
       "identifier": "EVE-117",
-      "title": "Better-writing pass \u2014 sergeichan + newfin + bunit landing copy (all languages)",
+      "title": "Better-writing pass — sergeichan + newfin + bunit landing copy (all languages)",
       "state": "In Progress",
       "stateType": "started",
       "agent": "fablio",
@@ -346,7 +360,7 @@
     },
     {
       "identifier": "EVE-115",
-      "title": "[Verification] Mobile floating CTA audit at 390px \u2014 full-flow evidence, no code churn unless it fails",
+      "title": "[Verification] Mobile floating CTA audit at 390px — full-flow evidence, no code churn unless it fails",
       "state": "Done",
       "stateType": "completed",
       "agent": "fablio",
@@ -355,7 +369,7 @@
     },
     {
       "identifier": "EVE-112",
-      "title": "Jackie-OS docs site \u2014 update workers/concepts/architecture to the 4-agent team",
+      "title": "Jackie-OS docs site — update workers/concepts/architecture to the 4-agent team",
       "state": "Done",
       "stateType": "completed",
       "agent": "cursorio",
@@ -364,7 +378,7 @@
     },
     {
       "identifier": "EVE-111",
-      "title": "Jackie-OS case study on / \u2014 add the agent-team orchestration story",
+      "title": "Jackie-OS case study on / — add the agent-team orchestration story",
       "state": "Done",
       "stateType": "completed",
       "agent": "codexio",
@@ -373,7 +387,7 @@
     },
     {
       "identifier": "EVE-109",
-      "title": "Greenfield: design a /now page for sergeichan.com \u2014 go wild, scroll-driven",
+      "title": "Greenfield: design a /now page for sergeichan.com — go wild, scroll-driven",
       "state": "Canceled",
       "stateType": "canceled",
       "agent": "codexio",
@@ -382,7 +396,7 @@
     },
     {
       "identifier": "EVE-85",
-      "title": "Vault wikilink audit tool \u2014 validation reporter",
+      "title": "Vault wikilink audit tool — validation reporter",
       "state": "Done",
       "stateType": "completed",
       "agent": "cyrusio",
@@ -391,7 +405,7 @@
     },
     {
       "identifier": "EVE-49",
-      "title": "Bot error i18n \u2014 localize raw English `Error:` in webhook paths",
+      "title": "Bot error i18n — localize raw English `Error:` in webhook paths",
       "state": "Done",
       "stateType": "completed",
       "agent": "cyrusio",
@@ -400,7 +414,7 @@
     },
     {
       "identifier": "EVE-46",
-      "title": "Recipe dedup by source job \u2014 unique `source_job_id`",
+      "title": "Recipe dedup by source job — unique `source_job_id`",
       "state": "Done",
       "stateType": "completed",
       "agent": "cyrusio",
@@ -409,7 +423,7 @@
     },
     {
       "identifier": "EVE-43",
-      "title": "Remote Mode \u2014 post-visit continuity (habit loops + Telegram weekly verify)",
+      "title": "Remote Mode — post-visit continuity (habit loops + Telegram weekly verify)",
       "state": "Todo",
       "stateType": "unstarted",
       "agent": "cyrusio",
@@ -457,6 +471,54 @@
       "started": 5,
       "canceled": 1,
       "unstarted": 1
+    },
+    "estimatedCostUsd": 1.59,
+    "estimatedCostUsd7d": 860.47,
+    "bySubscription": {
+      "claude": 1.59,
+      "cursor": 0.0,
+      "codex": 0.0,
+      "hermes": 0.0
+    },
+    "costNote": "Estimated list-price token cost from AgentsView — not the subscription invoice."
+  },
+  "hosts": [
+    {
+      "id": "macbook",
+      "label": "MacBook",
+      "role": "Operator client"
+    },
+    {
+      "id": "home-pc",
+      "label": "Home PC",
+      "role": "Local workstation · opportunistic agents"
+    },
+    {
+      "id": "hermes-vps",
+      "label": "Hetzner VPS",
+      "role": "Always-on hive · Hermes + Cyrus"
     }
-  }
+  ],
+  "subscriptions": [
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "primary": true
+    },
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "primary": true
+    },
+    {
+      "id": "openai-plus",
+      "label": "OpenAI Plus",
+      "primary": false
+    },
+    {
+      "id": "gemini-free",
+      "label": "Gemini free",
+      "primary": false
+    }
+  ]
 }

@@ -38,6 +38,8 @@ function previewAgent(id) {
   $('#detail-blurb').textContent = agent.blurb;
   $('#detail-sessions').textContent = String(agent.stats.sessions).padStart(2, '0');
   $('#detail-activity').textContent = String(agent.stats.activity).padStart(2, '0');
+  $('#detail-cost').textContent = agent.stats.costUsd == null ? '—' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(agent.stats.costUsd);
+  $('#detail-sub').textContent = agent.subscription || '—';
   $('#detail-index').textContent = `${String(index + 1).padStart(2, '0')} / ${String(state.data.agents.length).padStart(2, '0')}`;
   $('#radar-readout').textContent = `${agent.name.toUpperCase()} / ${agent.lane.toUpperCase()}`;
 }
@@ -78,10 +80,14 @@ function renderTotals() {
   const values = { agents: totals.agents, sessions: totals.sessions, issues: totals.issues, completed: totals.byState.completed };
   Object.entries(values).forEach(([key, value]) => {
     const node = document.querySelector(`[data-counter="${key}"]`);
-    node.textContent = String(value).padStart(2, '0');
+    if (node) node.textContent = String(value).padStart(2, '0');
   });
   const labels = [['completed', 'Complete'], ['started', 'Active'], ['unstarted', 'Queued'], ['canceled', 'Canceled']];
-  $('#state-rail').innerHTML = labels.map(([key, label]) => `<span>${label}<b>${String(totals.byState[key]).padStart(2, '0')}</b></span>`).join('');
+  $('#state-rail').innerHTML = labels.map(([key, label]) => `<span>${label}<b>${String(totals.byState[key] || 0).padStart(2, '0')}</b></span>`).join('');
+  const costNode = document.querySelector('[data-counter="cost7d"]');
+  if (costNode && totals.estimatedCostUsd7d != null) {
+    costNode.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(totals.estimatedCostUsd7d);
+  }
 }
 
 async function init() {
