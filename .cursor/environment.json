@@ -1,0 +1,7 @@
+{
+  "name": "sergeichan",
+  "install": "npm ci --prefix docs-src",
+  "repositoryDependencies": [
+    "github.com/sc-jackie/jackie-os"
+  ]
+}
