@@ -2,10 +2,25 @@
 type: Explainer
 title: The workers
 description: Autonomous agents and the work flow from idea to merged code.
-tags: [workers, agents, automation, Linear]
+tags: [workers, agents, automation, Linear, Buzz]
 ---
 
-Sergei is CEO. **Four Cyrus-instance agents on the Hermes VPS** are the Linear workers: **Fablio**, **Cursorio**, **Codexio**, and **Cyrusio**. **Hermes** is the general-purpose VPS agent (not a Linear worker). Legacy **Codex** (ChatGPT in GitHub CI) still exists. Interactive sessions on the Mac cover hands-on work. Per-repo routing: each repo's `AGENTS.md` § Choose the right worker.
+Sergei is CEO. **Six named agents** ship via a **cloud factory** kicked by **Hermes** (always-on VPS). **Buzz** (`evegelin.communities.buzz.xyz`) is the multi-device cockpit: Hermes + consult-only personalities. Legacy Cyrus systemd units are hard-cut after cutover smokes (EVE-263). Interactive sessions on Mac/PC cover hands-on work.
+
+## Dual plane
+
+| Plane | Who | Job |
+|-------|-----|-----|
+| Cockpit (Buzz) | `evegelin` + Hermes + personalities | Advise, review, plan |
+| Factory (cloud) | Cursor Cloud / Claude `--cloud` / Codex cloud | Ship PRs / Linear docs after `fleet` |
+
+## Leads
+
+- **Hermes** — cockpit / ops lead; sole durable kick
+- **Fablio** — code project lead (consult) for Newfin, Rodyna, Draw, B-Unit, Jackie OS, Personal Website
+- **Marketio** — content project lead for Marketing, Peaches Beauty
+
+Channels: `#ops` · `#intake` · `#desk` · `#content` — see Jackie-OS `System/buzz/CHANNELS.md`.
 
 ## The dispatch pipeline
 
@@ -15,28 +30,20 @@ Sergei is CEO. **Four Cyrus-instance agents on the Hermes VPS** are the Linear w
     <p>bug, feature, or goal in Linear</p>
   </Step>
   <Step>
-    <h4>Repo label</h4>
-    <p>Newfin · Rodyna · Draw · Jackie-OS · Website · AI-OS (bunit: curriculum/bim)</p>
+    <h4>Buzz (optional)</h4>
+    <p>discuss with personalities in channel / project</p>
   </Step>
   <Step>
-    <h4>Mode label</h4>
-    <p>optional: Plan · Scope · Bug · Debug · Build · Feature</p>
+    <h4>fleet</h4>
+    <p>operator or Hermes claims a run record and kicks the cloud factory</p>
   </Step>
   <Step>
-    <h4>Delegate</h4>
-    <p>assign to the agent whose lane it is</p>
+    <h4>Cloud run</h4>
+    <p>Cursor Cloud, Claude web (`--cloud`), or Codex cloud</p>
   </Step>
   <Step>
-    <h4>Webhook</h4>
-    <p>session starts in under 1s</p>
-  </Step>
-  <Step>
-    <h4>Worktree</h4>
-    <p>isolated clone / worktree on the VPS</p>
-  </Step>
-  <Step>
-    <h4>PR</h4>
-    <p>tested PR with <code>Fixes &#60;ISSUE-ID></code> → In Review</p>
+    <h4>PR / doc</h4>
+    <p>tested PR with <code>Fixes &#60;ISSUE-ID></code> or Linear doc → In Review</p>
   </Step>
   <Step>
     <h4>Merge</h4>
@@ -46,73 +53,43 @@ Sergei is CEO. **Four Cyrus-instance agents on the Hermes VPS** are the Linear w
 
 **merge → merge-poll posts Linear status → project-sync updates vault Status + hot.md**
 
-Giving Fablio a goal issue with `Plan` = full orchestration: he splits it, delegates by lane, reviews results against acceptance criteria, iterates.
-
 ## Who's who
 
 <Cards>
   <Card
-    title="Fablio (Claude Fable 5)"
-    description="CEO/CPO/CTO orchestrator. Plans, decides, reviews, delegates. Plan/Scope labels trigger PM modes: decomposes goals into sub-issues with acceptance criteria and routes them to the team."
+    title="Fablio (Claude)"
+    description="CEO/CPO/CTO orchestrator + Buzz code-project lead. Plans, decides, reviews. Factory: Claude --cloud."
   />
   <Card
-    title="Cursorio (Cursor)"
-    description="Fast implementer — clear specs, refactors, quick fixes. Build/Feature and Bug/Debug modes."
+    title="Cursorio (Cursor Cloud)"
+    description="Fast implementer — clear specs, refactors, quick fixes."
   />
   <Card
-    title="Codexio (Codex GPT-5.6 Sol)"
-    description="Design lead — UI/UX, design systems, visual polish; greenfield vs product-design modes; design skill pack."
+    title="Codexio (Claude)"
+    description="Design lead — UI/UX and design systems. Factory: Claude --cloud (stays on Claude)."
   />
   <Card
-    title="Cyrusio (Claude Sonnet 5)"
-    description="Delivery engineer — well-scoped issues end-to-end to a tested PR. Honest reporting. Formerly “Cyrus Builder”."
+    title="Cyrusio (Cursor Cloud)"
+    description="Delivery engineer — well-scoped issues end-to-end to a tested PR. Linear display name Cyrus."
+  />
+  <Card
+    title="Marketio (Cursor Cloud)"
+    description="CMO / content project lead — strategy, SEO/GTM, reviews Scriptio."
+  />
+  <Card
+    title="Scriptio (Cursor Cloud)"
+    description="Content producer — executes Marketio briefs as Linear docs."
   />
   <Card
     title="Hermes"
-    description="The general-purpose always-on agent: briefs, journal, sync, ops, research. Not a Linear worker — it hosts the four Cyrus instances and the merge-poll automation."
-  />
-  <Card
-    title="Codex (ChatGPT, legacy CI)"
-    description="Still runs in GitHub CI for PR review / build lane. Separate from Codexio, the design-lead Linear worker."
+    description="Always-on VPS agent + Buzz cockpit lead: briefs, journal, sync, ops, sole cloud kick."
   />
   <Card
     title="You + interactive agents"
-    description="Hands-on sessions (Claude Code / Cursor / Codex on the Mac). Approve work in Linear, merge PRs, make calls about missing pieces."
+    description="Hands-on sessions (Claude Code / Cursor / Codex). Approve work in Linear, merge PRs."
   />
 </Cards>
 
-## Team-member rails
+## Refs
 
-Shipped 2026-07-23 (Buzz-inspired — agents as first-class teammates):
-
-- **Persistent memory** — each agent owns `System/agents/&#60;agent>/MEMORY.md` (cross-repo knowledge: gotchas, preferences, mistakes); `System/agents/team.md` is the shared team log (conventions, incidents, decisions — append-only, signed). Agents read both at session start and append learnings during work; a VPS cron (`agent-memory-sync`, every 2h) commits them to the repo authored as the agent, so they're human-readable and editable in git. Repo-specific fixes still go to each repo's `docs/solutions/`.
-- **Per-agent git identity** — commits are authored `Fablio` / `Cursorio` / `Codexio` / `Cyrusio` via systemd env drop-ins. PRs still open via the shared `sc-jackie` account; Linear identity is already per-agent.
-- **Telegram rail** — all four agents can ping Sergei for blocking decisions via `hermes send`, stating a recommendation and proceeding with reversible parts.
-- **Mid-run steering** — commenting on a Linear issue while an agent works injects a course correction into the live session; an @mention can spawn a fresh session.
-- **Merge record** — Fablio writes the *why* of every review/merge decision as an issue comment; the issue is the permanent record of why the code exists.
-
-## Where they work
-
-Linear-tracked product repos share the workflow contract (documented in each repo's `docs/linear-workflow.md` where present):
-
-### Linear-tracked repos
-
-- **B-Unit** (routing labels: `curriculum` / `bim`)
-- **Newfin**
-- **Rodyna**
-- **Draw**
-- **Jackie-OS**
-- **Personal Website** (`Website`)
-- **AI-OS**
-
-Each carries the shared workspace label taxonomy and agent dispatch rules.
-
----
-
-**Sync contract:** `~/dev/bunit/docs/linear-workflow.md` (rollout template for new repos)
-
-**Canonical roster:** Jackie-OS `Vault/Agent-Team.md` + Linear doc *Agent team — roster, routing, and workflow*
-
-**Roadmap:** [Roadmap](/jackie-os/docs/roadmap)
-
-**Master index:** [Master index](/jackie-os/docs/master-index)
+Jackie-OS: `docs/workflows/buzz-cockpit.md`, `System/buzz/CHANNELS.md`, vault [[Agent-Team]].
