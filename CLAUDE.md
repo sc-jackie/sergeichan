@@ -1,5 +1,7 @@
 # Claude Code for Personal Website
 
+**Primary desk:** [bb](https://getbb.app) — `~/Jackie-OS/docs/workflows/bb-workspace.md`.
+
 ## Vault sync
 
 This repo is registered in Jackie-OS. See [docs/JACKIE-OS.md](docs/JACKIE-OS.md) for vault sync details. tl;dr: work on `main` → 07:30 morning-brief syncs to `~/Jackie-OS/Vault/Personal Website.md`. Manual: **`/wrap-up`**.
