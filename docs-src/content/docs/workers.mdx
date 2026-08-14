@@ -1,95 +1,28 @@
 ---
 type: Explainer
-title: The workers
-description: Autonomous agents and the work flow from idea to merged code.
-tags: [workers, agents, automation, Linear, Buzz]
+title: Current flow
+description: How bb, Hermes, temporary workers, and Linear fit together.
+tags: [flow, bb, hermes, agent, cursor, acp, linear]
 ---
 
-Sergei is CEO. **Six named agents** ship via a **cloud factory** kicked by **Hermes** (always-on VPS). **Buzz** (`evegelin.communities.buzz.xyz`) is the multi-device cockpit: Hermes + consult-only personalities. Legacy Cyrus systemd units are hard-cut after cutover smokes (EVE-263). Interactive sessions on Mac/PC cover hands-on work.
+# Current flow
 
-## Dual plane
+Sergei's primary interactive desk is **bb**. **Hermes Agent** by Nous Research runs the always-on COO loop: briefs, journal capture, Read Later, knowledge work, ops, and scheduling. Bounded code, design, and research tasks go to temporary **Cursor ACP workers**. **Linear** tracks the projects.
 
-| Plane | Who | Job |
-|-------|-----|-----|
-| Cockpit (Buzz) | `evegelin` + Hermes + personalities | Advise, review, plan |
-| Factory (cloud) | Cursor Cloud / Claude `--cloud` / Codex cloud | Ship PRs / Linear docs after `fleet` |
+## Interaction flow
 
-## Leads
+1. Sergei interacts via **bb** (his primary interactive desk).
+2. **Hermes Agent** manages the daily rhythm and maintains the vault and project status.
+3. Bounded code, design, and research work can go to temporary **Cursor ACP workers**.
+4. Workers develop in isolated worktrees, open pull requests, and report progress back to the issue.
+5. Upon merge, Hermes Agent updates the vault and project status notes.
+6. The vault serves as the single source of truth for knowledge and skills.
 
-- **Hermes** — cockpit / ops lead; sole durable kick
-- **Fablio** — code project lead (consult) for Newfin, Rodyna, Draw, B-Unit, Jackie OS, Personal Website
-- **Marketio** — content project lead for Marketing, Peaches Beauty
+## Telegram surfaces
 
-Channels: `#ops` · `#intake` · `#desk` · `#content` — see Jackie-OS `System/buzz/CHANNELS.md`.
+- `@persik_hermes_bot`: receives morning briefs, journal captures, and operational notifications from Hermes Agent.
+- `@Persik_finbot`: handles Newfin finance-related communications.
 
-## The dispatch pipeline
+## Retired fleet
 
-<Steps>
-  <Step>
-    <h4>Issue</h4>
-    <p>bug, feature, or goal in Linear</p>
-  </Step>
-  <Step>
-    <h4>Buzz (optional)</h4>
-    <p>discuss with personalities in channel / project</p>
-  </Step>
-  <Step>
-    <h4>fleet</h4>
-    <p>operator or Hermes claims a run record and kicks the cloud factory</p>
-  </Step>
-  <Step>
-    <h4>Cloud run</h4>
-    <p>Cursor Cloud, Claude web (`--cloud`), or Codex cloud</p>
-  </Step>
-  <Step>
-    <h4>PR / doc</h4>
-    <p>tested PR with <code>Fixes &#60;ISSUE-ID></code> or Linear doc → In Review</p>
-  </Step>
-  <Step>
-    <h4>Merge</h4>
-    <p>human merges — agents never merge or push default branches</p>
-  </Step>
-</Steps>
-
-**merge → merge-poll posts Linear status → project-sync updates vault Status + hot.md**
-
-## Who's who
-
-<Cards>
-  <Card
-    title="Fablio (Claude)"
-    description="CEO/CPO/CTO orchestrator + Buzz code-project lead. Plans, decides, reviews. Factory: Claude --cloud."
-  />
-  <Card
-    title="Cursorio (Cursor Cloud)"
-    description="Fast implementer — clear specs, refactors, quick fixes."
-  />
-  <Card
-    title="Codexio (Claude)"
-    description="Design lead — UI/UX and design systems. Factory: Claude --cloud (stays on Claude)."
-  />
-  <Card
-    title="Cyrusio (Cursor Cloud)"
-    description="Delivery engineer — well-scoped issues end-to-end to a tested PR. Linear display name Cyrus."
-  />
-  <Card
-    title="Marketio (Cursor Cloud)"
-    description="CMO / content project lead — strategy, SEO/GTM, reviews Scriptio."
-  />
-  <Card
-    title="Scriptio (Cursor Cloud)"
-    description="Content producer — executes Marketio briefs as Linear docs."
-  />
-  <Card
-    title="Hermes"
-    description="Always-on VPS agent + Buzz cockpit lead: briefs, journal, sync, ops, sole cloud kick."
-  />
-  <Card
-    title="You + interactive agents"
-    description="Hands-on sessions (Claude Code / Cursor / Codex). Approve work in Linear, merge PRs."
-  />
-</Cards>
-
-## Refs
-
-Jackie-OS: `docs/workflows/buzz-cockpit.md`, `System/buzz/CHANNELS.md`, vault [[Agent-Team]].
+The named agents (Buzz, Cyrus, Fablio, Cursorio, Codexio, Marketio, Scriptio) are retired. Their historical roles are documented in the [Fleet Atlas](/fleet) for archival reference.

@@ -1,12 +1,12 @@
 # Docs
 
-- [Jackie-OS](/docs): A second brain plus an always-on AI agent, wired together.
+- [Jackie-OS](/docs): A second brain and an always-on AI COO, sharing one memory.
 
 - **What is this system?**
-- [Jackie OS — for friends](/docs/what-it-does): A second brain plus an always-on AI agent, wired together.
-- [The system map](/docs/system-map): One read, top to bottom — how the system remembers and acts.
+- [Jackie OS: for friends](/docs/what-it-does): A second brain and an always-on AI COO, sharing one memory.
+- [The system map](/docs/system-map): How Jackie-OS remembers, acts, delegates, and reports back.
 - [Concepts](/docs/concepts): Shared domain vocabulary — entities, named processes, and status concepts.
-- [Ecosystem Architecture](/docs/architecture): One-screen map of three systems, shared rails, and how Hermes ties them together.
+- [Ecosystem Architecture](/docs/architecture): The current Jackie-OS layers, work flow, and product boundaries.
 
 - **What do I do?**
 - [Jackie OS — operator cheat sheet](/docs/cheat-sheet): One page reference for everything else the system does automatically.
@@ -16,7 +16,7 @@
 
 - **What runs by itself?**
 - [The day, hour by hour](/docs/schedule): Weekday timeline and scheduler layers for all Jackie-OS jobs.
-- [The workers](/docs/workers): Autonomous agents and the work flow from idea to merged code.
+- [Current flow](/docs/workers): How bb, Hermes, temporary workers, and Linear fit together.
 - [Vault rhythm](/docs/vault-rhythm): Hub for Jackie-OS vault automation — morning stack, brief pipeline, vault indexes, sync, and parity between Mac skills and VPS scripts.
 - [Project registry](/docs/project-registry): Single source of truth for project-sync, morning-brief, and wrap-up.
 

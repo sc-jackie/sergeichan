@@ -2,7 +2,7 @@
 
 
 
-A second brain plus an always-on AI agent, wired together. The vault (Obsidian) is memory; skills (markdown playbooks) are the contract; Hermes (a VPS agent) runs the loop 24/7. You stay CEO; this site explains the rest.
+A second brain and an always-on AI COO, sharing one memory. The vault is memory. Skills are the contract. Hermes Agent runs the loop. bb is the primary interactive desk. You stay in control.
 
 <Steps>
   <Step>
@@ -31,7 +31,7 @@ A second brain plus an always-on AI agent, wired together. The vault (Obsidian) 
     </h4>
 
     <p>
-      agent team (Fablio · Cursorio · Codexio · Cyrusio) takes Linear issues → PRs
+      temporary Cursor ACP workers handle bounded code, design, and research tasks
     </p>
   </Step>
 
@@ -56,7 +56,7 @@ A second brain plus an always-on AI agent, wired together. The vault (Obsidian) 
   </Step>
 </Steps>
 
-*The loop — every layer reads and writes the same second brain, so nothing starts cold.*
+*The loop: every layer reads and writes the same second brain, so sessions pick up where you left off.*
 
 ## Four questions this site answers [#four-questions-this-site-answers]
 
@@ -78,8 +78,8 @@ The &#x2A;*[cheat-sheet](/jackie-os/docs/cheat-sheet)*&#x2A;: the \~5 things you
 
 ***
 
-**Looking for something specific?*&#x2A; Use search (top bar) — every skill, script, and doc is indexed. Or start from &#x2A;*[the master index](/jackie-os/docs/master-index)**.
+**Looking for something specific?*&#x2A; Use search (top bar). Every skill, script, and doc is indexed. Or start from &#x2A;*[the master index](/jackie-os/docs/master-index)**.
 
-**The one rule:** before building anything new, check the [master index](/jackie-os/docs/master-index) for prior art. When something ships, its doc updates in the same commit — so this site is always current.
+**The one rule:** before building anything new, check the [master index](/jackie-os/docs/master-index) for prior art. When something ships, its doc updates in the same commit, so this site stays current.
 
-*This site renders the repo's markdown directly (`docs-site/`, symlinked — no copies). Serve: `bash System/tools/docs-site.sh serve` → 127.0.0.1:8123.*
+*This site builds from `docs-src/content/docs/` with Fumadocs and publishes the static export under `site/jackie-os/`.*

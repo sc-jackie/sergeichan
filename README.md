@@ -1,9 +1,8 @@
 # sergeichan — personal website
 
-Sergei Tran's personal website. Single-file static site, no build step, no
-dependencies: the Tesseract Loom hero (five vertical silk chords with halo
-cores, wave-spread dive transition), five case studies (Jackie-OS, Newfin,
-B-Unit, Rodyna, Draw) themed per project color, About + Writing panels.
+Sergei Tran's personal website. The self-contained Canvas homepage has five
+product case studies, an About panel, and Writing. This repository also builds
+the public Jackie-OS documentation with Fumadocs.
 
 Live target: **https://sergeichan.vercel.app**
 
@@ -14,6 +13,8 @@ site/                 deployable site (index.html — self-contained)
 site/newfin/          Newfin marketing landing (Hallmark, Feature Stack)
 site/newfin-fable/    Newfin landing, Fable version (case-dossier + canvas threads)
 site/newfin-fable-2/  Newfin landing, Hallmark bespoke (standalone, constellation)
+site/jackie-os/       generated Jackie-OS documentation
+docs-src/             Fumadocs source for the Jackie-OS documentation
 docs/                 design plan + full iteration log
 vercel.json           static deploy (outputDirectory: site)
 ```

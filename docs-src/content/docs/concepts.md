@@ -11,9 +11,9 @@ description: Shared domain vocabulary — entities, named processes, and status 
 - **wrap-up** — The wrap-up skill that syncs the vault, updates `## Status` in project notes, refreshes `hot.md`, and commits.
 - **brief** — An AI-generated daily or period summary (morning brief, weekly brief) that reads code activity, vault status, and calendar to inform the day.
 - **skill** — A repeatable workflow playbook (markdown + optional code) living in `System/skills/`; an AI reads it and executes the defined steps. Global owned skills carry the `jos-` prefix (see Skills Registry).
-- **Hermes** — The always-on VPS agent that runs the scheduled tasks and sync loop while your Mac is off.
+- **Hermes Agent** — The Nous Research agent that runs the always-on COO loop: briefs, capture, knowledge work, ops, scheduling, and orchestration.
 - **Persik** — Two Telegram bots: `@Persik_finbot` (the Newfin-hosted product bot) and `@persik_hermes_bot` (the full Hermes VPS channel).
-- **workers** — Named cloud-factory agents kicked by Hermes (Buzz cockpit + native cloud (2026-07-23): **Fablio** (CEO/orchestrator, Fable 5 — `Plan`/`Scope` labels trigger PM modes, decomposes + delegates), **Cursorio** (fast implementer, Cursor), **Codexio** (design lead, Codex GPT-5.6 Sol + design skill pack), **Cyrusio** (delivery engineer, Sonnet 5; ex "Cyrus Builder"). Route work by repo label + optional mode label + assignee. Team-member rails (2026-07-23): per-agent persistent memory + shared team log in `System/agents/` (synced by the `agent-memory-sync` cron), per-agent git author identity, Telegram rail to Sergei for all four. Legacy **Codex** (ChatGPT in GitHub CI) still exists. See Linear integration below.
+- **workers** — Temporary Cursor ACP workers used for bounded code, design, or research tasks. The old named Buzz/Cyrus fleet was retired on 2026-08-07.
 - **registry** — The `System/project-registry.md` file that maps each project to its code repo and/or STATUS file, serving as the single source of truth for sync.
 
 ## Occasional
@@ -24,7 +24,7 @@ description: Shared domain vocabulary — entities, named processes, and status 
 ## Deprecated / winding down
 
 - **Cowork** — The Claude desktop app's scheduled-tasks harness on Sergei's Mac. **Effectively retired** — a single leftover schedule remains (Sunday 18:00 weekly-review); everything else runs on the VPS.
-- **Bases/Ops board** — Obsidian Bases kanban for task tracking. **Being replaced by Linear** (migration in progress: B-Unit, Newfin, Rodyna already on Linear; Jackie-OS itself deliberately stays on Bases/markdown).
+- **Bases/Ops board** — Retired Obsidian task board. Active project tracking now lives in Linear.
 
 ## Automation &#38; infra
 
@@ -36,41 +36,24 @@ Jackie OS is portable files — the vault, the skills, the rules. Any AI coding 
 
 Jackie-OS adopts **Open Knowledge Format** *frontmatter* — every skill, solution, concept, project note, daily, and brief carries structured YAML (`type`, `title`, `timestamp`, …). This makes the vault a **portable, vendor-neutral knowledge bundle**: anyone can fork the structure and wire a different automation layer, and any agent can orient and retrieve by metadata instead of inferring from prose. **Frontmatter only** — internal links stay as Obsidian wikilinks (OKF's relative-link convention is *not* adopted). Backfilled by `System/tools/add-okf-frontmatter.py`; enforced by `janitor` OKF lint mode. Headline goal = portability; faster agent orientation/retrieval is the day-to-day payoff.
 
-### Hermes VPS
+### Hermes Agent
 
-The VPS worker layer — runs the Hermes agent, crons, and the ops exec allowlist. **Models run on subscription OAuth CLIs, not API-price billing** (Nous Portal credits exhausted 2026-07-06; owner opted out of API pricing). Two Hermes profiles (as of 2026-07-10):
-
-| Profile | Model | Auth | Used for |
-|---|---|---|---|
-| **`default`** (live gateway) | `claude-fable-5` @ `high` effort → `claude-haiku-4.5` → `gpt-5.6-terra` | Claude sub OAuth token; Codex CLI OAuth for Terra | briefs, journal, cron ops, `@persik_hermes_bot` |
-| **`persiknewfin`** | `gpt-5.6-terra` @ `xhigh` effort → `gpt-oss-120b:free` (OpenRouter) → `gemini-2.5-flash` | Codex CLI OAuth; OpenRouter + Gemini API keys | manual/gateway agentic runs (web + terminal toolsets, verify-on-stop) |
-
-Auxiliary roles (vision, web-extract, compression, title generation, delegation subagents, …) run `gpt-5.4-mini` (Codex CLI OAuth) with `claude-haiku-4.5` fallback.
-
-Newfin's `/ask` + `/research` shell the **subscription OAuth CLIs directly** (Claude Code / Codex), not a Hermes profile. Voice/photo STT stays direct-Gemini with Newfin's own key×model failover (`gemini-media-chain`, fallback `gemini-3.5-flash`). Source: newfin `plans/decisions-log.md` 2026-07-06 + 2026-07-04.
+Hermes Agent runs on the VPS as the always-on COO and orchestrator. The provider and model can change without changing Jackie-OS: the durable layer is the vault, the skills, and the operating rules.
 
 ### Two-bot model
 
 Two live Telegram bots, split by audience:
 
-- **[@Persik_finbot](https://t.me/Persik_finbot)** — the Newfin-hosted Telegram product bot: money COO, `/day`, `/week`, spouse-scoped routes, **and owner ops** (`status`, `sync vault`). Credentials stay on Vercel; never deployed to the Hermes VPS. **`/ask` and `/research` run subscription OAuth CLIs directly** (Claude Code / Codex — not a Hermes profile, since 2026-07-06). `/research` routes through the Persik **counsel lane** as an agentic, web-searching research turn (`web` toolset) that relates findings to the owner's book only when they connect; `live_market` keeps a synchronous Binance price path. `/scout` + `/deep-research` were folded into `/research` (2026-06-30).
-- **[@persik_hermes_bot](https://t.me/persik_hermes_bot)** — the **full** Telegram channel for the Hermes VPS agent: COO, CTO, journal, crons, ops — everything the Hermes agent does. Uses the Hermes model failover chain (see Hermes VPS). Reaches Newfin's `/v1` API for finance answers; does not ship to customers.
+- **[@Persik_finbot](https://t.me/Persik_finbot)** — the Newfin finance product bot.
+- **[@persik_hermes_bot](https://t.me/persik_hermes_bot)** — the Jackie-OS COO surface for briefs, capture, knowledge work, and operations.
 
-## Hermes VPS
+## Operating model
 
-**Host:** `hermes@your-vps-host` — runs the `hermes` Linux user.
-
-**What it is:** A full Claude Agent SDK instance — not just a cron host. Has a web dashboard (tunnel: `127.0.0.1:9119`) and a Headroom LLM proxy (`127.0.0.1:8787`).
-
-### Three-cron system (must not overlap)
-
-| Layer | Owner | Jobs |
-|---|---|---|
-| Hermes Agent cron (dashboard → Cron tab) | Hermes SDK | morning-brief, journal-capture, telegram-sweep, trade-digest |
-| OS crontab (`crontab -l`) | `hermes` user | autodeploy, merge-poll, healthcheck, degraded-brief, intel-weekly, cbm-index, janitor-skills-audit |
-| Mac weekly-review schedule (Cowork, otherwise retired) | macOS | weekly-review (Sun 18:00 — the only remaining Mac-scheduled task) |
-
-Adding a job to multiple layers causes double-runs — always check all three before adding a scheduled task. *(Research auto-run fully retired 2026-06-30; Persik `/research` is now agentic in Newfin.)*
+- **bb** is the primary interactive desk.
+- **Hermes Agent** owns the always-on COO loop and orchestration.
+- Temporary **Cursor ACP workers** handle bounded delegated work.
+- **Linear** is the project tracker.
+- The named Buzz/Cyrus fleet is an archive, not a live system.
 
 ### Sync modes — vault writeback
 
@@ -81,23 +64,9 @@ Adding a job to multiple layers causes double-runs — always check all three be
 | **Session-end + step 0 of morning-brief** | `/wrap-up` command OR wrap-up OR "sync projects" OR after `~/dev` PR merge/push | Registry: git repos, `STATUS.md` files, vault notes, `hot.md`, ops-board lanes; Linear task state (if `tracker: linear`) | Each source type: git log, status-file hash, vault note, Linear API — code wins |
 | **End of working session** | `/wrap-up` / `/wrap-up all` / `/wrap-up merge` OR wrap-up OR after code-repo merge/push | Status prepend (shipped/next/blocked), brief `## Log`, `hot.md` full overwrite, plans/catalog | Latest work in session (code repo or changed vault notes); plans only if realized |
 
-### Single LLM gateway: Hermes CLI
+### Telegram boundary
 
-All AI calls from Newfin bot, Jackie-OS skills, and Hermes agent tasks route through **one gateway: the `hermes` CLI** on the VPS. This is the Claude Agent SDK CLI. There is no direct OpenAI/Anthropic call from Newfin's backend — it goes through Hermes.
-
-**Exception:** speech-to-text (Newfin voice features) calls the STT provider directly, not via Hermes CLI.
-
-### Linear integration + autonomous agents
-
-**Project tracking:** B-Unit is the first product tracked in **Linear** (workspace `evegelin`, project `B-Unit`). Task state syncs on ship per the contract, and reads back into project-sync/morning-brief via the registry **`tracker: linear`** flag; all other projects stay `tracker: bases`, markdown-only (`roadmap-index.md` + `future-improvements.md`) until Linear rolls out. New repos onboard via `linear-project-rollout` skill.
-
-**Autonomous agents:** Four Cyrus-instance agents on the Hermes VPS dispatch from Linear → isolated worktree → tested PR with `Fixes &#60;ISSUE-ID>` → In Review → human merges (agents never merge or push default branches). **Fablio** (Claude Fable 5 — CEO/CPO/CTO orchestrator; `Plan`/`Scope` PM modes), **Cursorio** (Cursor — fast implementer; `Build`/`Bug` modes), **Codexio** (Codex GPT-5.6 Sol — design lead), **Cyrusio** (Claude Sonnet 5 — delivery engineer). Hermes stays the general-purpose VPS agent (not a Linear worker). Legacy ChatGPT Codex in CI still exists. Route by repo label + optional mode label + assignee/delegate.
-
-### How Newfin uses Hermes
-
-Newfin backend → SSH → `hermes-ops-exec.sh` (named Hermes operation) → `hermes` CLI → Anthropic API.
-
-`@persik_hermes_bot` is the direct channel to the Hermes VPS agent for all work (COO, CTO, ops). What's retired is the old relay: `@Persik_finbot` proxying `/work` commands over SSH to Hermes — that path no longer exists.
+`@persik_hermes_bot` is the Jackie-OS COO surface. `@Persik_finbot` is the separate Newfin finance product bot.
 
 ### What lives where (post-2026-06-29 restructure)
 

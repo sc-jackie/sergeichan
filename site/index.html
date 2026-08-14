@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sergei Tran: one thread, many vibrations</title>
-<meta name="description" content="Designer by training. Builder of AI-native systems. Five products in production, run day to day by always-on agents: Jackie-OS, Newfin, B-Unit, Rodyna, Draw.">
+<meta name="description" content="Designer and builder of personal software, AI-assisted systems, and tools for everyday life.">
 <meta property="og:title" content="Sergei Tran: one thread, many vibrations">
-<meta property="og:description" content="Five products in production, designed and built with always-on AI agents.">
+<meta property="og:description" content="Designer and builder of personal software, AI-assisted systems, and tools for everyday life.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sergeichan.vercel.app">
 <meta name="theme-color" content="#0C0E16">
@@ -510,7 +510,7 @@
     <div class="pkick">ABOUT</div>
     <h1>Sergei Tran</h1>
     <p>I trained as a designer and worked in UI/UX from 2014 to 2018, from startups to Lexus, Suzuki, and Toyota dealer sites in Singapore. Blockchain research and community work came next, then a long stretch as a full-time investor.</p>
-    <p>Now I build AI-native systems in Warsaw. Five products run in production with always-on agents. One is an operating system for my life. The others ride its rails.</p>
+    <p>Now I build personal software and AI-assisted systems in Warsaw. Jackie-OS is the memory and operating layer. Hermes keeps the daily loop moving; I use bb for hands-on work and bring in temporary coding agents when a task needs them.</p>
     <p>I am Vietnamese-Ukrainian, born in Odesa and raised between two languages. My writing follows that thread.</p>
     <p class="pcontact"><a href="mailto:sergei.tran@gmail.com">sergei.tran@gmail.com</a><span> · </span><a href="https://github.com/sc-jackie" rel="me">github.com/sc-jackie</a></p>
   </div>
@@ -637,41 +637,17 @@
       archNote:'Edge functions run the economy with append-only migrations and integrity tests; the agent loop dispatches issues to two coding agents whose PRs sync back to the board.'
     },
     { id:'jackieos', roman:'I', name:'Jackie-OS', u:0.5, color:'#C9A45C', rgb:[201,164,92], core:true,
-      one:'A personal AI operating system that connects memory, reusable skills, and always-on agents.',
-      meta:'2026 · TS + MARKDOWN + AGENT SDK · RUNNING 24/7',
+      one:'A personal operating system that gives AI tools shared memory, reusable skills, and a daily rhythm.',
+      meta:'2026 · MARKDOWN + HERMES AGENT · RUNNING 24/7',
       links:[
         {href:'/jackie-os/docs/', label:'Read the Jackie-OS docs'},
-        {href:'/fleet', label:'Explore the Fleet Atlas'}
+        {href:'/fleet', label:'View the archived Fleet Atlas'}
       ],
-      what:'<p>An operating system for a person, not a computer: an Obsidian vault as long-term memory, markdown "skills" as the contract any AI agent can execute, and a 24/7 agent on a VPS that runs the daily rhythm — a morning brief at 07:30, hourly journal capture, project sync, and a queue where autonomous coding agents pick up real work.</p>',
-      why:'<p>I work across tools that don\'t share memory. Knowledge lives in an Obsidian vault, code in separate repos, and the assistant keeps changing: mostly Claude Code on the Mac, Codex or another model when the task wants one. Each session starts cold. I kept re-explaining the same projects and decisions.</p><p>So the memory lives outside all of them. The system is plain <b>markdown in git</b>, and the skills are instructions any harness can run, so I can switch model, provider, or tool and keep context. A small agent on a VPS keeps the loop turning while the Mac is closed: the 07:30 brief, hourly journal capture from a Telegram message, project status written back on merge. The journaling is the part I underrated. Each note links to the projects and people it touches, and the daily pile becomes something I can query.</p>',
-      solve:'<ul class="plain"><li>Memory that outlives chat windows — the vault is the single source of truth any agent can read</li><li>A daily operating rhythm delivered to Telegram, generated from real project state</li><li>An agent work queue: backlog in, reviewed pull requests out</li><li>No lock-in — plain markdown in a git repo; open the folder in Claude Code, Cursor or Codex and each becomes the same OS with the same memory</li><li>No session starts cold — every agent reads a living <b>hot.md</b> first: ~500 words of where you are, refreshed at every session end</li></ul>',
-      jobs:[
-        {t:'Capture', m:'hourly', ic:'<path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 15v5h16v-5"/>', d:'A DM — a thought, a link, "met Sarah" — is filed to your journal, your clippings, or the person it mentions, and linked.'},
-        {t:'Brief', m:'07:30 daily', ic:'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9.5 12h6M9.5 16h6"/>', d:'The morning brief reads the vault, the repos and the calendar: what changed, the top three, and what is blocked — delivered to Telegram.'},
-        {t:'Build', m:'on dispatch', ic:'<circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="8" r="2.2"/><path d="M6 7.7v8.6M17.8 10.2c-.6 3.6-4.6 5-8.4 5"/>', d:'Worker agents take tracker issues to pull requests in isolated worktrees, reporting progress back on the issue.'},
-        {t:'Sync', m:'on merge', ic:'<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 3v4.5h-4.5"/>', d:'Merges write back to each project status note — the vault knows what actually shipped, not what was meant to.'},
-        {t:'Link', m:'daily', ic:'<circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M8 11l8-4.5M8 13l8 4.5"/>', d:'After each brief the agent proposes connections between journal, projects and people. The pile becomes a web.'},
-        {t:'Compound', m:'weekly +', ic:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13.5l9 5 9-5"/>', d:'Weekly, monthly and yearly reviews; fixes documented and indexed. Next month, the agent is smarter than today.'}
-      ],
-      company:{
-        intro:[['Sergei','intent → issues'],['Linear','source of truth'],['Route','repo + mode + delegate'],['Dispatch','webhook · <1 sec'],['Delivery','reviewed PRs']],
-        agents:[
-          {n:'Fablio', model:'Claude Fable 5', d:'CEO / CPO / CTO orchestrator. Turns goals into sub-issues with acceptance criteria, delegates and reviews — then records the why of every merge decision on the issue.'},
-          {n:'Cursorio', model:'Cursor', d:'Fast implementer. Takes tightly scoped build work from the Linear queue to a pull request.'},
-          {n:'Codexio', model:'Codex GPT-5.6 Sol', d:'Design lead, carrying a 23-skill design pack and a mandatory visual self-review before delivery.'},
-          {n:'Cyrusio', model:'Claude Sonnet 5', d:'Delivery engineer. Moves delegated work through implementation, verification and pull-request handoff.'},
-          {n:'Marketio', model:'Claude Opus 5', d:'CMO. Positioning, SEO and GTM briefs; reviews content drafts before they reach the owner.'},
-          {n:'Scriptio', model:'Claude Sonnet 5', d:'Content producer. Turns approved briefs into posts, scripts, page copy and video drafts.'}
-        ],
-        rails:[
-          ['Persistent memory','MEMORY.md per agent + a shared append-only, git-synced team log the human can read and edit.'],
-          ['Git identity','Every commit is authored as the agent that made it.'],
-          ['Telegram rail','Agents ping Sergei when a blocking decision needs a human.'],
-          ['Mid-run steering','Issue comments redirect work while an agent is running.'],
-          ['PR only','Absolute no-self-merge rule. Every delivery stops at a pull request.']
-        ]
-      },
+      what:'<p>Jackie-OS keeps long-term memory in an Obsidian vault and reusable skills in markdown. Hermes Agent runs the daily loop: briefs, journal capture, Read Later, knowledge work, and project sync. I work in bb and delegate bounded tasks to temporary workers when useful.</p>',
+      why:'<p>My notes, projects, and AI tools used to live in separate places. Every session started cold.</p><p>Jackie-OS puts the memory outside any one model or app. Plain markdown in git keeps the context portable, inspectable, and mine. The daily loop turns that memory into briefs, decisions, and work without hiding the source.</p>',
+      solve:'<ul class="plain"><li>Memory that outlives chat windows</li><li>A daily brief built from real project state</li><li>Read Later and knowledge work in the same vault</li><li>Bounded delegation without a permanent named agent fleet</li><li>Plain markdown and git instead of platform lock-in</li></ul>',
+      jobs:[{t:'Capture', m:'hourly', ic:'<path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 15v5h16v-5"/>', d:'A DM — a thought, a link, "met Sarah" — is filed to your journal, your clippings, or the person it mentions, and linked.'},{t:'Brief', m:'07:30 daily', ic:'<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9.5 12h6M9.5 16h6"/>', d:'The morning brief is generated by Hermes Agent by Nous Research (the COO/orchestrator) and reads the vault, the repos and the calendar: what changed, the top three, and what is blocked — delivered to Telegram.'},{t:'Build', m:'on dispatch', ic:'<circle cx="6" cy="5.5" r="2.2"/><circle cx="6" cy="18.5" r="2.2"/><circle cx="18" cy="8" r="2.2"/><path d="M6 7.7v8.6M17.8 10.2c-.6 3.6-4.6 5-8.4 5"/>', d:'Temporary Cursor ACP workers take tracker issues to pull requests in isolated worktrees, reporting progress back on the issue.'},{t:'Sync', m:'on merge', ic:'<path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 3v4.5h-4.5"/>', d:'Merges write back to each project status note — the vault knows what actually shipped, not what was meant to.'},{t:'Link', m:'daily', ic:'<circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="18" cy="18.5" r="2.2"/><path d="M8 11l8-4.5M8 13l8 4.5"/>', d:'After each brief, Hermes Agent proposes connections between journal, projects and people. The pile becomes a web.'},{t:'Compound', m:'weekly +', ic:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13.5l9 5 9-5"/>', d:'Weekly, monthly and yearly reviews; fixes documented and indexed. Next month, the agent is smarter than today.'}],
+
       day:[
         {time:'07:00', b:'Sweep', s:'links you sent overnight, filed'},
         {time:'07:30', b:'Brief', s:'what changed, top 3, calendar — on your phone'},
@@ -694,7 +670,7 @@
         ['Runs without you','One small always-on agent keeps the loop turning while your laptop sleeps.'],
         ['Yours to fork','The quickstart template gives you the vault, the skills and the loop. Bring your own agent.']
       ],
-      state:'<p>Running in production on a VPS for months: four autonomous agents deliver around the clock, even with the laptop off; system jobs keep the daily rhythm moving, and the other four projects ride the same rails. A public starter template distills the pattern for anyone to adopt.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>4 AGENTS</span><span>LINEAR-FIRST</span><span>PR-ONLY DELIVERY</span></div>',
+      state:'<p>Hermes runs the daily operating loop on a VPS while the laptop is off. Hands-on work stays in bb. Temporary workers handle bounded tasks, and Linear keeps the project record.</p><div class="statechips"><span class="live">RUNNING 24/7</span><span>BB DESK</span><span>LINEAR</span><span>TEMPORARY WORKERS</span></div>',
       frames:[
         {h:'MORNING BRIEF · TELEGRAM', cap:'07:30, every day, from real state', m: wf('<div class="bub">Morning brief — Thu. 2 PRs merged overnight. Retention set awaits approval.</div><div class="bub">Calendar: tennis 18:00. Focus: EVE-29.</div><div class="bub me">approve EVE-29</div>')},
         {h:'AGENT QUEUE', cap:'backlog → autonomous PRs', m: wf('<div class="chipline"><span class="chip">EVE-29 · IN PROGRESS</span><span class="chip">AGENT A</span></div><div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div><div class="chipline"><span class="chip">EVE-31 · QUEUED</span><span class="chip">AGENT B</span></div><div class="ln" style="width:74%"></div><div class="ln g" style="width:38%"></div>')}

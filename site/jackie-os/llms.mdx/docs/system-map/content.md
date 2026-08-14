@@ -2,184 +2,116 @@
 
 
 
-One read, top to bottom: you talk to the system, the system remembers and acts, work flows back to you.
+One read, top to bottom: Sergei works through bb and Telegram, Jackie-OS remembers, Hermes runs the loop, and temporary workers handle bounded tasks.
 
 <Steps>
   <Step>
     <h4>
-      You
+      Sergei
     </h4>
 
     <p>
-      <strong>Sergei — CEO / product owner</strong>
+      <strong>Sets direction and makes decisions.</strong>
     </p>
 
     <p>
-      Journals daily, approves plans, refines Linear issues. Says ~5 things: 
-
-      <em>wrap up · grill me · research X · reviews · morning brief reads itself</em>
-
-      .
-    </p>
-
-    <p>
-      <small>via Telegram @persik_hermes_bot · Claude Code / Cursor / Codex on the Mac</small>
+      bb is the primary interactive desk. Telegram is the surface for briefs, capture, and operational messages.
     </p>
   </Step>
 
   <Step>
     <h4>
-      Jackie-OS · the repo
+      Jackie-OS
     </h4>
 
     <p>
-      <strong>Memory + playbooks, versioned in git</strong>
+      <strong>Memory and playbooks, versioned in git.</strong>
     </p>
 
     <ul>
       <li>
-        <strong>Vault/</strong>
+        <strong>Vault</strong>
 
-         — Obsidian second brain — journals, project notes, briefs, 
-
-        `hot.md`
-
-         session cache. Source of truth.
+         — journals, project notes, briefs, decisions, and the hot.md cache.
       </li>
 
       <li>
-        <strong>System/skills/</strong>
+        <strong>Skills</strong>
 
-         — Markdown playbooks agents follow — morning-brief, project-sync, wrap-up, research, coaching.
+         — markdown playbooks for briefs, capture, sync, research, and reviews.
       </li>
 
       <li>
-        <strong>System/{coo,capture,ops,…}</strong>
+        <strong>Scripts</strong>
 
-         — Bash/Python runners. Edited here, symlinked onto the VPS — never edited there.
+         — small runners for repeatable system work.
       </li>
     </ul>
+  </Step>
+
+  <Step>
+    <h4>
+      Hermes Agent
+    </h4>
 
     <p>
-      <small>via git push · autodeploy pulls every 2 min</small>
+      <strong>The always-on COO and orchestrator.</strong>
+    </p>
+
+    <p>
+      Hermes Agent by Nous Research runs briefs, journal capture, Read Later, knowledge work, project sync, ops, and scheduling.
     </p>
   </Step>
 
   <Step>
     <h4>
-      Hermes · always-on VPS
+      Temporary workers
     </h4>
 
     <p>
-      <strong>The 24/7 instance of the same agent</strong>
+      <strong>Bounded help when a task needs it.</strong>
     </p>
 
     <p>
-      <strong>Agent cron:</strong>
-
-       07:00 sweep · 07:10 trade-digest · 07:30 morning-brief · hourly journal
-    </p>
-
-    <p>
-      <strong>OS crontab:</strong>
-
-       autodeploy */2m · merge-poll ~2h · healthcheck · degraded-brief · weekly intel + index
-    </p>
-
-    <p>
-      <strong>LLM gateway</strong>
-
-       (
-
-      `hermes`
-
-       CLI, subscription OAuth — no API billing): claude-fable-5 → claude-haiku-4.5 → gpt-5.6-terra
-    </p>
-
-    <p>
-      <small>via Linear (needs-refinement → needs-approval → Todo → PR → Done)</small>
+      Hermes can delegate code, design, or research to a temporary Cursor ACP worker. The worker receives the repository context and acceptance criteria, then returns a result for review.
     </p>
   </Step>
 
   <Step>
     <h4>
-      Workers
+      Linear and git
     </h4>
 
     <p>
-      <strong>Four Cyrus-instance agents on the Hermes VPS</strong>
+      <strong>The project record and the code truth.</strong>
     </p>
 
-    <ul>
-      <li>
-        <strong>Fablio</strong>
-
-         — CEO/orchestrator (Fable 5) — Plan/Scope, delegates by lane.
-      </li>
-
-      <li>
-        <strong>Cursorio</strong>
-
-         — fast implementer (Cursor) · 
-
-        <strong>Codexio</strong>
-
-         — design lead (GPT-5.6 Sol) · 
-
-        <strong>Cyrusio</strong>
-
-         — delivery engineer (Sonnet 5).
-      </li>
-
-      <li>
-        <strong>Legacy Codex</strong>
-
-         — ChatGPT in GitHub CI. 
-
-        <strong>You + interactive agents</strong>
-
-         — Mac hands-on work.
-      </li>
-    </ul>
-
     <p>
-      <small>via PRs → human merge → merge-poll + project-sync write back</small>
+      Linear tracks active project work. Git tracks shipped code. Hermes syncs the useful result back into Jackie-OS.
     </p>
   </Step>
 
   <Step>
     <h4>
-      Back to you
+      Back to Sergei
     </h4>
 
     <p>
-      <strong>The vault stays current, you stay briefed</strong>
+      <strong>The vault stays current and the next decision stays visible.</strong>
     </p>
 
     <p>
-      Project 
-
-      `## Status`
-
-       \+ 
-
-      `hot.md`
-
-       refresh on every wrap-up and merge · 07:30 morning brief lands in Telegram with everything that changed.
+      Briefs land in Telegram. Project notes and hot.md carry the context into the next session.
     </p>
   </Step>
 </Steps>
 
-## The morning brief, step by step [#the-morning-brief-step-by-step]
+## Retired system [#retired-system]
 
-```
-git pull → telegram-sweep → trade-digest → project-sync → LLM brief → calendar + inbox → Telegram DM + HTML → commit + push
-```
-
-If the 07:30 brief fails, a degraded brief (vault + hot.md only) fires at 08:35 as backstop.
+The named Buzz/Cyrus fleet was retired on 2026-08-07. The [Fleet Atlas](/fleet) remains as a historical record, not a description of the live system.
 
 ## Want more? [#want-more]
 
-* **[Every cron with exact times →](/jackie-os/docs/vault-rhythm)**
-* **[The words used above (Persik, hot.md, gateway) →](/jackie-os/docs/concepts)**
-* **[Ecosystem context — the product repos around this →](/jackie-os/docs/architecture)**
+* **[Current work flow →](/jackie-os/docs/workers)**
+* **[Concepts and vocabulary →](/jackie-os/docs/concepts)**
+* **[Ecosystem architecture →](/jackie-os/docs/architecture)**

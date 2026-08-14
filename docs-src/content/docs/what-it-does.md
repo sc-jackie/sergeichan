@@ -1,13 +1,13 @@
 ---
-title: Jackie OS: for friends
-description: A second brain and an always-on AI agent, sharing one memory.
+title: "Jackie OS: for friends"
+description: A second brain and an always-on AI COO, sharing one memory.
 ---
 
 ## What it is
 
-A **second brain** and an **always-on AI agent**, wired so the agent knows what's in the brain.
+A **second brain** and an **always-on AI COO**, wired so the agent knows what is in the brain.
 
-The second brain is your Obsidian vault: every journal entry, project note, decision, and idea, linked and versioned in git. It compounds over time. The agent (Hermes) lives on a server in Germany, runs 24/7, reads the vault before acting, and delivers results back to Telegram.
+The second brain is your Obsidian vault: every journal entry, project note, decision, and idea, linked and versioned in git. It compounds over time. Hermes Agent by Nous Research runs the daily loop and delivers results back to Telegram.
 
 You think and decide. The brain remembers. The agent acts.
 
@@ -60,7 +60,7 @@ The system isn't one feature. It's a set of jobs the agent does for you, all rea
 
 **Syncing** means keeping code and notes in agreement. The agent reads git history from your repos and writes it into each project's `## Status` note, so the vault always reflects what actually shipped.
 
-**Building:** it doesn't just *track* your code, it writes it. Acting as your CTO (through Claude Code), the agent implements features, fixes bugs, and ships: then syncs the result back into the vault. It's COO and CTO at once.
+**Building** stays deliberate. Sergei works in bb and can delegate bounded code, design, or research tasks to temporary Cursor ACP workers. Linear keeps the project record, and shipped work syncs back into the vault.
 
 **Researching** means digging on demand. Say `research &lt;topic>` and it sweeps Reddit, HN, X, markets (last 30 days) and files the findings into the vault.
 
@@ -74,7 +74,7 @@ Each of these is a **skill**: a markdown playbook the agent follows. They all sh
 
 ## The agent (Hermes)
 
-The jobs above are *what* it does. Hermes is *who* does them: a Claude-powered agent, not a chatbot you open. It runs 24/7 on a server, works on a schedule while you sleep, and you can reach it any time by DMing `@persik_hermes_bot` on Telegram. It wears two hats: **COO** (briefs, sync, research, journal) and **CTO** (writes code, builds features, ships).
+The jobs above are *what* it does. Hermes Agent by Nous Research is *who* runs the always-on loop. It works on a schedule while you sleep, and you can reach it by DMing `@persik_hermes_bot` on Telegram. It handles briefs, sync, research, journal capture, knowledge work, ops, and orchestration.
 
 Three things make it an agent rather than a script:
 
@@ -90,11 +90,11 @@ There's a second, separate bot: `@Persik_finbot`: that handles money and finance
 
 Hermes is the *always-on* layer: it runs the schedule on a server while you sleep. But you don't need it to use Jackie OS.
 
-At its core, Jackie OS is just a folder of files: your notes, the skills, the rules. Open that folder in **Claude Code**, **Cursor**, or **Codex** and that tool *becomes* a Jackie OS agent. It auto-reads the same `CLAUDE.md` / `AGENTS.md` rules the moment the folder is open, and the skills are right there inside it. (A few cross-project skills like **wrap up** are installed once on your Mac, so they work in every project.)
+At its core, Jackie OS is just a folder of files: your notes, skills, and rules. bb is the primary interactive desk, but any capable tool can read the same folder and use the same memory.
 
 Nothing "migrates": you just connect the folder. Say **wrap up** from any of these tools and the vault syncs, project `## Status` blocks update, `hot.md` refreshes, and the changes commit: exactly the loop Hermes runs, just triggered by hand.
 
-So: **Hermes = the schedule** (automation while you sleep). **Your IDE + the folder = the same system, on demand.** Same brain either way.
+So: **Hermes runs the always-on loop. bb is the hands-on desk. The folder is the shared brain.**
 
 ---
 
@@ -183,8 +183,8 @@ None of these need to be understood to use the system: but here's what each one 
 | **Markdown** | Plain text with simple formatting (like `**bold**`). Future-proof: opens anywhere, forever. |
 | **Git** | A time machine for files. Every change is saved and reversible; nothing is ever truly lost. |
 | **VPS** | A small computer rented in a data center that never sleeps: so the agent runs even when your laptop is closed. |
-| **Claude** | The AI model (by Anthropic) that does the actual thinking, writing, and coding. |
-| **Hermes** | The program that turns Claude into an always-on assistant living on the VPS. |
+| **AI provider** | A swappable model or coding tool. The vault and skills do not depend on one provider. |
+| **Hermes Agent** | The Nous Research agent that runs the always-on COO loop and orchestration. |
 | **Telegram** | The messaging app you use to talk to the agent (the bot is called Persik). |
 | **Skill** | A markdown file of instructions telling the agent how to do one job. Editable like any note. |
 | **OKF** | Open Knowledge Format: structured metadata (`type`, `title`, `date`) on every file. Makes the vault a portable, vendor-neutral bundle any agent can orient in and retrieve from: not locked to one tool. |
@@ -197,4 +197,4 @@ None of these need to be understood to use the system: but here's what each one 
 
 ---
 
-*Updated 2026-06-29: morning stack on VPS Hermes cron; Mac Cowork is weekly-review only.*
+*Updated 2026-08-14: bb desk, Hermes Agent COO loop, temporary ACP workers, and Linear tracking.*

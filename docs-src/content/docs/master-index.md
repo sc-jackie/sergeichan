@@ -38,21 +38,16 @@ timestamp: 2026-07-10T00:00:00Z
 | Learnings | technical fixes | `jos-compound` after non-trivial fixes |
 | This file | the index itself | new doc surface added or retired |
 
-## Workers — autonomous agents
+## Active operating roles
 
-| Worker | Runs on | Scope | Dispatch |
+| Role | Runs on | Scope | Start |
 |---|---|---|---|
-| **Hermes** (Claude Agent SDK) | VPS | General-purpose agent: morning stack, journal, sync, ops, research. **Not** a Linear coding worker; hosts the four Cyrus instances. | 3-layer cron + Telegram/CLI ask |
-| **Fablio** (Claude Fable 5) | Hermes VPS | CEO/CPO/CTO orchestrator — plans, reviews, decomposes + delegates (`Plan`/`Scope`) | Linear assign/delegate + mode labels |
-| **Cursorio** (Cursor) | Hermes VPS | Fast implementer — specs, refactors, quick fixes (`Build`/`Bug`) | Linear assign/delegate + mode labels |
-| **Codexio** (Codex GPT-5.6 Sol) | Hermes VPS | Design lead — UI/UX, design systems, visual polish | Linear assign/delegate |
-| **Cyrusio** (Claude Sonnet 5) | Hermes VPS | Delivery engineer — well-scoped issues → tested PR (ex "Cyrus Builder") | Linear assign/delegate |
-| **Codex** (ChatGPT, legacy) | GitHub CI | PR review + build lane | Linear labels / CI |
-| **Interactive agents** (Claude Code, Cursor, Codex CLI) | Mac | anything, per CLAUDE.md roles (COO default, CTO in `~/dev/*`) | Sergei, per session |
+| **Sergei in bb** | interactive desk | Direction, decisions, hands-on work | Per session |
+| **Hermes Agent** | VPS | Always-on COO loop, ops, scheduling, and orchestration | Schedule, bb, or Telegram |
+| **Temporary Cursor ACP worker** | isolated task context | Bounded code, design, or research | Hermes delegation |
+| **Linear** | cloud project tracker | Active project record and delivery state | Updated during project work |
 
-Per-repo routing table: `~/dev/&#60;repo>/AGENTS.md` § Choose the right worker. Canonical roster: Jackie-OS `Vault/Agent-Team.md`.
-
-Sergei is CEO: routes by repo label + optional mode label + assignee; agents open PRs with `Fixes &#60;ISSUE-ID>` and move issues to In Review — humans merge (agents never merge or push default branches). Merge-poll auto-posts Linear project status on batched merges.
+The named Buzz/Cyrus fleet was retired on 2026-08-07. The Fleet Atlas remains a historical record.
 
 ## Connectors — external surfaces
 
@@ -60,7 +55,7 @@ Sergei is CEO: routes by repo label + optional mode label + assignee; agents ope
 |---|---|---|---|
 | Telegram `@persik_hermes_bot` | bot (full Hermes channel) | briefs, journal, ops, COO/CTO | VPS + `.secrets/telegram.env` |
 | Telegram `@Persik_finbot` | bot (Newfin product) | money COO, advisor, owner ops | Vercel env (never on VPS) |
-| **Linear** | MCP + API | tracking + agent-team dispatch (repo/mode labels) | claude.ai connector |
+| **Linear** | API | project tracking and delegated-work state | Hermes integration |
 | **Supabase** | MCP + CLI | Newfin/Rodyna/B-Unit DBs | claude.ai connector |
 | **Gmail / Google Calendar / Drive** | MCP + OAuth scripts | morning brief, COO | claude.ai connectors · `.secrets/` OAuth |
 | **Vercel** | MCP + auto-deploy | Newfin/Rodyna/B-Unit hosting | claude.ai connector |
