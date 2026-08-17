@@ -82,7 +82,7 @@ Three things make it an agent rather than a script:
 - **It follows playbooks, not hardcode.** Each job is a **skill**: a markdown file in `System/skills/` that lives *in the vault*. You read and edit them like any other note. Change the playbook, change the behavior.
 - **It's not a black box.** Everything it reads comes from the vault; everything it writes goes back to the vault. The full chain is auditable: no hidden state.
 
-There's a second, separate bot: `@Persik_finbot`: that handles money and finance for the Newfin app. Hermes (`@persik_hermes_bot`) is the one that runs your OS.
+There's a second, separate bot: `@Persik_finbot` handles Newfin money and the trading desk (`/intel`, trading brief). Hermes (`@persik_hermes_bot`) runs the OS: journal, clips, morning brief, vault.
 
 ---
 

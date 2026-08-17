@@ -93,7 +93,11 @@ One read, top to bottom: you talk to the system, the system remembers and acts, 
 
       `hermes`
 
-       CLI, subscription OAuth — no API billing): claude-fable-5 → claude-haiku-4.5 → gpt-5.6-terra
+       CLI): 
+
+      <code>gpt-5.6-sol</code>
+
+       → Grok 4.6 → GPT-OSS → OpenRouter free. Cron profile: DeepSeek V4 Flash. Delegate: Opus 5.
     </p>
 
     <p>

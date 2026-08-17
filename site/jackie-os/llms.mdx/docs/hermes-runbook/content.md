@@ -140,18 +140,20 @@ bash ~/Jackie-OS/System/scripts/hermes-dashboard-tunnel.sh stop   # manual tunne
 
 Gateway runs without this; Telegram replies need a model. **Do not use Nous Portal** — use existing subs + one Gemini API key.
 
-### Stack (2026-07-10, VPS) [#stack-2026-07-10-vps]
+### Stack (2026-08-15, live VPS) [#stack-2026-08-15-live-vps]
 
-| Profile                      | Chain (primary → fallbacks)                                                                   | Effort  |
-| ---------------------------- | --------------------------------------------------------------------------------------------- | ------- |
-| **`default`** (live gateway) | `claude-fable-5` (anthropic) → `claude-haiku-4.5` → `gpt-5.6-terra` (openai-codex)            | `high`  |
-| **`persiknewfin`**           | `gpt-5.6-terra` (openai-codex) → `openai/gpt-oss-120b:free` (openrouter) → `gemini-2.5-flash` | `xhigh` |
+| Profile            | Chain (primary → fallbacks)                                                                | Role                                 |
+| ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------ |
+| **`default`**      | `openai-codex/gpt-5.6-sol` → Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Gateway, briefs, Telegram, `/intel`  |
+| **`kawai-coo`**    | `openai-codex/gpt-5.6-sol` → GPT-OSS → 4× OpenRouter free                                  | Manual COO                           |
+| **`persiknewfin`** | `deepseek-v4-flash-0731` → GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                  | Holding / trade / research one-shots |
+| **Delegation**     | `anthropic/claude-opus-5`                                                                  | `delegate_task` on `default`         |
 
-Auxiliary roles (vision, web\_extract, compression, title\_generation, delegation subagents, …): `gpt-5.4-mini` (openai-codex), fallback `claude-haiku-4.5`.
+Auxiliary roles run OpenRouter nano models. `cursor-bridge` is retired. Live configs are authoritative — Jackie-OS `hermes-ops` § Model setup.
 
-Hermes **auto-failover**: primary → fallback chain on rate limits, quota, auth errors. Same-provider key rotation is N/A (OAuth subs, not API-key pools).
+Hermes **auto-failover**: primary → fallback chain on rate limits, quota, auth errors.
 
-**Not used:** Nous Portal · OpenRouter · Anthropic API credits (Max only, no pay-as-you-go).
+**Not used:** Nous Portal. OpenRouter **is** used for DeepSeek, GPT-OSS, and free fallbacks.
 
 ### One-time Mac auth [#one-time-mac-auth]
 
@@ -180,27 +182,14 @@ grep -h '^GEMINI_API_KEY=\|^GOOGLE_API_KEY=' ~/dev/rodyna/.env ~/dev/newfin/.env
 
 ### Config (VPS `~/.hermes/config.yaml`, `default` profile) [#config-vps-hermesconfigyaml-default-profile]
 
-```yaml
-model:
-  default: claude-fable-5
-  provider: anthropic
-fallback_providers:
-  - provider: anthropic
-    model: claude-haiku-4.5
-  - provider: openai-codex
-    model: gpt-5.6-terra
-agent:
-  reasoning_effort: high   # per-profile; persiknewfin runs xhigh
-```
-
-Or: `hermes config set model.provider anthropic` · `hermes config set model.default claude-fable-5`. The `persiknewfin` profile lives at `~/.hermes/profiles/persiknewfin/config.yaml`.
+Do **not** paste an old Fable/Terra fragment. The live `default` primary is `openai-codex/gpt-5.6-sol` (operator-swappable). Fallbacks and the `persiknewfin` / `kawai-coo` profiles live in `~/.hermes/config.yaml` and `~/.hermes/profiles/*/config.yaml`. Change them only with Jackie-OS `hermes-ops` § Model setup, then update `CONCEPTS.md` in the same session.
 
 ### Credentials on the VPS [#credentials-on-the-vps]
 
 **No Mac→VPS OAuth sync** — the `hermes-sync-auth` family was retired 2026-07-01 (superseded 2026-06-29). The Mac keychain kept losing its refresh token, so the sync pushed dead tokens. The VPS now authenticates independently:
 
 * **Anthropic (main provider):** long-lived `claude setup-token` → `CLAUDE_CODE_OAUTH_TOKEN` in VPS `~/.hermes/.env` (\~1yr, no keychain/sync dependency). Re-run `claude setup-token` on the VPS when it expires. (Nous Portal retired 2026-07-06 — credits exhausted.)
-* **openai-codex:** Codex CLI OAuth on the VPS (`~/.codex/auth.json`) — Terra fallback, `persiknewfin` main, and the `gpt-5.4-mini` auxiliary roles.
+* **openai-codex:** Codex CLI OAuth on the VPS (`~/.codex/auth.json`) — live `default` / `kawai-coo` primary (`gpt-5.6-sol`).
 * **Gemini / OpenRouter:** `GEMINI_API_KEY` + `OPENROUTER_API_KEY` in VPS `~/.hermes/.env`.
 
 ### Verify [#verify]

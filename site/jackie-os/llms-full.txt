@@ -128,7 +128,7 @@ flowchart TB
     end
     NEWFIN["Newfin (~/dev)<br>net-worth + advisor"]
     RODYNA["Rodyna (~/dev)<br>family recipes"]
-    RAILS["Shared rails<br>Supabase · Vercel<br>LLM: OAuth subs — Fable 5 / Haiku / Terra"]
+    RAILS["Shared rails<br>Supabase · Vercel<br>LLM: gpt-5.6-sol · DeepSeek · Opus 5"]
 
     SERGEI --> FINBOT
     SERGEI --> HERMESBOT
@@ -163,7 +163,8 @@ Sergei's always-on OS. The **vault is memory**, **skills are the contract**, **s
       * `work/` — ad-hoc agent work (code ask, wrap-up ops)
       * `lib/` — shared utilities (env loader, logging helpers)
   * **Secrets** (`.secrets/*.env`) — gitignored, mode 0600.
-* **Hermes VPS** (`hermes@your-vps-host`) — one Agent SDK instance as the `hermes` user; **one LLM gateway** for all calls (failover chain). Dashboard `:9119`, Headroom proxy `:8787`.
+* **Hermes VPS** (Hetzner cx23; Tailscale `hermes-phase1`) — one Agent SDK instance as the `hermes` user; **one LLM gateway** for all calls (failover chain). Dashboard `:9119`, Headroom `:8787`, AgentsView `:8081`.
+* **Operator desk:** Cursor + Tailscale + Hermes + Grokbot. bb is not in active use.
 
 ### Roles [#roles]
 
@@ -204,33 +205,34 @@ Three automation layers (a job must never live in multiple, or it double-runs). 
 
 ***
 
-## 1b. LLM Gateway — subscription OAuth, no API billing (as of 2026-07-10) [#1b-llm-gateway--subscription-oauth-no-api-billing-as-of-2026-07-10]
+## 1b. LLM Gateway — live profiles (as of 2026-08-15) [#1b-llm-gateway--live-profiles-as-of-2026-08-15]
 
 **Hermes CLI** on VPS is the gateway for Jackie-OS AI calls. **Canonical chain table lives in [Concepts](/jackie-os/docs/concepts) § Hermes VPS** — summary:
 
-| Chain                                                 | Models                                                                              | Used for                                              |
-| ----------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| **Hermes `default` profile**                          | claude-fable-5 @ high → claude-haiku-4.5 → gpt-5.6-terra                            | Briefs, journal, cron ops, `@persik_hermes_bot`       |
-| **`persiknewfin` profile**                            | gpt-5.6-terra @ xhigh → gpt-oss-120b:free (OpenRouter) → gemini-2.5-flash           | Manual/gateway agentic runs (web + terminal toolsets) |
-| **Auxiliary roles** (vision, compression, subagents…) | gpt-5.4-mini → claude-haiku-4.5                                                     | Utility calls                                         |
-| **Newfin `/ask` + `/research`**                       | subscription OAuth CLIs directly (Claude Code / Codex) — no Hermes profile          | Advisor + research turns                              |
-| **Newfin STT / media**                                | direct Gemini, key×model failover (`gemini-media-chain`, fallback gemini-3.5-flash) | Voice, photo                                          |
+| Chain                           | Models                                                                                     | Used for                                    |
+| ------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------- |
+| **Hermes `default`**            | `openai-codex/gpt-5.6-sol` → Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Briefs, Telegram, planning, Newfin `/intel` |
+| **Hermes `kawai-coo`**          | `openai-codex/gpt-5.6-sol` → GPT-OSS → 4× OpenRouter free                                  | Manual COO sessions                         |
+| **Hermes `persiknewfin`**       | `deepseek-v4-flash-0731` → GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                  | Holding / trade / research one-shots        |
+| **Delegation** (`default`)      | `anthropic/claude-opus-5`                                                                  | `delegate_task`                             |
+| **Auxiliary roles**             | OpenRouter nano                                                                            | Title, compression, vision                  |
+| **Newfin `/ask` + `/research`** | Claude Code / Codex OAuth CLIs — not a Hermes profile                                      | Advisor + research turns                    |
+| **Newfin in-app advisor**       | Claude Sonnet 4.6                                                                          | Web / bot counsel                           |
+| **Newfin STT / media**          | Gemini (`gemini-media-chain`, fallback `gemini-3.5-flash`)                                 | Voice, photo                                |
 
 ***
 
-## 2. Newfin — net-worth + financial advisor (`~/dev/newfin`) [#2-newfin--net-worth--financial-advisor-devnewfin]
+## 2. Newfin — net-worth + trading desk (`~/dev/newfin`) [#2-newfin--net-worth--trading-desk-devnewfin]
 
-Open-source personal-finance platform: net worth across crypto, real estate, equities, cash. API-first (`/v1`), an LLM advisor, and the household Telegram bot `@Persik_finbot`. **Read-only at the UX layer** — monitors Binance futures, never executes trades.
+Personal-finance platform plus an owner trading desk. Net worth across crypto, real estate, equities, cash. API-first (`/v1`). Household Telegram `@Persik_finbot`. **Read-only at the UX** — monitors venues, never executes trades.
 
-* **Stack:** Node 20 + Express (TS, ESM) · React 19 + Vite + Tailwind · Supabase Postgres + RLS · Vercel/VPS · Recharts/React Query/Zustand · Zod.
-* **Workspaces:**
-  * `/shared` (`@newfin/shared`) — NW math, FX, scenario engine, Zod schemas.
-  * `/server` — `/v1` REST, integrations, `lib/advisor`, alert-engine, futures-service.
-  * `/server/persik` — bot: dispatch · lanes (Advisor/Journal) · menus · ops-proxy · **hermes-bridge** · queue-worker.
-  * `/web` — Portfolio, Trading Desk, Cashflow, Advisor, Goals, Integrations.
-* **Integrations:** Binance Futures · Zerion · CoinGecko · Monobank · EtherFi · exchangerate.host · Telegram · &#x2A;*Hermes VPS (ssh)** · Claude → Gemini.
-* **Key patterns:** lane-based bot routing; **Hermes bridge** SSH-forwards owner advisor turns to the VPS; 24h-cached LLM context (hash of state+intel+memory); role-scoped views (`scopeForViewer`); fill-driven futures position reconstruction + income-ledger enrichment; structured (Zod) LLM output.
-* **Advisor flow:** TG webhook → role+lane → assemble `FinancialState` → LLM (24h cache) → reply + thread.
+* **Stack:** Node 20 + Express (TS, ESM) · React 19 + Vite + Tailwind · Supabase Postgres + RLS · Vercel · Zod.
+* **Web (2026-08):** **Live · Performance · Prep · Rules** on the desk. Portfolio **Overview + History**. Venue pills: Hyperliquid · Binance · IBKR.
+* **Bot:** finance + trading only (2026-08-14). Journal, clips, and the morning COO brief live on `@persik_hermes_bot`.
+* **Workspaces:** `/shared` (NW math, FX, desk types) · `/server` (`/v1`, advisor, futures, Persik) · `/web`.
+* **Venues:** Hyperliquid · Binance spot/Funding/Earn vs USD-M PM (`binance` / `binance_usdm`) · IBKR.
+* **Intelligence:** in-app advisor Claude Sonnet 4.6 · `/ask` + `/research` via Claude Code / Codex CLIs · `/intel` via Hermes `default` (`gpt-5.6-sol`) · STT/media Gemini.
+* **Desk policy:** editable 1R / halt / bands / ladder; Unprotected list (in profit, no working stop); Informed Calls on Prep.
 
 ***
 
@@ -272,18 +274,18 @@ Product in active development: economy model (quests, rewards, real-money cashou
 
 ## 5. Shared rails — same infra, different products [#5-shared-rails--same-infra-different-products]
 
-| Layer            | Jackie-OS                                             | Newfin                                                | Rodyna                                                | Draw                                           | B-Unit                                                  |
-| ---------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------- |
-| **Front door**   | `@persik_hermes_bot` + Cursor/Claude Code             | `@Persik_finbot` + React web app                      | Telegram bot + React Mini App                         | `@persik_hermes_bot` (read-only poll, no push) | Telegram bot + web shell                                |
-| **Runtime**      | Claude Agent SDK on VPS + bash/python                 | Node 20 + Express (TS)                                | Supabase Edge Functions (Deno)                        | Next.js App Router + React Native              | Supabase Edge Functions + Next.js + Telegram            |
-| **Data store**   | Obsidian vault (markdown + git)                       | Supabase Postgres + RLS                               | Supabase Postgres + RLS + Storage                     | Supabase Postgres + RLS                        | Supabase Postgres + RLS                                 |
-| **Hosting**      | VPS (`hermes` user)                                   | Vercel / VPS                                          | Vercel (Mini App) + Supabase Cloud                    | Vercel (web) + local dev (mobile)              | Vercel + Supabase Cloud                                 |
-| **Intelligence** | One Hermes gateway · Claude → Gemini                  | Claude → Gemini, 24h cache                            | Gemini flash / flash-lite                             | Claude / Gemini (planned)                      | Claude (advisor) / Gemini (AI extraction)               |
-| **Validation**   | Skill frontmatter + review                            | Zod at trust boundaries                               | Zod at trust boundaries                               | Zod at trust boundaries                        | Zod at trust boundaries · pgTAP migrations              |
-| **Writes**       | Git commits (human + agent)                           | Vercel deploys                                        | Supabase deploys                                      | Vercel deploys; vault is read-only watcher     | Supabase Edge Fn + migrations; agent-team auto-dispatch |
-| **Tracking**     | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (read-only)                              | **Linear** (`B-Unit` project, workspace `EVE`)          |
+| Layer            | Jackie-OS                                                        | Newfin                                                | Rodyna                                                | Draw                                           | B-Unit                                                  |
+| ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------- |
+| **Front door**   | **Cursor** + `@persik_hermes_bot`                                | `@Persik_finbot` + React desk                         | Telegram bot + React Mini App                         | `@persik_hermes_bot` (read-only poll, no push) | Telegram bot + web shell                                |
+| **Runtime**      | Claude Agent SDK on VPS + bash/python                            | Node 20 + Express (TS)                                | Supabase Edge Functions (Deno)                        | Next.js App Router + React Native              | Supabase Edge Functions + Next.js + Telegram            |
+| **Data store**   | Obsidian vault (markdown + git)                                  | Supabase Postgres + RLS                               | Supabase Postgres + RLS + Storage                     | Supabase Postgres + RLS                        | Supabase Postgres + RLS                                 |
+| **Hosting**      | VPS (`hermes` user)                                              | Vercel / VPS                                          | Vercel (Mini App) + Supabase Cloud                    | Vercel (web) + local dev (mobile)              | Vercel + Supabase Cloud                                 |
+| **Intelligence** | Hermes `default` `gpt-5.6-sol` · Grok fallback · Opus 5 delegate | Sonnet 4.6 + Codex/Claude CLIs + Hermes `/intel`      | Gemini flash / flash-lite                             | Claude / Gemini (planned)                      | Claude (advisor) / Gemini (AI extraction)               |
+| **Validation**   | Skill frontmatter + review                                       | Zod at trust boundaries                               | Zod at trust boundaries                               | Zod at trust boundaries                        | Zod at trust boundaries · pgTAP migrations              |
+| **Writes**       | Git commits (human + agent)                                      | Vercel deploys                                        | Supabase deploys                                      | Vercel deploys; vault is read-only watcher     | Supabase Edge Fn + migrations; agent-team auto-dispatch |
+| **Tracking**     | Vault (`roadmap-index.md` + `future-improvements.md`)            | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (read-only)                              | **Linear** (`B-Unit` project, workspace `EVE`)          |
 
-**The spine is Hermes.** Newfin and Rodyna are fully independent repos with their own Supabase projects and deploys — they'd run without Jackie-OS. What ties the ecosystem together: Hermes owns the morning/journal cron, is the **single LLM gateway** (Claude → Gemini failover), and SSH-bridges Newfin's owner advisor turns. The vault never holds code — only *knowledge about* the repos; each repo's `docs/solutions/` holds the technical learnings, indexed back into `Vault/Agent-Learnings/`.
+**The spine is Hermes.** Newfin and Rodyna are fully independent repos with their own Supabase projects and deploys — they'd run without Jackie-OS. What ties the ecosystem together: Hermes owns the morning/journal cron, is the **LLM gateway** (live: `gpt-5.6-sol` + DeepSeek cron profile), and runs named Newfin workers (`/intel`, deep research). The vault never holds code — only *knowledge about* the repos; each repo's `docs/solutions/` holds the technical learnings, indexed back into `Vault/Agent-Learnings/`.
 
 ***
 
@@ -294,7 +296,7 @@ Product in active development: economy model (quests, rewards, real-money cashou
 * **Cron inventory + Mac↔VPS parity:** [Vault Rhythm](/jackie-os/docs/vault-rhythm).
 * **Operator cheat-sheet:** [Cheat Sheet](/jackie-os/docs/cheat-sheet).
 * **Per-project architecture:** each project has `ARCHITECTURE.md` (Jackie-OS root, `~/dev/{newfin,rodyna,bunit,draw}/`) — read before working in that project.
-* **B-Unit linear workflow & autonomous agents:** B-Unit repo `docs/linear-workflow.md` (agent-team dispatch)
+* **Linear tracking:** execute in Cursor. History: [Desk journey](/jackie-os/docs/desk-journey).
 * **Draw:** Draw repo `ARCHITECTURE.md`
 * **Visual version (human-facing):** docs site "The system map" page.
 
@@ -527,14 +529,15 @@ Jackie-OS adopts **Open Knowledge Format** *frontmatter* — every skill, soluti
 
 ### Hermes VPS [#hermes-vps]
 
-The VPS worker layer — runs the Hermes agent, crons, and the ops exec allowlist. **Models run on subscription OAuth CLIs, not API-price billing** (Nous Portal credits exhausted 2026-07-06; owner opted out of API pricing). Two Hermes profiles (as of 2026-07-10):
+The VPS worker layer — runs the Hermes agent, crons, and the ops exec allowlist. **Models run on subscription OAuth CLIs plus OpenRouter**, not Nous Portal. Three Hermes profiles (verified live 2026-08-15):
 
-| Profile                      | Model                                                                                    | Auth                                              | Used for                                                              |
-| ---------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------------- |
-| **`default`** (live gateway) | `claude-fable-5` @ `high` effort → `claude-haiku-4.5` → `gpt-5.6-terra`                  | Claude sub OAuth token; Codex CLI OAuth for Terra | briefs, journal, cron ops, `@persik_hermes_bot`                       |
-| **`persiknewfin`**           | `gpt-5.6-terra` @ `xhigh` effort → `gpt-oss-120b:free` (OpenRouter) → `gemini-2.5-flash` | Codex CLI OAuth; OpenRouter + Gemini API keys     | manual/gateway agentic runs (web + terminal toolsets, verify-on-stop) |
+| Profile            | Primary                                      | Fallbacks                                                     | Used for                                                                                 |
+| ------------------ | -------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **`default`**      | `openai-codex/gpt-5.6-sol` (swappable)       | Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Briefs, Telegram, planning, Newfin `/intel`. `delegate_task` → `anthropic/claude-opus-5` |
+| **`kawai-coo`**    | `openai-codex/gpt-5.6-sol`                   | GPT-OSS 120B → 4× OpenRouter free                             | Manual COO sessions                                                                      |
+| **`persiknewfin`** | `openrouter/deepseek/deepseek-v4-flash-0731` | GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                | Holding / trade / research one-shots (`hermes -p persiknewfin -z`)                       |
 
-Auxiliary roles (vision, web-extract, compression, title generation, delegation subagents, …) run `gpt-5.4-mini` (Codex CLI OAuth) with `claude-haiku-4.5` fallback.
+Auxiliary roles (vision, compression, titles) run OpenRouter nano models. `cursor-bridge` is retired. Detail: Jackie-OS `hermes-ops` § Model setup.
 
 Newfin's `/ask` + `/research` shell the **subscription OAuth CLIs directly** (Claude Code / Codex), not a Hermes profile. Voice/photo STT stays direct-Gemini with Newfin's own key×model failover (`gemini-media-chain`, fallback `gemini-3.5-flash`). Source: newfin `plans/decisions-log.md` 2026-07-06 + 2026-07-04.
 
@@ -542,8 +545,8 @@ Newfin's `/ask` + `/research` shell the **subscription OAuth CLIs directly** (Cl
 
 Two live Telegram bots, split by audience:
 
-* **[@Persik\_finbot](https://t.me/Persik_finbot)** — the Newfin-hosted Telegram product bot: money COO, `/day`, `/week`, spouse-scoped routes, **and owner ops** (`status`, `sync vault&#x60;). Credentials stay on Vercel; never deployed to the Hermes VPS. **`/ask` and `/research` run subscription OAuth CLIs directly** (Claude Code / Codex — not a Hermes profile, since 2026-07-06). `/research` routes through the Persik **counsel lane** as an agentic, web-searching research turn (`web` toolset) that relates findings to the owner's book only when they connect; `live_market` keeps a synchronous Binance price path. `/scout` + `/deep-research` were folded into `/research` (2026-06-30).
-* **[@persik\_hermes\_bot](https://t.me/persik_hermes_bot)** — the **full** Telegram channel for the Hermes VPS agent: COO, CTO, journal, crons, ops — everything the Hermes agent does. Uses the Hermes model failover chain (see Hermes VPS). Reaches Newfin's `/v1` API for finance answers; does not ship to customers.
+* **[@Persik\_finbot](https://t.me/Persik_finbot)** — **Newfin bot**: household finance + owner trading co-pilot. Spouse/group stay scoped. Trading brief and `/intel` land here. Credentials stay on Vercel; never on the Hermes VPS. No Jackie-OS vault read/write. Journal, clips, and the morning COO brief do **not** live here. `/ask` + `/research` use Claude Code / Codex OAuth CLIs. `/intel` uses Hermes `default` (`gpt-5.6-sol`).
+* **[@persik\_hermes\_bot](https://t.me/persik_hermes_bot)** — **Hermes COO**: journal, clips, morning brief, vault, ops. Owner only. Uses the Hermes `default` chain.
 
 ## Hermes VPS [#hermes-vps-1]
 
@@ -572,19 +575,17 @@ Adding a job to multiple layers causes double-runs — always check all three be
 
 ### Single LLM gateway: Hermes CLI [#single-llm-gateway-hermes-cli]
 
-All AI calls from Newfin bot, Jackie-OS skills, and Hermes agent tasks route through **one gateway: the `hermes` CLI** on the VPS. This is the Claude Agent SDK CLI. There is no direct OpenAI/Anthropic call from Newfin's backend — it goes through Hermes.
-
-**Exception:** speech-to-text (Newfin voice features) calls the STT provider directly, not via Hermes CLI.
+Jackie-OS skills and Hermes Telegram route through the **`hermes` CLI** on the VPS. Newfin `/ask` + `/research` use first-party CLIs. Newfin `/intel` and deep research use named Hermes operations. Speech-to-text calls Gemini directly.
 
 ### Linear integration + autonomous agents [#linear-integration--autonomous-agents]
 
-**Project tracking:** B-Unit is the first product tracked in **Linear** (workspace `evegelin`, project `B-Unit&#x60;). Task state syncs on ship per the contract, and reads back into project-sync/morning-brief via the registry &#x2A;*`tracker: linear`** flag; all other projects stay `tracker: bases`, markdown-only (`roadmap-index.md` + `future-improvements.md`) until Linear rolls out. New repos onboard via `linear-project-rollout` skill.
+**Project tracking:** Linear (workspace `evegelin`, team EVE) is the backlog for Jackie-OS and the product repos. Execute in Cursor. Task state syncs on ship.
 
 **Autonomous agents (retired Cyrus farm):** Coding execution is **Cursor**. Do not wake Cyrus, Buzz, or bb. File a Linear issue, then execute `here`. History: [Desk journey](/jackie-os/docs/desk-journey).
 
 ### How Newfin uses Hermes [#how-newfin-uses-hermes]
 
-Newfin backend → SSH → `hermes-ops-exec.sh` (named Hermes operation) → `hermes` CLI → Anthropic API.
+Newfin backend → named Hermes operation (`hermes-ops-exec.sh`) → `hermes` CLI on the VPS (`default` = `gpt-5.6-sol`, or `persiknewfin` for one-shots).
 
 `@persik_hermes_bot` is the direct channel to the Hermes VPS agent for all work (COO, CTO, ops). What's retired is the old relay: `@Persik_finbot` proxying `/work` commands over SSH to Hermes — that path no longer exists.
 
@@ -878,18 +879,20 @@ bash ~/Jackie-OS/System/scripts/hermes-dashboard-tunnel.sh stop   # manual tunne
 
 Gateway runs without this; Telegram replies need a model. **Do not use Nous Portal** — use existing subs + one Gemini API key.
 
-### Stack (2026-07-10, VPS) [#stack-2026-07-10-vps]
+### Stack (2026-08-15, live VPS) [#stack-2026-08-15-live-vps]
 
-| Profile                      | Chain (primary → fallbacks)                                                                   | Effort  |
-| ---------------------------- | --------------------------------------------------------------------------------------------- | ------- |
-| **`default`** (live gateway) | `claude-fable-5` (anthropic) → `claude-haiku-4.5` → `gpt-5.6-terra` (openai-codex)            | `high`  |
-| **`persiknewfin`**           | `gpt-5.6-terra` (openai-codex) → `openai/gpt-oss-120b:free` (openrouter) → `gemini-2.5-flash` | `xhigh` |
+| Profile            | Chain (primary → fallbacks)                                                                | Role                                 |
+| ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------ |
+| **`default`**      | `openai-codex/gpt-5.6-sol` → Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Gateway, briefs, Telegram, `/intel`  |
+| **`kawai-coo`**    | `openai-codex/gpt-5.6-sol` → GPT-OSS → 4× OpenRouter free                                  | Manual COO                           |
+| **`persiknewfin`** | `deepseek-v4-flash-0731` → GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                  | Holding / trade / research one-shots |
+| **Delegation**     | `anthropic/claude-opus-5`                                                                  | `delegate_task` on `default`         |
 
-Auxiliary roles (vision, web\_extract, compression, title\_generation, delegation subagents, …): `gpt-5.4-mini` (openai-codex), fallback `claude-haiku-4.5`.
+Auxiliary roles run OpenRouter nano models. `cursor-bridge` is retired. Live configs are authoritative — Jackie-OS `hermes-ops` § Model setup.
 
-Hermes **auto-failover**: primary → fallback chain on rate limits, quota, auth errors. Same-provider key rotation is N/A (OAuth subs, not API-key pools).
+Hermes **auto-failover**: primary → fallback chain on rate limits, quota, auth errors.
 
-**Not used:** Nous Portal · OpenRouter · Anthropic API credits (Max only, no pay-as-you-go).
+**Not used:** Nous Portal. OpenRouter **is** used for DeepSeek, GPT-OSS, and free fallbacks.
 
 ### One-time Mac auth [#one-time-mac-auth]
 
@@ -918,27 +921,14 @@ grep -h '^GEMINI_API_KEY=\|^GOOGLE_API_KEY=' ~/dev/rodyna/.env ~/dev/newfin/.env
 
 ### Config (VPS `~/.hermes/config.yaml`, `default` profile) [#config-vps-hermesconfigyaml-default-profile]
 
-```yaml
-model:
-  default: claude-fable-5
-  provider: anthropic
-fallback_providers:
-  - provider: anthropic
-    model: claude-haiku-4.5
-  - provider: openai-codex
-    model: gpt-5.6-terra
-agent:
-  reasoning_effort: high   # per-profile; persiknewfin runs xhigh
-```
-
-Or: `hermes config set model.provider anthropic` · `hermes config set model.default claude-fable-5`. The `persiknewfin` profile lives at `~/.hermes/profiles/persiknewfin/config.yaml`.
+Do **not** paste an old Fable/Terra fragment. The live `default` primary is `openai-codex/gpt-5.6-sol` (operator-swappable). Fallbacks and the `persiknewfin` / `kawai-coo` profiles live in `~/.hermes/config.yaml` and `~/.hermes/profiles/*/config.yaml`. Change them only with Jackie-OS `hermes-ops` § Model setup, then update `CONCEPTS.md` in the same session.
 
 ### Credentials on the VPS [#credentials-on-the-vps]
 
 **No Mac→VPS OAuth sync** — the `hermes-sync-auth` family was retired 2026-07-01 (superseded 2026-06-29). The Mac keychain kept losing its refresh token, so the sync pushed dead tokens. The VPS now authenticates independently:
 
 * **Anthropic (main provider):** long-lived `claude setup-token` → `CLAUDE_CODE_OAUTH_TOKEN` in VPS `~/.hermes/.env` (\~1yr, no keychain/sync dependency). Re-run `claude setup-token` on the VPS when it expires. (Nous Portal retired 2026-07-06 — credits exhausted.)
-* **openai-codex:** Codex CLI OAuth on the VPS (`~/.codex/auth.json`) — Terra fallback, `persiknewfin` main, and the `gpt-5.4-mini` auxiliary roles.
+* **openai-codex:** Codex CLI OAuth on the VPS (`~/.codex/auth.json`) — live `default` / `kawai-coo` primary (`gpt-5.6-sol`).
 * **Gemini / OpenRouter:** `GEMINI_API_KEY` + `OPENROUTER_API_KEY` in VPS `~/.hermes/.env`.
 
 ### Verify [#verify]
@@ -1549,7 +1539,11 @@ One read, top to bottom: you talk to the system, the system remembers and acts, 
 
       `hermes`
 
-       CLI, subscription OAuth — no API billing): claude-fable-5 → claude-haiku-4.5 → gpt-5.6-terra
+       CLI): 
+
+      <code>gpt-5.6-sol</code>
+
+       → Grok 4.6 → GPT-OSS → OpenRouter free. Cron profile: DeepSeek V4 Flash. Delegate: Opus 5.
     </p>
 
     <p>
@@ -1879,7 +1873,7 @@ Three things make it an agent rather than a script:
 * **It follows playbooks, not hardcode.** Each job is a **skill**: a markdown file in `System/skills/` that lives *in the vault*. You read and edit them like any other note. Change the playbook, change the behavior.
 * **It's not a black box.** Everything it reads comes from the vault; everything it writes goes back to the vault. The full chain is auditable: no hidden state.
 
-There's a second, separate bot: `@Persik_finbot`: that handles money and finance for the Newfin app. Hermes (`@persik_hermes_bot`) is the one that runs your OS.
+There's a second, separate bot: `@Persik_finbot` handles Newfin money and the trading desk (`/intel`, trading brief). Hermes (`@persik_hermes_bot`) runs the OS: journal, clips, morning brief, vault.
 
 ***
 
