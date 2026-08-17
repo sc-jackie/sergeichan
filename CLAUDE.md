@@ -1,6 +1,10 @@
 # Claude Code for Personal Website
 
-**Primary desk:** [bb](https://getbb.app) — `~/Jackie-OS/docs/workflows/bb-workspace.md`.
+**Primary desk:** Cursor + Tailscale + Hermes VPS + Grokbot — `~/Jackie-OS/docs/workflows/desk.md`. bb is not in active use.
+
+## Codebase audits / structural refactors
+
+Follow `jos-codebase-audit` (`~/Jackie-OS/System/skills/jos-codebase-audit/SKILL.md`). Fallback: https://gist.github.com/aarondfrancis/8735edbe48532f97ee5ea818db4dbd47. Audit-only stays read-only.
 
 ## Vault sync
 
@@ -8,7 +12,7 @@ This repo is registered in Jackie-OS. See [docs/JACKIE-OS.md](docs/JACKIE-OS.md)
 
 ## Task tracking (Linear)
 
-**Linear is the unit of work** (project `Personal Website`, team EVE). Protocol: [`docs/linear-workflow.md`](docs/linear-workflow.md). Intake: file an EVE issue first → `fleet` (default → Fablio) or `here` — `~/Jackie-OS/docs/workflows/feature-intake.md`. Fleet roster: `~/Jackie-OS/Vault/Agent-Team.md`.
+**Linear is the unit of work** (project `Personal Website`, team EVE). Protocol: [`docs/linear-workflow.md`](docs/linear-workflow.md). Intake: file an EVE issue first → execute **`here` in Cursor** — `~/Jackie-OS/docs/workflows/feature-intake.md`. Desk: `~/Jackie-OS/docs/workflows/desk.md`.
 
 ## Planning
 

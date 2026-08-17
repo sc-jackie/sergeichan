@@ -13,6 +13,8 @@
 | Find a skill or script, or decide skill-vs-script             | [Catalog](/jackie-os/docs/catalog)                  | full inventory, grouped by job                                           |
 | Skill registry with triggers + install                        | [Skills Registry](/jackie-os/docs/skills-registry)  | tables + naming convention                                               |
 | Operate the system day-to-day (what to say, what runs itself) | [Cheat Sheet](/jackie-os/docs/cheat-sheet)          | operator cheat-sheet (Sergei)                                            |
+| See the live desk                                             | [Operator desk](/jackie-os/docs/desk)               | Cursor + Tailscale + Hermes + Grokbot                                    |
+| See why the desk moved                                        | [Desk journey](/jackie-os/docs/desk-journey)        | Cyrus → Buzz → bb → Cursor                                               |
 | Know what runs when (crons, 3 scheduler layers)               | [Vault Rhythm](/jackie-os/docs/vault-rhythm)        | cron map                                                                 |
 | See current state fast                                        | `Vault/hot.md`                                      | \~500-word session cache                                                 |
 | See forward work / plans                                      | [Roadmap](/jackie-os/docs/roadmap)                  | plan index + [Ideas Backlog](/jackie-os/docs/ideas-backlog)              |
@@ -34,30 +36,31 @@
 | Learnings       | technical fixes                                                    | `jos-compound` after non-trivial fixes                            |
 | This file       | the index itself                                                   | new doc surface added or retired                                  |
 
-## Active operating roles [#active-operating-roles]
+## Workers — who runs what [#workers--who-runs-what]
 
-| Role                            | Runs on               | Scope                                                  | Start                       |
-| ------------------------------- | --------------------- | ------------------------------------------------------ | --------------------------- |
-| **Sergei in bb**                | interactive desk      | Direction, decisions, hands-on work                    | Per session                 |
-| **Hermes Agent**                | VPS                   | Always-on COO loop, ops, scheduling, and orchestration | Schedule, bb, or Telegram   |
-| **Temporary Cursor ACP worker** | isolated task context | Bounded code, design, or research                      | Hermes delegation           |
-| **Linear**                      | cloud project tracker | Active project record and delivery state               | Updated during project work |
+| Worker                        | Runs on           | Scope                                                               | Dispatch                       |
+| ----------------------------- | ----------------- | ------------------------------------------------------------------- | ------------------------------ |
+| **Cursor**                    | MacBook / Home PC | Interactive coding, vault, ops                                      | Sergei, per session            |
+| **Hermes** (Claude Agent SDK) | VPS               | Morning stack, journal, sync, ops, research. **Not** a coding farm. | Cron + Telegram                |
+| **Grokbot**                   | Chat              | Thinking / drafts. Not git or vault truth.                          | Sergei                         |
+| **Linear**                    | Cloud             | Backlog only. No Delegate.                                          | File issue → execute in Cursor |
+| **Codex** (legacy CI)         | GitHub CI         | Optional PR review lane                                             | Labels / CI                    |
 
-The named Buzz/Cyrus fleet was retired on 2026-08-07. The Fleet Atlas remains a historical record.
+The Cyrus/Buzz/bb factory is retired. History: [Desk journey](/jackie-os/docs/desk-journey). Roster notice: Jackie-OS `Vault/Agent-Team.md`.
 
 ## Connectors — external surfaces [#connectors--external-surfaces]
 
-| Connector                           | Type                      | Used by                                   | Config lives                             |
-| ----------------------------------- | ------------------------- | ----------------------------------------- | ---------------------------------------- |
-| Telegram `@persik_hermes_bot`       | bot (full Hermes channel) | briefs, journal, ops, COO/CTO             | VPS + `.secrets/telegram.env`            |
-| Telegram `@Persik_finbot`           | bot (Newfin product)      | money COO, advisor, owner ops             | Vercel env (never on VPS)                |
-| **Linear**                          | API                       | project tracking and delegated-work state | Hermes integration                       |
-| **Supabase**                        | MCP + CLI                 | Newfin/Rodyna/B-Unit DBs                  | claude.ai connector                      |
-| **Gmail / Google Calendar / Drive** | MCP + OAuth scripts       | morning brief, COO                        | claude.ai connectors · `.secrets/` OAuth |
-| **Vercel**                          | MCP + auto-deploy         | Newfin/Rodyna/B-Unit hosting              | claude.ai connector                      |
-| **GitHub**                          | `gh` CLI + merge-poll     | all repos, PR flow                        | `gh auth`                                |
-| Hermes SSH bridge                   | ssh                       | Newfin advisor turns → VPS LLM gateway    | `hermes-ops-exec.sh` allowlist           |
-| **codebase-memory**                 | MCP (local)               | structural code queries                   | `~/.cursor/mcp.json` · cron index        |
+| Connector                           | Type                      | Used by                                           | Config lives                             |
+| ----------------------------------- | ------------------------- | ------------------------------------------------- | ---------------------------------------- |
+| Telegram `@persik_hermes_bot`       | bot (full Hermes channel) | briefs, journal, ops, COO/CTO                     | VPS + `.secrets/telegram.env`            |
+| Telegram `@Persik_finbot`           | bot (Newfin product)      | money COO, advisor, owner ops                     | Vercel env (never on VPS)                |
+| **Linear**                          | MCP + API                 | tracking + agent-team dispatch (repo/mode labels) | claude.ai connector                      |
+| **Supabase**                        | MCP + CLI                 | Newfin/Rodyna/B-Unit DBs                          | claude.ai connector                      |
+| **Gmail / Google Calendar / Drive** | MCP + OAuth scripts       | morning brief, COO                                | claude.ai connectors · `.secrets/` OAuth |
+| **Vercel**                          | MCP + auto-deploy         | Newfin/Rodyna/B-Unit hosting                      | claude.ai connector                      |
+| **GitHub**                          | `gh` CLI + merge-poll     | all repos, PR flow                                | `gh auth`                                |
+| Hermes SSH bridge                   | ssh                       | Newfin advisor turns → VPS LLM gateway            | `hermes-ops-exec.sh` allowlist           |
+| **codebase-memory**                 | MCP (local)               | structural code queries                           | `~/.cursor/mcp.json` · cron index        |
 
 ## Skill naming [#skill-naming]
 

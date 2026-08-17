@@ -1,28 +1,93 @@
 ---
 type: Explainer
-title: Current flow
-description: How bb, Hermes, temporary workers, and Linear fit together.
-tags: [flow, bb, hermes, agent, cursor, acp, linear]
+title: The workers
+description: How work moves from a Linear issue to merged code — and the desks that were retired.
+tags: [workers, agents, Linear, Cursor, Hermes]
 ---
 
-# Current flow
+Sergei is CEO. Interactive work runs in **Cursor**. Hermes on the VPS runs briefs and ops. Linear tracks. Grokbot is a side chat.
 
-Sergei's primary interactive desk is **bb**. **Hermes Agent** by Nous Research runs the always-on COO loop: briefs, journal capture, Read Later, knowledge work, ops, and scheduling. Bounded code, design, and research tasks go to temporary **Cursor ACP workers**. **Linear** tracks the projects.
+The named cloud factory is **retired**. This page keeps the history so nobody rebuilds it from old screenshots.
 
-## Interaction flow
+Live contract: [Operator desk](/jackie-os/docs/desk). Story: [Desk journey](/jackie-os/docs/desk-journey).
 
-1. Sergei interacts via **bb** (his primary interactive desk).
-2. **Hermes Agent** manages the daily rhythm and maintains the vault and project status.
-3. Bounded code, design, and research work can go to temporary **Cursor ACP workers**.
-4. Workers develop in isolated worktrees, open pull requests, and report progress back to the issue.
-5. Upon merge, Hermes Agent updates the vault and project status notes.
-6. The vault serves as the single source of truth for knowledge and skills.
+## Live loop
 
-## Telegram surfaces
+| Plane | Who | Job |
+|-------|-----|-----|
+| Desk | Sergei + Cursor | Code, vault, ops |
+| Mesh | Tailscale | MacBook · Home PC · Hermes VPS |
+| Always-on | Hermes | Briefs, journal, merge-poll, Telegram |
+| Chat | Grokbot | Thinking / drafts — not git truth |
+| Tracker | Linear (EVE) | Issues only. No Delegate. |
 
-- `@persik_hermes_bot`: receives morning briefs, journal captures, and operational notifications from Hermes Agent.
-- `@Persik_finbot`: handles Newfin finance-related communications.
+## The dispatch pipeline
 
-## Retired fleet
+<Steps>
+  <Step>
+    <h4>Issue</h4>
+    <p>File a Linear EVE issue first</p>
+  </Step>
+  <Step>
+    <h4>here</h4>
+    <p>Execute in the current Cursor session</p>
+  </Step>
+  <Step>
+    <h4>PR / commit</h4>
+    <p>Push to main or open a PR. Tag <code>Fixes EVE-…</code> when it applies</p>
+  </Step>
+  <Step>
+    <h4>wrap-up</h4>
+    <p>Status prepend · brief Log · hot.md · commit + push</p>
+  </Step>
+</Steps>
 
-The named agents (Buzz, Cyrus, Fablio, Cursorio, Codexio, Marketio, Scriptio) are retired. Their historical roles are documented in the [Fleet Atlas](/fleet) for archival reference.
+**merge → merge-poll may post Linear status → project-sync updates vault Status + hot.md**
+
+## Who's who (now)
+
+<Cards>
+  <Card
+    title="You + Cursor"
+    description="Primary desk. One window per repo. Writes git and the vault."
+  />
+  <Card
+    title="Hermes"
+    description="Always-on VPS: briefs, journal, merge-poll, ops Telegram. Not a coding farm."
+  />
+  <Card
+    title="Grokbot"
+    description="Parallel Grok chat. Drafts come back into Cursor before they are true."
+  />
+  <Card
+    title="Linear"
+    description="Backlog. File issues. Do not Delegate to Fablio / Cyrus / Buzz."
+  />
+</Cards>
+
+## Retired factory (do not revive)
+
+These names still appear in old briefs and Linear labels. They are history.
+
+<Cards>
+  <Card
+    title="Fablio · Cursorio · Codexio · Cyrusio"
+    description="Cyrus + Linear farm (2026-07-23 → 2026-08-05). Cloud factory on a 4 GB VPS. Killed for RAM and ops load."
+  />
+  <Card
+    title="Marketio · Scriptio"
+    description="Content lane of the same farm. Marketing work is ad-hoc in Cursor now."
+  />
+  <Card
+    title="Buzz Mode B"
+    description="Cockpit for two days (2026-08-05 → 2026-08-07). Dual surface with the factory."
+  />
+  <Card
+    title="bb"
+    description="Remote IDE desk (2026-08-07 → 2026-08-17). Not in active use."
+  />
+</Cards>
+
+## Refs
+
+[Desk](/jackie-os/docs/desk) · [Desk journey](/jackie-os/docs/desk-journey) · Jackie-OS `Vault/Agent-Team.md`

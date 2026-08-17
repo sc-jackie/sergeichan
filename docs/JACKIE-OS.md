@@ -10,9 +10,9 @@ This code repo is registered in Sergei's knowledge OS (Jackie-OS). Keep vault an
 
 ## Vault sync (how code work reaches the vault)
 
-**Primary desk:** [bb](https://getbb.app). Hermes Agent runs the always-on COO loop. Temporary Cursor ACP workers handle delegated code, design, and research. **Git on `origin/main` is code truth**; the vault is PM truth.
+**Primary desk:** Cursor + Tailscale + Hermes VPS + Grokbot — `~/Jackie-OS/docs/workflows/desk.md`. bb is not in active use. **Git on `origin/main` is code truth**; the vault is PM truth. **No Cursor automation** (`merge-wrap-up` removed 2026-06-17). Three ways the vault stays current, in priority order:
 
-1. **07:30 morning-brief (authoritative, daily).** The Hermes Agent (always-on COO/orchestrator) runs full `project-sync`, reading every merge on `origin/main` from `git log` → rich vault `## Status` + `hot.md`. Catches everything; needs nothing.
+1. **07:30 morning-brief (authoritative, daily).** Cowork on the Mac runs full `project-sync`, reading every merge on `origin/main` from `git log` → rich vault `## Status` + `hot.md`. Catches everything; needs nothing.
 2. **Merge-poll (intraday, optional).** A scheduled GitHub Action *in jackie-os* (`.github/workflows/jackie-os-merge-poll.yml`) reads this repo every ~3h and prepends a **thin** entry when `main` advances (PR merge or direct push). One read-only PAT in jackie-os; this repo holds no token. The brief supersedes the thin entry.
 3. **Manual.** Invoke **`/wrap-up`** (full handoff) or say **sync projects** (vault sync only). Use for shared/read-only repos or when you want it immediately.
 

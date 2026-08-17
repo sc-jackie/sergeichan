@@ -2,7 +2,7 @@
 
 
 
-A second brain and an always-on AI COO, sharing one memory. The vault is memory. Skills are the contract. Hermes Agent runs the loop. bb is the primary interactive desk. You stay in control.
+A second brain and an always-on AI agent, sharing one memory. The vault (Obsidian) is memory. Skills (markdown playbooks) are the contract. Hermes (a VPS agent) runs the loop 24/7. You stay CEO. This site explains the rest.
 
 <Steps>
   <Step>
@@ -31,7 +31,7 @@ A second brain and an always-on AI COO, sharing one memory. The vault is memory.
     </h4>
 
     <p>
-      temporary Cursor ACP workers handle bounded code, design, and research tasks
+      file a Linear issue, then execute in Cursor (Hermes stays briefs/ops)
     </p>
   </Step>
 
@@ -62,7 +62,7 @@ A second brain and an always-on AI COO, sharing one memory. The vault is memory.
 
 ### 1. What is this system? [#1-what-is-this-system]
 
-Start with &#x2A;*[what Jackie-OS does](/jackie-os/docs/what-it-does)*&#x2A; — the plain-English walkthrough. Then the &#x2A;*[system map](/jackie-os/docs/system-map)*&#x2A; (one page, top to bottom: you → vault/skills → Hermes → workers → back to you) and the &#x2A;*[vocabulary](/jackie-os/docs/concepts)**.
+Start with &#x2A;*[what Jackie-OS does](/jackie-os/docs/what-it-does)*&#x2A; — the plain-English walkthrough. Then the &#x2A;*[operator desk](/jackie-os/docs/desk)*&#x2A; (Cursor + Tailscale + Hermes + Grokbot), the &#x2A;*[system map](/jackie-os/docs/system-map)*&#x2A;, and the &#x2A;*[vocabulary](/jackie-os/docs/concepts)*&#x2A;. How the desk moved: &#x2A;*[desk journey](/jackie-os/docs/desk-journey)**.
 
 ### 2. What do I do? [#2-what-do-i-do]
 
@@ -82,4 +82,4 @@ The &#x2A;*[cheat-sheet](/jackie-os/docs/cheat-sheet)*&#x2A;: the \~5 things you
 
 **The one rule:** before building anything new, check the [master index](/jackie-os/docs/master-index) for prior art. When something ships, its doc updates in the same commit, so this site stays current.
 
-*This site builds from `docs-src/content/docs/` with Fumadocs and publishes the static export under `site/jackie-os/`.*
+*This site renders the repo's markdown directly (`docs-site/`, symlinked, no copies). Serve: `bash System/tools/docs-site.sh serve` → 127.0.0.1:8123.*

@@ -5,7 +5,7 @@ description: One page reference for everything else the system does automaticall
 
 *One page. Everything else is agent-facing (`System/skills/`, `CLAUDE.md`). Read this when you forget how the system works.*
 
-**Last refreshed:** 2026-07-10
+**Last refreshed:** 2026-08-17 — desk is Cursor + Tailscale + Hermes + Grokbot. bb not in active use.
 
 ---
 
@@ -37,7 +37,7 @@ Draw (shared repo) is read-only — poll skips it; 07:30 brief still syncs from 
 ## What you do (three things)
 
 1. **Journal &#38; reviews** — daily: `Vault/YYYY-MM-DD.md` (+ Persik). Week/month/year: read AI **brief** in `Briefs/`, then `weekly review` / `monthly review` / `yearly review` for your note.
-2. **Build** — code in `~/dev/{newfin,rodyna,draw}` via **Cursor** (default CTO), **Claude Code**, or **Codex** — each opens the folder and becomes the same Jackie OS agent. The Hermes VPS agent also writes/ships code on its own.
+2. **Build** — code in `~/dev/{newfin,rodyna,draw}` via **Cursor**. File a Linear issue first. Hermes is briefs/ops, not a coding farm. Grokbot is a side chat. [Operator desk](/jackie-os/docs/desk).
 3. **Close vault sessions** — say **wrap up** when you edited Jackie-OS or `Projects/` and did **not** just merge a PR (see below).
 
 You do **not** need to remember registry paths, skill names, automation numbers, or where Status gets written.

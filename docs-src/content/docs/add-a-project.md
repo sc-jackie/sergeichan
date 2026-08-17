@@ -52,7 +52,7 @@ Then run the matching path. Both end with a single `git commit` in jackie-os.
 7. **Commit in the code repo** — bridge + solutions + **plans/** + design doc + AGENTS/CLAUDE blurbs in one PR or push.
 8. **Poller — nothing to do.** The merge-poll is **registry-driven** (`.github/scripts/merge_poll.py` reads `project-registry.md`), so adding the row in **A1** already puts the repo under the intraday poll (owned `sc-jackie/*`, Active, not shared).
 9. **Project-sync** — run project-sync; prepend the vault `## Status` stub; refresh `hot.md` if Active.
-10. **Linear** (owned repos) — add the project to Linear. Hermes can then delegate bounded work to temporary Cursor ACP workers when needed.
+10. **Linear** (optional, owned repos) — add a Linear project for tracking. Execute in Cursor. Do not Delegate to the retired Cyrus farm. The 3 label groups (`Pipeline`/`Stage`/`Type`) are workspace-shared.
 
 ## Path B — non-code project (lives inside jackie-os)
 

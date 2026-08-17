@@ -12,9 +12,12 @@ See also: [Roadmap](/jackie-os/docs/roadmap) (active plans) · [Ideas Backlog](/
 
 ## Decisions (by date) [#decisions-by-date]
 
-| Date                          | Decision | Outcome / Impact |
-| ----------------------------- | -------- | ---------------- |
-| (Dated decisions appear here) |          | (rationale)      |
+| Date       | Decision                              | Outcome / Impact                                                                                                         |
+| ---------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 2026-08-17 | Cursor + Tailscale + Hermes + Grokbot | Interactive desk is Cursor. bb not in active use. [Desk](/jackie-os/docs/desk) · [Journey](/jackie-os/docs/desk-journey) |
+| 2026-08-07 | bb desk (superseded)                  | One remote UI. Custom plugins. Replaced the Buzz office. Sergei stopped using it.                                        |
+| 2026-08-05 | Buzz Mode B (superseded)              | Cockpit + factory. Two desks. Cut in two days.                                                                           |
+| 2026-07-23 | Cyrus + Linear farm (superseded)      | Named agents + Delegate. RAM and Inbox load on a 4 GB VPS.                                                               |
 
 ***
 
