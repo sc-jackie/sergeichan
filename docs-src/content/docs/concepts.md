@@ -39,13 +39,13 @@ Jackie-OS adopts **Open Knowledge Format** *frontmatter* — every skill, soluti
 
 ### Hermes VPS
 
-The VPS worker layer — runs the Hermes agent, crons, and the ops exec allowlist. **Models run on subscription OAuth CLIs plus OpenRouter**, not Nous Portal. Three Hermes profiles (verified live 2026-08-15):
+The VPS worker layer — runs the Hermes agent, crons, and the ops exec allowlist. **Models run on subscription OAuth CLIs plus OpenRouter**, not Nous Portal. Three Hermes profiles (verified live 2026-08-17):
 
 | Profile | Primary | Fallbacks | Used for |
 |---|---|---|---|
 | **`default`** | `openai-codex/gpt-5.6-sol` (swappable) | Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Briefs, Telegram, planning, Newfin `/intel`. `delegate_task` → `anthropic/claude-opus-5` |
 | **`kawai-coo`** | `openai-codex/gpt-5.6-sol` | GPT-OSS 120B → 4× OpenRouter free | Manual COO sessions |
-| **`persiknewfin`** | `openrouter/deepseek/deepseek-v4-flash-0731` | GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free | Holding / trade / research one-shots (`hermes -p persiknewfin -z`) |
+| **`persiknewfin`** | matches `default` (currently `openai-codex/gpt-5.6-sol`) | Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Holding / trade / research one-shots (`hermes -p persiknewfin -z`) |
 
 Auxiliary roles (vision, compression, titles) run OpenRouter nano models. `cursor-bridge` is retired. Detail: Jackie-OS `hermes-ops` § Model setup.
 

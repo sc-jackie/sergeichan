@@ -20,7 +20,7 @@ flowchart TB
     end
     NEWFIN["Newfin (~/dev)<br>net-worth + advisor"]
     RODYNA["Rodyna (~/dev)<br>family recipes"]
-    RAILS["Shared rails<br>Supabase · Vercel<br>LLM: gpt-5.6-sol · DeepSeek · Opus 5"]
+    RAILS["Shared rails<br>Supabase · Vercel<br>LLM: gpt-5.6-sol · Grok 4.6 · Opus 5"]
 
     SERGEI --> FINBOT
     SERGEI --> HERMESBOT
@@ -97,7 +97,7 @@ Three automation layers (a job must never live in multiple, or it double-runs). 
 
 ***
 
-## 1b. LLM Gateway — live profiles (as of 2026-08-15) [#1b-llm-gateway--live-profiles-as-of-2026-08-15]
+## 1b. LLM Gateway — live profiles (as of 2026-08-17) [#1b-llm-gateway--live-profiles-as-of-2026-08-17]
 
 **Hermes CLI** on VPS is the gateway for Jackie-OS AI calls. **Canonical chain table lives in [Concepts](/jackie-os/docs/concepts) § Hermes VPS** — summary:
 
@@ -105,7 +105,7 @@ Three automation layers (a job must never live in multiple, or it double-runs). 
 | ------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------- |
 | **Hermes `default`**            | `openai-codex/gpt-5.6-sol` → Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Briefs, Telegram, planning, Newfin `/intel` |
 | **Hermes `kawai-coo`**          | `openai-codex/gpt-5.6-sol` → GPT-OSS → 4× OpenRouter free                                  | Manual COO sessions                         |
-| **Hermes `persiknewfin`**       | `deepseek-v4-flash-0731` → GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                  | Holding / trade / research one-shots        |
+| **Hermes `persiknewfin`**       | matches `default` (`gpt-5.6-sol` → Grok 4.6 → GPT-OSS → 4× OpenRouter free); no delegation | Holding / trade / research one-shots        |
 | **Delegation** (`default`)      | `anthropic/claude-opus-5`                                                                  | `delegate_task`                             |
 | **Auxiliary roles**             | OpenRouter nano                                                                            | Title, compression, vision                  |
 | **Newfin `/ask` + `/research`** | Claude Code / Codex OAuth CLIs — not a Hermes profile                                      | Advisor + research turns                    |
@@ -177,7 +177,7 @@ Product in active development: economy model (quests, rewards, real-money cashou
 | **Writes**       | Git commits (human + agent)                                      | Vercel deploys                                        | Supabase deploys                                      | Vercel deploys; vault is read-only watcher     | Supabase Edge Fn + migrations; agent-team auto-dispatch |
 | **Tracking**     | Vault (`roadmap-index.md` + `future-improvements.md`)            | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (read-only)                              | **Linear** (`B-Unit` project, workspace `EVE`)          |
 
-**The spine is Hermes.** Newfin and Rodyna are fully independent repos with their own Supabase projects and deploys — they'd run without Jackie-OS. What ties the ecosystem together: Hermes owns the morning/journal cron, is the **LLM gateway** (live: `gpt-5.6-sol` + DeepSeek cron profile), and runs named Newfin workers (`/intel`, deep research). The vault never holds code — only *knowledge about* the repos; each repo's `docs/solutions/` holds the technical learnings, indexed back into `Vault/Agent-Learnings/`.
+**The spine is Hermes.** Newfin and Rodyna are fully independent repos with their own Supabase projects and deploys — they'd run without Jackie-OS. What ties the ecosystem together: Hermes owns the morning/journal cron, is the **LLM gateway** (live: `gpt-5.6-sol` + matching `persiknewfin` cron profile), and runs named Newfin workers (`/intel`, deep research). The vault never holds code — only *knowledge about* the repos; each repo's `docs/solutions/` holds the technical learnings, indexed back into `Vault/Agent-Learnings/`.
 
 ***
 

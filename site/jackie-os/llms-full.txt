@@ -128,7 +128,7 @@ flowchart TB
     end
     NEWFIN["Newfin (~/dev)<br>net-worth + advisor"]
     RODYNA["Rodyna (~/dev)<br>family recipes"]
-    RAILS["Shared rails<br>Supabase · Vercel<br>LLM: gpt-5.6-sol · DeepSeek · Opus 5"]
+    RAILS["Shared rails<br>Supabase · Vercel<br>LLM: gpt-5.6-sol · Grok 4.6 · Opus 5"]
 
     SERGEI --> FINBOT
     SERGEI --> HERMESBOT
@@ -205,7 +205,7 @@ Three automation layers (a job must never live in multiple, or it double-runs). 
 
 ***
 
-## 1b. LLM Gateway — live profiles (as of 2026-08-15) [#1b-llm-gateway--live-profiles-as-of-2026-08-15]
+## 1b. LLM Gateway — live profiles (as of 2026-08-17) [#1b-llm-gateway--live-profiles-as-of-2026-08-17]
 
 **Hermes CLI** on VPS is the gateway for Jackie-OS AI calls. **Canonical chain table lives in [Concepts](/jackie-os/docs/concepts) § Hermes VPS** — summary:
 
@@ -213,7 +213,7 @@ Three automation layers (a job must never live in multiple, or it double-runs). 
 | ------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------- |
 | **Hermes `default`**            | `openai-codex/gpt-5.6-sol` → Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Briefs, Telegram, planning, Newfin `/intel` |
 | **Hermes `kawai-coo`**          | `openai-codex/gpt-5.6-sol` → GPT-OSS → 4× OpenRouter free                                  | Manual COO sessions                         |
-| **Hermes `persiknewfin`**       | `deepseek-v4-flash-0731` → GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                  | Holding / trade / research one-shots        |
+| **Hermes `persiknewfin`**       | matches `default` (`gpt-5.6-sol` → Grok 4.6 → GPT-OSS → 4× OpenRouter free); no delegation | Holding / trade / research one-shots        |
 | **Delegation** (`default`)      | `anthropic/claude-opus-5`                                                                  | `delegate_task`                             |
 | **Auxiliary roles**             | OpenRouter nano                                                                            | Title, compression, vision                  |
 | **Newfin `/ask` + `/research`** | Claude Code / Codex OAuth CLIs — not a Hermes profile                                      | Advisor + research turns                    |
@@ -285,7 +285,7 @@ Product in active development: economy model (quests, rewards, real-money cashou
 | **Writes**       | Git commits (human + agent)                                      | Vercel deploys                                        | Supabase deploys                                      | Vercel deploys; vault is read-only watcher     | Supabase Edge Fn + migrations; agent-team auto-dispatch |
 | **Tracking**     | Vault (`roadmap-index.md` + `future-improvements.md`)            | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (`roadmap-index.md` + `future-improvements.md`) | Vault (read-only)                              | **Linear** (`B-Unit` project, workspace `EVE`)          |
 
-**The spine is Hermes.** Newfin and Rodyna are fully independent repos with their own Supabase projects and deploys — they'd run without Jackie-OS. What ties the ecosystem together: Hermes owns the morning/journal cron, is the **LLM gateway** (live: `gpt-5.6-sol` + DeepSeek cron profile), and runs named Newfin workers (`/intel`, deep research). The vault never holds code — only *knowledge about* the repos; each repo's `docs/solutions/` holds the technical learnings, indexed back into `Vault/Agent-Learnings/`.
+**The spine is Hermes.** Newfin and Rodyna are fully independent repos with their own Supabase projects and deploys — they'd run without Jackie-OS. What ties the ecosystem together: Hermes owns the morning/journal cron, is the **LLM gateway** (live: `gpt-5.6-sol` + matching `persiknewfin` cron profile), and runs named Newfin workers (`/intel`, deep research). The vault never holds code — only *knowledge about* the repos; each repo's `docs/solutions/` holds the technical learnings, indexed back into `Vault/Agent-Learnings/`.
 
 ***
 
@@ -529,13 +529,13 @@ Jackie-OS adopts **Open Knowledge Format** *frontmatter* — every skill, soluti
 
 ### Hermes VPS [#hermes-vps]
 
-The VPS worker layer — runs the Hermes agent, crons, and the ops exec allowlist. **Models run on subscription OAuth CLIs plus OpenRouter**, not Nous Portal. Three Hermes profiles (verified live 2026-08-15):
+The VPS worker layer — runs the Hermes agent, crons, and the ops exec allowlist. **Models run on subscription OAuth CLIs plus OpenRouter**, not Nous Portal. Three Hermes profiles (verified live 2026-08-17):
 
-| Profile            | Primary                                      | Fallbacks                                                     | Used for                                                                                 |
-| ------------------ | -------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| **`default`**      | `openai-codex/gpt-5.6-sol` (swappable)       | Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Briefs, Telegram, planning, Newfin `/intel`. `delegate_task` → `anthropic/claude-opus-5` |
-| **`kawai-coo`**    | `openai-codex/gpt-5.6-sol`                   | GPT-OSS 120B → 4× OpenRouter free                             | Manual COO sessions                                                                      |
-| **`persiknewfin`** | `openrouter/deepseek/deepseek-v4-flash-0731` | GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                | Holding / trade / research one-shots (`hermes -p persiknewfin -z`)                       |
+| Profile            | Primary                                                  | Fallbacks                                                     | Used for                                                                                 |
+| ------------------ | -------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **`default`**      | `openai-codex/gpt-5.6-sol` (swappable)                   | Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Briefs, Telegram, planning, Newfin `/intel`. `delegate_task` → `anthropic/claude-opus-5` |
+| **`kawai-coo`**    | `openai-codex/gpt-5.6-sol`                               | GPT-OSS 120B → 4× OpenRouter free                             | Manual COO sessions                                                                      |
+| **`persiknewfin`** | matches `default` (currently `openai-codex/gpt-5.6-sol`) | Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Holding / trade / research one-shots (`hermes -p persiknewfin -z`)                       |
 
 Auxiliary roles (vision, compression, titles) run OpenRouter nano models. `cursor-bridge` is retired. Detail: Jackie-OS `hermes-ops` § Model setup.
 
@@ -703,7 +703,7 @@ Jackie-OS: `docs/workflows/desk.md`, `docs/workflows/desk-journey.md`, `Vault/Ag
 
 Sergei's live stack is **Cursor** (interactive coding / vault) + **Tailscale** (host mesh) + **Hermes VPS** (always-on briefs/ops) + **Grokbot** (Grok chat for thinking / drafting).
 
-**bb is not in active use.** History of the desks that came before: [Desk journey](/jackie-os/docs/desk-journey).
+**bb is not in active use.** Live map: [System match](/jackie-os/docs/fleet). History of the desks that came before: [Desk journey](/jackie-os/docs/desk-journey).
 
 ## Core stack [#core-stack]
 
@@ -735,6 +735,114 @@ Open **one Cursor window per repo**. Do not stack every checkout in one window.
 * Route new work through bb, Buzz, or the Cyrus fleet
 * Treat Grokbot replies as vault or git truth
 * Park coding agents on the 4 GB VPS
+
+
+# System match (/docs/fleet)
+
+
+
+> Generated by System/ops/render-system-match.py. Do not hand-edit.
+
+**Live desk:** Cursor + Tailscale + Hermes VPS + Grokbot.
+&#x2A;*Contract:** [Operator desk](/jackie-os/docs/desk).
+&#x2A;*Inventory stamp:** 2026-08-17.
+
+Generated. Run System/ops/render-system-match.py after model, inventory, desk, or decisions changes. No new cron.
+
+## Workflow [#workflow]
+
+```mermaid
+flowchart LR
+    intent[Intent] --> linear[Linear EVE]
+    linear --> here[here in Cursor]
+    here --> ship[Ship]
+    ship --> wrap[wrap-up]
+```
+
+| Step           | What happens                                                       |
+| -------------- | ------------------------------------------------------------------ |
+| Intent         | Sergei says build, fix, or change something.                       |
+| Linear EVE     | File an issue first. Do not set Sergei as Assignee unless he asks. |
+| here in Cursor | Execute in the current Cursor window. One repo per window.         |
+| Ship           | Commit and push, or open a PR. Tag Fixes EVE-… when it applies.    |
+| wrap-up        | Status prepend · brief Log · hot.md · commit + push.               |
+
+bb, Buzz, and the Cyrus farm are not the live desk. History: [Desk journey](/jackie-os/docs/desk-journey).
+
+## Tooling [#tooling]
+
+| Tool       | Job                                             | Not                            |
+| ---------- | ----------------------------------------------- | ------------------------------ |
+| Cursor     | Primary interactive desk                        | Always-on cron brain           |
+| Tailscale  | Mesh: MacBook · Home PC · Hermes · Cloud Agents | Public SSH as the default path |
+| Hermes VPS | Briefs, journal, merge-poll, Telegram           | Coding worker farm             |
+| Grokbot    | Parallel Grok chat for thinking and drafts      | Git or vault truth             |
+| Linear EVE | Backlog and tracking                            | Delegate to a cloud factory    |
+| AgentsView | Spend / session hub on Home PC                  | The live coding desk           |
+
+## Hosts [#hosts]
+
+| Host                 | Role                                           | Always-on |
+| -------------------- | ---------------------------------------------- | --------- |
+| MacBook              | operator laptop · Cursor + Tailscale (M1 2020) | no        |
+| Home PC              | secondary desk · Cursor / WSL                  | no        |
+| Hetzner VPS (Hermes) | always-on briefs/ops · Tailscale hermes-phase1 | yes       |
+
+## Subscriptions [#subscriptions]
+
+| Sub                      | Used by                                                              |
+| ------------------------ | -------------------------------------------------------------------- |
+| Gemini free              | Newfin STT/media, Rodyna extract, occasional free-tier helpers       |
+| OpenAI Plus              | Hermes Codex primary (gpt-5.6-sol), Newfin /ask+/research Codex path |
+| Claude Code subscription | occasional Claude Code on Mac                                        |
+| Cursor subscription      | Cursor (primary desk), Hermes Grok fallback via copilot-acp          |
+
+## Live model chains [#live-model-chains]
+
+Machine-checked in [Hermes runbook](/jackie-os/docs/hermes-runbook). `persiknewfin` matches `default` (no delegation).
+
+```
+default=<configured-primary> -> copilot-acp/cursor-grok-4.6-high-fast -> openrouter/openai/gpt-oss-120b -> openrouter/nvidia/nemotron-3-super-120b-a12b:free -> openrouter/nvidia/nemotron-3-ultra-550b-a55b:free -> openrouter/google/gemma-4-26b-a4b-it:free -> openrouter/inclusionai/ling-3.0-flash:free
+kawai-coo=openai-codex/gpt-5.6-sol -> openrouter/openai/gpt-oss-120b -> openrouter/nvidia/nemotron-3-super-120b-a12b:free -> openrouter/nvidia/nemotron-3-ultra-550b-a55b:free -> openrouter/google/gemma-4-26b-a4b-it:free -> openrouter/inclusionai/ling-3.0-flash:free
+persiknewfin=<configured-primary> -> copilot-acp/cursor-grok-4.6-high-fast -> openrouter/openai/gpt-oss-120b -> openrouter/nvidia/nemotron-3-super-120b-a12b:free -> openrouter/nvidia/nemotron-3-ultra-550b-a55b:free -> openrouter/google/gemma-4-26b-a4b-it:free -> openrouter/inclusionai/ling-3.0-flash:free
+```
+
+After `default` changes: `python3 System/ops/hermes-sync-persiknewfin-chain.py` on the VPS, then regenerate this page.
+
+## Personas [#personas]
+
+Keep these names. They are labels, not a live cloud factory. Hermes is the live ops relay.
+
+| Persona  | Role                                  | Lane           | Status |
+| -------- | ------------------------------------- | -------------- | ------ |
+| Fablio   | CEO / CPO / CTO orchestrator          | orchestration  | kept   |
+| Cursorio | Fast, spec-driven implementer         | implementation | kept   |
+| Codexio  | Design lead and design engineer       | design         | kept   |
+| Cyrusio  | Delivery engineer, issue to tested PR | delivery       | kept   |
+| Marketio | CMO — strategy, SEO, GTM briefs       | marketing      | kept   |
+| Scriptio | Content producer from briefs          | content        | kept   |
+| Hermes   | Always-on operations relay            | ops            | live   |
+
+## Historical decisions [#historical-decisions]
+
+Newest first. Full ledger: [Decisions](/jackie-os/docs/decisions).
+
+* **2026-08-17 — persiknewfin matches default + living system-match page** — Hermes `persiknewfin` uses the same model chain as `default` (`gpt-5.6-sol` → Cursor Grok 4.6 → GPT-OSS → 4× OpenRouter free). No `delegation` block on the cron profile. After `default` changes, run `System/ops/hermes-sync-persiknewfin-chain.py`. Living system / workflow match page: `docs/workflows/system-match.md` (public `/jackie-os/docs/fleet`), generated from inventory + healthcheck models + decisions-log. Personas stay as labels. No new cron.
+* **2026-08-17 — Cursor + Tailscale + Hermes + Grokbot (supersedes bb desk)** — Interactive desk is **Cursor**. Hosts talk over **Tailscale**. Always-on ops stay on **Hermes VPS**. **Grokbot** is a parallel Grok chat surface (thinking / drafting), not git or vault truth. &#x2A;*bb is not in active use.** Contract: [Operator desk](/jackie-os/docs/desk). Supersedes 2026-08-07 "bb desk + System/bb-plugins".
+* **2026-08-17 — Merging agent dispatches prod migrations** — After a PR that adds `supabase/migrations/` squash-merges (or is pushed to `main`), the merging agent must immediately `gh workflow run deploy-migrations.yml -f confirm=apply` and watch the run. Do not ask Sergei. Do not convert the workflow to `on: push`. `workflow_dispatch` + `confirm=apply` stay. Hermes VPS autodeploy (`hermes-vps-autodeploy.sh`) remains an additional auto path (`supabase db push`). The human Actions button is no longer the expected path — agents dispatch. Skip only if that workflow file is missing.
+* **2026-08-07 — bb desk + System/bb-plugins (supersedes Buzz Mode B)** — Interactive desk is **bb** only. Custom plugins live in `System/bb-plugins/{fleet,linear}`. Cyrus/Buzz farm archived under `System/archive/`. Linear tracks; execution is `here` in bb (Fleet sidebar = Fablio-owned waves, not Delegate). Hermes = briefs/ops. EVE-316.
+* **2026-08-05 — Buzz Mode B live fleet (superseded 2026-08-07 → bb)** — &#x2A;*Decision (historical):** Buzz was briefly the live office; Hermes-as-Fablio green-light; nests on Mac. **Superseded** by bb-primary above. Bodies: `System/plans/archive/`.
+* **2026-07-30 — Owner Linear signal = input / Ready / merged only** — Agents must not set Sergei as human **Assignee*&#x2A; and must **@mention** him in Linear only for (1) blocking input required, (2) parent Ready / In Review, (3) merged/Done. Telegram `hermes send` stays available for blockers and when he is working via Telegram. Owner push prefs + `Shift+S` unsubscribe after filing live in `OPERATOR.md`. TEAM RULES §18.
+* **2026-07-27 — Fablio owns cross-repo kids + migration apply + VPS scripts** — Fablio may (must, when the wave needs it) (1) create Linear kids on the project matching the landing repo even when the parent is elsewhere (e.g. Newfin parent → Jackie OS kids for VPS workers), (2) check statuses / post project updates across those boards, (3) **apply** Newfin/Rodyna DB migrations after merge (`gh workflow run deploy-migrations.yml` and/or verify VPS autodeploy `supabase db push`), (4) run/extend jackie-os `System/scripts` + `System/ops`. Workers still author migration files; Fablio applies unless he delegates an apply kid. TEAM RULES §15 + `_shared/access.md`.
+* **2026-07-27 — Host ceiling 6 (Fablio fills toward max)*&#x2A; — Raise &#x2A;*`FLEET_SESSION_CEILING`** default **5 → 6**. Fablio still owns sequencing (fill toward 6 → next-after-Done); Hermes heal/steer still refuse past ceiling / under pressure. Stay on cx23 + 4G swap (prior decision).
+
+## Related [#related]
+
+* Desk: [Operator desk](/jackie-os/docs/desk)
+* Desk journey: [Desk journey](/jackie-os/docs/desk-journey)
+* Inventory: [Architecture](/jackie-os/docs/architecture)
+* Hermes models: [Hermes runbook](/jackie-os/docs/hermes-runbook)
+* Internal twin: Jackie-OS `docs/workflows/system-match.md`
 
 
 # hermes-ops (/docs/hermes-runbook)
@@ -879,20 +987,20 @@ bash ~/Jackie-OS/System/scripts/hermes-dashboard-tunnel.sh stop   # manual tunne
 
 Gateway runs without this; Telegram replies need a model. **Do not use Nous Portal** — use existing subs + one Gemini API key.
 
-### Stack (2026-08-15, live VPS) [#stack-2026-08-15-live-vps]
+### Stack (2026-08-17, live VPS) [#stack-2026-08-17-live-vps]
 
 | Profile            | Chain (primary → fallbacks)                                                                | Role                                 |
 | ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------ |
 | **`default`**      | `openai-codex/gpt-5.6-sol` → Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Gateway, briefs, Telegram, `/intel`  |
 | **`kawai-coo`**    | `openai-codex/gpt-5.6-sol` → GPT-OSS → 4× OpenRouter free                                  | Manual COO                           |
-| **`persiknewfin`** | `deepseek-v4-flash-0731` → GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                  | Holding / trade / research one-shots |
+| **`persiknewfin`** | matches `default` (`gpt-5.6-sol` → Grok 4.6 → GPT-OSS → 4× OpenRouter free); no delegation | Holding / trade / research one-shots |
 | **Delegation**     | `anthropic/claude-opus-5`                                                                  | `delegate_task` on `default`         |
 
 Auxiliary roles run OpenRouter nano models. `cursor-bridge` is retired. Live configs are authoritative — Jackie-OS `hermes-ops` § Model setup.
 
 Hermes **auto-failover**: primary → fallback chain on rate limits, quota, auth errors.
 
-**Not used:** Nous Portal. OpenRouter **is** used for DeepSeek, GPT-OSS, and free fallbacks.
+**Not used:** Nous Portal. OpenRouter **is** used for GPT-OSS and free fallbacks.
 
 ### One-time Mac auth [#one-time-mac-auth]
 
@@ -1036,7 +1144,7 @@ A second brain and an always-on AI agent, sharing one memory. The vault (Obsidia
 
 ### 1. What is this system? [#1-what-is-this-system]
 
-Start with &#x2A;*[what Jackie-OS does](/jackie-os/docs/what-it-does)*&#x2A; — the plain-English walkthrough. Then the &#x2A;*[operator desk](/jackie-os/docs/desk)*&#x2A; (Cursor + Tailscale + Hermes + Grokbot), the &#x2A;*[system map](/jackie-os/docs/system-map)*&#x2A;, and the &#x2A;*[vocabulary](/jackie-os/docs/concepts)*&#x2A;. How the desk moved: &#x2A;*[desk journey](/jackie-os/docs/desk-journey)**.
+Start with &#x2A;*[what Jackie-OS does](/jackie-os/docs/what-it-does)*&#x2A; — the plain-English walkthrough. Then the &#x2A;*[operator desk](/jackie-os/docs/desk)*&#x2A; (Cursor + Tailscale + Hermes + Grokbot), the &#x2A;*[system match](/jackie-os/docs/fleet)*&#x2A; (flow, tooling, models, personas), the &#x2A;*[system map](/jackie-os/docs/system-map)*&#x2A;, and the &#x2A;*[vocabulary](/jackie-os/docs/concepts)*&#x2A;. How the desk moved: &#x2A;*[desk journey](/jackie-os/docs/desk-journey)**.
 
 ### 2. What do I do? [#2-what-do-i-do]
 
@@ -1180,6 +1288,7 @@ Once the core system is running, add your code repos and projects via [Add a Pro
 | Skill registry with triggers + install                        | [Skills Registry](/jackie-os/docs/skills-registry)  | tables + naming convention                                               |
 | Operate the system day-to-day (what to say, what runs itself) | [Cheat Sheet](/jackie-os/docs/cheat-sheet)          | operator cheat-sheet (Sergei)                                            |
 | See the live desk                                             | [Operator desk](/jackie-os/docs/desk)               | Cursor + Tailscale + Hermes + Grokbot                                    |
+| See the live system map                                       | [System match](/jackie-os/docs/fleet)               | flow, tooling, models, personas, decisions                               |
 | See why the desk moved                                        | [Desk journey](/jackie-os/docs/desk-journey)        | Cyrus → Buzz → bb → Cursor                                               |
 | Know what runs when (crons, 3 scheduler layers)               | [Vault Rhythm](/jackie-os/docs/vault-rhythm)        | cron map                                                                 |
 | See current state fast                                        | `Vault/hot.md`                                      | \~500-word session cache                                                 |
@@ -1543,7 +1652,11 @@ One read, top to bottom: you talk to the system, the system remembers and acts, 
 
       <code>gpt-5.6-sol</code>
 
-       → Grok 4.6 → GPT-OSS → OpenRouter free. Cron profile: DeepSeek V4 Flash. Delegate: Opus 5.
+       → Grok 4.6 → GPT-OSS → OpenRouter free. Cron profile 
+
+      <code>persiknewfin</code>
+
+       matches that chain. Delegate: Opus 5.
     </p>
 
     <p>
@@ -2001,7 +2114,7 @@ Sergei is CEO. Interactive work runs in **Cursor**. Hermes on the VPS runs brief
 
 The named cloud factory is **retired**. This page keeps the history so nobody rebuilds it from old screenshots.
 
-Live contract: [Operator desk](/jackie-os/docs/desk). Story: [Desk journey](/jackie-os/docs/desk-journey).
+Live contract: [Operator desk](/jackie-os/docs/desk). Live map: [System match](/jackie-os/docs/fleet). Story: [Desk journey](/jackie-os/docs/desk-journey).
 
 ## Live loop [#live-loop]
 

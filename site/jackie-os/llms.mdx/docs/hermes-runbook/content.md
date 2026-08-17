@@ -140,20 +140,20 @@ bash ~/Jackie-OS/System/scripts/hermes-dashboard-tunnel.sh stop   # manual tunne
 
 Gateway runs without this; Telegram replies need a model. **Do not use Nous Portal** — use existing subs + one Gemini API key.
 
-### Stack (2026-08-15, live VPS) [#stack-2026-08-15-live-vps]
+### Stack (2026-08-17, live VPS) [#stack-2026-08-17-live-vps]
 
 | Profile            | Chain (primary → fallbacks)                                                                | Role                                 |
 | ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------ |
 | **`default`**      | `openai-codex/gpt-5.6-sol` → Cursor Grok 4.6 High Fast → GPT-OSS 120B → 4× OpenRouter free | Gateway, briefs, Telegram, `/intel`  |
 | **`kawai-coo`**    | `openai-codex/gpt-5.6-sol` → GPT-OSS → 4× OpenRouter free                                  | Manual COO                           |
-| **`persiknewfin`** | `deepseek-v4-flash-0731` → GPT-OSS → Claude Sonnet 5 → 4× OpenRouter free                  | Holding / trade / research one-shots |
+| **`persiknewfin`** | matches `default` (`gpt-5.6-sol` → Grok 4.6 → GPT-OSS → 4× OpenRouter free); no delegation | Holding / trade / research one-shots |
 | **Delegation**     | `anthropic/claude-opus-5`                                                                  | `delegate_task` on `default`         |
 
 Auxiliary roles run OpenRouter nano models. `cursor-bridge` is retired. Live configs are authoritative — Jackie-OS `hermes-ops` § Model setup.
 
 Hermes **auto-failover**: primary → fallback chain on rate limits, quota, auth errors.
 
-**Not used:** Nous Portal. OpenRouter **is** used for DeepSeek, GPT-OSS, and free fallbacks.
+**Not used:** Nous Portal. OpenRouter **is** used for GPT-OSS and free fallbacks.
 
 ### One-time Mac auth [#one-time-mac-auth]
 

@@ -14,6 +14,7 @@
 | Skill registry with triggers + install                        | [Skills Registry](/jackie-os/docs/skills-registry)  | tables + naming convention                                               |
 | Operate the system day-to-day (what to say, what runs itself) | [Cheat Sheet](/jackie-os/docs/cheat-sheet)          | operator cheat-sheet (Sergei)                                            |
 | See the live desk                                             | [Operator desk](/jackie-os/docs/desk)               | Cursor + Tailscale + Hermes + Grokbot                                    |
+| See the live system map                                       | [System match](/jackie-os/docs/fleet)               | flow, tooling, models, personas, decisions                               |
 | See why the desk moved                                        | [Desk journey](/jackie-os/docs/desk-journey)        | Cyrus → Buzz → bb → Cursor                                               |
 | Know what runs when (crons, 3 scheduler layers)               | [Vault Rhythm](/jackie-os/docs/vault-rhythm)        | cron map                                                                 |
 | See current state fast                                        | `Vault/hot.md`                                      | \~500-word session cache                                                 |

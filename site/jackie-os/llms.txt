@@ -7,6 +7,7 @@
 - [Operator desk](/docs/desk): Live stack — Cursor, Tailscale, Hermes VPS, Grokbot.
 - [I tried five desks for agent work](/docs/desk-journey): Cyrus, Linear, Buzz, bb, then Cursor — what I kept and what I killed.
 - [The system map](/docs/system-map): One read, top to bottom — how the system remembers and acts.
+- [System match](/docs/fleet): Live workflow, tooling, models, personas, and decisions.
 - [Concepts](/docs/concepts): Shared domain vocabulary — entities, named processes, and status concepts.
 - [Ecosystem Architecture](/docs/architecture): One-screen map of three systems, shared rails, and how Hermes ties them together.
 

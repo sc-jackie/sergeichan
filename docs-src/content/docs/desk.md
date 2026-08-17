@@ -5,7 +5,7 @@ description: Live stack — Cursor, Tailscale, Hermes VPS, Grokbot.
 
 Sergei's live stack is **Cursor** (interactive coding / vault) + **Tailscale** (host mesh) + **Hermes VPS** (always-on briefs/ops) + **Grokbot** (Grok chat for thinking / drafting).
 
-**bb is not in active use.** History of the desks that came before: [Desk journey](/jackie-os/docs/desk-journey).
+**bb is not in active use.** Live map: [System match](/jackie-os/docs/fleet). History of the desks that came before: [Desk journey](/jackie-os/docs/desk-journey).
 
 ## Core stack
 

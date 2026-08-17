@@ -1,5 +1,10 @@
 # Fleet Atlas data contract
 
+The living system / workflow map is now the Jackie-OS docs page
+[`/jackie-os/docs/fleet`](https://sergeichan.vercel.app/jackie-os/docs/fleet)
+(generated from Jackie-OS `render-system-match.py`). This `/fleet` snapshot is
+the frozen 2026-07 Cyrus Atlas concept. Do not treat it as the live desk.
+
 `data.json` is the frozen, public-safe snapshot shared by the three Fleet Atlas
 concepts at `/fleet-v1`, `/fleet`, and `/fleet-v3`. Public pages must read this
 relative static file only. They must not call the private Jackie-OS dashboard or

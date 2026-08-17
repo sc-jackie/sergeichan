@@ -97,7 +97,11 @@ One read, top to bottom: you talk to the system, the system remembers and acts, 
 
       <code>gpt-5.6-sol</code>
 
-       → Grok 4.6 → GPT-OSS → OpenRouter free. Cron profile: DeepSeek V4 Flash. Delegate: Opus 5.
+       → Grok 4.6 → GPT-OSS → OpenRouter free. Cron profile 
+
+      <code>persiknewfin</code>
+
+       matches that chain. Delegate: Opus 5.
     </p>
 
     <p>

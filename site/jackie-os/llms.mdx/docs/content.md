@@ -62,7 +62,7 @@ A second brain and an always-on AI agent, sharing one memory. The vault (Obsidia
 
 ### 1. What is this system? [#1-what-is-this-system]
 
-Start with &#x2A;*[what Jackie-OS does](/jackie-os/docs/what-it-does)*&#x2A; — the plain-English walkthrough. Then the &#x2A;*[operator desk](/jackie-os/docs/desk)*&#x2A; (Cursor + Tailscale + Hermes + Grokbot), the &#x2A;*[system map](/jackie-os/docs/system-map)*&#x2A;, and the &#x2A;*[vocabulary](/jackie-os/docs/concepts)*&#x2A;. How the desk moved: &#x2A;*[desk journey](/jackie-os/docs/desk-journey)**.
+Start with &#x2A;*[what Jackie-OS does](/jackie-os/docs/what-it-does)*&#x2A; — the plain-English walkthrough. Then the &#x2A;*[operator desk](/jackie-os/docs/desk)*&#x2A; (Cursor + Tailscale + Hermes + Grokbot), the &#x2A;*[system match](/jackie-os/docs/fleet)*&#x2A; (flow, tooling, models, personas), the &#x2A;*[system map](/jackie-os/docs/system-map)*&#x2A;, and the &#x2A;*[vocabulary](/jackie-os/docs/concepts)*&#x2A;. How the desk moved: &#x2A;*[desk journey](/jackie-os/docs/desk-journey)**.
 
 ### 2. What do I do? [#2-what-do-i-do]
 
